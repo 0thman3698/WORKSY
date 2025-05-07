@@ -24,8 +24,8 @@ export const register = async (req: Request, res: Response) => {
   const user = await prisma.user.create({
     data: {   name, email, password: hashedPassword },
   });
-  const accessToken = generateAccessToken(user.id);
-  const refreshToken = generateRefreshToken(user.id);
+  const accessToken = generateAccessToken(user.id, user.role);
+  const refreshToken = generateRefreshToken(user.id, user.role);
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
@@ -46,8 +46,8 @@ export const login = async (req: Request, res: Response) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return void res.status(401).json({ message: 'Invalid credentials' });
 
-  const accessToken = generateAccessToken(user.id);
-  const refreshToken = generateRefreshToken(user.id);
+  const accessToken = generateAccessToken(user.id, user.role);
+  const refreshToken = generateRefreshToken(user.id, user.role);
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
@@ -64,8 +64,8 @@ export const refreshToken = (req: Request, res: Response) => {
   if (!token) return void res.status(401).json({ message: 'No refresh token' });
 
   try {
-    const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET!) as { userId: string };
-    const newAccessToken = generateAccessToken(payload.userId);
+    const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET!) as { userId: string, role: string };
+    const newAccessToken = generateAccessToken(payload.userId, payload.role);
     res.status(200).json({ accessToken: newAccessToken });
   } catch (err) {
     res.status(403).json({ message: 'Invalid refresh token' });
@@ -149,8 +149,8 @@ export const resetPassword = async (req: Request, res: Response) => {
   });
 
 
-  const accessToken = generateAccessToken(user.id);
-  const refreshToken = generateRefreshToken(user.id);
+  const accessToken = generateAccessToken(user.id, user.role);
+  const refreshToken = generateRefreshToken(user.id, user.role);
 
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,

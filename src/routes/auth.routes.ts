@@ -1,6 +1,7 @@
 import express from 'express';
 import { register, login, refreshToken, logout, forgotPassword, resetPassword } from '../controllers/auth.controller';
-
+import { protect } from '../middlewares/protect';
+import { restrictTo } from '../middlewares/restrictTo';
 const router = express.Router();
 
 router.post('/register', register);
