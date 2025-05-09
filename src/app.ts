@@ -1,0 +1,44 @@
+
+// Import Packages
+import express from "express"
+import rateLimit, { RateLimitRequestHandler } from "express-rate-limit"
+import helmet from "helmet"
+// import hpp from "hpp"
+import dotenv from "dotenv"
+import cookieParser from "cookie-parser"
+
+// Import Pages
+import { authRoutes } from "./routes"
+
+// express
+const app = express()
+
+// dotenv config
+dotenv.config()
+
+// built-in Middlewares
+app.use(express.json({
+    limit:"20kb"
+}))
+app.use(cookieParser())
+app.use(helmet())
+// app.use(hpp())
+
+const limiter=<RateLimitRequestHandler>rateLimit({
+    windowMs:15*1000*60,
+    max:100,
+    message: 'Too many requests from this IP, please try again later.'
+})
+
+// Middlewares
+app.use("/api",limiter)
+app.use("/api/v1/auth",authRoutes)
+
+
+app.get('/', async (req, res) => {
+    res.send(`hello`);
+  });
+  
+
+
+export default app
