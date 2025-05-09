@@ -1,160 +1,163 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
-import prisma from '../config/db';
-import { generateAccessToken, generateRefreshToken } from '../utils/jwt';
-import jwt from 'jsonwebtoken'
-import { sendEmail } from '../utils/sendEmail';
-import crypto from 'crypto';
-import { createResetPasswordTemplate } from '../constants/emailTemplates';
+import { NextFunction, Request, Response } from "express";
+import bcrypt from "bcrypt";
+import prisma from "../config/db";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+import jwt from "jsonwebtoken";
+import { sendEmail } from "../utils/sendEmail";
+import crypto from "crypto";
+import { createResetPasswordTemplate } from "../constants/emailTemplates";
 // import { IRegister } from '@interfaces/auth.interface';
 // import { ApiResponse } from '@utils/apiResponse';
 // import { authService } from '@services/auth.service';
-import { IRegister } from '../interfaces/auth.interface';
-import { ApiResponse } from '../utils/apiResponse';
-import { authService } from '../services/auth.service';
-
+import { ILogin, IRegister } from "../interfaces/auth.interface";
+import { ApiResponse } from "../utils/apiResponse";
+import {
+  authService,
+  generateAuthTokens,
+  refreshToken,
+} from "../services/auth.service";
+import { ApiError } from "../utils/apiError";
 
 export default class AuthController {
-static async register (req: Request<{},{},IRegister,{}>, res: Response) {
-  const userData: IRegister = req.body;
+  static async register(
+    req: Request<{}, {}, IRegister, {}>,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const userData: IRegister = req.body;
+      // res.cookie('refreshToken', refreshToken, {
+      //   httpOnly: true,
+      //   secure: process.env.NODE_ENV === 'production',
+      //   sameSite: 'strict',
+      //   maxAge: 7 * 24 * 60 * 60 * 1000,
+      // });
+      const authResponse = await authService.register(userData);
 
-  // res.cookie('refreshToken', refreshToken, {
-  //   httpOnly: true,
-  //   secure: process.env.NODE_ENV === 'production',
-  //   sameSite: 'strict',
-  //   maxAge: 7 * 24 * 60 * 60 * 1000,
-  // });
-  const authResponse = await authService.register(userData);
+      return new ApiResponse(res).created(
+        authResponse,
+        "User registered successfully"
+      );
+    } catch (error) {
+      next(error);
+    }
+  }
 
- return new ApiResponse(res).created(authResponse, 'User registered successfully');
-};
+  static async login(req: Request<{}, {}, ILogin, {}>, res: Response) {
+    const userData = req.body;
+    // const user = await prisma.user.findUnique({ where: { email } });
+    // if (!user) {
+    //   throw ApiError.unauthorized("Invalid email or password");
+    // }
+    // const isMatch = await bcrypt.compare(password, user.password);
+    // if (!isMatch) {
+    //   throw ApiError.unauthorized("Invalid email or password");
+    // }
+    // const { accessToken,refreshToken } = await generateAuthTokens(user);
+    const authResponse = await authService.login(userData); 
+    return new ApiResponse(res).success(authResponse,"Login successful")
+  }
 
-// static async login (req: Request, res: Response) {
-//   const { email, password } = req.body;
+  // static async refreshToken (req: Request, res: Response)  {
+  //   const token = req.cookies.refreshToken;
+  //   if (!token) return void res.status(401).json({ message: 'No refresh token' });
 
-//   const user = await prisma.user.findUnique({ where: { email } });
-//   if (!user) return void res.status(401).json({ message: 'Invalid credentials' });
+  //   try {
+  //     const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET!) as { userId: string };
+  //     const newAccessToken = generateAccessToken(payload.userId);
+  //     res.status(200).json({ accessToken: newAccessToken });
+  //   } catch (err) {
+  //     res.status(403).json({ message: 'Invalid refresh token' });
+  //   }
+  // };
 
-//   const isMatch = await bcrypt.compare(password, user.password);
-//   if (!isMatch) return void res.status(401).json({ message: 'Invalid credentials' });
+  // static async logout (req: Request, res: Response) {
+  //   res.clearCookie('refreshToken');
+  //   res.status(200).json({ message: 'Logged out' });
+  // };
 
-//   const accessToken = generateAccessToken(user.id);
-//   const refreshToken = generateRefreshToken(user.id);
+  // static async forgotPassword (req: Request, res: Response) {
+  //   const { email } = req.body;
+  //   const user = await prisma.user.findUnique({ where: { email } });
 
-//   res.cookie('refreshToken', refreshToken, {
-//     httpOnly: true,
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: 'strict',
-//     maxAge: 7 * 24 * 60 * 60 * 1000,
-//   });
+  //   if (!user) {
+  //     return void res.status(404).json({ message: 'No user with this email' });
+  //   }
 
-//   res.status(200).json({ accessToken });
-// };
+  //   const resetToken = crypto.randomBytes(32).toString('hex');
+  //   const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 
-// static async refreshToken (req: Request, res: Response)  {
-//   const token = req.cookies.refreshToken;
-//   if (!token) return void res.status(401).json({ message: 'No refresh token' });
+  //   await prisma.user.update({
+  //     where: { email },
+  //     data: {
+  //       passwordResetToken: hashedToken,
+  //       passwordResetExpires: new Date(Date.now() + 10 * 60 * 1000)
+  //     }
+  //   });
 
-//   try {
-//     const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET!) as { userId: string };
-//     const newAccessToken = generateAccessToken(payload.userId);
-//     res.status(200).json({ accessToken: newAccessToken });
-//   } catch (err) {
-//     res.status(403).json({ message: 'Invalid refresh token' });
-//   }
-// };
+  //   const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`
+  //   const html = createResetPasswordTemplate(resetURL);
 
-// static async logout (req: Request, res: Response) {
-//   res.clearCookie('refreshToken');
-//   res.status(200).json({ message: 'Logged out' });
-// };
+  //   // sendEmail(to, subject, message)
+  //   await sendEmail({
+  //     to: email,
+  //     subject: 'Reset your Worksy password',
+  //     html,
+  //   });
 
-// static async forgotPassword (req: Request, res: Response) {
-//   const { email } = req.body;
-//   const user = await prisma.user.findUnique({ where: { email } });
+  //   res.status(200).json({ message: 'Reset token sent to email' });
+  // };
 
-//   if (!user) {
-//     return void res.status(404).json({ message: 'No user with this email' });
-//   }
+  //  static async resetPassword =  (req: Request, res: Response) {
+  //   const { token } = req.params;
+  //   const { password, passwordConfirm } = req.body;
 
-//   const resetToken = crypto.randomBytes(32).toString('hex');
-//   const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  //   if (!password || !passwordConfirm) {
+  //     return void res.status(400).json({ message: 'Please provide both password and passwordConfirm' });
+  //   }
 
-//   await prisma.user.update({
-//     where: { email },
-//     data: {
-//       passwordResetToken: hashedToken,
-//       passwordResetExpires: new Date(Date.now() + 10 * 60 * 1000) 
-//     }
-//   });
+  //   if (password !== passwordConfirm) {
+  //     return void res.status(400).json({ message: 'Passwords do not match' });
+  //   }
 
+  //   const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
-//   const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`
-//   const html = createResetPasswordTemplate(resetURL);
+  //   const user = await prisma.user.findFirst({
+  //     where: {
+  //       passwordResetToken: hashedToken,
+  //       passwordResetExpires: {
+  //         gte: new Date()
+  //       }
+  //     }
+  //   });
 
+  //   if (!user) {
+  //     return void res.status(400).json({ message: 'Token is invalid or has expired' });
+  //   }
+  //   const hashedPassword = await bcrypt.hash(password, 12);
 
-//   // sendEmail(to, subject, message)
-//   await sendEmail({
-//     to: email,
-//     subject: 'Reset your Worksy password',
-//     html,
-//   });
+  //   await prisma.user.update({
+  //     where: { id: user.id },
+  //     data: {
+  //       password:hashedPassword,
+  //       passwordResetToken: null,
+  //       passwordResetExpires: null,
+  //     }
+  //   });
 
-//   res.status(200).json({ message: 'Reset token sent to email' });
-// };
+  //   const accessToken = generateAccessToken(user.id);
+  //   const refreshToken = generateRefreshToken(user.id);
 
-//  static async resetPassword =  (req: Request, res: Response) {
-//   const { token } = req.params;
-//   const { password, passwordConfirm } = req.body;
+  //   res.cookie('refreshToken', refreshToken, {
+  //     httpOnly: true,
+  //     secure: true,
+  //     sameSite: 'strict',
+  //     maxAge: 7 * 24 * 60 * 60 * 1000,
+  //   });
 
-//   if (!password || !passwordConfirm) {
-//     return void res.status(400).json({ message: 'Please provide both password and passwordConfirm' });
-//   }
-
-//   if (password !== passwordConfirm) {
-//     return void res.status(400).json({ message: 'Passwords do not match' });
-//   }
-
-//   const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
-//   const user = await prisma.user.findFirst({
-//     where: {
-//       passwordResetToken: hashedToken,
-//       passwordResetExpires: {
-//         gte: new Date()
-//       }
-//     }
-//   });
-
-//   if (!user) {
-//     return void res.status(400).json({ message: 'Token is invalid or has expired' });
-//   }
-//   const hashedPassword = await bcrypt.hash(password, 12);
-
-//   await prisma.user.update({
-//     where: { id: user.id },
-//     data: {
-//       password:hashedPassword,
-//       passwordResetToken: null,
-//       passwordResetExpires: null,
-//     }
-//   });
-
-
-//   const accessToken = generateAccessToken(user.id);
-//   const refreshToken = generateRefreshToken(user.id);
-
-//   res.cookie('refreshToken', refreshToken, {
-//     httpOnly: true,
-//     secure: true,
-//     sameSite: 'strict',
-//     maxAge: 7 * 24 * 60 * 60 * 1000,
-//   });
-
-//   return void res.status(200).json({
-//     message: 'Password reset successfully',
-//     accessToken,
-//   });
-// };
-
+  //   return void res.status(200).json({
+  //     message: 'Password reset successfully',
+  //     accessToken,
+  //   });
+  // };
 }

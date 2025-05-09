@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser"
 
 // Import Pages
 import { authRoutes } from "./routes"
+import { errorHandler } from "./middlewares/errorHandler"
 
 // express
 const app = express()
@@ -39,6 +40,6 @@ app.get('/', async (req, res) => {
     res.send(`hello`);
   });
   
-
+app.use(errorHandler)
 
 export default app

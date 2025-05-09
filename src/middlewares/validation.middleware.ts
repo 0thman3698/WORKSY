@@ -1,22 +1,16 @@
-import { Request, Response, NextFunction } from 'express';
-import { validationResult } from 'express-validator';
-// import { badRequest } from '@utils/apiError';
-import { badRequest } from '../utils/apiError';
+import { ApiError } from "../utils/apiError";
+import { Request, Response, NextFunction } from "express";
+import { ZodSchema } from "zod";
 
-export function validate(validations: any[]) {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    await Promise.all(validations.map(validation => validation.run(req)));
+export function validate(schema: ZodSchema<any>) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.body);
 
-    const errors = validationResult(req);
-    if (errors.isEmpty()) {
-      return next();
+    if (!result.success) {
+      throw ApiError.badRequest("Validation failed", result.error.errors);
     }
+    req.body = result.data;
 
-    const formattedErrors = errors.array().map((err:any) => ({
-      field: err.param,
-      message: err.msg
-    }));
-
-    next(badRequest('Validation failed', formattedErrors));
+    next();
   };
 }

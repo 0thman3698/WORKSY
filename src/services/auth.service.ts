@@ -1,3 +1,4 @@
+import { ApiError } from './../utils/apiError';
 // import prisma from "../config/db";
 // import { generateAccessToken } from "@utils/jwt";
 // import {
@@ -8,27 +9,26 @@
 // } from "@interfaces/auth.interface";
 // import { badRequest, unauthorized } from "@utils/apiError";
 import prisma from "../config/db";
-import { generateAccessToken } from "../utils/jwt";
+import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 import {
     IAuthResponse,
   ILogin,
   IRegister,
   ITokens,
 } from "../interfaces/auth.interface";
-import { badRequest, unauthorized } from "../utils/apiError";
 import bcrypt from "bcryptjs";
 
 const saltRounds = 10;
 
 // Helper function
-async function generateAuthTokens(user: {
+export async function generateAuthTokens(user: {
   id: string;
   email: string;
   role: string;
 }): Promise<ITokens> {
   const accessToken = generateAccessToken(user.id, user.role);
 
-  const refreshToken = generateAccessToken(user.id, user.role);
+  const refreshToken = generateRefreshToken(user.id, user.role);
 
   await prisma.user.update({
     where: { id: user.id },
@@ -45,7 +45,7 @@ export async function register(userData: IRegister): Promise<IAuthResponse> {
   });
 
   if (existingUser) {
-    throw badRequest("Email already exists");
+      throw ApiError.badRequest("Email is already in use");
   }
 
   const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
@@ -77,7 +77,7 @@ export async function login(loginData: ILogin): Promise<IAuthResponse> {
   });
 
   if (!user) {
-    throw unauthorized("Incorrect email or password");
+    throw ApiError.unauthorized("Incorrect email or password");
   }
 
   const isPasswordMatch = await bcrypt.compare(
@@ -85,7 +85,7 @@ export async function login(loginData: ILogin): Promise<IAuthResponse> {
     user.password
   );
   if (!isPasswordMatch) {
-    throw unauthorized("Incorrect email or password");
+    throw ApiError.unauthorized("Incorrect email or password");
   }
 
   const tokens = await generateAuthTokens(user);
