@@ -7,11 +7,6 @@ import { sendEmail } from '../utils/sendEmail';
 import crypto from 'crypto';
 import { createResetPasswordTemplate } from '../utils/emailTemplates';
 
-
-
-
-
-
 export const register = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 

@@ -7,6 +7,8 @@ import hpp from 'hpp'
 
 
 import authRoutes from './routes/auth.routes';
+import workspaceRoutes from './routes/workspace.routes';
+
 
 dotenv.config();
 
@@ -32,6 +34,7 @@ app.use('/api', limiter)
 
 // Routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/workspace', workspaceRoutes);
 
 app.get('/', async (req, res) => {
   res.send(`hello`);

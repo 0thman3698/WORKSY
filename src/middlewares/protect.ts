@@ -9,16 +9,16 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   }
 
   if (!token) {
-    return res.status(401).json({ message: 'You are not logged in! Please log in to get access.' });
+    return void res.status(401).json({ message: 'You are not logged in! Please log in to get access.' });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { userId: string };
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as { userId: string };
 
     req.user = { id: decoded.userId };
 
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Invalid or expired token.' });
+    return void res.status(401).json({ message: 'Invalid or expired token.' });
   }
 };

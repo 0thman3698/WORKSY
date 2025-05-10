@@ -8,20 +8,48 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id                   String            @id @default(uuid())
+  name                 String
+  email                String            @unique
+  password             String
+  role                 Role              @default(MEMBER)
+  refreshToken         String?
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  workspaces           UserOnWorkspace[] //اعضاء
+  ownedWorkspaces      Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
+}
+
+model Workspace {
+  id        String            @id @default(uuid())
   name      String
-  email     String   @unique
-  password  String
-  role      Role     @default(MEMBER)
-  refreshToken String?
-  passwordResetToken String?
-  passwordResetExpires DateTime?  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @default(now())
+  owner     User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  ownerId   String
+  members   UserOnWorkspace[]
+}
+
+model UserOnWorkspace {
+  userId      String
+  workspaceId String
+  role        WorkspaceRole @default(MEMBER)
+  user        User          @relation(fields: [userId], references: [id])
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+
+  @@id([userId, workspaceId])
 }
 
 enum Role {
   ADMIN
   MEMBER
   GUESt
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
