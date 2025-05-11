@@ -1,22 +1,18 @@
-import { ApiError } from './../utils/apiError';
-// import prisma from "../config/db";
-// import { generateAccessToken } from "@utils/jwt";
-// import {
-//     IAuthResponse,
-//   ILogin,
-//   IRegister,
-//   ITokens,
-// } from "@interfaces/auth.interface";
-// import { badRequest, unauthorized } from "@utils/apiError";
+// 3rd party
+import bcrypt from "bcryptjs";
+import crypto from "crypto";
+
+// pages
+import { ApiError } from "./../utils/apiError";
 import prisma from "../config/db";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 import {
-    IAuthResponse,
+  IAuthResponse,
   ILogin,
   IRegister,
+  IResetPassword,
   ITokens,
 } from "../interfaces/auth.interface";
-import bcrypt from "bcryptjs";
 
 const saltRounds = 10;
 
@@ -45,7 +41,7 @@ export async function register(userData: IRegister): Promise<IAuthResponse> {
   });
 
   if (existingUser) {
-      throw ApiError.badRequest("Email is already in use");
+    throw ApiError.badRequest("Email is already in use");
   }
 
   const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
@@ -102,17 +98,76 @@ export async function login(loginData: ILogin): Promise<IAuthResponse> {
   };
 }
 
-export async function refreshToken(refreshToken: string): Promise<ITokens> {
-  // Implementation for token refresh
-  throw new Error("Not implemented yet");
+export async function refreshToken(refreshToken: string,decoded:any): Promise<ITokens> {
+  const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+    });
+
+    if (!user || user.refreshToken !== refreshToken) {
+      throw ApiError.unauthorized("Invalid refresh token");
+    }
+    const tokens = await generateAuthTokens(user);
+    return tokens
 }
 
 export async function logout(userId: string): Promise<void> {
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+  if(!user){
+    throw ApiError.notFound('User is not found') 
+  }
   await prisma.user.update({
     where: { id: userId },
     data: { refreshToken: null },
   });
 }
+
+export async function forgotPassword(email:string):Promise<void>{
+  const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      throw ApiError.notFound('No user with this email') ;
+    }
+
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    await prisma.user.update({
+      where: { email },
+      data: {
+        resetToken: hashedToken,
+        resetTokenExpiry: new Date(Date.now() + 10 * 60 * 1000)
+      }
+    });
+}
+
+export async function resetPassword({token,password}:IResetPassword):Promise<void>{
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const user = await prisma.user.findFirst({
+      where: {
+        resetPasswordToken: hashedToken,
+        resetPasswordExpires: {
+          gte: new Date()
+        }
+      }
+    });
+
+    if (!user) {
+      throw ApiError.notFound('Token is invalid or has expired')
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        password:hashedPassword,
+        resetPasswordToken: null,
+        resetPasswordExpires: null,
+      }
+    });
+
+    
+} 
 
 // Named exports for all service functions
 export const authService = {
@@ -120,4 +175,6 @@ export const authService = {
   login,
   logout,
   refreshToken,
+  forgotPassword,
+  resetPassword
 };

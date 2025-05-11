@@ -13,10 +13,15 @@ export interface ITokens {
 
 export interface IAuthResponse extends ITokens {
   user: {
-    id: string;
-    name: string;
-    email: string;
-    role: string;
+    id?: string;
+    name?: string;
+    email?: string;
+    role?: string;
     avatar?: string;
   };
+}
+
+export interface IResetPassword {
+  token: string;
+  password: string;
 }
