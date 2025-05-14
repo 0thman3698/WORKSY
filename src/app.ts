@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser"
 
 // Import Pages
 import { authRoutes } from "./routes"
+import workspaceRoutes from "./routes/workspace.routes"
 import { errorHandler } from "./middlewares/errorHandler"
 
 // express
@@ -34,6 +35,7 @@ const limiter=<RateLimitRequestHandler>rateLimit({
 // Middlewares
 app.use("/api",limiter)
 app.use("/api/v1/auth",authRoutes)
+app.use("/api/v1/workspace",workspaceRoutes)
 
 
 app.get('/', async (req, res) => {

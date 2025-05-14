@@ -122,19 +122,31 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
+  name: 'name',
   email: 'email',
   password: 'password',
-  name: 'name',
-  avatar: 'avatar',
   role: 'role',
+  avatar: 'avatar',
   isVerified: 'isVerified',
-  resetToken: 'resetToken',
-  resetTokenExpiry: 'resetTokenExpiry',
   refreshToken: 'refreshToken',
   resetPasswordToken: 'resetPasswordToken',
   resetPasswordExpires: 'resetPasswordExpires',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WorkspaceScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  ownerId: 'ownerId'
+};
+
+exports.Prisma.UserOnWorkspaceScalarFieldEnum = {
+  userId: 'userId',
+  workspaceId: 'workspaceId',
+  role: 'role'
 };
 
 exports.Prisma.SortOrder = {
@@ -152,13 +164,21 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
-  USER: 'USER',
   ADMIN: 'ADMIN',
-  SUPER_ADMIN: 'SUPER_ADMIN'
+  MEMBER: 'MEMBER',
+  GUESt: 'GUESt'
+};
+
+exports.WorkspaceRole = exports.$Enums.WorkspaceRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
 };
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Workspace: 'Workspace',
+  UserOnWorkspace: 'UserOnWorkspace'
 };
 
 /**

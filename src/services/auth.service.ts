@@ -134,8 +134,8 @@ export async function forgotPassword(email:string):Promise<void>{
     await prisma.user.update({
       where: { email },
       data: {
-        resetToken: hashedToken,
-        resetTokenExpiry: new Date(Date.now() + 10 * 60 * 1000)
+        resetPasswordToken: hashedToken,
+        resetPasswordExpires: new Date(Date.now() + 10 * 60 * 1000)
       }
     });
 }

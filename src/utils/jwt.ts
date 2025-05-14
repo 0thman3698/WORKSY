@@ -7,12 +7,12 @@ interface TokenPayload {
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
 
-export const generateAccessToken = (userId: string, role: string):string => {
-  return jwt.sign({ userId, role }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+export const generateAccessToken = (id: string, role: string):string => {
+  return jwt.sign({ id, role }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
 };
 
-export const generateRefreshToken = (userId: string, role: string):string => {
-  return jwt.sign({ userId, role }, REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+export const generateRefreshToken = (id: string, role: string):string => {
+  return jwt.sign({ id, role }, REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 };
 
 export const verifyToken = (token: string): TokenPayload => {

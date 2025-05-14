@@ -11,7 +11,7 @@ export class ApiResponse {
       data
     });
   }
-
+  
   created(data: any, message: string = 'Resource created') {
     return this.res.status(httpStatus.CREATED).json({
       success: true,

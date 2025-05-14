@@ -9,27 +9,50 @@ datasource db {
 }
 
 model User {
-  id                String    @id @default(uuid())
-  email             String    @unique
-  password          String
-  name              String
-  avatar            String?
-  role              Role      @default(USER)
-  isVerified        Boolean   @default(false)
-  resetToken        String?
-  resetTokenExpiry  DateTime?
-  refreshToken      String?
+  id                   String            @id @default(uuid())
+  name                 String
+  email                String            @unique
+  password             String
+  role                 Role              @default(MEMBER)
+  avatar               String?
+  isVerified           Boolean           @default(false)
+  refreshToken         String?
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-
-  @@map("users")
+  createdAt            DateTime          @default(now())
+  updatedAt            DateTime          @updatedAt
+  workspaces           UserOnWorkspace[] //اعضاء
+  ownedWorkspaces      Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
 }
 
+model Workspace {
+  id        String            @id @default(uuid())
+  name      String
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @default(now())
+  owner     User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  ownerId   String
+  members   UserOnWorkspace[]
+}
+
+model UserOnWorkspace {
+  userId      String
+  workspaceId String
+  role        WorkspaceRole @default(MEMBER)
+  user        User          @relation(fields: [userId], references: [id])
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+
+  @@id([userId, workspaceId])
+}
 
 enum Role {
-  USER
   ADMIN
-  SUPER_ADMIN
+  MEMBER
+  GUESt
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
 }
