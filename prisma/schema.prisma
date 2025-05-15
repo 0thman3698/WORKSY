@@ -23,6 +23,7 @@ model User {
   updatedAt            DateTime          @updatedAt
   workspaces           UserOnWorkspace[] //اعضاء
   ownedWorkspaces      Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
+  Invite               Invite[]
 }
 
 model Workspace {
@@ -33,6 +34,7 @@ model Workspace {
   owner     User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
   ownerId   String
   members   UserOnWorkspace[]
+  Invite    Invite[]
 }
 
 model UserOnWorkspace {
@@ -43,6 +45,20 @@ model UserOnWorkspace {
   workspace   Workspace     @relation(fields: [workspaceId], references: [id])
 
   @@id([userId, workspaceId])
+}
+
+model Invite {
+  id        String   @id @default(uuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  accepted  Boolean  @default(false)
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  workspaceId String
+
+  invitedBy   User   @relation(fields: [invitedById], references: [id])
+  invitedById String
 }
 
 enum Role {

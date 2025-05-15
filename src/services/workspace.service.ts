@@ -2,19 +2,16 @@
 // pages
 import { ApiError } from "./../utils/apiError";
 import prisma from "../config/db";
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 import { ICreateWorkspaceResponse, IWorkspace, ICreateWorkspace, IMyWorkspaces, IUpdateWorkspace } from "../interfaces/workspace.interface";
-import { IAuthResponse } from "../interfaces/auth.interface";
-import { IUser } from "../interfaces/express";
 
 export async function createWorkspace(
   workspaceData: ICreateWorkspace,
-  user: IUser
+  userId: string
 ): Promise<ICreateWorkspaceResponse> {
   const existing = await prisma.workspace.findFirst({
     where: {
       name: workspaceData.name,
-      ownerId: user.id,
+      ownerId: userId,
     },
   });
 
@@ -25,11 +22,11 @@ export async function createWorkspace(
   const workspace = await prisma.workspace.create({
     data: {
       name: workspaceData.name,
-      ownerId: user.id,
+      ownerId: userId,
       members: {
         create: [
           {
-            user: { connect: { id: user.id } },
+            user: { connect: { id: userId } },
             role: "OWNER",
           },
         ],
@@ -44,9 +41,9 @@ export async function createWorkspace(
 
 
 
-export async function getMyWorkspaces(user:IUser):Promise<IMyWorkspaces[]>{
+export async function getMyWorkspaces(userId:string):Promise<IMyWorkspaces[]>{
   const memberships = await prisma.userOnWorkspace.findMany({
-    where: {userId:user.id},
+    where: {userId:userId},
     include: {
       workspace: {
         include: {
@@ -66,14 +63,14 @@ export async function getMyWorkspaces(user:IUser):Promise<IMyWorkspaces[]>{
   
 }
 
-export async function updateWorkspace(workspaceId: string, workspaceData:IUpdateWorkspace, user:IUser):Promise<IWorkspace>{
+export async function updateWorkspace(workspaceId: string, workspaceData:IUpdateWorkspace, userId:string):Promise<IWorkspace>{
   const workspace = await prisma.workspace.findUnique({
     where: {id:workspaceId}
   });
   if(!workspace){
     throw ApiError.notFound("Workspace not found")
   }
-  if(workspace.ownerId !== user.id && user.role !== "ADMIN"){
+  if(workspace.ownerId !== userId){
     throw ApiError.forbidden("You are not authorized to update this workspace")
   }
   const updatedWorkspace = await prisma.workspace.update({
@@ -82,14 +79,14 @@ export async function updateWorkspace(workspaceId: string, workspaceData:IUpdate
   })
   return updatedWorkspace
 }
-export async  function deleteWorkspace(workspaceId:string, user:IUser){
+export async  function deleteWorkspace(workspaceId:string, userId:string):Promise<void>{
     const workspace = await prisma.workspace.findUnique({
     where: {id:workspaceId}
   });
   if(!workspace){
     throw ApiError.notFound("Workspace not found")
   }
-  if(workspace.ownerId !== user.id && user.role !== "ADMIN"){
+  if(workspace.ownerId !== userId){
     throw ApiError.forbidden("You are not authorized to delete this workspace")
   }
     await prisma.userOnWorkspace.deleteMany({
