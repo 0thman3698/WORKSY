@@ -8,20 +8,31 @@ export async function createWorkspace(
   workspaceData: ICreateWorkspace,
   userId: string
 ): Promise<ICreateWorkspaceResponse> {
-  const existing = await prisma.workspace.findFirst({
+  const existingWorkspace = await prisma.workspace.findFirst({
     where: {
       name: workspaceData.name,
       ownerId: userId,
     },
   });
 
-  if (existing) {
+  if (existingWorkspace) {
     throw ApiError.badRequest("You already have a workspace with this name");
+  }
+
+  const slug = workspaceData.name
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\-]/g, '');
+
+  const existingSlug = await prisma.workspace.findUnique({ where: { slug } });
+  if (existingSlug) {
+    throw ApiError.badRequest("A workspace with similar slug already exists");
   }
 
   const workspace = await prisma.workspace.create({
     data: {
       name: workspaceData.name,
+      slug,
       ownerId: userId,
       members: {
         create: [
@@ -41,13 +52,13 @@ export async function createWorkspace(
 
 
 
-export async function getMyWorkspaces(userId:string):Promise<IMyWorkspaces[]>{
+export async function getMyWorkspaces(userId: string): Promise<IMyWorkspaces[]> {
   const memberships = await prisma.userOnWorkspace.findMany({
-    where: {userId:userId},
+    where: { userId: userId },
     include: {
       workspace: {
         include: {
-          owner: {select: {id:true, name: true}}
+          owner: { select: { id: true, name: true } }
         }
 
       }
@@ -60,49 +71,50 @@ export async function getMyWorkspaces(userId:string):Promise<IMyWorkspaces[]>{
     owner: membership.workspace.owner,
   }));
   return workspaces
-  
+
 }
 
-export async function updateWorkspace(workspaceId: string, workspaceData:IUpdateWorkspace, userId:string):Promise<IWorkspace>{
+export async function updateWorkspace(workspaceId: string, workspaceData: IUpdateWorkspace, userId: string): Promise<IWorkspace> {
   const workspace = await prisma.workspace.findUnique({
-    where: {id:workspaceId}
+    where: { id: workspaceId }
   });
-  if(!workspace){
+  if (!workspace) {
     throw ApiError.notFound("Workspace not found")
   }
-  if(workspace.ownerId !== userId){
+  if (workspace.ownerId !== userId) {
     throw ApiError.forbidden("You are not authorized to update this workspace")
   }
   const updatedWorkspace = await prisma.workspace.update({
-    where: {id:workspaceId},
-    data: {name:workspaceData.name}
+    where: { id: workspaceId },
+    data: { name: workspaceData.name }
   })
   return updatedWorkspace
 }
-export async  function deleteWorkspace(workspaceId:string, userId:string):Promise<void>{
-    const workspace = await prisma.workspace.findUnique({
-    where: {id:workspaceId}
+export async function deleteWorkspace(workspaceId: string, userId: string): Promise<void> {
+  const workspace = await prisma.workspace.findUnique({
+    where: { id: workspaceId }
   });
-  if(!workspace){
+  if (!workspace) {
     throw ApiError.notFound("Workspace not found")
   }
-  if(workspace.ownerId !== userId){
+  if (workspace.ownerId !== userId) {
     throw ApiError.forbidden("You are not authorized to delete this workspace")
   }
-    await prisma.userOnWorkspace.deleteMany({
-    where: { workspaceId }});
-    
+  await prisma.userOnWorkspace.deleteMany({
+    where: { workspaceId }
+  });
+
   await prisma.workspace.delete({
-    where: {id:workspaceId}
+    where: { id: workspaceId }
   })
   return;
 }
 
 
 
-export const workspaceService ={
-    createWorkspace,
-    getMyWorkspaces,
-    updateWorkspace,
-    deleteWorkspace
+export const workspaceService = {
+  createWorkspace,
+  getMyWorkspaces,
+  updateWorkspace,
+  deleteWorkspace
 }

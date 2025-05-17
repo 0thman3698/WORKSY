@@ -15,7 +15,6 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
 
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as IUser;
-    console.log(decoded)
 
     req.user = decoded;
 

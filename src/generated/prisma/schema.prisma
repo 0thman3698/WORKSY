@@ -14,8 +14,10 @@ model User {
   email                String            @unique
   password             String
   role                 Role              @default(MEMBER)
-  avatar               String?
-  isVerified           Boolean           @default(false)
+  avatar               String? //not
+  status               String?           @default("active") //not
+  lastSeen             DateTime? //not implmented
+  isVerified           Boolean           @default(false) //not
   refreshToken         String?
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
@@ -23,16 +25,20 @@ model User {
   updatedAt            DateTime          @updatedAt
   workspaces           UserOnWorkspace[] //اعضاء
   ownedWorkspaces      Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
+  InviteSent           Invite[]
 }
 
 model Workspace {
-  id        String            @id @default(uuid())
-  name      String
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @default(now())
-  owner     User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
-  ownerId   String
-  members   UserOnWorkspace[]
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+  slug        String            @unique //not implmentd
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @default(now())
+  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  ownerId     String
+  members     UserOnWorkspace[]
+  Invite      Invite[]
 }
 
 model UserOnWorkspace {
@@ -41,18 +47,45 @@ model UserOnWorkspace {
   role        WorkspaceRole @default(MEMBER)
   user        User          @relation(fields: [userId], references: [id])
   workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+  joinedAt    DateTime      @default(now())
 
   @@id([userId, workspaceId])
+}
+
+model Invite {
+  id        String        @id @default(uuid())
+  email     String
+  token     String        @unique
+  expiresAt DateTime
+  status    InviteStatus  @default(PENDING)
+  role      WorkspaceRole @default(MEMBER)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  workspaceId String
+
+  invitedBy   User   @relation(fields: [invitedById], references: [id])
+  invitedById String
+
+  @@index([email, workspaceId])
 }
 
 enum Role {
   ADMIN
   MEMBER
-  GUESt
+  GUEST
 }
 
 enum WorkspaceRole {
   OWNER
   ADMIN
   MEMBER
+}
+
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
 }

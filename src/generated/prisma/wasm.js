@@ -127,6 +127,8 @@ exports.Prisma.UserScalarFieldEnum = {
   password: 'password',
   role: 'role',
   avatar: 'avatar',
+  status: 'status',
+  lastSeen: 'lastSeen',
   isVerified: 'isVerified',
   refreshToken: 'refreshToken',
   resetPasswordToken: 'resetPasswordToken',
@@ -138,6 +140,8 @@ exports.Prisma.UserScalarFieldEnum = {
 exports.Prisma.WorkspaceScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
+  slug: 'slug',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ownerId: 'ownerId'
@@ -146,7 +150,21 @@ exports.Prisma.WorkspaceScalarFieldEnum = {
 exports.Prisma.UserOnWorkspaceScalarFieldEnum = {
   userId: 'userId',
   workspaceId: 'workspaceId',
-  role: 'role'
+  role: 'role',
+  joinedAt: 'joinedAt'
+};
+
+exports.Prisma.InviteScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  status: 'status',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  workspaceId: 'workspaceId',
+  invitedById: 'invitedById'
 };
 
 exports.Prisma.SortOrder = {
@@ -166,7 +184,7 @@ exports.Prisma.NullsOrder = {
 exports.Role = exports.$Enums.Role = {
   ADMIN: 'ADMIN',
   MEMBER: 'MEMBER',
-  GUESt: 'GUESt'
+  GUEST: 'GUEST'
 };
 
 exports.WorkspaceRole = exports.$Enums.WorkspaceRole = {
@@ -175,10 +193,18 @@ exports.WorkspaceRole = exports.$Enums.WorkspaceRole = {
   MEMBER: 'MEMBER'
 };
 
+exports.InviteStatus = exports.$Enums.InviteStatus = {
+  PENDING: 'PENDING',
+  ACCEPTED: 'ACCEPTED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Workspace: 'Workspace',
-  UserOnWorkspace: 'UserOnWorkspace'
+  UserOnWorkspace: 'UserOnWorkspace',
+  Invite: 'Invite'
 };
 
 /**
