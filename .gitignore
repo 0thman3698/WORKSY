@@ -4,3 +4,7 @@ dist/
 .DS_Store
 .prisma/
 *.env
+eslint.config.js
+prettier.config.js
+.eslintignore
+.prettierignore

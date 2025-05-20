@@ -1,7 +1,6 @@
 import { createTransport } from 'nodemailer';
 import SMTPTransport from 'nodemailer/lib/smtp-transport';
-import nodemailer from "nodemailer"
-
+import nodemailer from 'nodemailer';
 
 interface EmailOptions {
   to: string;
@@ -19,13 +18,13 @@ const sendEmail = async ({ to, subject, html }: EmailOptions) => {
     },
   } as SMTPTransport.Options);
   // var transporter = nodemailer.createTransport({
-//   host: "live.smtp.mailtrap.io",
-//   port: 587,
-//   auth: {
-//     user: "api",
-//     pass: "****0660"
-//   }
-// });
+  //   host: "live.smtp.mailtrap.io",
+  //   port: 587,
+  //   auth: {
+  //     user: "api",
+  //     pass: "****0660"
+  //   }
+  // });
 
   await transporter.sendMail({
     from: `"Worksy" <${process.env.SMTP_USER}>`,

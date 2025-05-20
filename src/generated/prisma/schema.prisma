@@ -39,6 +39,7 @@ model Workspace {
   ownerId     String
   members     UserOnWorkspace[]
   Invite      Invite[]
+  Channel     Channel[]
 }
 
 model UserOnWorkspace {
@@ -69,6 +70,21 @@ model Invite {
   invitedById String
 
   @@index([email, workspaceId])
+}
+
+model Channel {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  isPublic    Boolean  @default(true)
+  workspaceId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relationships
+  workspace Workspace @relation(fields: [workspaceId], references: [id])
+
+  @@index([workspaceId])
 }
 
 enum Role {

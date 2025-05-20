@@ -1,13 +1,13 @@
-import { ApiError } from "../utils/apiError";
-import { Request, Response, NextFunction } from "express";
-import { ZodSchema } from "zod";
+import { ApiError } from '../utils/apiError';
+import { Request, Response, NextFunction } from 'express';
+import { ZodSchema } from 'zod';
 
 export function validate(schema: ZodSchema<any>) {
   return (req: Request, res: Response, next: NextFunction) => {
     const result = schema.safeParse(req.body);
 
     if (!result.success) {
-      throw ApiError.badRequest("Validation failed", result.error.errors);
+      throw ApiError.badRequest('Validation failed', result.error.errors);
     }
     req.body = result.data;
 

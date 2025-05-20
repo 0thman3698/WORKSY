@@ -4,10 +4,14 @@ import { validate } from '../middlewares/validation.middleware';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import { acceptInviteSchema, CreateInviteSchema } from '../validators/invite.validators';
 import InviteControllers from '../controllers/invite.controller';
-import { inviteService } from 'src/services/invite.service';
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.post('/', protect, validate(CreateInviteSchema), asyncHandler(InviteControllers.createInvite))
-router.post('/accept', protect, validate(acceptInviteSchema), asyncHandler(InviteControllers.acceptInvite))
+router.post(
+  '/',
+  protect,
+  validate(CreateInviteSchema),
+  asyncHandler(InviteControllers.createInvite),
+);
+router.patch('/accept/:token', protect, asyncHandler(InviteControllers.acceptInvite));
 
 export default router;

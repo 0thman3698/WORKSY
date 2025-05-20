@@ -8,15 +8,15 @@ export class ApiResponse {
     return this.res.status(httpStatus.OK).json({
       success: true,
       message,
-      data
+      data,
     });
   }
-  
+
   created(data: any, message: string = 'Resource created') {
     return this.res.status(httpStatus.CREATED).json({
       success: true,
       message,
-      data
+      data,
     });
   }
 
