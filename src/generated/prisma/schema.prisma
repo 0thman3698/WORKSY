@@ -26,6 +26,7 @@ model User {
   workspaces           UserOnWorkspace[] //اعضاء
   ownedWorkspaces      Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
   InviteSent           Invite[]
+  Channels             UserOnChannels[]
 }
 
 model Workspace {
@@ -34,7 +35,7 @@ model Workspace {
   description String?
   slug        String            @unique //not implmentd
   createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
   owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
   ownerId     String
   members     UserOnWorkspace[]
@@ -76,15 +77,28 @@ model Channel {
   id          String   @id @default(uuid())
   name        String
   description String?
-  isPublic    Boolean  @default(true)
+  isPublic    Boolean  @default(true) //not handeled
   workspaceId String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   // Relationships
-  workspace Workspace @relation(fields: [workspaceId], references: [id])
+  workspace      Workspace        @relation(fields: [workspaceId], references: [id])
+  UserOnChannels UserOnChannels[]
 
   @@index([workspaceId])
+}
+
+model UserOnChannels {
+  userId    String
+  channelId String
+  joinedAt  DateTime @default(now())
+
+  // Relationships
+  user    User    @relation(fields: [userId], references: [id])
+  channel Channel @relation(fields: [channelId], references: [id])
+
+  @@id([userId, channelId])
 }
 
 enum Role {

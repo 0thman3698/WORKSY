@@ -20,13 +20,11 @@ router.get('/', protect, asyncHandler(WorkspaceControllers.getMyWorkspaces));
 router.put(
   '/:workspaceId',
   protect,
-  restrictTo('ADMIN'),
   asyncHandler(WorkspaceControllers.updateWorkspace),
 );
 router.delete(
   '/:workspaceId',
   protect,
-  restrictTo('ADMIN'),
   asyncHandler(WorkspaceControllers.deleteWorkspace),
 );
 

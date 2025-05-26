@@ -4,7 +4,7 @@ import { sendEmail } from '../utils/sendEmail';
 import { createResetPasswordTemplate } from '../constants/emailTemplates';
 import { ILogin, IRegister } from '../interfaces/auth.interface';
 import { ApiResponse } from '../utils/apiResponse';
-import { authService, generateAuthTokens } from '../services/auth.service';
+import { authService } from '../services/auth.service';
 import { verifyToken } from '..//utils/jwt';
 import { ApiError } from '..//utils/apiError';
 import { log } from 'console';

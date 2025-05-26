@@ -16,160 +16,152 @@ import {
 
 const saltRounds = 10;
 
-// Helper function
-export async function generateAuthTokens(user: {
-  id: string;
-  email: string;
-  role: string;
-}): Promise<ITokens> {
-  const accessToken = generateAccessToken(user.id, user.role);
+export class AuthService {
+  private async generateAuthTokens(user: {
+    id: string;
+    email: string;
+    role: string;
+  }): Promise<ITokens> {
+    const accessToken = generateAccessToken(user.id, user.role);
 
-  const refreshToken = generateRefreshToken(user.id, user.role);
+    const refreshToken = generateRefreshToken(user.id, user.role);
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { refreshToken },
-  });
+    await prisma.user.update({
+      where: { id: user.id },
+      data: { refreshToken },
+    });
 
-  return { accessToken, refreshToken };
-}
-
-// Main Service Functions
-export async function register(userData: IRegister): Promise<IAuthResponse> {
-  const existingUser = await prisma.user.findUnique({
-    where: { email: userData.email },
-  });
-
-  if (existingUser) {
-    throw ApiError.badRequest('Email is already in use');
+    return { accessToken, refreshToken };
   }
 
-  const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
+  async register(userData: IRegister): Promise<IAuthResponse> {
+    const existingUser = await prisma.user.findUnique({
+      where: { email: userData.email },
+    });
 
-  const user = await prisma.user.create({
-    data: {
-      name: userData.name,
-      email: userData.email,
-      password: hashedPassword,
-    },
-  });
-
-  const tokens = await generateAuthTokens(user);
-
-  return {
-    ...tokens,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-    },
-  };
-}
-
-export async function login(loginData: ILogin): Promise<IAuthResponse> {
-  const user = await prisma.user.findUnique({
-    where: { email: loginData.email },
-  });
-
-  if (!user) {
-    throw ApiError.unauthorized('Incorrect email or password');
-  }
-
-  const isPasswordMatch = await bcrypt.compare(loginData.password, user.password);
-  if (!isPasswordMatch) {
-    throw ApiError.unauthorized('Incorrect email or password');
-  }
-
-  const tokens = await generateAuthTokens(user);
-
-  return {
-    ...tokens,
-    user: {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      avatar: user.avatar || undefined,
-    },
-  };
-}
-
-export async function refreshToken(refreshToken: string, decoded: any): Promise<ITokens> {
-  const user = await prisma.user.findUnique({
-    where: { id: decoded.userId },
-  });
-
-  if (!user || user.refreshToken !== refreshToken) {
-    throw ApiError.unauthorized('Invalid refresh token');
-  }
-  const tokens = await generateAuthTokens(user);
-  return tokens;
-}
-
-export async function logout(userId: string): Promise<void> {
-  const user = await prisma.user.findUnique({ where: { id: userId } });
-  if (!user) {
-    throw ApiError.notFound('User is not found');
-  }
-  await prisma.user.update({
-    where: { id: userId },
-    data: { refreshToken: null },
-  });
-}
-
-export async function forgotPassword(email: string): Promise<void> {
-  const user = await prisma.user.findUnique({ where: { email } });
-
-  if (!user) {
-    throw ApiError.notFound('No user with this email');
-  }
-
-  const resetToken = crypto.randomBytes(32).toString('hex');
-  const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-
-  await prisma.user.update({
-    where: { email },
-    data: {
-      resetPasswordToken: hashedToken,
-      resetPasswordExpires: new Date(Date.now() + 10 * 60 * 1000),
-    },
-  });
-}
-
-export async function resetPassword({ token, password }: IResetPassword): Promise<void> {
-  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
-
-  const user = await prisma.user.findFirst({
-    where: {
-      resetPasswordToken: hashedToken,
-      resetPasswordExpires: {
-        gte: new Date()
-      }
+    if (existingUser) {
+      throw ApiError.badRequest('Email is already in use');
     }
-  });
 
-  if (!user) {
-    throw ApiError.notFound('Token is invalid or has expired');
+    const hashedPassword = await bcrypt.hash(userData.password, saltRounds);
+
+    const user = await prisma.user.create({
+      data: {
+        name: userData.name,
+        email: userData.email,
+        password: hashedPassword,
+      },
+    });
+
+    const tokens = await this.generateAuthTokens(user);
+
+    return {
+      ...tokens,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
   }
-  const hashedPassword = await bcrypt.hash(password, 12);
 
-  await prisma.user.update({
-    where: { id: user.id },
-    data: {
-      password: hashedPassword,
-      resetPasswordToken: null,
-      resetPasswordExpires: null,
-    },
-  });
+  async login(loginData: ILogin): Promise<IAuthResponse> {
+    const user = await prisma.user.findUnique({
+      where: { email: loginData.email },
+    });
+
+    if (!user) {
+      throw ApiError.unauthorized('Incorrect email or password');
+    }
+
+    const isPasswordMatch = await bcrypt.compare(loginData.password, user.password);
+    if (!isPasswordMatch) {
+      throw ApiError.unauthorized('Incorrect email or password');
+    }
+
+    const tokens = await this.generateAuthTokens(user);
+
+    return {
+      ...tokens,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        avatar: user.avatar || undefined,
+      },
+    };
+  }
+
+  async refreshToken(refreshToken: string, decoded: any): Promise<ITokens> {
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+    });
+
+    if (!user || user.refreshToken !== refreshToken) {
+      throw ApiError.unauthorized('Invalid refresh token');
+    }
+    const tokens = await this.generateAuthTokens(user);
+    return tokens;
+  }
+
+  async logout(userId: string): Promise<void> {
+    const user = await prisma.user.findUnique({ where: { id: userId } });
+    if (!user) {
+      throw ApiError.notFound('User is not found');
+    }
+    await prisma.user.update({
+      where: { id: userId },
+      data: { refreshToken: null },
+    });
+  }
+
+  async forgotPassword(email: string): Promise<void> {
+    const user = await prisma.user.findUnique({ where: { email } });
+
+    if (!user) {
+      throw ApiError.notFound('No user with this email');
+    }
+
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    await prisma.user.update({
+      where: { email },
+      data: {
+        resetPasswordToken: hashedToken,
+        resetPasswordExpires: new Date(Date.now() + 10 * 60 * 1000),
+      },
+    });
+  }
+
+  async resetPassword({ token, password }: IResetPassword): Promise<void> {
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const user = await prisma.user.findFirst({
+      where: {
+        resetPasswordToken: hashedToken,
+        resetPasswordExpires: {
+          gte: new Date()
+        }
+      }
+    });
+
+    if (!user) {
+      throw ApiError.notFound('Token is invalid or has expired');
+    }
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        password: hashedPassword,
+        resetPasswordToken: null,
+        resetPasswordExpires: null,
+      },
+    });
+  }
 }
 
-// Named exports for all service functions
-export const authService = {
-  register,
-  login,
-  logout,
-  refreshToken,
-  forgotPassword,
-  resetPassword,
-};
+export const authService = new AuthService();
