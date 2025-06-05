@@ -38,7 +38,11 @@ export class ChannelService {
         const channels = await prisma.channel.findMany({
             where: {
                 workspaceId,
-            },
+                OR: [
+                    { isPublic: true },
+                    { UserOnChannels: { some: { userId } } }
+                ]
+            }
         });
 
         return channels;
@@ -50,9 +54,14 @@ export class ChannelService {
         const channel = await prisma.channel.findFirst({
             where: {
                 id: channelId,
-                workspaceId: workspaceId,
+                workspaceId,
+                OR: [
+                    { isPublic: true },
+                    { UserOnChannels: { some: { userId } } },
+                ],
             },
         });
+
 
         if (!channel) {
             throw ApiError.notFound('Channel not found');

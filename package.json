@@ -57,6 +57,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemailer": "^7.0.3",
+    "socket.io": "^4.8.1",
     "typescript": "^5.2.2",
     "uuid": "^11.1.0",
     "winston": "^3.10.0",

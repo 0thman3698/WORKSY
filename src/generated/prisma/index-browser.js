@@ -183,6 +183,29 @@ exports.Prisma.UserOnChannelsScalarFieldEnum = {
   joinedAt: 'joinedAt'
 };
 
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  isEdited: 'isEdited',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  channelId: 'channelId',
+  directMessageConversationId: 'directMessageConversationId'
+};
+
+exports.Prisma.DirectMessageConversationScalarFieldEnum = {
+  id: 'id',
+  workspaceId: 'workspaceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserOnDMScalarFieldEnum = {
+  userId: 'userId',
+  dmId: 'dmId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -222,7 +245,10 @@ exports.Prisma.ModelName = {
   UserOnWorkspace: 'UserOnWorkspace',
   Invite: 'Invite',
   Channel: 'Channel',
-  UserOnChannels: 'UserOnChannels'
+  UserOnChannels: 'UserOnChannels',
+  Message: 'Message',
+  DirectMessageConversation: 'DirectMessageConversation',
+  UserOnDM: 'UserOnDM'
 };
 
 /**

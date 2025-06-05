@@ -9,38 +9,45 @@ datasource db {
 }
 
 model User {
-  id                   String            @id @default(uuid())
+  id                   String    @id @default(uuid())
   name                 String
-  email                String            @unique
+  email                String    @unique
   password             String
-  role                 Role              @default(MEMBER)
+  role                 Role      @default(MEMBER)
   avatar               String? //not
-  status               String?           @default("active") //not
+  status               String?   @default("active") //not
   lastSeen             DateTime? //not implmented
-  isVerified           Boolean           @default(false) //not
+  isVerified           Boolean   @default(false) //not
   refreshToken         String?
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
-  createdAt            DateTime          @default(now())
-  updatedAt            DateTime          @updatedAt
-  workspaces           UserOnWorkspace[] //اعضاء
-  ownedWorkspaces      Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
-  InviteSent           Invite[]
-  Channels             UserOnChannels[]
+  deletedAt            DateTime? // soft delete
+
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  workspaces      UserOnWorkspace[] //اعضاء
+  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
+  InviteSent      Invite[]
+  Channels        UserOnChannels[]
+  Message         Message[]
+  UserOnDM        UserOnDM[]
 }
 
 model Workspace {
-  id          String            @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
   description String?
-  slug        String            @unique //not implmentd
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
-  ownerId     String
-  members     UserOnWorkspace[]
-  Invite      Invite[]
-  Channel     Channel[]
+  slug        String    @unique
+  deletedAt   DateTime? // soft delete
+
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
+  owner                     User                        @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  ownerId                   String
+  members                   UserOnWorkspace[]
+  Invite                    Invite[]
+  Channel                   Channel[]
+  DirectMessageConversation DirectMessageConversation[]
 }
 
 model UserOnWorkspace {
@@ -61,8 +68,10 @@ model Invite {
   expiresAt DateTime
   status    InviteStatus  @default(PENDING)
   role      WorkspaceRole @default(MEMBER)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  deletedAt DateTime? // soft delete
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   workspace   Workspace @relation(fields: [workspaceId], references: [id])
   workspaceId String
@@ -74,17 +83,20 @@ model Invite {
 }
 
 model Channel {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
   description String?
-  isPublic    Boolean  @default(true) //not handeled
+  isPublic    Boolean   @default(true)
   workspaceId String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  deletedAt   DateTime? // soft delete
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relationships
   workspace      Workspace        @relation(fields: [workspaceId], references: [id])
   UserOnChannels UserOnChannels[]
+  Message        Message[]
 
   @@index([workspaceId])
 }
@@ -99,6 +111,49 @@ model UserOnChannels {
   channel Channel @relation(fields: [channelId], references: [id])
 
   @@id([userId, channelId])
+}
+
+model Message {
+  id        String    @id @default(uuid())
+  content   String
+  isEdited  Boolean   @default(false)
+  deletedAt DateTime? // soft delete
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId         String
+  channelId      String?
+  conversationId String?
+
+  user                      User                       @relation(fields: [userId], references: [id])
+  channel                   Channel?                   @relation(fields: [channelId], references: [id])
+  DirectMessageConversation DirectMessageConversation? @relation(fields: [conversationId], references: [id])
+
+  @@index([channelId])
+  @@index([userId])
+}
+
+model DirectMessageConversation {
+  id           String     @id @default(uuid())
+  participants UserOnDM[] // زي join table بين users و dm
+  messages     Message[] // كل الرسائل المرتبطة بالـ DM
+  workspaceId  String
+  workspace    Workspace  @relation(fields: [workspaceId], references: [id])
+  deletedAt    DateTime? // soft delete
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UserOnDM {
+  userId String
+  dmId   String
+
+  user User                      @relation(fields: [userId], references: [id])
+  dm   DirectMessageConversation @relation(fields: [dmId], references: [id])
+
+  @@id([userId, dmId])
 }
 
 enum Role {

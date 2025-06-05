@@ -4,10 +4,10 @@ import { protect } from '../middlewares/protect';
 import { validate } from '../middlewares/validation.middleware';
 import { workspaceSchema } from '../validators/workspace.validators';
 import { asyncHandler } from '../middlewares/asyncHandler';
-import { restrictTo } from '../middlewares/restrictTo';
 
 import channelRouter from './channel.routes';
 import inviteRouter from './invite.routes';
+import dmRouter from './dm.routes';
 const router = express.Router();
 
 router.post(
@@ -31,5 +31,7 @@ router.delete(
 router.use('/:workspaceId/invites', inviteRouter);
 
 router.use('/:workspaceId/channels', channelRouter);
+
+router.use('/:workspaceId/dm', dmRouter)
 
 export default router;

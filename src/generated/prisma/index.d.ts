@@ -43,6 +43,21 @@ export type Channel = $Result.DefaultSelection<Prisma.$ChannelPayload>
  * 
  */
 export type UserOnChannels = $Result.DefaultSelection<Prisma.$UserOnChannelsPayload>
+/**
+ * Model Message
+ * 
+ */
+export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
+/**
+ * Model DirectMessageConversation
+ * 
+ */
+export type DirectMessageConversation = $Result.DefaultSelection<Prisma.$DirectMessageConversationPayload>
+/**
+ * Model UserOnDM
+ * 
+ */
+export type UserOnDM = $Result.DefaultSelection<Prisma.$UserOnDMPayload>
 
 /**
  * Enums
@@ -273,6 +288,36 @@ export class PrismaClient<
     * ```
     */
   get userOnChannels(): Prisma.UserOnChannelsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
+    * ```
+    */
+  get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.directMessageConversation`: Exposes CRUD operations for the **DirectMessageConversation** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more DirectMessageConversations
+    * const directMessageConversations = await prisma.directMessageConversation.findMany()
+    * ```
+    */
+  get directMessageConversation(): Prisma.DirectMessageConversationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userOnDM`: Exposes CRUD operations for the **UserOnDM** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserOnDMS
+    * const userOnDMS = await prisma.userOnDM.findMany()
+    * ```
+    */
+  get userOnDM(): Prisma.UserOnDMDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -718,7 +763,10 @@ export namespace Prisma {
     UserOnWorkspace: 'UserOnWorkspace',
     Invite: 'Invite',
     Channel: 'Channel',
-    UserOnChannels: 'UserOnChannels'
+    UserOnChannels: 'UserOnChannels',
+    Message: 'Message',
+    DirectMessageConversation: 'DirectMessageConversation',
+    UserOnDM: 'UserOnDM'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -737,7 +785,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "workspace" | "userOnWorkspace" | "invite" | "channel" | "userOnChannels"
+      modelProps: "user" | "workspace" | "userOnWorkspace" | "invite" | "channel" | "userOnChannels" | "message" | "directMessageConversation" | "userOnDM"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1185,6 +1233,228 @@ export namespace Prisma {
           }
         }
       }
+      Message: {
+        payload: Prisma.$MessagePayload<ExtArgs>
+        fields: Prisma.MessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findMany: {
+            args: Prisma.MessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          create: {
+            args: Prisma.MessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          createMany: {
+            args: Prisma.MessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          update: {
+            args: Prisma.MessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.MessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessage>
+          }
+          groupBy: {
+            args: Prisma.MessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageCountAggregateOutputType> | number
+          }
+        }
+      }
+      DirectMessageConversation: {
+        payload: Prisma.$DirectMessageConversationPayload<ExtArgs>
+        fields: Prisma.DirectMessageConversationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DirectMessageConversationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DirectMessageConversationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>
+          }
+          findFirst: {
+            args: Prisma.DirectMessageConversationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DirectMessageConversationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>
+          }
+          findMany: {
+            args: Prisma.DirectMessageConversationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>[]
+          }
+          create: {
+            args: Prisma.DirectMessageConversationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>
+          }
+          createMany: {
+            args: Prisma.DirectMessageConversationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DirectMessageConversationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>[]
+          }
+          delete: {
+            args: Prisma.DirectMessageConversationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>
+          }
+          update: {
+            args: Prisma.DirectMessageConversationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>
+          }
+          deleteMany: {
+            args: Prisma.DirectMessageConversationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DirectMessageConversationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DirectMessageConversationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>[]
+          }
+          upsert: {
+            args: Prisma.DirectMessageConversationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DirectMessageConversationPayload>
+          }
+          aggregate: {
+            args: Prisma.DirectMessageConversationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDirectMessageConversation>
+          }
+          groupBy: {
+            args: Prisma.DirectMessageConversationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DirectMessageConversationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DirectMessageConversationCountArgs<ExtArgs>
+            result: $Utils.Optional<DirectMessageConversationCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserOnDM: {
+        payload: Prisma.$UserOnDMPayload<ExtArgs>
+        fields: Prisma.UserOnDMFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserOnDMFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserOnDMFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>
+          }
+          findFirst: {
+            args: Prisma.UserOnDMFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserOnDMFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>
+          }
+          findMany: {
+            args: Prisma.UserOnDMFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>[]
+          }
+          create: {
+            args: Prisma.UserOnDMCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>
+          }
+          createMany: {
+            args: Prisma.UserOnDMCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserOnDMCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>[]
+          }
+          delete: {
+            args: Prisma.UserOnDMDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>
+          }
+          update: {
+            args: Prisma.UserOnDMUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserOnDMDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserOnDMUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserOnDMUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserOnDMUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnDMPayload>
+          }
+          aggregate: {
+            args: Prisma.UserOnDMAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserOnDM>
+          }
+          groupBy: {
+            args: Prisma.UserOnDMGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserOnDMGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserOnDMCountArgs<ExtArgs>
+            result: $Utils.Optional<UserOnDMCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1275,6 +1545,9 @@ export namespace Prisma {
     invite?: InviteOmit
     channel?: ChannelOmit
     userOnChannels?: UserOnChannelsOmit
+    message?: MessageOmit
+    directMessageConversation?: DirectMessageConversationOmit
+    userOnDM?: UserOnDMOmit
   }
 
   /* Types for Logging */
@@ -1373,6 +1646,8 @@ export namespace Prisma {
     ownedWorkspaces: number
     InviteSent: number
     Channels: number
+    Message: number
+    UserOnDM: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1380,6 +1655,8 @@ export namespace Prisma {
     ownedWorkspaces?: boolean | UserCountOutputTypeCountOwnedWorkspacesArgs
     InviteSent?: boolean | UserCountOutputTypeCountInviteSentArgs
     Channels?: boolean | UserCountOutputTypeCountChannelsArgs
+    Message?: boolean | UserCountOutputTypeCountMessageArgs
+    UserOnDM?: boolean | UserCountOutputTypeCountUserOnDMArgs
   }
 
   // Custom InputTypes
@@ -1421,6 +1698,20 @@ export namespace Prisma {
     where?: UserOnChannelsWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserOnDMArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOnDMWhereInput
+  }
+
 
   /**
    * Count Type WorkspaceCountOutputType
@@ -1430,12 +1721,14 @@ export namespace Prisma {
     members: number
     Invite: number
     Channel: number
+    DirectMessageConversation: number
   }
 
   export type WorkspaceCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     members?: boolean | WorkspaceCountOutputTypeCountMembersArgs
     Invite?: boolean | WorkspaceCountOutputTypeCountInviteArgs
     Channel?: boolean | WorkspaceCountOutputTypeCountChannelArgs
+    DirectMessageConversation?: boolean | WorkspaceCountOutputTypeCountDirectMessageConversationArgs
   }
 
   // Custom InputTypes
@@ -1470,6 +1763,13 @@ export namespace Prisma {
     where?: ChannelWhereInput
   }
 
+  /**
+   * WorkspaceCountOutputType without action
+   */
+  export type WorkspaceCountOutputTypeCountDirectMessageConversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectMessageConversationWhereInput
+  }
+
 
   /**
    * Count Type ChannelCountOutputType
@@ -1477,10 +1777,12 @@ export namespace Prisma {
 
   export type ChannelCountOutputType = {
     UserOnChannels: number
+    Message: number
   }
 
   export type ChannelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     UserOnChannels?: boolean | ChannelCountOutputTypeCountUserOnChannelsArgs
+    Message?: boolean | ChannelCountOutputTypeCountMessageArgs
   }
 
   // Custom InputTypes
@@ -1499,6 +1801,53 @@ export namespace Prisma {
    */
   export type ChannelCountOutputTypeCountUserOnChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: UserOnChannelsWhereInput
+  }
+
+  /**
+   * ChannelCountOutputType without action
+   */
+  export type ChannelCountOutputTypeCountMessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+
+  /**
+   * Count Type DirectMessageConversationCountOutputType
+   */
+
+  export type DirectMessageConversationCountOutputType = {
+    participants: number
+    messages: number
+  }
+
+  export type DirectMessageConversationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | DirectMessageConversationCountOutputTypeCountParticipantsArgs
+    messages?: boolean | DirectMessageConversationCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DirectMessageConversationCountOutputType without action
+   */
+  export type DirectMessageConversationCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversationCountOutputType
+     */
+    select?: DirectMessageConversationCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DirectMessageConversationCountOutputType without action
+   */
+  export type DirectMessageConversationCountOutputTypeCountParticipantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOnDMWhereInput
+  }
+
+  /**
+   * DirectMessageConversationCountOutputType without action
+   */
+  export type DirectMessageConversationCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
   }
 
 
@@ -1746,6 +2095,8 @@ export namespace Prisma {
     ownedWorkspaces?: boolean | User$ownedWorkspacesArgs<ExtArgs>
     InviteSent?: boolean | User$InviteSentArgs<ExtArgs>
     Channels?: boolean | User$ChannelsArgs<ExtArgs>
+    Message?: boolean | User$MessageArgs<ExtArgs>
+    UserOnDM?: boolean | User$UserOnDMArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1806,6 +2157,8 @@ export namespace Prisma {
     ownedWorkspaces?: boolean | User$ownedWorkspacesArgs<ExtArgs>
     InviteSent?: boolean | User$InviteSentArgs<ExtArgs>
     Channels?: boolean | User$ChannelsArgs<ExtArgs>
+    Message?: boolean | User$MessageArgs<ExtArgs>
+    UserOnDM?: boolean | User$UserOnDMArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1818,6 +2171,8 @@ export namespace Prisma {
       ownedWorkspaces: Prisma.$WorkspacePayload<ExtArgs>[]
       InviteSent: Prisma.$InvitePayload<ExtArgs>[]
       Channels: Prisma.$UserOnChannelsPayload<ExtArgs>[]
+      Message: Prisma.$MessagePayload<ExtArgs>[]
+      UserOnDM: Prisma.$UserOnDMPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2232,6 +2587,8 @@ export namespace Prisma {
     ownedWorkspaces<T extends User$ownedWorkspacesArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedWorkspacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     InviteSent<T extends User$InviteSentArgs<ExtArgs> = {}>(args?: Subset<T, User$InviteSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Channels<T extends User$ChannelsArgs<ExtArgs> = {}>(args?: Subset<T, User$ChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Message<T extends User$MessageArgs<ExtArgs> = {}>(args?: Subset<T, User$MessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    UserOnDM<T extends User$UserOnDMArgs<ExtArgs> = {}>(args?: Subset<T, User$UserOnDMArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2759,6 +3116,54 @@ export namespace Prisma {
   }
 
   /**
+   * User.Message
+   */
+  export type User$MessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.UserOnDM
+   */
+  export type User$UserOnDMArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    where?: UserOnDMWhereInput
+    orderBy?: UserOnDMOrderByWithRelationInput | UserOnDMOrderByWithRelationInput[]
+    cursor?: UserOnDMWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserOnDMScalarFieldEnum | UserOnDMScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2961,6 +3366,7 @@ export namespace Prisma {
     members?: boolean | Workspace$membersArgs<ExtArgs>
     Invite?: boolean | Workspace$InviteArgs<ExtArgs>
     Channel?: boolean | Workspace$ChannelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Workspace$DirectMessageConversationArgs<ExtArgs>
     _count?: boolean | WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workspace"]>
 
@@ -3002,6 +3408,7 @@ export namespace Prisma {
     members?: boolean | Workspace$membersArgs<ExtArgs>
     Invite?: boolean | Workspace$InviteArgs<ExtArgs>
     Channel?: boolean | Workspace$ChannelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Workspace$DirectMessageConversationArgs<ExtArgs>
     _count?: boolean | WorkspaceCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkspaceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3018,6 +3425,7 @@ export namespace Prisma {
       members: Prisma.$UserOnWorkspacePayload<ExtArgs>[]
       Invite: Prisma.$InvitePayload<ExtArgs>[]
       Channel: Prisma.$ChannelPayload<ExtArgs>[]
+      DirectMessageConversation: Prisma.$DirectMessageConversationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3425,6 +3833,7 @@ export namespace Prisma {
     members<T extends Workspace$membersArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnWorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Invite<T extends Workspace$InviteArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$InviteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Channel<T extends Workspace$ChannelArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$ChannelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    DirectMessageConversation<T extends Workspace$DirectMessageConversationArgs<ExtArgs> = {}>(args?: Subset<T, Workspace$DirectMessageConversationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3926,6 +4335,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChannelScalarFieldEnum | ChannelScalarFieldEnum[]
+  }
+
+  /**
+   * Workspace.DirectMessageConversation
+   */
+  export type Workspace$DirectMessageConversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    where?: DirectMessageConversationWhereInput
+    orderBy?: DirectMessageConversationOrderByWithRelationInput | DirectMessageConversationOrderByWithRelationInput[]
+    cursor?: DirectMessageConversationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DirectMessageConversationScalarFieldEnum | DirectMessageConversationScalarFieldEnum[]
   }
 
   /**
@@ -6313,6 +6746,7 @@ export namespace Prisma {
     updatedAt?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     UserOnChannels?: boolean | Channel$UserOnChannelsArgs<ExtArgs>
+    Message?: boolean | Channel$MessageArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["channel"]>
 
@@ -6352,6 +6786,7 @@ export namespace Prisma {
   export type ChannelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
     UserOnChannels?: boolean | Channel$UserOnChannelsArgs<ExtArgs>
+    Message?: boolean | Channel$MessageArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChannelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6366,6 +6801,7 @@ export namespace Prisma {
     objects: {
       workspace: Prisma.$WorkspacePayload<ExtArgs>
       UserOnChannels: Prisma.$UserOnChannelsPayload<ExtArgs>[]
+      Message: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6771,6 +7207,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     UserOnChannels<T extends Channel$UserOnChannelsArgs<ExtArgs> = {}>(args?: Subset<T, Channel$UserOnChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Message<T extends Channel$MessageArgs<ExtArgs> = {}>(args?: Subset<T, Channel$MessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7224,6 +7661,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserOnChannelsScalarFieldEnum | UserOnChannelsScalarFieldEnum[]
+  }
+
+  /**
+   * Channel.Message
+   */
+  export type Channel$MessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
   }
 
   /**
@@ -8286,6 +8747,3287 @@ export namespace Prisma {
 
 
   /**
+   * Model Message
+   */
+
+  export type AggregateMessage = {
+    _count: MessageCountAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  export type MessageMinAggregateOutputType = {
+    id: string | null
+    content: string | null
+    isEdited: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    channelId: string | null
+    directMessageConversationId: string | null
+  }
+
+  export type MessageMaxAggregateOutputType = {
+    id: string | null
+    content: string | null
+    isEdited: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    userId: string | null
+    channelId: string | null
+    directMessageConversationId: string | null
+  }
+
+  export type MessageCountAggregateOutputType = {
+    id: number
+    content: number
+    isEdited: number
+    createdAt: number
+    updatedAt: number
+    userId: number
+    channelId: number
+    directMessageConversationId: number
+    _all: number
+  }
+
+
+  export type MessageMinAggregateInputType = {
+    id?: true
+    content?: true
+    isEdited?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    channelId?: true
+    directMessageConversationId?: true
+  }
+
+  export type MessageMaxAggregateInputType = {
+    id?: true
+    content?: true
+    isEdited?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    channelId?: true
+    directMessageConversationId?: true
+  }
+
+  export type MessageCountAggregateInputType = {
+    id?: true
+    content?: true
+    isEdited?: true
+    createdAt?: true
+    updatedAt?: true
+    userId?: true
+    channelId?: true
+    directMessageConversationId?: true
+    _all?: true
+  }
+
+  export type MessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Message to aggregate.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessage[P]>
+      : GetScalarType<T[P], AggregateMessage[P]>
+  }
+
+
+
+
+  export type MessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithAggregationInput | MessageOrderByWithAggregationInput[]
+    by: MessageScalarFieldEnum[] | MessageScalarFieldEnum
+    having?: MessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageCountAggregateInputType | true
+    _min?: MessageMinAggregateInputType
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type MessageGroupByOutputType = {
+    id: string
+    content: string
+    isEdited: boolean
+    createdAt: Date
+    updatedAt: Date
+    userId: string
+    channelId: string | null
+    directMessageConversationId: string | null
+    _count: MessageCountAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    isEdited?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    channelId?: boolean
+    directMessageConversationId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    channel?: boolean | Message$channelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Message$DirectMessageConversationArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    isEdited?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    channelId?: boolean
+    directMessageConversationId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    channel?: boolean | Message$channelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Message$DirectMessageConversationArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    content?: boolean
+    isEdited?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    channelId?: boolean
+    directMessageConversationId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    channel?: boolean | Message$channelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Message$DirectMessageConversationArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectScalar = {
+    id?: boolean
+    content?: boolean
+    isEdited?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    userId?: boolean
+    channelId?: boolean
+    directMessageConversationId?: boolean
+  }
+
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "content" | "isEdited" | "createdAt" | "updatedAt" | "userId" | "channelId" | "directMessageConversationId", ExtArgs["result"]["message"]>
+  export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    channel?: boolean | Message$channelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Message$DirectMessageConversationArgs<ExtArgs>
+  }
+  export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    channel?: boolean | Message$channelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Message$DirectMessageConversationArgs<ExtArgs>
+  }
+  export type MessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    channel?: boolean | Message$channelArgs<ExtArgs>
+    DirectMessageConversation?: boolean | Message$DirectMessageConversationArgs<ExtArgs>
+  }
+
+  export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Message"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      channel: Prisma.$ChannelPayload<ExtArgs> | null
+      DirectMessageConversation: Prisma.$DirectMessageConversationPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      content: string
+      isEdited: boolean
+      createdAt: Date
+      updatedAt: Date
+      userId: string
+      channelId: string | null
+      directMessageConversationId: string | null
+    }, ExtArgs["result"]["message"]>
+    composites: {}
+  }
+
+  type MessageGetPayload<S extends boolean | null | undefined | MessageDefaultArgs> = $Result.GetResult<Prisma.$MessagePayload, S>
+
+  type MessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageCountAggregateInputType | true
+    }
+
+  export interface MessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Message'], meta: { name: 'Message' } }
+    /**
+     * Find zero or one Message that matches the filter.
+     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageFindUniqueArgs>(args: SelectSubset<T, MessageFindUniqueArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Message that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageFindFirstArgs>(args?: SelectSubset<T, MessageFindFirstArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.message.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.message.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageFindManyArgs>(args?: SelectSubset<T, MessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Message.
+     * @param {MessageCreateArgs} args - Arguments to create a Message.
+     * @example
+     * // Create one Message
+     * const Message = await prisma.message.create({
+     *   data: {
+     *     // ... data to create a Message
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageCreateArgs>(args: SelectSubset<T, MessageCreateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Messages.
+     * @param {MessageCreateManyArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageCreateManyArgs>(args?: SelectSubset<T, MessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Messages and returns the data saved in the database.
+     * @param {MessageCreateManyAndReturnArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Message.
+     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
+     * @example
+     * // Delete one Message
+     * const Message = await prisma.message.delete({
+     *   where: {
+     *     // ... filter to delete one Message
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageDeleteArgs>(args: SelectSubset<T, MessageDeleteArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Message.
+     * @param {MessageUpdateArgs} args - Arguments to update one Message.
+     * @example
+     * // Update one Message
+     * const message = await prisma.message.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageUpdateArgs>(args: SelectSubset<T, MessageUpdateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.message.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageDeleteManyArgs>(args?: SelectSubset<T, MessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageUpdateManyArgs>(args: SelectSubset<T, MessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages and returns the data updated in the database.
+     * @param {MessageUpdateManyAndReturnArgs} args - Arguments to update many Messages.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessageUpdateManyAndReturnArgs>(args: SelectSubset<T, MessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Message.
+     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
+     * @example
+     * // Update or create a Message
+     * const message = await prisma.message.upsert({
+     *   create: {
+     *     // ... data to create a Message
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Message we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageUpsertArgs>(args: SelectSubset<T, MessageUpsertArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.message.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageCountArgs>(
+      args?: Subset<T, MessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): Prisma.PrismaPromise<GetMessageAggregateType<T>>
+
+    /**
+     * Group by Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageGroupByArgs['orderBy'] }
+        : { orderBy?: MessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Message model
+   */
+  readonly fields: MessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Message.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    channel<T extends Message$channelArgs<ExtArgs> = {}>(args?: Subset<T, Message$channelArgs<ExtArgs>>): Prisma__ChannelClient<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    DirectMessageConversation<T extends Message$DirectMessageConversationArgs<ExtArgs> = {}>(args?: Subset<T, Message$DirectMessageConversationArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Message model
+   */
+  interface MessageFieldRefs {
+    readonly id: FieldRef<"Message", 'String'>
+    readonly content: FieldRef<"Message", 'String'>
+    readonly isEdited: FieldRef<"Message", 'Boolean'>
+    readonly createdAt: FieldRef<"Message", 'DateTime'>
+    readonly updatedAt: FieldRef<"Message", 'DateTime'>
+    readonly userId: FieldRef<"Message", 'String'>
+    readonly channelId: FieldRef<"Message", 'String'>
+    readonly directMessageConversationId: FieldRef<"Message", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Message findUnique
+   */
+  export type MessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findUniqueOrThrow
+   */
+  export type MessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findFirst
+   */
+  export type MessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findFirstOrThrow
+   */
+  export type MessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findMany
+   */
+  export type MessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message create
+   */
+  export type MessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Message.
+     */
+    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+  }
+
+  /**
+   * Message createMany
+   */
+  export type MessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Message createManyAndReturn
+   */
+  export type MessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message update
+   */
+  export type MessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Message.
+     */
+    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+    /**
+     * Choose, which Message to update.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message updateMany
+   */
+  export type MessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message updateManyAndReturn
+   */
+  export type MessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message upsert
+   */
+  export type MessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Message to update in case it exists.
+     */
+    where: MessageWhereUniqueInput
+    /**
+     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
+     */
+    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+    /**
+     * In case the Message was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+  }
+
+  /**
+   * Message delete
+   */
+  export type MessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter which Message to delete.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message deleteMany
+   */
+  export type MessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message.channel
+   */
+  export type Message$channelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Channel
+     */
+    select?: ChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Channel
+     */
+    omit?: ChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChannelInclude<ExtArgs> | null
+    where?: ChannelWhereInput
+  }
+
+  /**
+   * Message.DirectMessageConversation
+   */
+  export type Message$DirectMessageConversationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    where?: DirectMessageConversationWhereInput
+  }
+
+  /**
+   * Message without action
+   */
+  export type MessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model DirectMessageConversation
+   */
+
+  export type AggregateDirectMessageConversation = {
+    _count: DirectMessageConversationCountAggregateOutputType | null
+    _min: DirectMessageConversationMinAggregateOutputType | null
+    _max: DirectMessageConversationMaxAggregateOutputType | null
+  }
+
+  export type DirectMessageConversationMinAggregateOutputType = {
+    id: string | null
+    workspaceId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DirectMessageConversationMaxAggregateOutputType = {
+    id: string | null
+    workspaceId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DirectMessageConversationCountAggregateOutputType = {
+    id: number
+    workspaceId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DirectMessageConversationMinAggregateInputType = {
+    id?: true
+    workspaceId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DirectMessageConversationMaxAggregateInputType = {
+    id?: true
+    workspaceId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DirectMessageConversationCountAggregateInputType = {
+    id?: true
+    workspaceId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DirectMessageConversationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DirectMessageConversation to aggregate.
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectMessageConversations to fetch.
+     */
+    orderBy?: DirectMessageConversationOrderByWithRelationInput | DirectMessageConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DirectMessageConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectMessageConversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectMessageConversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned DirectMessageConversations
+    **/
+    _count?: true | DirectMessageConversationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DirectMessageConversationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DirectMessageConversationMaxAggregateInputType
+  }
+
+  export type GetDirectMessageConversationAggregateType<T extends DirectMessageConversationAggregateArgs> = {
+        [P in keyof T & keyof AggregateDirectMessageConversation]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDirectMessageConversation[P]>
+      : GetScalarType<T[P], AggregateDirectMessageConversation[P]>
+  }
+
+
+
+
+  export type DirectMessageConversationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DirectMessageConversationWhereInput
+    orderBy?: DirectMessageConversationOrderByWithAggregationInput | DirectMessageConversationOrderByWithAggregationInput[]
+    by: DirectMessageConversationScalarFieldEnum[] | DirectMessageConversationScalarFieldEnum
+    having?: DirectMessageConversationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DirectMessageConversationCountAggregateInputType | true
+    _min?: DirectMessageConversationMinAggregateInputType
+    _max?: DirectMessageConversationMaxAggregateInputType
+  }
+
+  export type DirectMessageConversationGroupByOutputType = {
+    id: string
+    workspaceId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: DirectMessageConversationCountAggregateOutputType | null
+    _min: DirectMessageConversationMinAggregateOutputType | null
+    _max: DirectMessageConversationMaxAggregateOutputType | null
+  }
+
+  type GetDirectMessageConversationGroupByPayload<T extends DirectMessageConversationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DirectMessageConversationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DirectMessageConversationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DirectMessageConversationGroupByOutputType[P]>
+            : GetScalarType<T[P], DirectMessageConversationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DirectMessageConversationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workspaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    participants?: boolean | DirectMessageConversation$participantsArgs<ExtArgs>
+    messages?: boolean | DirectMessageConversation$messagesArgs<ExtArgs>
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    _count?: boolean | DirectMessageConversationCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directMessageConversation"]>
+
+  export type DirectMessageConversationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workspaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directMessageConversation"]>
+
+  export type DirectMessageConversationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workspaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["directMessageConversation"]>
+
+  export type DirectMessageConversationSelectScalar = {
+    id?: boolean
+    workspaceId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DirectMessageConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "createdAt" | "updatedAt", ExtArgs["result"]["directMessageConversation"]>
+  export type DirectMessageConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    participants?: boolean | DirectMessageConversation$participantsArgs<ExtArgs>
+    messages?: boolean | DirectMessageConversation$messagesArgs<ExtArgs>
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    _count?: boolean | DirectMessageConversationCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DirectMessageConversationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }
+  export type DirectMessageConversationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+  }
+
+  export type $DirectMessageConversationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "DirectMessageConversation"
+    objects: {
+      participants: Prisma.$UserOnDMPayload<ExtArgs>[]
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+      workspace: Prisma.$WorkspacePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      workspaceId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["directMessageConversation"]>
+    composites: {}
+  }
+
+  type DirectMessageConversationGetPayload<S extends boolean | null | undefined | DirectMessageConversationDefaultArgs> = $Result.GetResult<Prisma.$DirectMessageConversationPayload, S>
+
+  type DirectMessageConversationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DirectMessageConversationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DirectMessageConversationCountAggregateInputType | true
+    }
+
+  export interface DirectMessageConversationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['DirectMessageConversation'], meta: { name: 'DirectMessageConversation' } }
+    /**
+     * Find zero or one DirectMessageConversation that matches the filter.
+     * @param {DirectMessageConversationFindUniqueArgs} args - Arguments to find a DirectMessageConversation
+     * @example
+     * // Get one DirectMessageConversation
+     * const directMessageConversation = await prisma.directMessageConversation.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DirectMessageConversationFindUniqueArgs>(args: SelectSubset<T, DirectMessageConversationFindUniqueArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one DirectMessageConversation that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DirectMessageConversationFindUniqueOrThrowArgs} args - Arguments to find a DirectMessageConversation
+     * @example
+     * // Get one DirectMessageConversation
+     * const directMessageConversation = await prisma.directMessageConversation.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DirectMessageConversationFindUniqueOrThrowArgs>(args: SelectSubset<T, DirectMessageConversationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DirectMessageConversation that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationFindFirstArgs} args - Arguments to find a DirectMessageConversation
+     * @example
+     * // Get one DirectMessageConversation
+     * const directMessageConversation = await prisma.directMessageConversation.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DirectMessageConversationFindFirstArgs>(args?: SelectSubset<T, DirectMessageConversationFindFirstArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first DirectMessageConversation that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationFindFirstOrThrowArgs} args - Arguments to find a DirectMessageConversation
+     * @example
+     * // Get one DirectMessageConversation
+     * const directMessageConversation = await prisma.directMessageConversation.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DirectMessageConversationFindFirstOrThrowArgs>(args?: SelectSubset<T, DirectMessageConversationFindFirstOrThrowArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more DirectMessageConversations that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all DirectMessageConversations
+     * const directMessageConversations = await prisma.directMessageConversation.findMany()
+     * 
+     * // Get first 10 DirectMessageConversations
+     * const directMessageConversations = await prisma.directMessageConversation.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const directMessageConversationWithIdOnly = await prisma.directMessageConversation.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DirectMessageConversationFindManyArgs>(args?: SelectSubset<T, DirectMessageConversationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a DirectMessageConversation.
+     * @param {DirectMessageConversationCreateArgs} args - Arguments to create a DirectMessageConversation.
+     * @example
+     * // Create one DirectMessageConversation
+     * const DirectMessageConversation = await prisma.directMessageConversation.create({
+     *   data: {
+     *     // ... data to create a DirectMessageConversation
+     *   }
+     * })
+     * 
+     */
+    create<T extends DirectMessageConversationCreateArgs>(args: SelectSubset<T, DirectMessageConversationCreateArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many DirectMessageConversations.
+     * @param {DirectMessageConversationCreateManyArgs} args - Arguments to create many DirectMessageConversations.
+     * @example
+     * // Create many DirectMessageConversations
+     * const directMessageConversation = await prisma.directMessageConversation.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DirectMessageConversationCreateManyArgs>(args?: SelectSubset<T, DirectMessageConversationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many DirectMessageConversations and returns the data saved in the database.
+     * @param {DirectMessageConversationCreateManyAndReturnArgs} args - Arguments to create many DirectMessageConversations.
+     * @example
+     * // Create many DirectMessageConversations
+     * const directMessageConversation = await prisma.directMessageConversation.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many DirectMessageConversations and only return the `id`
+     * const directMessageConversationWithIdOnly = await prisma.directMessageConversation.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DirectMessageConversationCreateManyAndReturnArgs>(args?: SelectSubset<T, DirectMessageConversationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a DirectMessageConversation.
+     * @param {DirectMessageConversationDeleteArgs} args - Arguments to delete one DirectMessageConversation.
+     * @example
+     * // Delete one DirectMessageConversation
+     * const DirectMessageConversation = await prisma.directMessageConversation.delete({
+     *   where: {
+     *     // ... filter to delete one DirectMessageConversation
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DirectMessageConversationDeleteArgs>(args: SelectSubset<T, DirectMessageConversationDeleteArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one DirectMessageConversation.
+     * @param {DirectMessageConversationUpdateArgs} args - Arguments to update one DirectMessageConversation.
+     * @example
+     * // Update one DirectMessageConversation
+     * const directMessageConversation = await prisma.directMessageConversation.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DirectMessageConversationUpdateArgs>(args: SelectSubset<T, DirectMessageConversationUpdateArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more DirectMessageConversations.
+     * @param {DirectMessageConversationDeleteManyArgs} args - Arguments to filter DirectMessageConversations to delete.
+     * @example
+     * // Delete a few DirectMessageConversations
+     * const { count } = await prisma.directMessageConversation.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DirectMessageConversationDeleteManyArgs>(args?: SelectSubset<T, DirectMessageConversationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DirectMessageConversations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many DirectMessageConversations
+     * const directMessageConversation = await prisma.directMessageConversation.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DirectMessageConversationUpdateManyArgs>(args: SelectSubset<T, DirectMessageConversationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more DirectMessageConversations and returns the data updated in the database.
+     * @param {DirectMessageConversationUpdateManyAndReturnArgs} args - Arguments to update many DirectMessageConversations.
+     * @example
+     * // Update many DirectMessageConversations
+     * const directMessageConversation = await prisma.directMessageConversation.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more DirectMessageConversations and only return the `id`
+     * const directMessageConversationWithIdOnly = await prisma.directMessageConversation.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DirectMessageConversationUpdateManyAndReturnArgs>(args: SelectSubset<T, DirectMessageConversationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one DirectMessageConversation.
+     * @param {DirectMessageConversationUpsertArgs} args - Arguments to update or create a DirectMessageConversation.
+     * @example
+     * // Update or create a DirectMessageConversation
+     * const directMessageConversation = await prisma.directMessageConversation.upsert({
+     *   create: {
+     *     // ... data to create a DirectMessageConversation
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the DirectMessageConversation we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DirectMessageConversationUpsertArgs>(args: SelectSubset<T, DirectMessageConversationUpsertArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of DirectMessageConversations.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationCountArgs} args - Arguments to filter DirectMessageConversations to count.
+     * @example
+     * // Count the number of DirectMessageConversations
+     * const count = await prisma.directMessageConversation.count({
+     *   where: {
+     *     // ... the filter for the DirectMessageConversations we want to count
+     *   }
+     * })
+    **/
+    count<T extends DirectMessageConversationCountArgs>(
+      args?: Subset<T, DirectMessageConversationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DirectMessageConversationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a DirectMessageConversation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DirectMessageConversationAggregateArgs>(args: Subset<T, DirectMessageConversationAggregateArgs>): Prisma.PrismaPromise<GetDirectMessageConversationAggregateType<T>>
+
+    /**
+     * Group by DirectMessageConversation.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DirectMessageConversationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DirectMessageConversationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DirectMessageConversationGroupByArgs['orderBy'] }
+        : { orderBy?: DirectMessageConversationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DirectMessageConversationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDirectMessageConversationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the DirectMessageConversation model
+   */
+  readonly fields: DirectMessageConversationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for DirectMessageConversation.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DirectMessageConversationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    participants<T extends DirectMessageConversation$participantsArgs<ExtArgs> = {}>(args?: Subset<T, DirectMessageConversation$participantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends DirectMessageConversation$messagesArgs<ExtArgs> = {}>(args?: Subset<T, DirectMessageConversation$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the DirectMessageConversation model
+   */
+  interface DirectMessageConversationFieldRefs {
+    readonly id: FieldRef<"DirectMessageConversation", 'String'>
+    readonly workspaceId: FieldRef<"DirectMessageConversation", 'String'>
+    readonly createdAt: FieldRef<"DirectMessageConversation", 'DateTime'>
+    readonly updatedAt: FieldRef<"DirectMessageConversation", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * DirectMessageConversation findUnique
+   */
+  export type DirectMessageConversationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectMessageConversation to fetch.
+     */
+    where: DirectMessageConversationWhereUniqueInput
+  }
+
+  /**
+   * DirectMessageConversation findUniqueOrThrow
+   */
+  export type DirectMessageConversationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectMessageConversation to fetch.
+     */
+    where: DirectMessageConversationWhereUniqueInput
+  }
+
+  /**
+   * DirectMessageConversation findFirst
+   */
+  export type DirectMessageConversationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectMessageConversation to fetch.
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectMessageConversations to fetch.
+     */
+    orderBy?: DirectMessageConversationOrderByWithRelationInput | DirectMessageConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DirectMessageConversations.
+     */
+    cursor?: DirectMessageConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectMessageConversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectMessageConversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectMessageConversations.
+     */
+    distinct?: DirectMessageConversationScalarFieldEnum | DirectMessageConversationScalarFieldEnum[]
+  }
+
+  /**
+   * DirectMessageConversation findFirstOrThrow
+   */
+  export type DirectMessageConversationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectMessageConversation to fetch.
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectMessageConversations to fetch.
+     */
+    orderBy?: DirectMessageConversationOrderByWithRelationInput | DirectMessageConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for DirectMessageConversations.
+     */
+    cursor?: DirectMessageConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectMessageConversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectMessageConversations.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of DirectMessageConversations.
+     */
+    distinct?: DirectMessageConversationScalarFieldEnum | DirectMessageConversationScalarFieldEnum[]
+  }
+
+  /**
+   * DirectMessageConversation findMany
+   */
+  export type DirectMessageConversationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * Filter, which DirectMessageConversations to fetch.
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of DirectMessageConversations to fetch.
+     */
+    orderBy?: DirectMessageConversationOrderByWithRelationInput | DirectMessageConversationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing DirectMessageConversations.
+     */
+    cursor?: DirectMessageConversationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` DirectMessageConversations from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` DirectMessageConversations.
+     */
+    skip?: number
+    distinct?: DirectMessageConversationScalarFieldEnum | DirectMessageConversationScalarFieldEnum[]
+  }
+
+  /**
+   * DirectMessageConversation create
+   */
+  export type DirectMessageConversationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a DirectMessageConversation.
+     */
+    data: XOR<DirectMessageConversationCreateInput, DirectMessageConversationUncheckedCreateInput>
+  }
+
+  /**
+   * DirectMessageConversation createMany
+   */
+  export type DirectMessageConversationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many DirectMessageConversations.
+     */
+    data: DirectMessageConversationCreateManyInput | DirectMessageConversationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * DirectMessageConversation createManyAndReturn
+   */
+  export type DirectMessageConversationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * The data used to create many DirectMessageConversations.
+     */
+    data: DirectMessageConversationCreateManyInput | DirectMessageConversationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DirectMessageConversation update
+   */
+  export type DirectMessageConversationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a DirectMessageConversation.
+     */
+    data: XOR<DirectMessageConversationUpdateInput, DirectMessageConversationUncheckedUpdateInput>
+    /**
+     * Choose, which DirectMessageConversation to update.
+     */
+    where: DirectMessageConversationWhereUniqueInput
+  }
+
+  /**
+   * DirectMessageConversation updateMany
+   */
+  export type DirectMessageConversationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update DirectMessageConversations.
+     */
+    data: XOR<DirectMessageConversationUpdateManyMutationInput, DirectMessageConversationUncheckedUpdateManyInput>
+    /**
+     * Filter which DirectMessageConversations to update
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * Limit how many DirectMessageConversations to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * DirectMessageConversation updateManyAndReturn
+   */
+  export type DirectMessageConversationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * The data used to update DirectMessageConversations.
+     */
+    data: XOR<DirectMessageConversationUpdateManyMutationInput, DirectMessageConversationUncheckedUpdateManyInput>
+    /**
+     * Filter which DirectMessageConversations to update
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * Limit how many DirectMessageConversations to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * DirectMessageConversation upsert
+   */
+  export type DirectMessageConversationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the DirectMessageConversation to update in case it exists.
+     */
+    where: DirectMessageConversationWhereUniqueInput
+    /**
+     * In case the DirectMessageConversation found by the `where` argument doesn't exist, create a new DirectMessageConversation with this data.
+     */
+    create: XOR<DirectMessageConversationCreateInput, DirectMessageConversationUncheckedCreateInput>
+    /**
+     * In case the DirectMessageConversation was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DirectMessageConversationUpdateInput, DirectMessageConversationUncheckedUpdateInput>
+  }
+
+  /**
+   * DirectMessageConversation delete
+   */
+  export type DirectMessageConversationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+    /**
+     * Filter which DirectMessageConversation to delete.
+     */
+    where: DirectMessageConversationWhereUniqueInput
+  }
+
+  /**
+   * DirectMessageConversation deleteMany
+   */
+  export type DirectMessageConversationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which DirectMessageConversations to delete
+     */
+    where?: DirectMessageConversationWhereInput
+    /**
+     * Limit how many DirectMessageConversations to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * DirectMessageConversation.participants
+   */
+  export type DirectMessageConversation$participantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    where?: UserOnDMWhereInput
+    orderBy?: UserOnDMOrderByWithRelationInput | UserOnDMOrderByWithRelationInput[]
+    cursor?: UserOnDMWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserOnDMScalarFieldEnum | UserOnDMScalarFieldEnum[]
+  }
+
+  /**
+   * DirectMessageConversation.messages
+   */
+  export type DirectMessageConversation$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * DirectMessageConversation without action
+   */
+  export type DirectMessageConversationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DirectMessageConversation
+     */
+    select?: DirectMessageConversationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the DirectMessageConversation
+     */
+    omit?: DirectMessageConversationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DirectMessageConversationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserOnDM
+   */
+
+  export type AggregateUserOnDM = {
+    _count: UserOnDMCountAggregateOutputType | null
+    _min: UserOnDMMinAggregateOutputType | null
+    _max: UserOnDMMaxAggregateOutputType | null
+  }
+
+  export type UserOnDMMinAggregateOutputType = {
+    userId: string | null
+    dmId: string | null
+  }
+
+  export type UserOnDMMaxAggregateOutputType = {
+    userId: string | null
+    dmId: string | null
+  }
+
+  export type UserOnDMCountAggregateOutputType = {
+    userId: number
+    dmId: number
+    _all: number
+  }
+
+
+  export type UserOnDMMinAggregateInputType = {
+    userId?: true
+    dmId?: true
+  }
+
+  export type UserOnDMMaxAggregateInputType = {
+    userId?: true
+    dmId?: true
+  }
+
+  export type UserOnDMCountAggregateInputType = {
+    userId?: true
+    dmId?: true
+    _all?: true
+  }
+
+  export type UserOnDMAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserOnDM to aggregate.
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnDMS to fetch.
+     */
+    orderBy?: UserOnDMOrderByWithRelationInput | UserOnDMOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserOnDMWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnDMS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnDMS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserOnDMS
+    **/
+    _count?: true | UserOnDMCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserOnDMMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserOnDMMaxAggregateInputType
+  }
+
+  export type GetUserOnDMAggregateType<T extends UserOnDMAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserOnDM]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserOnDM[P]>
+      : GetScalarType<T[P], AggregateUserOnDM[P]>
+  }
+
+
+
+
+  export type UserOnDMGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOnDMWhereInput
+    orderBy?: UserOnDMOrderByWithAggregationInput | UserOnDMOrderByWithAggregationInput[]
+    by: UserOnDMScalarFieldEnum[] | UserOnDMScalarFieldEnum
+    having?: UserOnDMScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserOnDMCountAggregateInputType | true
+    _min?: UserOnDMMinAggregateInputType
+    _max?: UserOnDMMaxAggregateInputType
+  }
+
+  export type UserOnDMGroupByOutputType = {
+    userId: string
+    dmId: string
+    _count: UserOnDMCountAggregateOutputType | null
+    _min: UserOnDMMinAggregateOutputType | null
+    _max: UserOnDMMaxAggregateOutputType | null
+  }
+
+  type GetUserOnDMGroupByPayload<T extends UserOnDMGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserOnDMGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserOnDMGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserOnDMGroupByOutputType[P]>
+            : GetScalarType<T[P], UserOnDMGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserOnDMSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    dmId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOnDM"]>
+
+  export type UserOnDMSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    dmId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOnDM"]>
+
+  export type UserOnDMSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    dmId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userOnDM"]>
+
+  export type UserOnDMSelectScalar = {
+    userId?: boolean
+    dmId?: boolean
+  }
+
+  export type UserOnDMOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "dmId", ExtArgs["result"]["userOnDM"]>
+  export type UserOnDMInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
+  }
+  export type UserOnDMIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
+  }
+  export type UserOnDMIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
+  }
+
+  export type $UserOnDMPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserOnDM"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      dm: Prisma.$DirectMessageConversationPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: string
+      dmId: string
+    }, ExtArgs["result"]["userOnDM"]>
+    composites: {}
+  }
+
+  type UserOnDMGetPayload<S extends boolean | null | undefined | UserOnDMDefaultArgs> = $Result.GetResult<Prisma.$UserOnDMPayload, S>
+
+  type UserOnDMCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserOnDMFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserOnDMCountAggregateInputType | true
+    }
+
+  export interface UserOnDMDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserOnDM'], meta: { name: 'UserOnDM' } }
+    /**
+     * Find zero or one UserOnDM that matches the filter.
+     * @param {UserOnDMFindUniqueArgs} args - Arguments to find a UserOnDM
+     * @example
+     * // Get one UserOnDM
+     * const userOnDM = await prisma.userOnDM.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserOnDMFindUniqueArgs>(args: SelectSubset<T, UserOnDMFindUniqueArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserOnDM that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserOnDMFindUniqueOrThrowArgs} args - Arguments to find a UserOnDM
+     * @example
+     * // Get one UserOnDM
+     * const userOnDM = await prisma.userOnDM.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserOnDMFindUniqueOrThrowArgs>(args: SelectSubset<T, UserOnDMFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserOnDM that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMFindFirstArgs} args - Arguments to find a UserOnDM
+     * @example
+     * // Get one UserOnDM
+     * const userOnDM = await prisma.userOnDM.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserOnDMFindFirstArgs>(args?: SelectSubset<T, UserOnDMFindFirstArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserOnDM that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMFindFirstOrThrowArgs} args - Arguments to find a UserOnDM
+     * @example
+     * // Get one UserOnDM
+     * const userOnDM = await prisma.userOnDM.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserOnDMFindFirstOrThrowArgs>(args?: SelectSubset<T, UserOnDMFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserOnDMS that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserOnDMS
+     * const userOnDMS = await prisma.userOnDM.findMany()
+     * 
+     * // Get first 10 UserOnDMS
+     * const userOnDMS = await prisma.userOnDM.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const userOnDMWithUserIdOnly = await prisma.userOnDM.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends UserOnDMFindManyArgs>(args?: SelectSubset<T, UserOnDMFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserOnDM.
+     * @param {UserOnDMCreateArgs} args - Arguments to create a UserOnDM.
+     * @example
+     * // Create one UserOnDM
+     * const UserOnDM = await prisma.userOnDM.create({
+     *   data: {
+     *     // ... data to create a UserOnDM
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserOnDMCreateArgs>(args: SelectSubset<T, UserOnDMCreateArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserOnDMS.
+     * @param {UserOnDMCreateManyArgs} args - Arguments to create many UserOnDMS.
+     * @example
+     * // Create many UserOnDMS
+     * const userOnDM = await prisma.userOnDM.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserOnDMCreateManyArgs>(args?: SelectSubset<T, UserOnDMCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserOnDMS and returns the data saved in the database.
+     * @param {UserOnDMCreateManyAndReturnArgs} args - Arguments to create many UserOnDMS.
+     * @example
+     * // Create many UserOnDMS
+     * const userOnDM = await prisma.userOnDM.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserOnDMS and only return the `userId`
+     * const userOnDMWithUserIdOnly = await prisma.userOnDM.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserOnDMCreateManyAndReturnArgs>(args?: SelectSubset<T, UserOnDMCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserOnDM.
+     * @param {UserOnDMDeleteArgs} args - Arguments to delete one UserOnDM.
+     * @example
+     * // Delete one UserOnDM
+     * const UserOnDM = await prisma.userOnDM.delete({
+     *   where: {
+     *     // ... filter to delete one UserOnDM
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserOnDMDeleteArgs>(args: SelectSubset<T, UserOnDMDeleteArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserOnDM.
+     * @param {UserOnDMUpdateArgs} args - Arguments to update one UserOnDM.
+     * @example
+     * // Update one UserOnDM
+     * const userOnDM = await prisma.userOnDM.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserOnDMUpdateArgs>(args: SelectSubset<T, UserOnDMUpdateArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserOnDMS.
+     * @param {UserOnDMDeleteManyArgs} args - Arguments to filter UserOnDMS to delete.
+     * @example
+     * // Delete a few UserOnDMS
+     * const { count } = await prisma.userOnDM.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserOnDMDeleteManyArgs>(args?: SelectSubset<T, UserOnDMDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserOnDMS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserOnDMS
+     * const userOnDM = await prisma.userOnDM.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserOnDMUpdateManyArgs>(args: SelectSubset<T, UserOnDMUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserOnDMS and returns the data updated in the database.
+     * @param {UserOnDMUpdateManyAndReturnArgs} args - Arguments to update many UserOnDMS.
+     * @example
+     * // Update many UserOnDMS
+     * const userOnDM = await prisma.userOnDM.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserOnDMS and only return the `userId`
+     * const userOnDMWithUserIdOnly = await prisma.userOnDM.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserOnDMUpdateManyAndReturnArgs>(args: SelectSubset<T, UserOnDMUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserOnDM.
+     * @param {UserOnDMUpsertArgs} args - Arguments to update or create a UserOnDM.
+     * @example
+     * // Update or create a UserOnDM
+     * const userOnDM = await prisma.userOnDM.upsert({
+     *   create: {
+     *     // ... data to create a UserOnDM
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserOnDM we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserOnDMUpsertArgs>(args: SelectSubset<T, UserOnDMUpsertArgs<ExtArgs>>): Prisma__UserOnDMClient<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserOnDMS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMCountArgs} args - Arguments to filter UserOnDMS to count.
+     * @example
+     * // Count the number of UserOnDMS
+     * const count = await prisma.userOnDM.count({
+     *   where: {
+     *     // ... the filter for the UserOnDMS we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserOnDMCountArgs>(
+      args?: Subset<T, UserOnDMCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserOnDMCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserOnDM.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserOnDMAggregateArgs>(args: Subset<T, UserOnDMAggregateArgs>): Prisma.PrismaPromise<GetUserOnDMAggregateType<T>>
+
+    /**
+     * Group by UserOnDM.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserOnDMGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserOnDMGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserOnDMGroupByArgs['orderBy'] }
+        : { orderBy?: UserOnDMGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserOnDMGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserOnDMGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserOnDM model
+   */
+  readonly fields: UserOnDMFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserOnDM.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserOnDMClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    dm<T extends DirectMessageConversationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DirectMessageConversationDefaultArgs<ExtArgs>>): Prisma__DirectMessageConversationClient<$Result.GetResult<Prisma.$DirectMessageConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserOnDM model
+   */
+  interface UserOnDMFieldRefs {
+    readonly userId: FieldRef<"UserOnDM", 'String'>
+    readonly dmId: FieldRef<"UserOnDM", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserOnDM findUnique
+   */
+  export type UserOnDMFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnDM to fetch.
+     */
+    where: UserOnDMWhereUniqueInput
+  }
+
+  /**
+   * UserOnDM findUniqueOrThrow
+   */
+  export type UserOnDMFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnDM to fetch.
+     */
+    where: UserOnDMWhereUniqueInput
+  }
+
+  /**
+   * UserOnDM findFirst
+   */
+  export type UserOnDMFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnDM to fetch.
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnDMS to fetch.
+     */
+    orderBy?: UserOnDMOrderByWithRelationInput | UserOnDMOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserOnDMS.
+     */
+    cursor?: UserOnDMWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnDMS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnDMS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserOnDMS.
+     */
+    distinct?: UserOnDMScalarFieldEnum | UserOnDMScalarFieldEnum[]
+  }
+
+  /**
+   * UserOnDM findFirstOrThrow
+   */
+  export type UserOnDMFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnDM to fetch.
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnDMS to fetch.
+     */
+    orderBy?: UserOnDMOrderByWithRelationInput | UserOnDMOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserOnDMS.
+     */
+    cursor?: UserOnDMWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnDMS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnDMS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserOnDMS.
+     */
+    distinct?: UserOnDMScalarFieldEnum | UserOnDMScalarFieldEnum[]
+  }
+
+  /**
+   * UserOnDM findMany
+   */
+  export type UserOnDMFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * Filter, which UserOnDMS to fetch.
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserOnDMS to fetch.
+     */
+    orderBy?: UserOnDMOrderByWithRelationInput | UserOnDMOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserOnDMS.
+     */
+    cursor?: UserOnDMWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserOnDMS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserOnDMS.
+     */
+    skip?: number
+    distinct?: UserOnDMScalarFieldEnum | UserOnDMScalarFieldEnum[]
+  }
+
+  /**
+   * UserOnDM create
+   */
+  export type UserOnDMCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserOnDM.
+     */
+    data: XOR<UserOnDMCreateInput, UserOnDMUncheckedCreateInput>
+  }
+
+  /**
+   * UserOnDM createMany
+   */
+  export type UserOnDMCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserOnDMS.
+     */
+    data: UserOnDMCreateManyInput | UserOnDMCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserOnDM createManyAndReturn
+   */
+  export type UserOnDMCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserOnDMS.
+     */
+    data: UserOnDMCreateManyInput | UserOnDMCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserOnDM update
+   */
+  export type UserOnDMUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserOnDM.
+     */
+    data: XOR<UserOnDMUpdateInput, UserOnDMUncheckedUpdateInput>
+    /**
+     * Choose, which UserOnDM to update.
+     */
+    where: UserOnDMWhereUniqueInput
+  }
+
+  /**
+   * UserOnDM updateMany
+   */
+  export type UserOnDMUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserOnDMS.
+     */
+    data: XOR<UserOnDMUpdateManyMutationInput, UserOnDMUncheckedUpdateManyInput>
+    /**
+     * Filter which UserOnDMS to update
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * Limit how many UserOnDMS to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserOnDM updateManyAndReturn
+   */
+  export type UserOnDMUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * The data used to update UserOnDMS.
+     */
+    data: XOR<UserOnDMUpdateManyMutationInput, UserOnDMUncheckedUpdateManyInput>
+    /**
+     * Filter which UserOnDMS to update
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * Limit how many UserOnDMS to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserOnDM upsert
+   */
+  export type UserOnDMUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserOnDM to update in case it exists.
+     */
+    where: UserOnDMWhereUniqueInput
+    /**
+     * In case the UserOnDM found by the `where` argument doesn't exist, create a new UserOnDM with this data.
+     */
+    create: XOR<UserOnDMCreateInput, UserOnDMUncheckedCreateInput>
+    /**
+     * In case the UserOnDM was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserOnDMUpdateInput, UserOnDMUncheckedUpdateInput>
+  }
+
+  /**
+   * UserOnDM delete
+   */
+  export type UserOnDMDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+    /**
+     * Filter which UserOnDM to delete.
+     */
+    where: UserOnDMWhereUniqueInput
+  }
+
+  /**
+   * UserOnDM deleteMany
+   */
+  export type UserOnDMDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserOnDMS to delete
+     */
+    where?: UserOnDMWhereInput
+    /**
+     * Limit how many UserOnDMS to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserOnDM without action
+   */
+  export type UserOnDMDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserOnDM
+     */
+    select?: UserOnDMSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserOnDM
+     */
+    omit?: UserOnDMOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserOnDMInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -8378,6 +12120,38 @@ export namespace Prisma {
   };
 
   export type UserOnChannelsScalarFieldEnum = (typeof UserOnChannelsScalarFieldEnum)[keyof typeof UserOnChannelsScalarFieldEnum]
+
+
+  export const MessageScalarFieldEnum: {
+    id: 'id',
+    content: 'content',
+    isEdited: 'isEdited',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    userId: 'userId',
+    channelId: 'channelId',
+    directMessageConversationId: 'directMessageConversationId'
+  };
+
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
+
+
+  export const DirectMessageConversationScalarFieldEnum: {
+    id: 'id',
+    workspaceId: 'workspaceId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DirectMessageConversationScalarFieldEnum = (typeof DirectMessageConversationScalarFieldEnum)[keyof typeof DirectMessageConversationScalarFieldEnum]
+
+
+  export const UserOnDMScalarFieldEnum: {
+    userId: 'userId',
+    dmId: 'dmId'
+  };
+
+  export type UserOnDMScalarFieldEnum = (typeof UserOnDMScalarFieldEnum)[keyof typeof UserOnDMScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -8525,6 +12299,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceListRelationFilter
     InviteSent?: InviteListRelationFilter
     Channels?: UserOnChannelsListRelationFilter
+    Message?: MessageListRelationFilter
+    UserOnDM?: UserOnDMListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -8546,6 +12322,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceOrderByRelationAggregateInput
     InviteSent?: InviteOrderByRelationAggregateInput
     Channels?: UserOnChannelsOrderByRelationAggregateInput
+    Message?: MessageOrderByRelationAggregateInput
+    UserOnDM?: UserOnDMOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -8570,6 +12348,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceListRelationFilter
     InviteSent?: InviteListRelationFilter
     Channels?: UserOnChannelsListRelationFilter
+    Message?: MessageListRelationFilter
+    UserOnDM?: UserOnDMListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -8627,6 +12407,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceListRelationFilter
     Invite?: InviteListRelationFilter
     Channel?: ChannelListRelationFilter
+    DirectMessageConversation?: DirectMessageConversationListRelationFilter
   }
 
   export type WorkspaceOrderByWithRelationInput = {
@@ -8641,6 +12422,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceOrderByRelationAggregateInput
     Invite?: InviteOrderByRelationAggregateInput
     Channel?: ChannelOrderByRelationAggregateInput
+    DirectMessageConversation?: DirectMessageConversationOrderByRelationAggregateInput
   }
 
   export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
@@ -8658,6 +12440,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceListRelationFilter
     Invite?: InviteListRelationFilter
     Channel?: ChannelListRelationFilter
+    DirectMessageConversation?: DirectMessageConversationListRelationFilter
   }, "id" | "slug">
 
   export type WorkspaceOrderByWithAggregationInput = {
@@ -8836,6 +12619,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Channel"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     UserOnChannels?: UserOnChannelsListRelationFilter
+    Message?: MessageListRelationFilter
   }
 
   export type ChannelOrderByWithRelationInput = {
@@ -8848,6 +12632,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
     UserOnChannels?: UserOnChannelsOrderByRelationAggregateInput
+    Message?: MessageOrderByRelationAggregateInput
   }
 
   export type ChannelWhereUniqueInput = Prisma.AtLeast<{
@@ -8863,6 +12648,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Channel"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
     UserOnChannels?: UserOnChannelsListRelationFilter
+    Message?: MessageListRelationFilter
   }, "id">
 
   export type ChannelOrderByWithAggregationInput = {
@@ -8940,6 +12726,182 @@ export namespace Prisma {
     joinedAt?: DateTimeWithAggregatesFilter<"UserOnChannels"> | Date | string
   }
 
+  export type MessageWhereInput = {
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    id?: StringFilter<"Message"> | string
+    content?: StringFilter<"Message"> | string
+    isEdited?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    updatedAt?: DateTimeFilter<"Message"> | Date | string
+    userId?: StringFilter<"Message"> | string
+    channelId?: StringNullableFilter<"Message"> | string | null
+    directMessageConversationId?: StringNullableFilter<"Message"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    channel?: XOR<ChannelNullableScalarRelationFilter, ChannelWhereInput> | null
+    DirectMessageConversation?: XOR<DirectMessageConversationNullableScalarRelationFilter, DirectMessageConversationWhereInput> | null
+  }
+
+  export type MessageOrderByWithRelationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    channelId?: SortOrderInput | SortOrder
+    directMessageConversationId?: SortOrderInput | SortOrder
+    user?: UserOrderByWithRelationInput
+    channel?: ChannelOrderByWithRelationInput
+    DirectMessageConversation?: DirectMessageConversationOrderByWithRelationInput
+  }
+
+  export type MessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    content?: StringFilter<"Message"> | string
+    isEdited?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    updatedAt?: DateTimeFilter<"Message"> | Date | string
+    userId?: StringFilter<"Message"> | string
+    channelId?: StringNullableFilter<"Message"> | string | null
+    directMessageConversationId?: StringNullableFilter<"Message"> | string | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    channel?: XOR<ChannelNullableScalarRelationFilter, ChannelWhereInput> | null
+    DirectMessageConversation?: XOR<DirectMessageConversationNullableScalarRelationFilter, DirectMessageConversationWhereInput> | null
+  }, "id">
+
+  export type MessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    content?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    channelId?: SortOrderInput | SortOrder
+    directMessageConversationId?: SortOrderInput | SortOrder
+    _count?: MessageCountOrderByAggregateInput
+    _max?: MessageMaxOrderByAggregateInput
+    _min?: MessageMinOrderByAggregateInput
+  }
+
+  export type MessageScalarWhereWithAggregatesInput = {
+    AND?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    OR?: MessageScalarWhereWithAggregatesInput[]
+    NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Message"> | string
+    content?: StringWithAggregatesFilter<"Message"> | string
+    isEdited?: BoolWithAggregatesFilter<"Message"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+    userId?: StringWithAggregatesFilter<"Message"> | string
+    channelId?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    directMessageConversationId?: StringNullableWithAggregatesFilter<"Message"> | string | null
+  }
+
+  export type DirectMessageConversationWhereInput = {
+    AND?: DirectMessageConversationWhereInput | DirectMessageConversationWhereInput[]
+    OR?: DirectMessageConversationWhereInput[]
+    NOT?: DirectMessageConversationWhereInput | DirectMessageConversationWhereInput[]
+    id?: StringFilter<"DirectMessageConversation"> | string
+    workspaceId?: StringFilter<"DirectMessageConversation"> | string
+    createdAt?: DateTimeFilter<"DirectMessageConversation"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectMessageConversation"> | Date | string
+    participants?: UserOnDMListRelationFilter
+    messages?: MessageListRelationFilter
+    workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
+  }
+
+  export type DirectMessageConversationOrderByWithRelationInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    participants?: UserOnDMOrderByRelationAggregateInput
+    messages?: MessageOrderByRelationAggregateInput
+    workspace?: WorkspaceOrderByWithRelationInput
+  }
+
+  export type DirectMessageConversationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DirectMessageConversationWhereInput | DirectMessageConversationWhereInput[]
+    OR?: DirectMessageConversationWhereInput[]
+    NOT?: DirectMessageConversationWhereInput | DirectMessageConversationWhereInput[]
+    workspaceId?: StringFilter<"DirectMessageConversation"> | string
+    createdAt?: DateTimeFilter<"DirectMessageConversation"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectMessageConversation"> | Date | string
+    participants?: UserOnDMListRelationFilter
+    messages?: MessageListRelationFilter
+    workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
+  }, "id">
+
+  export type DirectMessageConversationOrderByWithAggregationInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DirectMessageConversationCountOrderByAggregateInput
+    _max?: DirectMessageConversationMaxOrderByAggregateInput
+    _min?: DirectMessageConversationMinOrderByAggregateInput
+  }
+
+  export type DirectMessageConversationScalarWhereWithAggregatesInput = {
+    AND?: DirectMessageConversationScalarWhereWithAggregatesInput | DirectMessageConversationScalarWhereWithAggregatesInput[]
+    OR?: DirectMessageConversationScalarWhereWithAggregatesInput[]
+    NOT?: DirectMessageConversationScalarWhereWithAggregatesInput | DirectMessageConversationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"DirectMessageConversation"> | string
+    workspaceId?: StringWithAggregatesFilter<"DirectMessageConversation"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"DirectMessageConversation"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"DirectMessageConversation"> | Date | string
+  }
+
+  export type UserOnDMWhereInput = {
+    AND?: UserOnDMWhereInput | UserOnDMWhereInput[]
+    OR?: UserOnDMWhereInput[]
+    NOT?: UserOnDMWhereInput | UserOnDMWhereInput[]
+    userId?: StringFilter<"UserOnDM"> | string
+    dmId?: StringFilter<"UserOnDM"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    dm?: XOR<DirectMessageConversationScalarRelationFilter, DirectMessageConversationWhereInput>
+  }
+
+  export type UserOnDMOrderByWithRelationInput = {
+    userId?: SortOrder
+    dmId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    dm?: DirectMessageConversationOrderByWithRelationInput
+  }
+
+  export type UserOnDMWhereUniqueInput = Prisma.AtLeast<{
+    userId_dmId?: UserOnDMUserIdDmIdCompoundUniqueInput
+    AND?: UserOnDMWhereInput | UserOnDMWhereInput[]
+    OR?: UserOnDMWhereInput[]
+    NOT?: UserOnDMWhereInput | UserOnDMWhereInput[]
+    userId?: StringFilter<"UserOnDM"> | string
+    dmId?: StringFilter<"UserOnDM"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    dm?: XOR<DirectMessageConversationScalarRelationFilter, DirectMessageConversationWhereInput>
+  }, "userId_dmId">
+
+  export type UserOnDMOrderByWithAggregationInput = {
+    userId?: SortOrder
+    dmId?: SortOrder
+    _count?: UserOnDMCountOrderByAggregateInput
+    _max?: UserOnDMMaxOrderByAggregateInput
+    _min?: UserOnDMMinOrderByAggregateInput
+  }
+
+  export type UserOnDMScalarWhereWithAggregatesInput = {
+    AND?: UserOnDMScalarWhereWithAggregatesInput | UserOnDMScalarWhereWithAggregatesInput[]
+    OR?: UserOnDMScalarWhereWithAggregatesInput[]
+    NOT?: UserOnDMScalarWhereWithAggregatesInput | UserOnDMScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"UserOnDM"> | string
+    dmId?: StringWithAggregatesFilter<"UserOnDM"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -8959,6 +12921,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
     Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -8980,6 +12944,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
     Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9001,6 +12967,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
     Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9022,6 +12990,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
     Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9086,6 +13056,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceCreateNestedManyWithoutWorkspaceInput
     Invite?: InviteCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateInput = {
@@ -9099,6 +13070,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceUncheckedCreateNestedManyWithoutWorkspaceInput
     Invite?: InviteUncheckedCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUpdateInput = {
@@ -9112,6 +13084,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceUpdateManyWithoutWorkspaceNestedInput
     Invite?: InviteUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateInput = {
@@ -9125,6 +13098,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceNestedInput
     Invite?: InviteUncheckedUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceCreateManyInput = {
@@ -9301,6 +13275,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutChannelInput
     UserOnChannels?: UserOnChannelsCreateNestedManyWithoutChannelInput
+    Message?: MessageCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateInput = {
@@ -9312,6 +13287,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     UserOnChannels?: UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput
+    Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUpdateInput = {
@@ -9323,6 +13299,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
     UserOnChannels?: UserOnChannelsUpdateManyWithoutChannelNestedInput
+    Message?: MessageUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateInput = {
@@ -9334,6 +13311,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     UserOnChannels?: UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelCreateManyInput = {
@@ -9403,6 +13381,170 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMessageInput
+    channel?: ChannelCreateNestedOneWithoutMessageInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    channelId?: string | null
+    directMessageConversationId?: string | null
+  }
+
+  export type MessageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMessageNestedInput
+    channel?: ChannelUpdateOneWithoutMessageNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    directMessageConversationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessageCreateManyInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    channelId?: string | null
+    directMessageConversationId?: string | null
+  }
+
+  export type MessageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    directMessageConversationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type DirectMessageConversationCreateInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserOnDMCreateNestedManyWithoutDmInput
+    messages?: MessageCreateNestedManyWithoutDirectMessageConversationInput
+    workspace: WorkspaceCreateNestedOneWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationUncheckedCreateInput = {
+    id?: string
+    workspaceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserOnDMUncheckedCreateNestedManyWithoutDmInput
+    messages?: MessageUncheckedCreateNestedManyWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserOnDMUpdateManyWithoutDmNestedInput
+    messages?: MessageUpdateManyWithoutDirectMessageConversationNestedInput
+    workspace?: WorkspaceUpdateOneRequiredWithoutDirectMessageConversationNestedInput
+  }
+
+  export type DirectMessageConversationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserOnDMUncheckedUpdateManyWithoutDmNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutDirectMessageConversationNestedInput
+  }
+
+  export type DirectMessageConversationCreateManyInput = {
+    id?: string
+    workspaceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectMessageConversationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DirectMessageConversationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserOnDMCreateInput = {
+    user: UserCreateNestedOneWithoutUserOnDMInput
+    dm: DirectMessageConversationCreateNestedOneWithoutParticipantsInput
+  }
+
+  export type UserOnDMUncheckedCreateInput = {
+    userId: string
+    dmId: string
+  }
+
+  export type UserOnDMUpdateInput = {
+    user?: UserUpdateOneRequiredWithoutUserOnDMNestedInput
+    dm?: DirectMessageConversationUpdateOneRequiredWithoutParticipantsNestedInput
+  }
+
+  export type UserOnDMUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    dmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserOnDMCreateManyInput = {
+    userId: string
+    dmId: string
+  }
+
+  export type UserOnDMUpdateManyMutationInput = {
+
+  }
+
+  export type UserOnDMUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    dmId?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -9493,6 +13635,18 @@ export namespace Prisma {
     none?: UserOnChannelsWhereInput
   }
 
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
+  }
+
+  export type UserOnDMListRelationFilter = {
+    every?: UserOnDMWhereInput
+    some?: UserOnDMWhereInput
+    none?: UserOnDMWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -9511,6 +13665,14 @@ export namespace Prisma {
   }
 
   export type UserOnChannelsOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOnDMOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9658,7 +13820,17 @@ export namespace Prisma {
     none?: ChannelWhereInput
   }
 
+  export type DirectMessageConversationListRelationFilter = {
+    every?: DirectMessageConversationWhereInput
+    some?: DirectMessageConversationWhereInput
+    none?: DirectMessageConversationWhereInput
+  }
+
   export type ChannelOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DirectMessageConversationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -9854,6 +14026,95 @@ export namespace Prisma {
     joinedAt?: SortOrder
   }
 
+  export type ChannelNullableScalarRelationFilter = {
+    is?: ChannelWhereInput | null
+    isNot?: ChannelWhereInput | null
+  }
+
+  export type DirectMessageConversationNullableScalarRelationFilter = {
+    is?: DirectMessageConversationWhereInput | null
+    isNot?: DirectMessageConversationWhereInput | null
+  }
+
+  export type MessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    channelId?: SortOrder
+    directMessageConversationId?: SortOrder
+  }
+
+  export type MessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    channelId?: SortOrder
+    directMessageConversationId?: SortOrder
+  }
+
+  export type MessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    content?: SortOrder
+    isEdited?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    userId?: SortOrder
+    channelId?: SortOrder
+    directMessageConversationId?: SortOrder
+  }
+
+  export type DirectMessageConversationCountOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectMessageConversationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectMessageConversationMinOrderByAggregateInput = {
+    id?: SortOrder
+    workspaceId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DirectMessageConversationScalarRelationFilter = {
+    is?: DirectMessageConversationWhereInput
+    isNot?: DirectMessageConversationWhereInput
+  }
+
+  export type UserOnDMUserIdDmIdCompoundUniqueInput = {
+    userId: string
+    dmId: string
+  }
+
+  export type UserOnDMCountOrderByAggregateInput = {
+    userId?: SortOrder
+    dmId?: SortOrder
+  }
+
+  export type UserOnDMMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    dmId?: SortOrder
+  }
+
+  export type UserOnDMMinOrderByAggregateInput = {
+    userId?: SortOrder
+    dmId?: SortOrder
+  }
+
   export type UserOnWorkspaceCreateNestedManyWithoutUserInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -9882,6 +14143,20 @@ export namespace Prisma {
     connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
   }
 
+  export type MessageCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserOnDMCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserOnDMCreateWithoutUserInput, UserOnDMUncheckedCreateWithoutUserInput> | UserOnDMCreateWithoutUserInput[] | UserOnDMUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutUserInput | UserOnDMCreateOrConnectWithoutUserInput[]
+    createMany?: UserOnDMCreateManyUserInputEnvelope
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+  }
+
   export type UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -9908,6 +14183,20 @@ export namespace Prisma {
     connectOrCreate?: UserOnChannelsCreateOrConnectWithoutUserInput | UserOnChannelsCreateOrConnectWithoutUserInput[]
     createMany?: UserOnChannelsCreateManyUserInputEnvelope
     connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserOnDMUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserOnDMCreateWithoutUserInput, UserOnDMUncheckedCreateWithoutUserInput> | UserOnDMCreateWithoutUserInput[] | UserOnDMUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutUserInput | UserOnDMCreateOrConnectWithoutUserInput[]
+    createMany?: UserOnDMCreateManyUserInputEnvelope
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -9990,6 +14279,34 @@ export namespace Prisma {
     deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
   }
 
+  export type MessageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutUserInput | MessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutUserInput | MessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutUserInput | MessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserOnDMUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserOnDMCreateWithoutUserInput, UserOnDMUncheckedCreateWithoutUserInput> | UserOnDMCreateWithoutUserInput[] | UserOnDMUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutUserInput | UserOnDMCreateOrConnectWithoutUserInput[]
+    upsert?: UserOnDMUpsertWithWhereUniqueWithoutUserInput | UserOnDMUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserOnDMCreateManyUserInputEnvelope
+    set?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    disconnect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    delete?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    update?: UserOnDMUpdateWithWhereUniqueWithoutUserInput | UserOnDMUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserOnDMUpdateManyWithWhereWithoutUserInput | UserOnDMUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
+  }
+
   export type UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -10046,6 +14363,34 @@ export namespace Prisma {
     deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
   }
 
+  export type MessageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutUserInput | MessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutUserInput | MessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutUserInput | MessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserOnDMUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserOnDMCreateWithoutUserInput, UserOnDMUncheckedCreateWithoutUserInput> | UserOnDMCreateWithoutUserInput[] | UserOnDMUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutUserInput | UserOnDMCreateOrConnectWithoutUserInput[]
+    upsert?: UserOnDMUpsertWithWhereUniqueWithoutUserInput | UserOnDMUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserOnDMCreateManyUserInputEnvelope
+    set?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    disconnect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    delete?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    update?: UserOnDMUpdateWithWhereUniqueWithoutUserInput | UserOnDMUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserOnDMUpdateManyWithWhereWithoutUserInput | UserOnDMUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutOwnedWorkspacesInput = {
     create?: XOR<UserCreateWithoutOwnedWorkspacesInput, UserUncheckedCreateWithoutOwnedWorkspacesInput>
     connectOrCreate?: UserCreateOrConnectWithoutOwnedWorkspacesInput
@@ -10073,6 +14418,13 @@ export namespace Prisma {
     connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
   }
 
+  export type DirectMessageConversationCreateNestedManyWithoutWorkspaceInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutWorkspaceInput, DirectMessageConversationUncheckedCreateWithoutWorkspaceInput> | DirectMessageConversationCreateWithoutWorkspaceInput[] | DirectMessageConversationUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutWorkspaceInput | DirectMessageConversationCreateOrConnectWithoutWorkspaceInput[]
+    createMany?: DirectMessageConversationCreateManyWorkspaceInputEnvelope
+    connect?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+  }
+
   export type UserOnWorkspaceUncheckedCreateNestedManyWithoutWorkspaceInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutWorkspaceInput, UserOnWorkspaceUncheckedCreateWithoutWorkspaceInput> | UserOnWorkspaceCreateWithoutWorkspaceInput[] | UserOnWorkspaceUncheckedCreateWithoutWorkspaceInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutWorkspaceInput | UserOnWorkspaceCreateOrConnectWithoutWorkspaceInput[]
@@ -10092,6 +14444,13 @@ export namespace Prisma {
     connectOrCreate?: ChannelCreateOrConnectWithoutWorkspaceInput | ChannelCreateOrConnectWithoutWorkspaceInput[]
     createMany?: ChannelCreateManyWorkspaceInputEnvelope
     connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+  }
+
+  export type DirectMessageConversationUncheckedCreateNestedManyWithoutWorkspaceInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutWorkspaceInput, DirectMessageConversationUncheckedCreateWithoutWorkspaceInput> | DirectMessageConversationCreateWithoutWorkspaceInput[] | DirectMessageConversationUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutWorkspaceInput | DirectMessageConversationCreateOrConnectWithoutWorkspaceInput[]
+    createMany?: DirectMessageConversationCreateManyWorkspaceInputEnvelope
+    connect?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput = {
@@ -10144,6 +14503,20 @@ export namespace Prisma {
     deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
   }
 
+  export type DirectMessageConversationUpdateManyWithoutWorkspaceNestedInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutWorkspaceInput, DirectMessageConversationUncheckedCreateWithoutWorkspaceInput> | DirectMessageConversationCreateWithoutWorkspaceInput[] | DirectMessageConversationUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutWorkspaceInput | DirectMessageConversationCreateOrConnectWithoutWorkspaceInput[]
+    upsert?: DirectMessageConversationUpsertWithWhereUniqueWithoutWorkspaceInput | DirectMessageConversationUpsertWithWhereUniqueWithoutWorkspaceInput[]
+    createMany?: DirectMessageConversationCreateManyWorkspaceInputEnvelope
+    set?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    disconnect?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    delete?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    connect?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    update?: DirectMessageConversationUpdateWithWhereUniqueWithoutWorkspaceInput | DirectMessageConversationUpdateWithWhereUniqueWithoutWorkspaceInput[]
+    updateMany?: DirectMessageConversationUpdateManyWithWhereWithoutWorkspaceInput | DirectMessageConversationUpdateManyWithWhereWithoutWorkspaceInput[]
+    deleteMany?: DirectMessageConversationScalarWhereInput | DirectMessageConversationScalarWhereInput[]
+  }
+
   export type UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceNestedInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutWorkspaceInput, UserOnWorkspaceUncheckedCreateWithoutWorkspaceInput> | UserOnWorkspaceCreateWithoutWorkspaceInput[] | UserOnWorkspaceUncheckedCreateWithoutWorkspaceInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutWorkspaceInput | UserOnWorkspaceCreateOrConnectWithoutWorkspaceInput[]
@@ -10184,6 +14557,20 @@ export namespace Prisma {
     update?: ChannelUpdateWithWhereUniqueWithoutWorkspaceInput | ChannelUpdateWithWhereUniqueWithoutWorkspaceInput[]
     updateMany?: ChannelUpdateManyWithWhereWithoutWorkspaceInput | ChannelUpdateManyWithWhereWithoutWorkspaceInput[]
     deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+  }
+
+  export type DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutWorkspaceInput, DirectMessageConversationUncheckedCreateWithoutWorkspaceInput> | DirectMessageConversationCreateWithoutWorkspaceInput[] | DirectMessageConversationUncheckedCreateWithoutWorkspaceInput[]
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutWorkspaceInput | DirectMessageConversationCreateOrConnectWithoutWorkspaceInput[]
+    upsert?: DirectMessageConversationUpsertWithWhereUniqueWithoutWorkspaceInput | DirectMessageConversationUpsertWithWhereUniqueWithoutWorkspaceInput[]
+    createMany?: DirectMessageConversationCreateManyWorkspaceInputEnvelope
+    set?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    disconnect?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    delete?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    connect?: DirectMessageConversationWhereUniqueInput | DirectMessageConversationWhereUniqueInput[]
+    update?: DirectMessageConversationUpdateWithWhereUniqueWithoutWorkspaceInput | DirectMessageConversationUpdateWithWhereUniqueWithoutWorkspaceInput[]
+    updateMany?: DirectMessageConversationUpdateManyWithWhereWithoutWorkspaceInput | DirectMessageConversationUpdateManyWithWhereWithoutWorkspaceInput[]
+    deleteMany?: DirectMessageConversationScalarWhereInput | DirectMessageConversationScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutWorkspacesInput = {
@@ -10263,11 +14650,25 @@ export namespace Prisma {
     connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
   }
 
+  export type MessageCreateNestedManyWithoutChannelInput = {
+    create?: XOR<MessageCreateWithoutChannelInput, MessageUncheckedCreateWithoutChannelInput> | MessageCreateWithoutChannelInput[] | MessageUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutChannelInput | MessageCreateOrConnectWithoutChannelInput[]
+    createMany?: MessageCreateManyChannelInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
   export type UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput = {
     create?: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput> | UserOnChannelsCreateWithoutChannelInput[] | UserOnChannelsUncheckedCreateWithoutChannelInput[]
     connectOrCreate?: UserOnChannelsCreateOrConnectWithoutChannelInput | UserOnChannelsCreateOrConnectWithoutChannelInput[]
     createMany?: UserOnChannelsCreateManyChannelInputEnvelope
     connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutChannelInput = {
+    create?: XOR<MessageCreateWithoutChannelInput, MessageUncheckedCreateWithoutChannelInput> | MessageCreateWithoutChannelInput[] | MessageUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutChannelInput | MessageCreateOrConnectWithoutChannelInput[]
+    createMany?: MessageCreateManyChannelInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
   export type WorkspaceUpdateOneRequiredWithoutChannelNestedInput = {
@@ -10292,6 +14693,20 @@ export namespace Prisma {
     deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
   }
 
+  export type MessageUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<MessageCreateWithoutChannelInput, MessageUncheckedCreateWithoutChannelInput> | MessageCreateWithoutChannelInput[] | MessageUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutChannelInput | MessageCreateOrConnectWithoutChannelInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutChannelInput | MessageUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: MessageCreateManyChannelInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutChannelInput | MessageUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutChannelInput | MessageUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
   export type UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput = {
     create?: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput> | UserOnChannelsCreateWithoutChannelInput[] | UserOnChannelsUncheckedCreateWithoutChannelInput[]
     connectOrCreate?: UserOnChannelsCreateOrConnectWithoutChannelInput | UserOnChannelsCreateOrConnectWithoutChannelInput[]
@@ -10304,6 +14719,20 @@ export namespace Prisma {
     update?: UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput | UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput[]
     updateMany?: UserOnChannelsUpdateManyWithWhereWithoutChannelInput | UserOnChannelsUpdateManyWithWhereWithoutChannelInput[]
     deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<MessageCreateWithoutChannelInput, MessageUncheckedCreateWithoutChannelInput> | MessageCreateWithoutChannelInput[] | MessageUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutChannelInput | MessageCreateOrConnectWithoutChannelInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutChannelInput | MessageUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: MessageCreateManyChannelInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutChannelInput | MessageUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutChannelInput | MessageUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutChannelsInput = {
@@ -10332,6 +14761,178 @@ export namespace Prisma {
     upsert?: ChannelUpsertWithoutUserOnChannelsInput
     connect?: ChannelWhereUniqueInput
     update?: XOR<XOR<ChannelUpdateToOneWithWhereWithoutUserOnChannelsInput, ChannelUpdateWithoutUserOnChannelsInput>, ChannelUncheckedUpdateWithoutUserOnChannelsInput>
+  }
+
+  export type UserCreateNestedOneWithoutMessageInput = {
+    create?: XOR<UserCreateWithoutMessageInput, UserUncheckedCreateWithoutMessageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessageInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ChannelCreateNestedOneWithoutMessageInput = {
+    create?: XOR<ChannelCreateWithoutMessageInput, ChannelUncheckedCreateWithoutMessageInput>
+    connectOrCreate?: ChannelCreateOrConnectWithoutMessageInput
+    connect?: ChannelWhereUniqueInput
+  }
+
+  export type DirectMessageConversationCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutMessagesInput, DirectMessageConversationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutMessagesInput
+    connect?: DirectMessageConversationWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMessageNestedInput = {
+    create?: XOR<UserCreateWithoutMessageInput, UserUncheckedCreateWithoutMessageInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessageInput
+    upsert?: UserUpsertWithoutMessageInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessageInput, UserUpdateWithoutMessageInput>, UserUncheckedUpdateWithoutMessageInput>
+  }
+
+  export type ChannelUpdateOneWithoutMessageNestedInput = {
+    create?: XOR<ChannelCreateWithoutMessageInput, ChannelUncheckedCreateWithoutMessageInput>
+    connectOrCreate?: ChannelCreateOrConnectWithoutMessageInput
+    upsert?: ChannelUpsertWithoutMessageInput
+    disconnect?: ChannelWhereInput | boolean
+    delete?: ChannelWhereInput | boolean
+    connect?: ChannelWhereUniqueInput
+    update?: XOR<XOR<ChannelUpdateToOneWithWhereWithoutMessageInput, ChannelUpdateWithoutMessageInput>, ChannelUncheckedUpdateWithoutMessageInput>
+  }
+
+  export type DirectMessageConversationUpdateOneWithoutMessagesNestedInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutMessagesInput, DirectMessageConversationUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutMessagesInput
+    upsert?: DirectMessageConversationUpsertWithoutMessagesInput
+    disconnect?: DirectMessageConversationWhereInput | boolean
+    delete?: DirectMessageConversationWhereInput | boolean
+    connect?: DirectMessageConversationWhereUniqueInput
+    update?: XOR<XOR<DirectMessageConversationUpdateToOneWithWhereWithoutMessagesInput, DirectMessageConversationUpdateWithoutMessagesInput>, DirectMessageConversationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserOnDMCreateNestedManyWithoutDmInput = {
+    create?: XOR<UserOnDMCreateWithoutDmInput, UserOnDMUncheckedCreateWithoutDmInput> | UserOnDMCreateWithoutDmInput[] | UserOnDMUncheckedCreateWithoutDmInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutDmInput | UserOnDMCreateOrConnectWithoutDmInput[]
+    createMany?: UserOnDMCreateManyDmInputEnvelope
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutDirectMessageConversationInput = {
+    create?: XOR<MessageCreateWithoutDirectMessageConversationInput, MessageUncheckedCreateWithoutDirectMessageConversationInput> | MessageCreateWithoutDirectMessageConversationInput[] | MessageUncheckedCreateWithoutDirectMessageConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutDirectMessageConversationInput | MessageCreateOrConnectWithoutDirectMessageConversationInput[]
+    createMany?: MessageCreateManyDirectMessageConversationInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type WorkspaceCreateNestedOneWithoutDirectMessageConversationInput = {
+    create?: XOR<WorkspaceCreateWithoutDirectMessageConversationInput, WorkspaceUncheckedCreateWithoutDirectMessageConversationInput>
+    connectOrCreate?: WorkspaceCreateOrConnectWithoutDirectMessageConversationInput
+    connect?: WorkspaceWhereUniqueInput
+  }
+
+  export type UserOnDMUncheckedCreateNestedManyWithoutDmInput = {
+    create?: XOR<UserOnDMCreateWithoutDmInput, UserOnDMUncheckedCreateWithoutDmInput> | UserOnDMCreateWithoutDmInput[] | UserOnDMUncheckedCreateWithoutDmInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutDmInput | UserOnDMCreateOrConnectWithoutDmInput[]
+    createMany?: UserOnDMCreateManyDmInputEnvelope
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutDirectMessageConversationInput = {
+    create?: XOR<MessageCreateWithoutDirectMessageConversationInput, MessageUncheckedCreateWithoutDirectMessageConversationInput> | MessageCreateWithoutDirectMessageConversationInput[] | MessageUncheckedCreateWithoutDirectMessageConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutDirectMessageConversationInput | MessageCreateOrConnectWithoutDirectMessageConversationInput[]
+    createMany?: MessageCreateManyDirectMessageConversationInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserOnDMUpdateManyWithoutDmNestedInput = {
+    create?: XOR<UserOnDMCreateWithoutDmInput, UserOnDMUncheckedCreateWithoutDmInput> | UserOnDMCreateWithoutDmInput[] | UserOnDMUncheckedCreateWithoutDmInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutDmInput | UserOnDMCreateOrConnectWithoutDmInput[]
+    upsert?: UserOnDMUpsertWithWhereUniqueWithoutDmInput | UserOnDMUpsertWithWhereUniqueWithoutDmInput[]
+    createMany?: UserOnDMCreateManyDmInputEnvelope
+    set?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    disconnect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    delete?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    update?: UserOnDMUpdateWithWhereUniqueWithoutDmInput | UserOnDMUpdateWithWhereUniqueWithoutDmInput[]
+    updateMany?: UserOnDMUpdateManyWithWhereWithoutDmInput | UserOnDMUpdateManyWithWhereWithoutDmInput[]
+    deleteMany?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutDirectMessageConversationNestedInput = {
+    create?: XOR<MessageCreateWithoutDirectMessageConversationInput, MessageUncheckedCreateWithoutDirectMessageConversationInput> | MessageCreateWithoutDirectMessageConversationInput[] | MessageUncheckedCreateWithoutDirectMessageConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutDirectMessageConversationInput | MessageCreateOrConnectWithoutDirectMessageConversationInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutDirectMessageConversationInput | MessageUpsertWithWhereUniqueWithoutDirectMessageConversationInput[]
+    createMany?: MessageCreateManyDirectMessageConversationInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutDirectMessageConversationInput | MessageUpdateWithWhereUniqueWithoutDirectMessageConversationInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutDirectMessageConversationInput | MessageUpdateManyWithWhereWithoutDirectMessageConversationInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type WorkspaceUpdateOneRequiredWithoutDirectMessageConversationNestedInput = {
+    create?: XOR<WorkspaceCreateWithoutDirectMessageConversationInput, WorkspaceUncheckedCreateWithoutDirectMessageConversationInput>
+    connectOrCreate?: WorkspaceCreateOrConnectWithoutDirectMessageConversationInput
+    upsert?: WorkspaceUpsertWithoutDirectMessageConversationInput
+    connect?: WorkspaceWhereUniqueInput
+    update?: XOR<XOR<WorkspaceUpdateToOneWithWhereWithoutDirectMessageConversationInput, WorkspaceUpdateWithoutDirectMessageConversationInput>, WorkspaceUncheckedUpdateWithoutDirectMessageConversationInput>
+  }
+
+  export type UserOnDMUncheckedUpdateManyWithoutDmNestedInput = {
+    create?: XOR<UserOnDMCreateWithoutDmInput, UserOnDMUncheckedCreateWithoutDmInput> | UserOnDMCreateWithoutDmInput[] | UserOnDMUncheckedCreateWithoutDmInput[]
+    connectOrCreate?: UserOnDMCreateOrConnectWithoutDmInput | UserOnDMCreateOrConnectWithoutDmInput[]
+    upsert?: UserOnDMUpsertWithWhereUniqueWithoutDmInput | UserOnDMUpsertWithWhereUniqueWithoutDmInput[]
+    createMany?: UserOnDMCreateManyDmInputEnvelope
+    set?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    disconnect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    delete?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    connect?: UserOnDMWhereUniqueInput | UserOnDMWhereUniqueInput[]
+    update?: UserOnDMUpdateWithWhereUniqueWithoutDmInput | UserOnDMUpdateWithWhereUniqueWithoutDmInput[]
+    updateMany?: UserOnDMUpdateManyWithWhereWithoutDmInput | UserOnDMUpdateManyWithWhereWithoutDmInput[]
+    deleteMany?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutDirectMessageConversationNestedInput = {
+    create?: XOR<MessageCreateWithoutDirectMessageConversationInput, MessageUncheckedCreateWithoutDirectMessageConversationInput> | MessageCreateWithoutDirectMessageConversationInput[] | MessageUncheckedCreateWithoutDirectMessageConversationInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutDirectMessageConversationInput | MessageCreateOrConnectWithoutDirectMessageConversationInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutDirectMessageConversationInput | MessageUpsertWithWhereUniqueWithoutDirectMessageConversationInput[]
+    createMany?: MessageCreateManyDirectMessageConversationInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutDirectMessageConversationInput | MessageUpdateWithWhereUniqueWithoutDirectMessageConversationInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutDirectMessageConversationInput | MessageUpdateManyWithWhereWithoutDirectMessageConversationInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutUserOnDMInput = {
+    create?: XOR<UserCreateWithoutUserOnDMInput, UserUncheckedCreateWithoutUserOnDMInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserOnDMInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DirectMessageConversationCreateNestedOneWithoutParticipantsInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutParticipantsInput, DirectMessageConversationUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutParticipantsInput
+    connect?: DirectMessageConversationWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserOnDMNestedInput = {
+    create?: XOR<UserCreateWithoutUserOnDMInput, UserUncheckedCreateWithoutUserOnDMInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserOnDMInput
+    upsert?: UserUpsertWithoutUserOnDMInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserOnDMInput, UserUpdateWithoutUserOnDMInput>, UserUncheckedUpdateWithoutUserOnDMInput>
+  }
+
+  export type DirectMessageConversationUpdateOneRequiredWithoutParticipantsNestedInput = {
+    create?: XOR<DirectMessageConversationCreateWithoutParticipantsInput, DirectMessageConversationUncheckedCreateWithoutParticipantsInput>
+    connectOrCreate?: DirectMessageConversationCreateOrConnectWithoutParticipantsInput
+    upsert?: DirectMessageConversationUpsertWithoutParticipantsInput
+    connect?: DirectMessageConversationWhereUniqueInput
+    update?: XOR<XOR<DirectMessageConversationUpdateToOneWithWhereWithoutParticipantsInput, DirectMessageConversationUpdateWithoutParticipantsInput>, DirectMessageConversationUncheckedUpdateWithoutParticipantsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -10564,6 +15165,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceCreateNestedManyWithoutWorkspaceInput
     Invite?: InviteCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutOwnerInput = {
@@ -10576,6 +15178,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceUncheckedCreateNestedManyWithoutWorkspaceInput
     Invite?: InviteUncheckedCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutOwnerInput = {
@@ -10639,6 +15242,54 @@ export namespace Prisma {
 
   export type UserOnChannelsCreateManyUserInputEnvelope = {
     data: UserOnChannelsCreateManyUserInput | UserOnChannelsCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutUserInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channel?: ChannelCreateNestedOneWithoutMessageInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutUserInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channelId?: string | null
+    directMessageConversationId?: string | null
+  }
+
+  export type MessageCreateOrConnectWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageCreateManyUserInputEnvelope = {
+    data: MessageCreateManyUserInput | MessageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserOnDMCreateWithoutUserInput = {
+    dm: DirectMessageConversationCreateNestedOneWithoutParticipantsInput
+  }
+
+  export type UserOnDMUncheckedCreateWithoutUserInput = {
+    dmId: string
+  }
+
+  export type UserOnDMCreateOrConnectWithoutUserInput = {
+    where: UserOnDMWhereUniqueInput
+    create: XOR<UserOnDMCreateWithoutUserInput, UserOnDMUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserOnDMCreateManyUserInputEnvelope = {
+    data: UserOnDMCreateManyUserInput | UserOnDMCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -10754,6 +15405,60 @@ export namespace Prisma {
     joinedAt?: DateTimeFilter<"UserOnChannels"> | Date | string
   }
 
+  export type MessageUpsertWithWhereUniqueWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutUserInput, MessageUncheckedUpdateWithoutUserInput>
+    create: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutUserInput, MessageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutUserInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: StringFilter<"Message"> | string
+    content?: StringFilter<"Message"> | string
+    isEdited?: BoolFilter<"Message"> | boolean
+    createdAt?: DateTimeFilter<"Message"> | Date | string
+    updatedAt?: DateTimeFilter<"Message"> | Date | string
+    userId?: StringFilter<"Message"> | string
+    channelId?: StringNullableFilter<"Message"> | string | null
+    directMessageConversationId?: StringNullableFilter<"Message"> | string | null
+  }
+
+  export type UserOnDMUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserOnDMWhereUniqueInput
+    update: XOR<UserOnDMUpdateWithoutUserInput, UserOnDMUncheckedUpdateWithoutUserInput>
+    create: XOR<UserOnDMCreateWithoutUserInput, UserOnDMUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserOnDMUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserOnDMWhereUniqueInput
+    data: XOR<UserOnDMUpdateWithoutUserInput, UserOnDMUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserOnDMUpdateManyWithWhereWithoutUserInput = {
+    where: UserOnDMScalarWhereInput
+    data: XOR<UserOnDMUpdateManyMutationInput, UserOnDMUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserOnDMScalarWhereInput = {
+    AND?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
+    OR?: UserOnDMScalarWhereInput[]
+    NOT?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
+    userId?: StringFilter<"UserOnDM"> | string
+    dmId?: StringFilter<"UserOnDM"> | string
+  }
+
   export type UserCreateWithoutOwnedWorkspacesInput = {
     id?: string
     name: string
@@ -10772,6 +15477,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
     Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedWorkspacesInput = {
@@ -10792,6 +15499,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
     Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedWorkspacesInput = {
@@ -10863,6 +15572,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     UserOnChannels?: UserOnChannelsCreateNestedManyWithoutChannelInput
+    Message?: MessageCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutWorkspaceInput = {
@@ -10873,6 +15583,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     UserOnChannels?: UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput
+    Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutWorkspaceInput = {
@@ -10882,6 +15593,32 @@ export namespace Prisma {
 
   export type ChannelCreateManyWorkspaceInputEnvelope = {
     data: ChannelCreateManyWorkspaceInput | ChannelCreateManyWorkspaceInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type DirectMessageConversationCreateWithoutWorkspaceInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserOnDMCreateNestedManyWithoutDmInput
+    messages?: MessageCreateNestedManyWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationUncheckedCreateWithoutWorkspaceInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserOnDMUncheckedCreateNestedManyWithoutDmInput
+    messages?: MessageUncheckedCreateNestedManyWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationCreateOrConnectWithoutWorkspaceInput = {
+    where: DirectMessageConversationWhereUniqueInput
+    create: XOR<DirectMessageConversationCreateWithoutWorkspaceInput, DirectMessageConversationUncheckedCreateWithoutWorkspaceInput>
+  }
+
+  export type DirectMessageConversationCreateManyWorkspaceInputEnvelope = {
+    data: DirectMessageConversationCreateManyWorkspaceInput | DirectMessageConversationCreateManyWorkspaceInput[]
     skipDuplicates?: boolean
   }
 
@@ -10914,6 +15651,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
     Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedWorkspacesInput = {
@@ -10934,6 +15673,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
     Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserOnWorkspaceUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -10997,6 +15738,32 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Channel"> | Date | string
   }
 
+  export type DirectMessageConversationUpsertWithWhereUniqueWithoutWorkspaceInput = {
+    where: DirectMessageConversationWhereUniqueInput
+    update: XOR<DirectMessageConversationUpdateWithoutWorkspaceInput, DirectMessageConversationUncheckedUpdateWithoutWorkspaceInput>
+    create: XOR<DirectMessageConversationCreateWithoutWorkspaceInput, DirectMessageConversationUncheckedCreateWithoutWorkspaceInput>
+  }
+
+  export type DirectMessageConversationUpdateWithWhereUniqueWithoutWorkspaceInput = {
+    where: DirectMessageConversationWhereUniqueInput
+    data: XOR<DirectMessageConversationUpdateWithoutWorkspaceInput, DirectMessageConversationUncheckedUpdateWithoutWorkspaceInput>
+  }
+
+  export type DirectMessageConversationUpdateManyWithWhereWithoutWorkspaceInput = {
+    where: DirectMessageConversationScalarWhereInput
+    data: XOR<DirectMessageConversationUpdateManyMutationInput, DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceInput>
+  }
+
+  export type DirectMessageConversationScalarWhereInput = {
+    AND?: DirectMessageConversationScalarWhereInput | DirectMessageConversationScalarWhereInput[]
+    OR?: DirectMessageConversationScalarWhereInput[]
+    NOT?: DirectMessageConversationScalarWhereInput | DirectMessageConversationScalarWhereInput[]
+    id?: StringFilter<"DirectMessageConversation"> | string
+    workspaceId?: StringFilter<"DirectMessageConversation"> | string
+    createdAt?: DateTimeFilter<"DirectMessageConversation"> | Date | string
+    updatedAt?: DateTimeFilter<"DirectMessageConversation"> | Date | string
+  }
+
   export type UserCreateWithoutWorkspacesInput = {
     id?: string
     name: string
@@ -11015,6 +15782,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
     Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspacesInput = {
@@ -11035,6 +15804,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
     Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -11052,6 +15823,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutOwnedWorkspacesInput
     Invite?: InviteCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutMembersInput = {
@@ -11064,6 +15836,7 @@ export namespace Prisma {
     ownerId: string
     Invite?: InviteUncheckedCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutMembersInput = {
@@ -11100,6 +15873,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
     Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspacesInput = {
@@ -11120,6 +15895,8 @@ export namespace Prisma {
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
     Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceUpsertWithoutMembersInput = {
@@ -11143,6 +15920,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
     Invite?: InviteUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutMembersInput = {
@@ -11155,6 +15933,7 @@ export namespace Prisma {
     ownerId?: StringFieldUpdateOperationsInput | string
     Invite?: InviteUncheckedUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceCreateWithoutInviteInput = {
@@ -11167,6 +15946,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutOwnedWorkspacesInput
     members?: UserOnWorkspaceCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutInviteInput = {
@@ -11179,6 +15959,7 @@ export namespace Prisma {
     ownerId: string
     members?: UserOnWorkspaceUncheckedCreateNestedManyWithoutWorkspaceInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutInviteInput = {
@@ -11204,6 +15985,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInviteSentInput = {
@@ -11224,6 +16007,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInviteSentInput = {
@@ -11252,6 +16037,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
     members?: UserOnWorkspaceUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutInviteInput = {
@@ -11264,6 +16050,7 @@ export namespace Prisma {
     ownerId?: StringFieldUpdateOperationsInput | string
     members?: UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type UserUpsertWithoutInviteSentInput = {
@@ -11295,6 +16082,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInviteSentInput = {
@@ -11315,6 +16104,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceCreateWithoutChannelInput = {
@@ -11327,6 +16118,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutOwnedWorkspacesInput
     members?: UserOnWorkspaceCreateNestedManyWithoutWorkspaceInput
     Invite?: InviteCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceUncheckedCreateWithoutChannelInput = {
@@ -11339,6 +16131,7 @@ export namespace Prisma {
     ownerId: string
     members?: UserOnWorkspaceUncheckedCreateNestedManyWithoutWorkspaceInput
     Invite?: InviteUncheckedCreateNestedManyWithoutWorkspaceInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedCreateNestedManyWithoutWorkspaceInput
   }
 
   export type WorkspaceCreateOrConnectWithoutChannelInput = {
@@ -11366,6 +16159,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MessageCreateWithoutChannelInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMessageInput
+    DirectMessageConversation?: DirectMessageConversationCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutChannelInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    directMessageConversationId?: string | null
+  }
+
+  export type MessageCreateOrConnectWithoutChannelInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutChannelInput, MessageUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MessageCreateManyChannelInputEnvelope = {
+    data: MessageCreateManyChannelInput | MessageCreateManyChannelInput[]
+    skipDuplicates?: boolean
+  }
+
   export type WorkspaceUpsertWithoutChannelInput = {
     update: XOR<WorkspaceUpdateWithoutChannelInput, WorkspaceUncheckedUpdateWithoutChannelInput>
     create: XOR<WorkspaceCreateWithoutChannelInput, WorkspaceUncheckedCreateWithoutChannelInput>
@@ -11387,6 +16210,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
     members?: UserOnWorkspaceUpdateManyWithoutWorkspaceNestedInput
     Invite?: InviteUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutChannelInput = {
@@ -11399,6 +16223,7 @@ export namespace Prisma {
     ownerId?: StringFieldUpdateOperationsInput | string
     members?: UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceNestedInput
     Invite?: InviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type UserOnChannelsUpsertWithWhereUniqueWithoutChannelInput = {
@@ -11415,6 +16240,22 @@ export namespace Prisma {
   export type UserOnChannelsUpdateManyWithWhereWithoutChannelInput = {
     where: UserOnChannelsScalarWhereInput
     data: XOR<UserOnChannelsUpdateManyMutationInput, UserOnChannelsUncheckedUpdateManyWithoutChannelInput>
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutChannelInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutChannelInput, MessageUncheckedUpdateWithoutChannelInput>
+    create: XOR<MessageCreateWithoutChannelInput, MessageUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutChannelInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutChannelInput, MessageUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutChannelInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutChannelInput>
   }
 
   export type UserCreateWithoutChannelsInput = {
@@ -11435,6 +16276,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChannelsInput = {
@@ -11455,6 +16298,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChannelsInput = {
@@ -11470,6 +16315,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutChannelInput
+    Message?: MessageCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutUserOnChannelsInput = {
@@ -11480,6 +16326,7 @@ export namespace Prisma {
     workspaceId: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutUserOnChannelsInput = {
@@ -11516,6 +16363,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChannelsInput = {
@@ -11536,6 +16385,8 @@ export namespace Prisma {
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChannelUpsertWithoutUserOnChannelsInput = {
@@ -11557,6 +16408,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
+    Message?: MessageUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutUserOnChannelsInput = {
@@ -11567,6 +16419,519 @@ export namespace Prisma {
     workspaceId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type UserCreateWithoutMessageInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessageInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessageInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessageInput, UserUncheckedCreateWithoutMessageInput>
+  }
+
+  export type ChannelCreateWithoutMessageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutChannelInput
+    UserOnChannels?: UserOnChannelsCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelUncheckedCreateWithoutMessageInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    workspaceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    UserOnChannels?: UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelCreateOrConnectWithoutMessageInput = {
+    where: ChannelWhereUniqueInput
+    create: XOR<ChannelCreateWithoutMessageInput, ChannelUncheckedCreateWithoutMessageInput>
+  }
+
+  export type DirectMessageConversationCreateWithoutMessagesInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserOnDMCreateNestedManyWithoutDmInput
+    workspace: WorkspaceCreateNestedOneWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    workspaceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    participants?: UserOnDMUncheckedCreateNestedManyWithoutDmInput
+  }
+
+  export type DirectMessageConversationCreateOrConnectWithoutMessagesInput = {
+    where: DirectMessageConversationWhereUniqueInput
+    create: XOR<DirectMessageConversationCreateWithoutMessagesInput, DirectMessageConversationUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type UserUpsertWithoutMessageInput = {
+    update: XOR<UserUpdateWithoutMessageInput, UserUncheckedUpdateWithoutMessageInput>
+    create: XOR<UserCreateWithoutMessageInput, UserUncheckedCreateWithoutMessageInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessageInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessageInput, UserUncheckedUpdateWithoutMessageInput>
+  }
+
+  export type UserUpdateWithoutMessageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type ChannelUpsertWithoutMessageInput = {
+    update: XOR<ChannelUpdateWithoutMessageInput, ChannelUncheckedUpdateWithoutMessageInput>
+    create: XOR<ChannelCreateWithoutMessageInput, ChannelUncheckedCreateWithoutMessageInput>
+    where?: ChannelWhereInput
+  }
+
+  export type ChannelUpdateToOneWithWhereWithoutMessageInput = {
+    where?: ChannelWhereInput
+    data: XOR<ChannelUpdateWithoutMessageInput, ChannelUncheckedUpdateWithoutMessageInput>
+  }
+
+  export type ChannelUpdateWithoutMessageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
+    UserOnChannels?: UserOnChannelsUpdateManyWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateWithoutMessageInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    UserOnChannels?: UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type DirectMessageConversationUpsertWithoutMessagesInput = {
+    update: XOR<DirectMessageConversationUpdateWithoutMessagesInput, DirectMessageConversationUncheckedUpdateWithoutMessagesInput>
+    create: XOR<DirectMessageConversationCreateWithoutMessagesInput, DirectMessageConversationUncheckedCreateWithoutMessagesInput>
+    where?: DirectMessageConversationWhereInput
+  }
+
+  export type DirectMessageConversationUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: DirectMessageConversationWhereInput
+    data: XOR<DirectMessageConversationUpdateWithoutMessagesInput, DirectMessageConversationUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type DirectMessageConversationUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserOnDMUpdateManyWithoutDmNestedInput
+    workspace?: WorkspaceUpdateOneRequiredWithoutDirectMessageConversationNestedInput
+  }
+
+  export type DirectMessageConversationUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserOnDMUncheckedUpdateManyWithoutDmNestedInput
+  }
+
+  export type UserOnDMCreateWithoutDmInput = {
+    user: UserCreateNestedOneWithoutUserOnDMInput
+  }
+
+  export type UserOnDMUncheckedCreateWithoutDmInput = {
+    userId: string
+  }
+
+  export type UserOnDMCreateOrConnectWithoutDmInput = {
+    where: UserOnDMWhereUniqueInput
+    create: XOR<UserOnDMCreateWithoutDmInput, UserOnDMUncheckedCreateWithoutDmInput>
+  }
+
+  export type UserOnDMCreateManyDmInputEnvelope = {
+    data: UserOnDMCreateManyDmInput | UserOnDMCreateManyDmInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutDirectMessageConversationInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutMessageInput
+    channel?: ChannelCreateNestedOneWithoutMessageInput
+  }
+
+  export type MessageUncheckedCreateWithoutDirectMessageConversationInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    channelId?: string | null
+  }
+
+  export type MessageCreateOrConnectWithoutDirectMessageConversationInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutDirectMessageConversationInput, MessageUncheckedCreateWithoutDirectMessageConversationInput>
+  }
+
+  export type MessageCreateManyDirectMessageConversationInputEnvelope = {
+    data: MessageCreateManyDirectMessageConversationInput | MessageCreateManyDirectMessageConversationInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WorkspaceCreateWithoutDirectMessageConversationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    owner: UserCreateNestedOneWithoutOwnedWorkspacesInput
+    members?: UserOnWorkspaceCreateNestedManyWithoutWorkspaceInput
+    Invite?: InviteCreateNestedManyWithoutWorkspaceInput
+    Channel?: ChannelCreateNestedManyWithoutWorkspaceInput
+  }
+
+  export type WorkspaceUncheckedCreateWithoutDirectMessageConversationInput = {
+    id?: string
+    name: string
+    description?: string | null
+    slug: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    members?: UserOnWorkspaceUncheckedCreateNestedManyWithoutWorkspaceInput
+    Invite?: InviteUncheckedCreateNestedManyWithoutWorkspaceInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutWorkspaceInput
+  }
+
+  export type WorkspaceCreateOrConnectWithoutDirectMessageConversationInput = {
+    where: WorkspaceWhereUniqueInput
+    create: XOR<WorkspaceCreateWithoutDirectMessageConversationInput, WorkspaceUncheckedCreateWithoutDirectMessageConversationInput>
+  }
+
+  export type UserOnDMUpsertWithWhereUniqueWithoutDmInput = {
+    where: UserOnDMWhereUniqueInput
+    update: XOR<UserOnDMUpdateWithoutDmInput, UserOnDMUncheckedUpdateWithoutDmInput>
+    create: XOR<UserOnDMCreateWithoutDmInput, UserOnDMUncheckedCreateWithoutDmInput>
+  }
+
+  export type UserOnDMUpdateWithWhereUniqueWithoutDmInput = {
+    where: UserOnDMWhereUniqueInput
+    data: XOR<UserOnDMUpdateWithoutDmInput, UserOnDMUncheckedUpdateWithoutDmInput>
+  }
+
+  export type UserOnDMUpdateManyWithWhereWithoutDmInput = {
+    where: UserOnDMScalarWhereInput
+    data: XOR<UserOnDMUpdateManyMutationInput, UserOnDMUncheckedUpdateManyWithoutDmInput>
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutDirectMessageConversationInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutDirectMessageConversationInput, MessageUncheckedUpdateWithoutDirectMessageConversationInput>
+    create: XOR<MessageCreateWithoutDirectMessageConversationInput, MessageUncheckedCreateWithoutDirectMessageConversationInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutDirectMessageConversationInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutDirectMessageConversationInput, MessageUncheckedUpdateWithoutDirectMessageConversationInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutDirectMessageConversationInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutDirectMessageConversationInput>
+  }
+
+  export type WorkspaceUpsertWithoutDirectMessageConversationInput = {
+    update: XOR<WorkspaceUpdateWithoutDirectMessageConversationInput, WorkspaceUncheckedUpdateWithoutDirectMessageConversationInput>
+    create: XOR<WorkspaceCreateWithoutDirectMessageConversationInput, WorkspaceUncheckedCreateWithoutDirectMessageConversationInput>
+    where?: WorkspaceWhereInput
+  }
+
+  export type WorkspaceUpdateToOneWithWhereWithoutDirectMessageConversationInput = {
+    where?: WorkspaceWhereInput
+    data: XOR<WorkspaceUpdateWithoutDirectMessageConversationInput, WorkspaceUncheckedUpdateWithoutDirectMessageConversationInput>
+  }
+
+  export type WorkspaceUpdateWithoutDirectMessageConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    owner?: UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput
+    members?: UserOnWorkspaceUpdateManyWithoutWorkspaceNestedInput
+    Invite?: InviteUpdateManyWithoutWorkspaceNestedInput
+    Channel?: ChannelUpdateManyWithoutWorkspaceNestedInput
+  }
+
+  export type WorkspaceUncheckedUpdateWithoutDirectMessageConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    members?: UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceNestedInput
+    Invite?: InviteUncheckedUpdateManyWithoutWorkspaceNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutWorkspaceNestedInput
+  }
+
+  export type UserCreateWithoutUserOnDMInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserOnDMInput = {
+    id?: string
+    name: string
+    email: string
+    password: string
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    resetPasswordToken?: string | null
+    resetPasswordExpires?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserOnDMInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserOnDMInput, UserUncheckedCreateWithoutUserOnDMInput>
+  }
+
+  export type DirectMessageConversationCreateWithoutParticipantsInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageCreateNestedManyWithoutDirectMessageConversationInput
+    workspace: WorkspaceCreateNestedOneWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationUncheckedCreateWithoutParticipantsInput = {
+    id?: string
+    workspaceId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutDirectMessageConversationInput
+  }
+
+  export type DirectMessageConversationCreateOrConnectWithoutParticipantsInput = {
+    where: DirectMessageConversationWhereUniqueInput
+    create: XOR<DirectMessageConversationCreateWithoutParticipantsInput, DirectMessageConversationUncheckedCreateWithoutParticipantsInput>
+  }
+
+  export type UserUpsertWithoutUserOnDMInput = {
+    update: XOR<UserUpdateWithoutUserOnDMInput, UserUncheckedUpdateWithoutUserOnDMInput>
+    create: XOR<UserCreateWithoutUserOnDMInput, UserUncheckedCreateWithoutUserOnDMInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserOnDMInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserOnDMInput, UserUncheckedUpdateWithoutUserOnDMInput>
+  }
+
+  export type UserUpdateWithoutUserOnDMInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserOnDMInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DirectMessageConversationUpsertWithoutParticipantsInput = {
+    update: XOR<DirectMessageConversationUpdateWithoutParticipantsInput, DirectMessageConversationUncheckedUpdateWithoutParticipantsInput>
+    create: XOR<DirectMessageConversationCreateWithoutParticipantsInput, DirectMessageConversationUncheckedCreateWithoutParticipantsInput>
+    where?: DirectMessageConversationWhereInput
+  }
+
+  export type DirectMessageConversationUpdateToOneWithWhereWithoutParticipantsInput = {
+    where?: DirectMessageConversationWhereInput
+    data: XOR<DirectMessageConversationUpdateWithoutParticipantsInput, DirectMessageConversationUncheckedUpdateWithoutParticipantsInput>
+  }
+
+  export type DirectMessageConversationUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUpdateManyWithoutDirectMessageConversationNestedInput
+    workspace?: WorkspaceUpdateOneRequiredWithoutDirectMessageConversationNestedInput
+  }
+
+  export type DirectMessageConversationUncheckedUpdateWithoutParticipantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutDirectMessageConversationNestedInput
   }
 
   export type UserOnWorkspaceCreateManyUserInput = {
@@ -11601,6 +16966,20 @@ export namespace Prisma {
     joinedAt?: Date | string
   }
 
+  export type MessageCreateManyUserInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channelId?: string | null
+    directMessageConversationId?: string | null
+  }
+
+  export type UserOnDMCreateManyUserInput = {
+    dmId: string
+  }
+
   export type UserOnWorkspaceUpdateWithoutUserInput = {
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11629,6 +17008,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceUpdateManyWithoutWorkspaceNestedInput
     Invite?: InviteUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateWithoutOwnerInput = {
@@ -11641,6 +17021,7 @@ export namespace Prisma {
     members?: UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceNestedInput
     Invite?: InviteUncheckedUpdateManyWithoutWorkspaceNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutWorkspaceNestedInput
+    DirectMessageConversation?: DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
   export type WorkspaceUncheckedUpdateManyWithoutOwnerInput = {
@@ -11703,6 +17084,48 @@ export namespace Prisma {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MessageUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channel?: ChannelUpdateOneWithoutMessageNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    directMessageConversationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessageUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+    directMessageConversationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserOnDMUpdateWithoutUserInput = {
+    dm?: DirectMessageConversationUpdateOneRequiredWithoutParticipantsNestedInput
+  }
+
+  export type UserOnDMUncheckedUpdateWithoutUserInput = {
+    dmId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserOnDMUncheckedUpdateManyWithoutUserInput = {
+    dmId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UserOnWorkspaceCreateManyWorkspaceInput = {
     userId: string
     role?: $Enums.WorkspaceRole
@@ -11726,6 +17149,12 @@ export namespace Prisma {
     name: string
     description?: string | null
     isPublic?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DirectMessageConversationCreateManyWorkspaceInput = {
+    id?: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -11792,6 +17221,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     UserOnChannels?: UserOnChannelsUpdateManyWithoutChannelNestedInput
+    Message?: MessageUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutWorkspaceInput = {
@@ -11802,6 +17232,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     UserOnChannels?: UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateManyWithoutWorkspaceInput = {
@@ -11813,9 +17244,41 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DirectMessageConversationUpdateWithoutWorkspaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserOnDMUpdateManyWithoutDmNestedInput
+    messages?: MessageUpdateManyWithoutDirectMessageConversationNestedInput
+  }
+
+  export type DirectMessageConversationUncheckedUpdateWithoutWorkspaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    participants?: UserOnDMUncheckedUpdateManyWithoutDmNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutDirectMessageConversationNestedInput
+  }
+
+  export type DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserOnChannelsCreateManyChannelInput = {
     userId: string
     joinedAt?: Date | string
+  }
+
+  export type MessageCreateManyChannelInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    directMessageConversationId?: string | null
   }
 
   export type UserOnChannelsUpdateWithoutChannelInput = {
@@ -11831,6 +17294,92 @@ export namespace Prisma {
   export type UserOnChannelsUncheckedUpdateManyWithoutChannelInput = {
     userId?: StringFieldUpdateOperationsInput | string
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMessageNestedInput
+    DirectMessageConversation?: DirectMessageConversationUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    directMessageConversationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessageUncheckedUpdateManyWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    directMessageConversationId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserOnDMCreateManyDmInput = {
+    userId: string
+  }
+
+  export type MessageCreateManyDirectMessageConversationInput = {
+    id?: string
+    content: string
+    isEdited?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId: string
+    channelId?: string | null
+  }
+
+  export type UserOnDMUpdateWithoutDmInput = {
+    user?: UserUpdateOneRequiredWithoutUserOnDMNestedInput
+  }
+
+  export type UserOnDMUncheckedUpdateWithoutDmInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserOnDMUncheckedUpdateManyWithoutDmInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessageUpdateWithoutDirectMessageConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMessageNestedInput
+    channel?: ChannelUpdateOneWithoutMessageNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutDirectMessageConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessageUncheckedUpdateManyWithoutDirectMessageConversationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    isEdited?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: StringFieldUpdateOperationsInput | string
+    channelId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
