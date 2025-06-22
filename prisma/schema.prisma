@@ -32,6 +32,7 @@ model User {
   Message         Message[]
   UserOnDM        UserOnDM[]
   MessageReaction MessageReaction[]
+  MessageMention  MessageMention[]
 }
 
 model Workspace {
@@ -131,6 +132,7 @@ model Message {
   channel                   Channel?                   @relation(fields: [channelId], references: [id])
   DirectMessageConversation DirectMessageConversation? @relation(fields: [conversationId], references: [id])
   reactions                 MessageReaction[]
+  MessageMention            MessageMention[]
 
   @@index([channelId])
   @@index([userId])
@@ -171,6 +173,19 @@ model MessageReaction {
   createdAt DateTime @default(now())
 
   @@unique([userId, messageId, emoji]) // كل يوزر يعمل ريأكشن واحد من نفس النوع على نفس الرسالة
+}
+
+model MessageMention {
+  id              String @id @default(uuid())
+  messageId       String
+  mentionedUserId String
+
+  message       Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  mentionedUser User    @relation(fields: [mentionedUserId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@unique([messageId, mentionedUserId]) // Prevent duplicate mentions
 }
 
 enum Role {

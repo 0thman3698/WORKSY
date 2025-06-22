@@ -1,10 +1,10 @@
-import { createMessageSchemaType } from 'src/validators/message.validators';
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
 import { buildPrismaQuery } from './../utils/fillter';
+import { mentionService } from './mention.service';
 
 export class ChannelMessageService {
-    async sendChannelMessage(channelId: string, messageData: createMessageSchemaType, userId: string) {
+    async sendChannelMessage(channelId: string, content: string, userId: string) {
         const channel = await prisma.channel.findUnique({
             where: { id: channelId },
             include: {
@@ -27,12 +27,15 @@ export class ChannelMessageService {
         }
         const message = await prisma.message.create({
             data: {
-                content: messageData.content,
+                content,
                 userId,
                 channelId
 
             }
         })
+
+        await mentionService.handleMentions(content, message.id, channel.workspaceId);
+
         return message
     }
     async getAllChannelMessages(channelId: string, userId: string, query: any) {

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponse } from '../utils/apiResponse';
-import { createMessageSchemaType } from '../validators/message.validators';
 import { channelMessageService } from '../services/channelMessage.service';
 import { dmService } from '../services/dm.service';
 
@@ -8,8 +7,8 @@ export default class MessageControllers {
     static async sendChannelMessage(req: Request, res: Response, next: NextFunction) {
         const userId = req.user.id;
         const { channelId } = req.params;
-        const messageData: createMessageSchemaType = req.body
-        const message = await channelMessageService.sendChannelMessage(channelId, messageData, userId);
+        const content = req.body
+        const message = await channelMessageService.sendChannelMessage(channelId, content, userId);
 
         return new ApiResponse(res).created(message, 'Message sent successfully');
     }

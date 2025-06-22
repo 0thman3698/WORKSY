@@ -220,6 +220,13 @@ exports.Prisma.MessageReactionScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MessageMentionScalarFieldEnum = {
+  id: 'id',
+  messageId: 'messageId',
+  mentionedUserId: 'mentionedUserId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -263,7 +270,8 @@ exports.Prisma.ModelName = {
   Message: 'Message',
   DirectMessageConversation: 'DirectMessageConversation',
   UserOnDM: 'UserOnDM',
-  MessageReaction: 'MessageReaction'
+  MessageReaction: 'MessageReaction',
+  MessageMention: 'MessageMention'
 };
 
 /**

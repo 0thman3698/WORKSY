@@ -29,7 +29,7 @@ export const initChannelHandlers = (io: Server, socket: Socket) => {
 
         try {
             const { channelId, content } = validData;
-            const message = await channelMessageService.sendChannelMessage(channelId, { content }, userId);
+            const message = await channelMessageService.sendChannelMessage(channelId, content, userId);
             io.to(channelId).emit('newMessage', message);
         } catch (err: any) {
             socket.emit('error', err.message || 'Something went wrong');

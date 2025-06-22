@@ -7,7 +7,6 @@ import { createChannelSchema } from '../validators/channel.validators';
 const router = express.Router({ mergeParams: true });
 
 import channelMembersRouter from './channelMembers.routes'
-import messageRouter from './message.routes'
 
 router.post(
   '/',
@@ -22,7 +21,6 @@ router.delete('/:channelId', protect, asyncHandler(ChannelControllers.deleteChan
 
 
 router.use('/:channelId/members', channelMembersRouter)
-router.use('/:channelId/messages', messageRouter);
 
 
 export default router;
