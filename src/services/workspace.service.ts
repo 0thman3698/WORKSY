@@ -1,5 +1,6 @@
 // pages
 import { ApiError } from './../utils/apiError';
+import { buildPrismaQuery } from './../utils/fillter';
 import prisma from '../config/db';
 import {
   ICreateWorkspaceResponse,
@@ -9,6 +10,7 @@ import {
   IUpdateWorkspace,
 } from '../interfaces/workspace.interface';
 import { accessControlService } from './accessControl.service';
+import { date } from 'zod';
 
 export class WorkspaceService {
   async createWorkspace(
@@ -57,25 +59,48 @@ export class WorkspaceService {
     };
   }
 
-  async getMyWorkspaces(userId: string): Promise<IMyWorkspaces[]> {
+  async getMyWorkspaces(userId: string, query: any): Promise<IMyWorkspaces[]> {
+    const { where, orderBy, skip, take } = buildPrismaQuery({
+      query,
+      searchableFields: ['name'],
+      filterableFields: [], // نخليها فاضية هنا لأن role في userOnWorkspace مش في workspace
+    });
+
     const memberships = await prisma.userOnWorkspace.findMany({
-      where: { userId: userId },
-      include: {
+      where: {
+        userId,
+        ...(query.role && { role: query.role }), // فلترة على userOnWorkspace.role
         workspace: {
-          include: {
-            owner: { select: { id: true, name: true } },
+          is: {
+            ...where, // فلترة على workspace.name مثلاً
           },
         },
       },
+      include: {
+        workspace: {
+          include: {
+            owner: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      ...(orderBy && { orderBy: { workspace: orderBy } }),
+      skip,
+      take,
     });
-    const workspaces = memberships.map((membership: any) => ({
+
+    return memberships.map((membership: any) => ({
       id: membership.workspace.id,
       name: membership.workspace.name,
       role: membership.role,
       owner: membership.workspace.owner,
     }));
-    return workspaces;
   }
+
 
   async updateWorkspace(
     workspaceId: string,
@@ -97,8 +122,9 @@ export class WorkspaceService {
       where: { workspaceId },
     });
 
-    await prisma.workspace.delete({
+    await prisma.workspace.update({
       where: { id: workspaceId },
+      data: { deletedAt: new Date() },
     });
   }
 }

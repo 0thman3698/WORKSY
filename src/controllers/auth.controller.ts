@@ -58,7 +58,7 @@ export default class AuthController {
     const resetToken = await authService.forgotPassword(email);
     const resetURL = `${req.protocol}://${req.get(
       'host',
-    )}/api/v1/users/resetPassword/${resetToken}`;
+    )}/api/v1/users/reset-password/${resetToken}`;
     const html = createResetPasswordTemplate(resetURL);
     // sendEmail(to, subject, message)
     await sendEmail({

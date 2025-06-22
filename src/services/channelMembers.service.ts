@@ -1,5 +1,7 @@
 import prisma from "../config/db";
 import { ApiError } from "../utils/apiError";
+import { buildPrismaQuery } from './../utils/fillter';
+
 import { accessControlService } from "./accessControl.service";
 
 export class ChannelMembersService {
@@ -72,10 +74,11 @@ export class ChannelMembersService {
         return deleted;
     }
 
-    async getALLChannelMembers(channelId: string, userId: string) {
+    async getALLChannelMembers(channelId: string, userId: string, query: any) {
         const existingChannel = await prisma.channel.findUnique({
-            where: { id: channelId }
+            where: { id: channelId },
         });
+
         if (!existingChannel) {
             throw ApiError.notFound("no channel found");
         }
@@ -84,27 +87,44 @@ export class ChannelMembersService {
             where: {
                 userId_workspaceId: {
                     userId,
-                    workspaceId: existingChannel.workspaceId
-                }
-            }
+                    workspaceId: existingChannel.workspaceId,
+                },
+            },
         });
+
         if (!isInWorkspace) {
-            throw ApiError.badRequest('you are not member of this workspace');
+            throw ApiError.badRequest("you are not member of this workspace");
         }
+
+        const { where, orderBy, skip, take } = buildPrismaQuery({
+            query,
+            searchableFields: ['name', 'email'],
+            filterableFields: [],
+        });
+
         const members = await prisma.userOnChannels.findMany({
-            where: { channelId },
+            where: {
+                channelId,
+                user: Object.keys(where).length ? { is: where } : undefined,
+            },
             include: {
                 user: {
                     select: {
                         id: true,
                         name: true,
                         email: true,
-                    }
-                }
-            }
+                    },
+                },
+            },
+            orderBy: orderBy?.user ? { user: orderBy.user } : undefined,
+            skip,
+            take,
         });
+
         return members;
     }
+
+
 }
 
 export const channelMembersService = new ChannelMembersService();

@@ -1,8 +1,10 @@
 import { createChannelSchemaType, updateChannelSchemaType } from '../validators/channel.validators';
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { WorkspaceRole } from '@prisma/client';
+import { buildPrismaQuery } from './../utils/fillter';
+
 import { accessControlService } from './accessControl.service';
+import { date } from 'zod';
 
 export class ChannelService {
     async createChannel(
@@ -33,16 +35,29 @@ export class ChannelService {
         return newChannel;
     }
 
-    async getAllChannels(workspaceId: string, userId: string) {
+    async getAllChannels(workspaceId: string, userId: string, query: any) {
         await accessControlService.checkIsMember(userId, workspaceId)
+        const { where, orderBy, skip, take } = buildPrismaQuery({
+            query,
+            searchableFields: ['name'],
+            filterableFields: ['isPublic'],
+        });
         const channels = await prisma.channel.findMany({
             where: {
                 workspaceId,
-                OR: [
-                    { isPublic: true },
-                    { UserOnChannels: { some: { userId } } }
-                ]
-            }
+                AND: [
+                    {
+                        OR: [
+                            { isPublic: true },
+                            { UserOnChannels: { some: { userId } } }
+                        ]
+                    },
+                    where,
+                ],
+            },
+            ...(orderBy && { orderBy }),
+            skip,
+            take,
         });
 
         return channels;
@@ -117,8 +132,9 @@ export class ChannelService {
         if (!existingChannel) {
             throw ApiError.notFound('Channel not found.');
         }
-        await prisma.channel.delete({
-            where: { id: channelId }
+        await prisma.channel.update({
+            where: { id: channelId },
+            data: { deletedAt: new Date() }
         });
 
         return;

@@ -15,7 +15,7 @@ export default class ChannelControllers {
   static async getAllChannels(req: Request, res: Response, next: NextFunction) {
     const userId = req.user.id;
     const { workspaceId } = req.params;
-    const channels = await channelService.getAllChannels(workspaceId, userId);
+    const channels = await channelService.getAllChannels(workspaceId, userId, req.query);
 
     return new ApiResponse(res).success(channels, 'channels fetched successfully');
   }

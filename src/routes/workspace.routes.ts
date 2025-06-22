@@ -8,6 +8,8 @@ import { asyncHandler } from '../middlewares/asyncHandler';
 import channelRouter from './channel.routes';
 import inviteRouter from './invite.routes';
 import dmRouter from './dm.routes';
+import conversationRouter from './conversation.routes';
+
 const router = express.Router();
 
 router.post(
@@ -33,5 +35,7 @@ router.use('/:workspaceId/invites', inviteRouter);
 router.use('/:workspaceId/channels', channelRouter);
 
 router.use('/:workspaceId/dm', dmRouter)
+
+router.use('/:workspaceId/conversations', conversationRouter)
 
 export default router;

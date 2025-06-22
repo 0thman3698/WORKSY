@@ -2,6 +2,7 @@ import { Server } from "socket.io";
 import http from 'http';
 import jwt from "jsonwebtoken";
 import { initChannelHandlers } from "./handlers/channelHandlers";
+import { initReactionHandlers } from "./handlers/reactionHandlers";
 import { initDirectMessageHandlers } from "./handlers/directMessageHandlers";
 
 let io: Server;
@@ -12,6 +13,7 @@ export const initSocket = (server: http.Server) => {
     });
 
     io.use((socket, next) => {
+
         const token = socket.handshake.auth?.token?.split(' ')[1];
         if (!token) return next(new Error('Authentication error: no token'));
 
@@ -30,6 +32,7 @@ export const initSocket = (server: http.Server) => {
 
         initChannelHandlers(io, socket);
         initDirectMessageHandlers(io, socket);
+        initReactionHandlers(io, socket)
 
         socket.on('disconnect', () => {
             console.log(`❌ User disconnected: ${userId}`);

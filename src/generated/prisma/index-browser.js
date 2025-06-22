@@ -133,6 +133,7 @@ exports.Prisma.UserScalarFieldEnum = {
   refreshToken: 'refreshToken',
   resetPasswordToken: 'resetPasswordToken',
   resetPasswordExpires: 'resetPasswordExpires',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -142,6 +143,7 @@ exports.Prisma.WorkspaceScalarFieldEnum = {
   name: 'name',
   description: 'description',
   slug: 'slug',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   ownerId: 'ownerId'
@@ -161,6 +163,7 @@ exports.Prisma.InviteScalarFieldEnum = {
   expiresAt: 'expiresAt',
   status: 'status',
   role: 'role',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   workspaceId: 'workspaceId',
@@ -173,6 +176,7 @@ exports.Prisma.ChannelScalarFieldEnum = {
   description: 'description',
   isPublic: 'isPublic',
   workspaceId: 'workspaceId',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -187,16 +191,18 @@ exports.Prisma.MessageScalarFieldEnum = {
   id: 'id',
   content: 'content',
   isEdited: 'isEdited',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   userId: 'userId',
   channelId: 'channelId',
-  directMessageConversationId: 'directMessageConversationId'
+  conversationId: 'conversationId'
 };
 
 exports.Prisma.DirectMessageConversationScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -204,6 +210,14 @@ exports.Prisma.DirectMessageConversationScalarFieldEnum = {
 exports.Prisma.UserOnDMScalarFieldEnum = {
   userId: 'userId',
   dmId: 'dmId'
+};
+
+exports.Prisma.MessageReactionScalarFieldEnum = {
+  id: 'id',
+  emoji: 'emoji',
+  userId: 'userId',
+  messageId: 'messageId',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -248,7 +262,8 @@ exports.Prisma.ModelName = {
   UserOnChannels: 'UserOnChannels',
   Message: 'Message',
   DirectMessageConversation: 'DirectMessageConversation',
-  UserOnDM: 'UserOnDM'
+  UserOnDM: 'UserOnDM',
+  MessageReaction: 'MessageReaction'
 };
 
 /**

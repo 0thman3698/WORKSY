@@ -1,12 +1,15 @@
 // services/accessControl.service.ts
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { WorkspaceRole } from '@prisma/client';
+import { WorkspaceRole } from '../generated/prisma';
 
 class AccessControlService {
     private async getMembership(userId: string, workspaceId: string) {
         const workspace = await prisma.workspace.findUnique({
-            where: { id: workspaceId },
+            where: {
+                id: workspaceId,
+                deletedAt: null,
+            },
         });
 
         if (!workspace) {

@@ -23,7 +23,7 @@ export default class ChannelMembersControllers {
         const userId = req.user.id;
 
         const { channelId } = req.params;
-        const channels = await channelMembersService.getALLChannelMembers(channelId, userId);
+        const channels = await channelMembersService.getALLChannelMembers(channelId, userId, req.query);
 
         return new ApiResponse(res).success(channels, 'Channel members fetched successfully');
     }

@@ -3,7 +3,7 @@ export interface IUser {
   name: string;
   email: string;
   role: string;
-  avatar?: string;
+  avatar?: string | null;
 }
 
 declare global {

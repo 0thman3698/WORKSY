@@ -117,7 +117,7 @@ export class AuthService {
     });
   }
 
-  async forgotPassword(email: string): Promise<void> {
+  async forgotPassword(email: string) {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
@@ -134,6 +134,7 @@ export class AuthService {
         resetPasswordExpires: new Date(Date.now() + 10 * 60 * 1000),
       },
     });
+    return resetToken;
   }
 
   async resetPassword({ token, password }: IResetPassword): Promise<void> {

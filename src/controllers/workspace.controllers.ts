@@ -17,7 +17,7 @@ export default class WorkspaceControllers {
   }
   static async getMyWorkspaces(req: Request, res: Response, next: NextFunction) {
     const userId = req.user.id;
-    const workspaces = await workspaceService.getMyWorkspaces(userId);
+    const workspaces = await workspaceService.getMyWorkspaces(userId, req.query);
     return new ApiResponse(res).success(workspaces, 'Fetched workspaces successfully');
   }
   static async updateWorkspace(req: Request, res: Response, next: NextFunction) {

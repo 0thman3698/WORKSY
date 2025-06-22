@@ -1,8 +1,10 @@
 import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import { IUser } from 'src/interfaces/express';
+import prisma from '../config/db';
 
-export const protect = (req: Request, res: Response, next: NextFunction) => {
+
+export const protect = async (req: Request, res: Response, next: NextFunction) => {
   let token: string | undefined;
 
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -18,7 +20,15 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!) as IUser;
 
-    req.user = decoded;
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.id },
+    });
+
+    if (!user) {
+      return void res.status(401).json({ message: 'User no longer exists' });
+    }
+
+    req.user = user;
 
     next();
   } catch (err) {
