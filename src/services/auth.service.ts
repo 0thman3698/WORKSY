@@ -400,7 +400,7 @@ export class AuthService {
 
     const isOldPasswordCorrect = await bcrypt.compare(
       oldPassword,
-      user.password
+      user.password!
     );
     if (!isOldPasswordCorrect) {
       throw ApiError.unauthorized("Old password is not correct");
@@ -408,7 +408,7 @@ export class AuthService {
 
     const isNewPasswordSameAsOld = await bcrypt.compare(
       newPassword,
-      user.password
+      user.password!
     );
     if (isNewPasswordSameAsOld) {
       throw ApiError.badRequest(
@@ -587,7 +587,7 @@ export class AuthService {
     }
 
 
-    if (await bcrypt.compare(newPassword, user.password)) {
+    if (await bcrypt.compare(newPassword, user.password!)) {
       throw ApiError.badRequest("New password must differ from current");
     }
 
