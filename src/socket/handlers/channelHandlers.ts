@@ -5,6 +5,7 @@ import {
     sendChannelMessageSchema,
     editChannelMessageSchema
 } from "../../validators/channelMessage.validators";
+import { sendMentionNotification } from "../utils/sendMentionNotification";
 
 export const initChannelHandlers = (io: Server, socket: Socket) => {
     const userId = socket.data.user.id;
@@ -31,6 +32,17 @@ export const initChannelHandlers = (io: Server, socket: Socket) => {
             const { channelId, content } = validData;
             const message = await channelMessageService.sendChannelMessage(channelId, content, userId);
             io.to(channelId).emit('newMessage', message);
+
+            if (message.MessageMention?.length) {
+                const mentionedUserIds = message.MessageMention.map((m: any) => m.mentionedUserId);
+                sendMentionNotification(io, mentionedUserIds, {
+                    type: 'channel',
+                    messageId: message.id,
+                    content: message.content,
+                    senderId: userId,
+                    channelId,
+                });
+            }
         } catch (err: any) {
             socket.emit('error', err.message || 'Something went wrong');
         }

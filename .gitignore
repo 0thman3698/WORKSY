@@ -8,3 +8,4 @@ eslint.config.js
 prettier.config.js
 .eslintignore
 .prettierignore
+src/config/firebase/firebase-service-account.json

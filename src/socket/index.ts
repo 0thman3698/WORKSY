@@ -1,9 +1,12 @@
 import { Server } from "socket.io";
 import http from 'http';
 import jwt from "jsonwebtoken";
+import { addUserSocket, removeUserSocket } from './utils/userSocketStore';
 import { initChannelHandlers } from "./handlers/channelHandlers";
 import { initReactionHandlers } from "./handlers/reactionHandlers";
 import { initDirectMessageHandlers } from "./handlers/directMessageHandlers";
+import { initUserHandlers } from './handlers/UserHandlers';
+
 
 let io: Server;
 
@@ -30,12 +33,23 @@ export const initSocket = (server: http.Server) => {
         const userId = socket.data.user.id;
         console.log(`🔌 User connected: ${userId}`);
 
+        //add user to map
+        addUserSocket(userId, socket.id);
+
+
+        //handelrs
         initChannelHandlers(io, socket);
         initDirectMessageHandlers(io, socket);
-        initReactionHandlers(io, socket)
+        initReactionHandlers(io, socket);
+        initUserHandlers(io, socket);
+
 
         socket.on('disconnect', () => {
             console.log(`❌ User disconnected: ${userId}`);
+
+            //remove user from map
+            removeUserSocket(socket.id);
+
         });
     });
 };

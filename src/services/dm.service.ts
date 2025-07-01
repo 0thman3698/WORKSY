@@ -1,6 +1,7 @@
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
 import { buildPrismaQuery } from './../utils/fillter';
+import { mentionService } from './mention.service';
 
 
 export class DmService {
@@ -48,7 +49,27 @@ export class DmService {
                 userId
             }
         })
-        return message;
+        if (conversation.participants.length > 2) {
+            await mentionService.handleMentions(content, message.id, conversation.workspaceId, userId);
+        }
+
+        // fetch message again with mentions
+        const messageWithMentions = await prisma.message.findUnique({
+            where: { id: message.id },
+            include: {
+                MessageMention: {
+                    select: {
+                        mentionedUserId: true,
+                    },
+                },
+            },
+        });
+
+        if (!messageWithMentions) {
+            throw ApiError.notFound("Message not found after creation.");
+        }
+
+        return messageWithMentions;
     }
     async getAllDMMessages(conversationId: string, userId: string, query: any) {
         const conversation = await prisma.directMessageConversation.findUnique({
@@ -100,6 +121,19 @@ export class DmService {
                     select: {
                         id: true,
                         name: true,
+                        avatar: true,
+                    },
+                },
+                reactions: true,
+                MessageMention: {
+                    select: {
+                        mentionedUser: {
+                            select: {
+                                id: true,
+                                name: true,
+                                avatar: true,
+                            },
+                        },
                     },
                 },
             },

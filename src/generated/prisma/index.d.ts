@@ -2119,6 +2119,7 @@ export namespace Prisma {
     resetPasswordToken: string | null
     resetPasswordExpires: Date | null
     deletedAt: Date | null
+    fcmToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2137,6 +2138,7 @@ export namespace Prisma {
     resetPasswordToken: string | null
     resetPasswordExpires: Date | null
     deletedAt: Date | null
+    fcmToken: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2155,6 +2157,7 @@ export namespace Prisma {
     resetPasswordToken: number
     resetPasswordExpires: number
     deletedAt: number
+    fcmToken: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -2175,6 +2178,7 @@ export namespace Prisma {
     resetPasswordToken?: true
     resetPasswordExpires?: true
     deletedAt?: true
+    fcmToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2193,6 +2197,7 @@ export namespace Prisma {
     resetPasswordToken?: true
     resetPasswordExpires?: true
     deletedAt?: true
+    fcmToken?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2211,6 +2216,7 @@ export namespace Prisma {
     resetPasswordToken?: true
     resetPasswordExpires?: true
     deletedAt?: true
+    fcmToken?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2302,6 +2308,7 @@ export namespace Prisma {
     resetPasswordToken: string | null
     resetPasswordExpires: Date | null
     deletedAt: Date | null
+    fcmToken: string | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
@@ -2337,6 +2344,7 @@ export namespace Prisma {
     resetPasswordToken?: boolean
     resetPasswordExpires?: boolean
     deletedAt?: boolean
+    fcmToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
@@ -2364,6 +2372,7 @@ export namespace Prisma {
     resetPasswordToken?: boolean
     resetPasswordExpires?: boolean
     deletedAt?: boolean
+    fcmToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2382,6 +2391,7 @@ export namespace Prisma {
     resetPasswordToken?: boolean
     resetPasswordExpires?: boolean
     deletedAt?: boolean
+    fcmToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2400,11 +2410,12 @@ export namespace Prisma {
     resetPasswordToken?: boolean
     resetPasswordExpires?: boolean
     deletedAt?: boolean
+    fcmToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "lastSeen" | "isVerified" | "refreshToken" | "resetPasswordToken" | "resetPasswordExpires" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "lastSeen" | "isVerified" | "refreshToken" | "resetPasswordToken" | "resetPasswordExpires" | "deletedAt" | "fcmToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
     ownedWorkspaces?: boolean | User$ownedWorkspacesArgs<ExtArgs>
@@ -2445,6 +2456,7 @@ export namespace Prisma {
       resetPasswordToken: string | null
       resetPasswordExpires: Date | null
       deletedAt: Date | null
+      fcmToken: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2891,6 +2903,7 @@ export namespace Prisma {
     readonly resetPasswordToken: FieldRef<"User", 'String'>
     readonly resetPasswordExpires: FieldRef<"User", 'DateTime'>
     readonly deletedAt: FieldRef<"User", 'DateTime'>
+    readonly fcmToken: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -14606,6 +14619,7 @@ export namespace Prisma {
     resetPasswordToken: 'resetPasswordToken',
     resetPasswordExpires: 'resetPasswordExpires',
     deletedAt: 'deletedAt',
+    fcmToken: 'fcmToken',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14872,6 +14886,7 @@ export namespace Prisma {
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    fcmToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     workspaces?: UserOnWorkspaceListRelationFilter
@@ -14898,6 +14913,7 @@ export namespace Prisma {
     resetPasswordToken?: SortOrderInput | SortOrder
     resetPasswordExpires?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    fcmToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workspaces?: UserOnWorkspaceOrderByRelationAggregateInput
@@ -14927,6 +14943,7 @@ export namespace Prisma {
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    fcmToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     workspaces?: UserOnWorkspaceListRelationFilter
@@ -14953,6 +14970,7 @@ export namespace Prisma {
     resetPasswordToken?: SortOrderInput | SortOrder
     resetPasswordExpires?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
+    fcmToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -14977,6 +14995,7 @@ export namespace Prisma {
     resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     resetPasswordExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -15649,6 +15668,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -15675,6 +15695,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -15701,6 +15722,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -15727,6 +15749,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -15753,6 +15776,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15771,6 +15795,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15789,6 +15814,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -16602,6 +16628,7 @@ export namespace Prisma {
     resetPasswordToken?: SortOrder
     resetPasswordExpires?: SortOrder
     deletedAt?: SortOrder
+    fcmToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16620,6 +16647,7 @@ export namespace Prisma {
     resetPasswordToken?: SortOrder
     resetPasswordExpires?: SortOrder
     deletedAt?: SortOrder
+    fcmToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16638,6 +16666,7 @@ export namespace Prisma {
     resetPasswordToken?: SortOrder
     resetPasswordExpires?: SortOrder
     deletedAt?: SortOrder
+    fcmToken?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -18800,6 +18829,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -18825,6 +18855,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -18986,6 +19017,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -19011,6 +19043,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -19125,6 +19158,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
@@ -19150,6 +19184,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
@@ -19224,6 +19259,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
@@ -19249,6 +19285,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
@@ -19346,6 +19383,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -19371,6 +19409,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -19451,6 +19490,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -19476,6 +19516,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -19661,6 +19702,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -19686,6 +19728,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -19756,6 +19799,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -19781,6 +19825,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -19841,6 +19886,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -19866,6 +19912,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -20005,6 +20052,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -20030,6 +20078,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -20309,6 +20358,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -20334,6 +20384,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -20398,6 +20449,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -20423,6 +20475,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -20477,6 +20530,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -20502,6 +20556,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -20574,6 +20629,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -20599,6 +20655,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
@@ -20692,6 +20749,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
@@ -20717,6 +20775,7 @@ export namespace Prisma {
     resetPasswordToken?: string | null
     resetPasswordExpires?: Date | string | null
     deletedAt?: Date | string | null
+    fcmToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
@@ -20795,6 +20854,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
@@ -20820,6 +20880,7 @@ export namespace Prisma {
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
     resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput

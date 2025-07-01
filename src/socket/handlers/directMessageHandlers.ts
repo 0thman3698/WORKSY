@@ -5,6 +5,7 @@ import {
     sendDMMessageSchema,
     editDMMessageSchema,
 } from "../../validators/dm.validators";
+import { sendMentionNotification } from "../utils/sendMentionNotification";
 
 export const initDirectMessageHandlers = (io: Server, socket: Socket) => {
     const userId = socket.data.user.id;
@@ -21,7 +22,23 @@ export const initDirectMessageHandlers = (io: Server, socket: Socket) => {
         try {
             const { conversationId, content } = validData;
             const message = await dmService.sendDMMessage(content, conversationId, userId);
+
+            // 1. إرسال الرسالة لكل المشاركين
             io.to(`dm:${conversationId}`).emit("dm:newMessage", message);
+
+            // 2. ✅ إرسال إشعار mention لو موجود
+            if (message.MessageMention?.length) {
+                const mentionedUserIds = message.MessageMention.map(m => m.mentionedUserId);
+
+                sendMentionNotification(io, mentionedUserIds, {
+                    type: 'dm',
+                    messageId: message.id,
+                    content: message.content,
+                    senderId: userId,
+                    conversationId,
+                });
+            }
+
         } catch (err: any) {
             socket.emit("dm:error", err.message || "Something went wrong");
         }
@@ -59,7 +76,6 @@ export const initDirectMessageHandlers = (io: Server, socket: Socket) => {
         }
     });
 
-    // ✅ حدث تعديل الرسالة
     socket.on("dm:message:edit", async (data) => {
         const validData = validateSocketData(socket, editDMMessageSchema, data, "dm:message:edit:error");
         if (!validData) return;

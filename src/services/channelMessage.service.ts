@@ -30,13 +30,26 @@ export class ChannelMessageService {
                 content,
                 userId,
                 channelId
+            },
+        });
 
+
+        await mentionService.handleMentions(content, message.id, channel.workspaceId, userId);
+
+        const messageWithMentions = await prisma.message.findUnique({
+            where: { id: message.id },
+            include: {
+                MessageMention: {
+                    select: {
+                        mentionedUserId: true
+                    }
+                }
             }
-        })
-
-        await mentionService.handleMentions(content, message.id, channel.workspaceId);
-
-        return message
+        });
+        if (!messageWithMentions) {
+            throw ApiError.notFound("Message not found after creation.");// handling ts
+        }
+        return messageWithMentions;
     }
     async getAllChannelMessages(channelId: string, userId: string, query: any) {
         const channel = await prisma.channel.findUnique({
@@ -101,6 +114,17 @@ export class ChannelMessageService {
                     },
                 },
                 reactions: true,
+                MessageMention: {
+                    select: {
+                        mentionedUser: {
+                            select: {
+                                id: true,
+                                name: true,
+                                avatar: true,
+                            },
+                        },
+                    },
+                },
             },
         });
 
