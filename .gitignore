@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.DS_Store
+.prisma/
+*.env
+eslint.config.js
+prettier.config.js
+.eslintignore
+.prettierignore
+ui/
