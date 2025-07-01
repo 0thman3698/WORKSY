@@ -2,7 +2,6 @@ import prisma from "../config/db";
 import { ApiError } from "../utils/apiError";
 import { buildPrismaQuery } from './../utils/fillter';
 
-import { accessControlService } from "./accessControl.service";
 
 export class ChannelMembersService {
     async joinChannel(channelId: string, workspaceId: string, userId: string) {
@@ -14,9 +13,7 @@ export class ChannelMembersService {
             throw ApiError.notFound("no channel found");
         }
 
-        await accessControlService.checkIsMember(userId, workspaceId);
-
-        const existingMember = await prisma.userOnChannels.findUnique({
+        const existingMember = await prisma.userOnChannel.findUnique({
             where: {
                 userId_channelId: {
                     userId,
@@ -29,7 +26,7 @@ export class ChannelMembersService {
             throw ApiError.badRequest('User already a member of this channel');
         }
 
-        const newMember = await prisma.userOnChannels.create({
+        const newMember = await prisma.userOnChannel.create({
             data: {
                 userId,
                 channelId,
@@ -39,73 +36,45 @@ export class ChannelMembersService {
         return newMember;
     }
 
-    async leaveChannel(channelId: string, workspaceId: string, userId: string) {
-
-        const existingChannel = await prisma.channel.findUnique({
-            where: { id: channelId }
-        });
-        if (!existingChannel) {
-            throw ApiError.notFound("no channel found");
-        }
-
-        await accessControlService.checkIsMember(userId, workspaceId)
-
-        const existingMember = await prisma.userOnChannels.findUnique({
+    async leaveChannel(channelId: string, userId: string) {
+        const channel = await prisma.channel.findUnique({
             where: {
-                userId_channelId: {
-                    userId,
-                    channelId,
-                },
+                id: channelId,
+                deletedAt: null,
+            },
+            select: {
+                ownerId: true,
             },
         });
 
-        if (!existingMember) {
-            throw ApiError.badRequest('User is not a member of this channel');
+        if (!channel) {
+            throw ApiError.notFound('Channel not found or is inactive.');
         }
 
-        const deleted = await prisma.userOnChannels.delete({
+        if (channel.ownerId === userId) {
+            throw ApiError.badRequest('Channel owner cannot leave their own channel. Ownership must be transferred or the channel deleted.');
+        }
+        const updatedMembership = await prisma.userOnChannel.update({
             where: {
                 userId_channelId: {
                     userId,
                     channelId
                 }
+            },
+            data: {
+                deletedAt: new Date(),
             }
         });
-        return deleted;
+
+        return updatedMembership;
     }
 
-    async getALLChannelMembers(channelId: string, userId: string, query: any) {
-        const existingChannel = await prisma.channel.findUnique({
-            where: { id: channelId },
-        });
+    async getALLChannelMembers(channelId: string, userId: string) {
 
-        if (!existingChannel) {
-            throw ApiError.notFound("no channel found");
-        }
-
-        const isInWorkspace = await prisma.userOnWorkspace.findUnique({
+        const members = await prisma.userOnChannel.findMany({
             where: {
-                userId_workspaceId: {
-                    userId,
-                    workspaceId: existingChannel.workspaceId,
-                },
-            },
-        });
-
-        if (!isInWorkspace) {
-            throw ApiError.badRequest("you are not member of this workspace");
-        }
-
-        const { where, orderBy, skip, take } = buildPrismaQuery({
-            query,
-            searchableFields: ['name', 'email'],
-            filterableFields: [],
-        });
-
-        const members = await prisma.userOnChannels.findMany({
-            where: {
-                channelId,
-                user: Object.keys(where).length ? { is: where } : undefined,
+                channelId: channelId,
+                deletedAt: null,
             },
             include: {
                 user: {
@@ -113,18 +82,12 @@ export class ChannelMembersService {
                         id: true,
                         name: true,
                         email: true,
-                    },
-                },
-            },
-            orderBy: orderBy?.user ? { user: orderBy.user } : undefined,
-            skip,
-            take,
+                    }
+                }
+            }
         });
-
         return members;
     }
-
-
 }
 
 export const channelMembersService = new ChannelMembersService();

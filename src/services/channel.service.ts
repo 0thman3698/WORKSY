@@ -1,144 +1,157 @@
 import { createChannelSchemaType, updateChannelSchemaType } from '../validators/channel.validators';
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { buildPrismaQuery } from './../utils/fillter';
-
-import { accessControlService } from './accessControl.service';
-import { date } from 'zod';
 
 export class ChannelService {
-    async createChannel(
-        channelData: createChannelSchemaType,
-        workspaceId: string,
-        userId: string,
-    ) {
-        await accessControlService.checkIsOwnerOrAdmin(userId, workspaceId)
-        const existingChannel = await prisma.channel.findFirst({
-            where: {
-                name: channelData.name,
-                workspaceId: workspaceId,
-            },
-        });
 
-        if (existingChannel) {
-            throw ApiError.badRequest('A channel with the same name already exists in this workspace.');
-        }
-        const newChannel = await prisma.channel.create({
-            data: {
-                name: channelData.name,
-                description: channelData.description,
-                workspaceId,
-                isPublic: channelData.isPublic,
-            },
-        });
+  async createChannel(
+    channelData: createChannelSchemaType,
+    workspaceId: string,
+    userId: string,
+  ) {
+    const existingChannel = await prisma.channel.findFirst({
+      where: {
+        name: channelData.name,
+        workspaceId: workspaceId,
+        deletedAt: null,
+      },
+    });
 
-        return newChannel;
+    if (existingChannel) {
+      throw ApiError.badRequest('A channel with the same name already exists in this workspace.');
     }
 
-    async getAllChannels(workspaceId: string, userId: string, query: any) {
-        await accessControlService.checkIsMember(userId, workspaceId)
-        const { where, orderBy, skip, take } = buildPrismaQuery({
-            query,
-            searchableFields: ['name'],
-            filterableFields: ['isPublic'],
-        });
-        const channels = await prisma.channel.findMany({
-            where: {
-                workspaceId,
-                AND: [
-                    {
-                        OR: [
-                            { isPublic: true },
-                            { UserOnChannels: { some: { userId } } }
-                        ]
-                    },
-                    where,
-                ],
-            },
-            ...(orderBy && { orderBy }),
-            skip,
-            take,
-        });
+    const newChannel = await prisma.channel.create({
+      data: {
+        name: channelData.name,
+        description: channelData.description,
+        workspaceId,
+        isPublic: channelData.isPublic,
+        ownerId: userId,
+        UserOnChannel: {
+          create: {
+            userId: userId,
+            role: 'MEMBER'
+          }
+        }
+      },
+    });
 
-        return channels;
+    return newChannel;
+  }
+
+  async getAllChannels(workspaceId: string, userId: string) {
+    const channels = await prisma.channel.findMany({
+      where: {
+        workspaceId,
+        deletedAt: null,
+        OR: [
+          { isPublic: true },
+          { UserOnChannel: { some: { userId: userId, deletedAt: null } } }
+        ]
+      },
+    });
+
+    return channels;
+  }
+
+
+  async getChannel(channelId: string, workspaceId: string, userId: string) {
+
+    const channel = await prisma.channel.findFirst({
+      where: {
+        id: channelId,
+        workspaceId,
+        deletedAt: null,
+        OR: [
+          { isPublic: true },
+          { UserOnChannel: { some: { userId: userId, deletedAt: null } } },
+        ],
+      },
+    });
+
+    if (!channel) {
+      throw ApiError.notFound('Channel not found or you do not have access.');
     }
 
-    async getChannel(channelId: string, workspaceId: string, userId: string) {
-        await accessControlService.checkIsMember(userId, workspaceId)
-
-        const channel = await prisma.channel.findFirst({
-            where: {
-                id: channelId,
-                workspaceId,
-                OR: [
-                    { isPublic: true },
-                    { UserOnChannels: { some: { userId } } },
-                ],
-            },
-        });
+    return channel;
+  }
 
 
-        if (!channel) {
-            throw ApiError.notFound('Channel not found');
-        }
+  async updateChannel(channelData: updateChannelSchemaType, channelId: string, workspaceId: string, userId: string) {
 
-        return channel;
+    const existingChannel = await prisma.channel.findFirst({
+      where: {
+        id: channelId,
+        workspaceId,
+        deletedAt: null,
+      },
+    });
+
+    if (!existingChannel) {
+      throw ApiError.notFound('Channel not found or is already deleted.');
     }
 
-    async updateChannel(channelData: updateChannelSchemaType, channelId: string, workspaceId: string, userId: string) {
-        await accessControlService.checkIsOwnerOrAdmin(userId, workspaceId)
 
-        const existingChannel = await prisma.channel.findFirst({
-            where: {
-                id: channelId,
-                workspaceId,
-            },
-        });
+    if (channelData.name && channelData.name !== existingChannel.name) {
+      const nameTaken = await prisma.channel.findFirst({
+        where: {
+          name: channelData.name,
+          workspaceId,
+          deletedAt: null,
+          NOT: { id: channelId },
+        },
+      });
 
-        if (!existingChannel) {
-            throw ApiError.notFound('Channel not found.');
-        }
-
-        if (channelData.name && channelData.name !== existingChannel.name) {
-            const nameTaken = await prisma.channel.findFirst({
-                where: {
-                    name: channelData.name,
-                    workspaceId,
-                    NOT: { id: channelId },
-                },
-            });
-
-            if (nameTaken) {
-                throw ApiError.badRequest('A channel with this name already exists in this workspace.');
-            }
-        }
-        const updatedChannel = await prisma.channel.update({
-            where: { id: channelId },
-            data: channelData,
-        });
-        return updatedChannel;
+      if (nameTaken) {
+        throw ApiError.badRequest('A channel with this name already exists in this workspace.');
+      }
     }
 
-    async deleteChannel(channelId: string, workspaceId: string, userId: string) {
-        await accessControlService.checkIsOwnerOrAdmin(userId, workspaceId)
+    const updatedChannel = await prisma.channel.update({
+      where: { id: channelId },
+      data: {
+        ...channelData,
+        updatedAt: new Date(),
+      },
+    });
+    return updatedChannel;
+  }
 
-        const existingChannel = await prisma.channel.findFirst({
-            where: {
-                id: channelId,
-                workspaceId,
-            },
-        });
+  async deleteChannel(channelId: string, workspaceId: string, userId: string) {
+    const existingChannel = await prisma.channel.findFirst({
+      where: {
+        id: channelId,
+        workspaceId,
+        deletedAt: null,
+      },
+    });
 
-        if (!existingChannel) {
-            throw ApiError.notFound('Channel not found.');
-        }
-        await prisma.channel.update({
-            where: { id: channelId },
+    if (!existingChannel) {
+      throw ApiError.notFound('Channel not found or is already deleted.');
+    }
+
+    const softDeletedChannel = await prisma.channel.update({
+      where: { id: channelId },
+      data: {
+        deletedAt: new Date(),
+        Message: {
+          updateMany: {
+            where: { channelId: channelId },
             data: { deletedAt: new Date() }
-        });
+          }
+        },
+        UserOnChannel: {
+          updateMany: {
+            where: { channelId: channelId },
+            data: { deletedAt: new Date() }
+          }
+        }
+      },
+    });
 
-        return;
-    }
+    return softDeletedChannel;
+  }
 }
 
 export const channelService = new ChannelService();

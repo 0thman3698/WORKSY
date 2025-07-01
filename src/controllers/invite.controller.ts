@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponse } from '../utils/apiResponse';
-import { acceptInviteSchemaType, CreateInviteSchemaType } from '../validators/invite.validators';
+import { CreateInviteSchemaType } from '../validators/invite.validators';
 import { inviteService } from '../services/invite.service';
-import { token } from 'morgan';
 
 export default class InviteControllers {
   static async createInvite(req: Request, res: Response, next: NextFunction) {

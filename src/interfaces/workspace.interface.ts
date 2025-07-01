@@ -27,5 +27,6 @@ export interface IMyWorkspaces {
 }
 
 export interface IUpdateWorkspace {
-  name: string;
+  name?: string;
+  description?: string;
 }

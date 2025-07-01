@@ -6,18 +6,31 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import passport from 'passport';
+import session from 'express-session';
+
+// Import OAuth configuration (this registers the strategies)
+import './config/oauth.config';
 
 // Import Pages
 import { authRoutes } from './routes';
 import workspaceRoutes from './routes/workspace.routes';
 import inviteRoutes from './routes/invite.routes';
 import { errorHandler } from './middlewares/errorHandler';
+import { oauthSession, passportInitialize, passportSession } from './middlewares/oauth.middleware';
+import './config/jwt.config';
+import { authorizationErrorHandler } from './middlewares/authorization.middleware';
+import { protect } from './middlewares/protect';
+
 // express
 const app = express();
 
-
 // dotenv config
 dotenv.config();
+
+app.use(oauthSession);
+app.use(passportInitialize);
+app.use(passportSession);
 
 // built-in Middlewares
 app.use(cors());
@@ -40,15 +53,15 @@ const limiter = <RateLimitRequestHandler>rateLimit({
 // Middlewares
 app.use('/api', limiter);
 app.use('/api/v1/auth', authRoutes);
-app.use('/api/v1/workspace', workspaceRoutes);
-app.use('/api/v1/invite', inviteRoutes);
+app.use('/api/v1/workspace', protect, workspaceRoutes);
+app.use('/api/v1/invite', protect, inviteRoutes);
 // app.use("/api/v1/workspace", channelRoutes)
 
 app.get('/', async (req, res) => {
   res.send(`hello`);
 });
 
+app.use(authorizationErrorHandler);
 app.use(errorHandler);
-
 
 export default app;

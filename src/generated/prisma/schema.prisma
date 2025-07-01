@@ -9,48 +9,84 @@ datasource db {
 }
 
 model User {
-  id                   String    @id @default(uuid())
-  name                 String
-  email                String    @unique
-  password             String
-  role                 Role      @default(MEMBER)
-  avatar               String? //not
-  status               String?   @default("active") //not
-  lastSeen             DateTime? //not implmented
-  isVerified           Boolean   @default(false) //not
-  refreshToken         String?
-  resetPasswordToken   String?
-  resetPasswordExpires DateTime?
-  deletedAt            DateTime? // soft delete
-  fcmToken             String?
+  id           String    @id @default(uuid())
+  name         String
+  email        String    @unique
+  password     String?
+  role         Role      @default(MEMBER) // Global application role
+  avatar       String?
+  status       String?   @default("active")
+  lastSeen     DateTime?
+  isVerified   Boolean   @default(false)
+  refreshToken String?
 
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  workspaces      UserOnWorkspace[] //اعضاء
-  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner") // مالك الورك سبيس
+  // Email Verification Fields
+  emailVerificationToken        String?
+  emailVerificationTokenExpires DateTime?
+  emailVerificationTokenSentAt  DateTime?
+
+  // Password Reset Fields
+  resetPasswordPin        String?
+  resetPasswordPinExpires DateTime?
+  resetPasswordToken      String?
+  resetPasswordPinSentAt  DateTime?
+  failedPinAttempts       Int?      @default(0)
+
+  // Login OTP fields
+  loginOtp          String?   @map("login_otp")
+  loginOtpExpires   DateTime? @map("login_otp_expires")
+  loginSessionToken String?   @map("login_session_token")
+  loginOtpSentAt    DateTime? @map("login_otp_sent_at")
+
+  // OAuth fields
+  oauthProvider String?   @map("oauth_provider") // "google" | "microsoft"
+  oauthId       String?   @map("oauth_id")
+  emailVerified Boolean   @default(false) @map("email_verified")
+  lastLoginAt   DateTime? @map("last_login_at")
+
+  fcmToken String?
+
+  deletedAt DateTime? // soft delete
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  workspaces      UserOnWorkspace[] // User's membership and role in specific workspaces
+  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner") // Workspaces created by this user
+  ownedChannels   Channel[]         @relation("ChannelOwner") // Channels created by this user
   InviteSent      Invite[]
-  Channels        UserOnChannels[]
+  Channels        UserOnChannel[] // User's membership and role in specific channels
   Message         Message[]
   UserOnDM        UserOnDM[]
   MessageReaction MessageReaction[]
   MessageMention  MessageMention[]
+  Channel         Channel[]
+
+  @@unique([oauthProvider, oauthId], name: "oauth_unique")
+  @@index([email, resetPasswordPin])
 }
 
 model Workspace {
   id          String    @id @default(uuid())
   name        String
   description String?
-  slug        String    @unique
+  slug        String
   deletedAt   DateTime? // soft delete
 
-  createdAt                 DateTime                    @default(now())
-  updatedAt                 DateTime                    @updatedAt
-  owner                     User                        @relation("WorkspaceOwner", fields: [ownerId], references: [id])
-  ownerId                   String
-  members                   UserOnWorkspace[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  owner   User   @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  ownerId String // The global User ID of the workspace owner
+
+  // Relationships
+  members                   UserOnWorkspace[] // All users associated with this workspace and their roles
   Invite                    Invite[]
-  Channel                   Channel[]
+  Channel                   Channel[] // Channels belonging to this workspace
   DirectMessageConversation DirectMessageConversation[]
+
+  @@unique([slug, deletedAt])
 }
 
 model UserOnWorkspace {
@@ -60,6 +96,7 @@ model UserOnWorkspace {
   user        User          @relation(fields: [userId], references: [id])
   workspace   Workspace     @relation(fields: [workspaceId], references: [id])
   joinedAt    DateTime      @default(now())
+  deletedAt   DateTime?
 
   @@id([userId, workspaceId])
 }
@@ -70,7 +107,7 @@ model Invite {
   token     String        @unique
   expiresAt DateTime
   status    InviteStatus  @default(PENDING)
-  role      WorkspaceRole @default(MEMBER)
+  role      WorkspaceRole @default(MEMBER) // Role the invited user will have in the workspace
   deletedAt DateTime? // soft delete
 
   createdAt DateTime @default(now())
@@ -97,21 +134,26 @@ model Channel {
   updatedAt DateTime @updatedAt
 
   // Relationships
-  workspace      Workspace        @relation(fields: [workspaceId], references: [id])
-  UserOnChannels UserOnChannels[]
+  workspace      Workspace       @relation(fields: [workspaceId], references: [id])
+  owner          User            @relation("ChannelOwner", fields: [ownerId], references: [id])
+  ownerId        String // The global User ID of the channel owner
+  UserOnChannels UserOnChannel[] // Users within this channel and their channel-specific roles
   Message        Message[]
+  User           User?           @relation(fields: [userId], references: [id])
+  userId         String?
 
   @@index([workspaceId])
 }
 
-model UserOnChannels {
+model UserOnChannel {
   userId    String
   channelId String
-  joinedAt  DateTime @default(now())
-
+  role      ChannelRole @default(MEMBER) // Role specific to this channel
+  joinedAt  DateTime    @default(now())
+  deletedAt DateTime? // <-- ADD THIS LINE for soft delete cascading
   // Relationships
-  user    User    @relation(fields: [userId], references: [id])
-  channel Channel @relation(fields: [channelId], references: [id])
+  user      User        @relation(fields: [userId], references: [id])
+  channel   Channel     @relation(fields: [channelId], references: [id])
 
   @@id([userId, channelId])
 }
@@ -189,16 +231,26 @@ model MessageMention {
   @@unique([messageId, mentionedUserId]) // Prevent duplicate mentions
 }
 
+// Global application roles for a User
 enum Role {
-  ADMIN
-  MEMBER
-  GUEST
+  APP_OWNER // Highest level, full control over the application.
+  APP_ADMIN // Global administrator, can manage users, possibly workspaces.
+  MEMBER // Regular application user.
+  GUEST // Limited access user.
 }
 
+// Roles within a specific Workspace
 enum WorkspaceRole {
-  OWNER
-  ADMIN
-  MEMBER
+  OWNER // Creator/primary manager of a specific workspace.
+  ADMIN // Administrator within a specific workspace.
+  MEMBER // Regular participant within a specific workspace.
+}
+
+// Roles within a specific Channel
+enum ChannelRole {
+  OWNER // Creator/primary manager of a specific channel.
+  ADMIN // Administrator within a specific channel.
+  MEMBER // Regular participant within a specific channel.
 }
 
 enum InviteStatus {

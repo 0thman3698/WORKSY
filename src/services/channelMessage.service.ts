@@ -75,7 +75,7 @@ export class ChannelMessageService {
             throw ApiError.forbidden('You are not a member of the workspace.');
         }
         if (!channel.isPublic) {
-            const isChannelMember = await prisma.userOnChannels.findFirst({
+            const isChannelMember = await prisma.userOnChannel.findFirst({
                 where: {
                     userId,
                     channelId,

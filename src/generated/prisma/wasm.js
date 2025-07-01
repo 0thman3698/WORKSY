@@ -131,10 +131,24 @@ exports.Prisma.UserScalarFieldEnum = {
   lastSeen: 'lastSeen',
   isVerified: 'isVerified',
   refreshToken: 'refreshToken',
+  emailVerificationToken: 'emailVerificationToken',
+  emailVerificationTokenExpires: 'emailVerificationTokenExpires',
+  emailVerificationTokenSentAt: 'emailVerificationTokenSentAt',
+  resetPasswordPin: 'resetPasswordPin',
+  resetPasswordPinExpires: 'resetPasswordPinExpires',
   resetPasswordToken: 'resetPasswordToken',
-  resetPasswordExpires: 'resetPasswordExpires',
-  deletedAt: 'deletedAt',
+  resetPasswordPinSentAt: 'resetPasswordPinSentAt',
+  failedPinAttempts: 'failedPinAttempts',
+  loginOtp: 'loginOtp',
+  loginOtpExpires: 'loginOtpExpires',
+  loginSessionToken: 'loginSessionToken',
+  loginOtpSentAt: 'loginOtpSentAt',
+  oauthProvider: 'oauthProvider',
+  oauthId: 'oauthId',
+  emailVerified: 'emailVerified',
+  lastLoginAt: 'lastLoginAt',
   fcmToken: 'fcmToken',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -154,7 +168,8 @@ exports.Prisma.UserOnWorkspaceScalarFieldEnum = {
   userId: 'userId',
   workspaceId: 'workspaceId',
   role: 'role',
-  joinedAt: 'joinedAt'
+  joinedAt: 'joinedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.InviteScalarFieldEnum = {
@@ -179,13 +194,17 @@ exports.Prisma.ChannelScalarFieldEnum = {
   workspaceId: 'workspaceId',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  updatedAt: 'updatedAt',
+  ownerId: 'ownerId',
+  userId: 'userId'
 };
 
-exports.Prisma.UserOnChannelsScalarFieldEnum = {
+exports.Prisma.UserOnChannelScalarFieldEnum = {
   userId: 'userId',
   channelId: 'channelId',
-  joinedAt: 'joinedAt'
+  role: 'role',
+  joinedAt: 'joinedAt',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
@@ -243,7 +262,8 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
-  ADMIN: 'ADMIN',
+  APP_OWNER: 'APP_OWNER',
+  APP_ADMIN: 'APP_ADMIN',
   MEMBER: 'MEMBER',
   GUEST: 'GUEST'
 };
@@ -261,13 +281,19 @@ exports.InviteStatus = exports.$Enums.InviteStatus = {
   EXPIRED: 'EXPIRED'
 };
 
+exports.ChannelRole = exports.$Enums.ChannelRole = {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Workspace: 'Workspace',
   UserOnWorkspace: 'UserOnWorkspace',
   Invite: 'Invite',
   Channel: 'Channel',
-  UserOnChannels: 'UserOnChannels',
+  UserOnChannel: 'UserOnChannel',
   Message: 'Message',
   DirectMessageConversation: 'DirectMessageConversation',
   UserOnDM: 'UserOnDM',

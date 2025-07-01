@@ -39,10 +39,10 @@ export type Invite = $Result.DefaultSelection<Prisma.$InvitePayload>
  */
 export type Channel = $Result.DefaultSelection<Prisma.$ChannelPayload>
 /**
- * Model UserOnChannels
+ * Model UserOnChannel
  * 
  */
-export type UserOnChannels = $Result.DefaultSelection<Prisma.$UserOnChannelsPayload>
+export type UserOnChannel = $Result.DefaultSelection<Prisma.$UserOnChannelPayload>
 /**
  * Model Message
  * 
@@ -74,7 +74,8 @@ export type MessageMention = $Result.DefaultSelection<Prisma.$MessageMentionPayl
  */
 export namespace $Enums {
   export const Role: {
-  ADMIN: 'ADMIN',
+  APP_OWNER: 'APP_OWNER',
+  APP_ADMIN: 'APP_ADMIN',
   MEMBER: 'MEMBER',
   GUEST: 'GUEST'
 };
@@ -89,6 +90,15 @@ export const WorkspaceRole: {
 };
 
 export type WorkspaceRole = (typeof WorkspaceRole)[keyof typeof WorkspaceRole]
+
+
+export const ChannelRole: {
+  OWNER: 'OWNER',
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
+
+export type ChannelRole = (typeof ChannelRole)[keyof typeof ChannelRole]
 
 
 export const InviteStatus: {
@@ -109,6 +119,10 @@ export const Role: typeof $Enums.Role
 export type WorkspaceRole = $Enums.WorkspaceRole
 
 export const WorkspaceRole: typeof $Enums.WorkspaceRole
+
+export type ChannelRole = $Enums.ChannelRole
+
+export const ChannelRole: typeof $Enums.ChannelRole
 
 export type InviteStatus = $Enums.InviteStatus
 
@@ -290,14 +304,14 @@ export class PrismaClient<
   get channel(): Prisma.ChannelDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.userOnChannels`: Exposes CRUD operations for the **UserOnChannels** model.
+   * `prisma.userOnChannel`: Exposes CRUD operations for the **UserOnChannel** model.
     * Example usage:
     * ```ts
     * // Fetch zero or more UserOnChannels
-    * const userOnChannels = await prisma.userOnChannels.findMany()
+    * const userOnChannels = await prisma.userOnChannel.findMany()
     * ```
     */
-  get userOnChannels(): Prisma.UserOnChannelsDelegate<ExtArgs, ClientOptions>;
+  get userOnChannel(): Prisma.UserOnChannelDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.message`: Exposes CRUD operations for the **Message** model.
@@ -793,7 +807,7 @@ export namespace Prisma {
     UserOnWorkspace: 'UserOnWorkspace',
     Invite: 'Invite',
     Channel: 'Channel',
-    UserOnChannels: 'UserOnChannels',
+    UserOnChannel: 'UserOnChannel',
     Message: 'Message',
     DirectMessageConversation: 'DirectMessageConversation',
     UserOnDM: 'UserOnDM',
@@ -817,7 +831,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "workspace" | "userOnWorkspace" | "invite" | "channel" | "userOnChannels" | "message" | "directMessageConversation" | "userOnDM" | "messageReaction" | "messageMention"
+      modelProps: "user" | "workspace" | "userOnWorkspace" | "invite" | "channel" | "userOnChannel" | "message" | "directMessageConversation" | "userOnDM" | "messageReaction" | "messageMention"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1191,77 +1205,77 @@ export namespace Prisma {
           }
         }
       }
-      UserOnChannels: {
-        payload: Prisma.$UserOnChannelsPayload<ExtArgs>
-        fields: Prisma.UserOnChannelsFieldRefs
+      UserOnChannel: {
+        payload: Prisma.$UserOnChannelPayload<ExtArgs>
+        fields: Prisma.UserOnChannelFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.UserOnChannelsFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload> | null
+            args: Prisma.UserOnChannelFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.UserOnChannelsFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>
+            args: Prisma.UserOnChannelFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>
           }
           findFirst: {
-            args: Prisma.UserOnChannelsFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload> | null
+            args: Prisma.UserOnChannelFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.UserOnChannelsFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>
+            args: Prisma.UserOnChannelFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>
           }
           findMany: {
-            args: Prisma.UserOnChannelsFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>[]
+            args: Prisma.UserOnChannelFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>[]
           }
           create: {
-            args: Prisma.UserOnChannelsCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>
+            args: Prisma.UserOnChannelCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>
           }
           createMany: {
-            args: Prisma.UserOnChannelsCreateManyArgs<ExtArgs>
+            args: Prisma.UserOnChannelCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.UserOnChannelsCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>[]
+            args: Prisma.UserOnChannelCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>[]
           }
           delete: {
-            args: Prisma.UserOnChannelsDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>
+            args: Prisma.UserOnChannelDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>
           }
           update: {
-            args: Prisma.UserOnChannelsUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>
+            args: Prisma.UserOnChannelUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>
           }
           deleteMany: {
-            args: Prisma.UserOnChannelsDeleteManyArgs<ExtArgs>
+            args: Prisma.UserOnChannelDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.UserOnChannelsUpdateManyArgs<ExtArgs>
+            args: Prisma.UserOnChannelUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.UserOnChannelsUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>[]
+            args: Prisma.UserOnChannelUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>[]
           }
           upsert: {
-            args: Prisma.UserOnChannelsUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$UserOnChannelsPayload>
+            args: Prisma.UserOnChannelUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserOnChannelPayload>
           }
           aggregate: {
-            args: Prisma.UserOnChannelsAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateUserOnChannels>
+            args: Prisma.UserOnChannelAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserOnChannel>
           }
           groupBy: {
-            args: Prisma.UserOnChannelsGroupByArgs<ExtArgs>
-            result: $Utils.Optional<UserOnChannelsGroupByOutputType>[]
+            args: Prisma.UserOnChannelGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserOnChannelGroupByOutputType>[]
           }
           count: {
-            args: Prisma.UserOnChannelsCountArgs<ExtArgs>
-            result: $Utils.Optional<UserOnChannelsCountAggregateOutputType> | number
+            args: Prisma.UserOnChannelCountArgs<ExtArgs>
+            result: $Utils.Optional<UserOnChannelCountAggregateOutputType> | number
           }
         }
       }
@@ -1724,7 +1738,7 @@ export namespace Prisma {
     userOnWorkspace?: UserOnWorkspaceOmit
     invite?: InviteOmit
     channel?: ChannelOmit
-    userOnChannels?: UserOnChannelsOmit
+    userOnChannel?: UserOnChannelOmit
     message?: MessageOmit
     directMessageConversation?: DirectMessageConversationOmit
     userOnDM?: UserOnDMOmit
@@ -1826,23 +1840,27 @@ export namespace Prisma {
   export type UserCountOutputType = {
     workspaces: number
     ownedWorkspaces: number
+    ownedChannels: number
     InviteSent: number
     Channels: number
     Message: number
     UserOnDM: number
     MessageReaction: number
     MessageMention: number
+    Channel: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspaces?: boolean | UserCountOutputTypeCountWorkspacesArgs
     ownedWorkspaces?: boolean | UserCountOutputTypeCountOwnedWorkspacesArgs
+    ownedChannels?: boolean | UserCountOutputTypeCountOwnedChannelsArgs
     InviteSent?: boolean | UserCountOutputTypeCountInviteSentArgs
     Channels?: boolean | UserCountOutputTypeCountChannelsArgs
     Message?: boolean | UserCountOutputTypeCountMessageArgs
     UserOnDM?: boolean | UserCountOutputTypeCountUserOnDMArgs
     MessageReaction?: boolean | UserCountOutputTypeCountMessageReactionArgs
     MessageMention?: boolean | UserCountOutputTypeCountMessageMentionArgs
+    Channel?: boolean | UserCountOutputTypeCountChannelArgs
   }
 
   // Custom InputTypes
@@ -1873,6 +1891,13 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
+  export type UserCountOutputTypeCountOwnedChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChannelWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
   export type UserCountOutputTypeCountInviteSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: InviteWhereInput
   }
@@ -1881,7 +1906,7 @@ export namespace Prisma {
    * UserCountOutputType without action
    */
   export type UserCountOutputTypeCountChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
   }
 
   /**
@@ -1910,6 +1935,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMessageMentionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageMentionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountChannelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ChannelWhereInput
   }
 
 
@@ -2000,7 +2032,7 @@ export namespace Prisma {
    * ChannelCountOutputType without action
    */
   export type ChannelCountOutputTypeCountUserOnChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
   }
 
   /**
@@ -2101,8 +2133,18 @@ export namespace Prisma {
 
   export type AggregateUser = {
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
+  }
+
+  export type UserAvgAggregateOutputType = {
+    failedPinAttempts: number | null
+  }
+
+  export type UserSumAggregateOutputType = {
+    failedPinAttempts: number | null
   }
 
   export type UserMinAggregateOutputType = {
@@ -2116,10 +2158,24 @@ export namespace Prisma {
     lastSeen: Date | null
     isVerified: boolean | null
     refreshToken: string | null
+    emailVerificationToken: string | null
+    emailVerificationTokenExpires: Date | null
+    emailVerificationTokenSentAt: Date | null
+    resetPasswordPin: string | null
+    resetPasswordPinExpires: Date | null
     resetPasswordToken: string | null
-    resetPasswordExpires: Date | null
-    deletedAt: Date | null
+    resetPasswordPinSentAt: Date | null
+    failedPinAttempts: number | null
+    loginOtp: string | null
+    loginOtpExpires: Date | null
+    loginSessionToken: string | null
+    loginOtpSentAt: Date | null
+    oauthProvider: string | null
+    oauthId: string | null
+    emailVerified: boolean | null
+    lastLoginAt: Date | null
     fcmToken: string | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2135,10 +2191,24 @@ export namespace Prisma {
     lastSeen: Date | null
     isVerified: boolean | null
     refreshToken: string | null
+    emailVerificationToken: string | null
+    emailVerificationTokenExpires: Date | null
+    emailVerificationTokenSentAt: Date | null
+    resetPasswordPin: string | null
+    resetPasswordPinExpires: Date | null
     resetPasswordToken: string | null
-    resetPasswordExpires: Date | null
-    deletedAt: Date | null
+    resetPasswordPinSentAt: Date | null
+    failedPinAttempts: number | null
+    loginOtp: string | null
+    loginOtpExpires: Date | null
+    loginSessionToken: string | null
+    loginOtpSentAt: Date | null
+    oauthProvider: string | null
+    oauthId: string | null
+    emailVerified: boolean | null
+    lastLoginAt: Date | null
     fcmToken: string | null
+    deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -2154,15 +2224,37 @@ export namespace Prisma {
     lastSeen: number
     isVerified: number
     refreshToken: number
+    emailVerificationToken: number
+    emailVerificationTokenExpires: number
+    emailVerificationTokenSentAt: number
+    resetPasswordPin: number
+    resetPasswordPinExpires: number
     resetPasswordToken: number
-    resetPasswordExpires: number
-    deletedAt: number
+    resetPasswordPinSentAt: number
+    failedPinAttempts: number
+    loginOtp: number
+    loginOtpExpires: number
+    loginSessionToken: number
+    loginOtpSentAt: number
+    oauthProvider: number
+    oauthId: number
+    emailVerified: number
+    lastLoginAt: number
     fcmToken: number
+    deletedAt: number
     createdAt: number
     updatedAt: number
     _all: number
   }
 
+
+  export type UserAvgAggregateInputType = {
+    failedPinAttempts?: true
+  }
+
+  export type UserSumAggregateInputType = {
+    failedPinAttempts?: true
+  }
 
   export type UserMinAggregateInputType = {
     id?: true
@@ -2175,10 +2267,24 @@ export namespace Prisma {
     lastSeen?: true
     isVerified?: true
     refreshToken?: true
+    emailVerificationToken?: true
+    emailVerificationTokenExpires?: true
+    emailVerificationTokenSentAt?: true
+    resetPasswordPin?: true
+    resetPasswordPinExpires?: true
     resetPasswordToken?: true
-    resetPasswordExpires?: true
-    deletedAt?: true
+    resetPasswordPinSentAt?: true
+    failedPinAttempts?: true
+    loginOtp?: true
+    loginOtpExpires?: true
+    loginSessionToken?: true
+    loginOtpSentAt?: true
+    oauthProvider?: true
+    oauthId?: true
+    emailVerified?: true
+    lastLoginAt?: true
     fcmToken?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2194,10 +2300,24 @@ export namespace Prisma {
     lastSeen?: true
     isVerified?: true
     refreshToken?: true
+    emailVerificationToken?: true
+    emailVerificationTokenExpires?: true
+    emailVerificationTokenSentAt?: true
+    resetPasswordPin?: true
+    resetPasswordPinExpires?: true
     resetPasswordToken?: true
-    resetPasswordExpires?: true
-    deletedAt?: true
+    resetPasswordPinSentAt?: true
+    failedPinAttempts?: true
+    loginOtp?: true
+    loginOtpExpires?: true
+    loginSessionToken?: true
+    loginOtpSentAt?: true
+    oauthProvider?: true
+    oauthId?: true
+    emailVerified?: true
+    lastLoginAt?: true
     fcmToken?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -2213,10 +2333,24 @@ export namespace Prisma {
     lastSeen?: true
     isVerified?: true
     refreshToken?: true
+    emailVerificationToken?: true
+    emailVerificationTokenExpires?: true
+    emailVerificationTokenSentAt?: true
+    resetPasswordPin?: true
+    resetPasswordPinExpires?: true
     resetPasswordToken?: true
-    resetPasswordExpires?: true
-    deletedAt?: true
+    resetPasswordPinSentAt?: true
+    failedPinAttempts?: true
+    loginOtp?: true
+    loginOtpExpires?: true
+    loginSessionToken?: true
+    loginOtpSentAt?: true
+    oauthProvider?: true
+    oauthId?: true
+    emailVerified?: true
+    lastLoginAt?: true
     fcmToken?: true
+    deletedAt?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -2260,6 +2394,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserMinAggregateInputType
@@ -2290,6 +2436,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserCountAggregateInputType | true
+    _avg?: UserAvgAggregateInputType
+    _sum?: UserSumAggregateInputType
     _min?: UserMinAggregateInputType
     _max?: UserMaxAggregateInputType
   }
@@ -2298,20 +2446,36 @@ export namespace Prisma {
     id: string
     name: string
     email: string
-    password: string
+    password: string | null
     role: $Enums.Role
     avatar: string | null
     status: string | null
     lastSeen: Date | null
     isVerified: boolean
     refreshToken: string | null
+    emailVerificationToken: string | null
+    emailVerificationTokenExpires: Date | null
+    emailVerificationTokenSentAt: Date | null
+    resetPasswordPin: string | null
+    resetPasswordPinExpires: Date | null
     resetPasswordToken: string | null
-    resetPasswordExpires: Date | null
-    deletedAt: Date | null
+    resetPasswordPinSentAt: Date | null
+    failedPinAttempts: number | null
+    loginOtp: string | null
+    loginOtpExpires: Date | null
+    loginSessionToken: string | null
+    loginOtpSentAt: Date | null
+    oauthProvider: string | null
+    oauthId: string | null
+    emailVerified: boolean
+    lastLoginAt: Date | null
     fcmToken: string | null
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
     _count: UserCountAggregateOutputType | null
+    _avg: UserAvgAggregateOutputType | null
+    _sum: UserSumAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
   }
@@ -2341,20 +2505,36 @@ export namespace Prisma {
     lastSeen?: boolean
     isVerified?: boolean
     refreshToken?: boolean
+    emailVerificationToken?: boolean
+    emailVerificationTokenExpires?: boolean
+    emailVerificationTokenSentAt?: boolean
+    resetPasswordPin?: boolean
+    resetPasswordPinExpires?: boolean
     resetPasswordToken?: boolean
-    resetPasswordExpires?: boolean
-    deletedAt?: boolean
+    resetPasswordPinSentAt?: boolean
+    failedPinAttempts?: boolean
+    loginOtp?: boolean
+    loginOtpExpires?: boolean
+    loginSessionToken?: boolean
+    loginOtpSentAt?: boolean
+    oauthProvider?: boolean
+    oauthId?: boolean
+    emailVerified?: boolean
+    lastLoginAt?: boolean
     fcmToken?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
     ownedWorkspaces?: boolean | User$ownedWorkspacesArgs<ExtArgs>
+    ownedChannels?: boolean | User$ownedChannelsArgs<ExtArgs>
     InviteSent?: boolean | User$InviteSentArgs<ExtArgs>
     Channels?: boolean | User$ChannelsArgs<ExtArgs>
     Message?: boolean | User$MessageArgs<ExtArgs>
     UserOnDM?: boolean | User$UserOnDMArgs<ExtArgs>
     MessageReaction?: boolean | User$MessageReactionArgs<ExtArgs>
     MessageMention?: boolean | User$MessageMentionArgs<ExtArgs>
+    Channel?: boolean | User$ChannelArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2369,10 +2549,24 @@ export namespace Prisma {
     lastSeen?: boolean
     isVerified?: boolean
     refreshToken?: boolean
+    emailVerificationToken?: boolean
+    emailVerificationTokenExpires?: boolean
+    emailVerificationTokenSentAt?: boolean
+    resetPasswordPin?: boolean
+    resetPasswordPinExpires?: boolean
     resetPasswordToken?: boolean
-    resetPasswordExpires?: boolean
-    deletedAt?: boolean
+    resetPasswordPinSentAt?: boolean
+    failedPinAttempts?: boolean
+    loginOtp?: boolean
+    loginOtpExpires?: boolean
+    loginSessionToken?: boolean
+    loginOtpSentAt?: boolean
+    oauthProvider?: boolean
+    oauthId?: boolean
+    emailVerified?: boolean
+    lastLoginAt?: boolean
     fcmToken?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2388,10 +2582,24 @@ export namespace Prisma {
     lastSeen?: boolean
     isVerified?: boolean
     refreshToken?: boolean
+    emailVerificationToken?: boolean
+    emailVerificationTokenExpires?: boolean
+    emailVerificationTokenSentAt?: boolean
+    resetPasswordPin?: boolean
+    resetPasswordPinExpires?: boolean
     resetPasswordToken?: boolean
-    resetPasswordExpires?: boolean
-    deletedAt?: boolean
+    resetPasswordPinSentAt?: boolean
+    failedPinAttempts?: boolean
+    loginOtp?: boolean
+    loginOtpExpires?: boolean
+    loginSessionToken?: boolean
+    loginOtpSentAt?: boolean
+    oauthProvider?: boolean
+    oauthId?: boolean
+    emailVerified?: boolean
+    lastLoginAt?: boolean
     fcmToken?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -2407,24 +2615,40 @@ export namespace Prisma {
     lastSeen?: boolean
     isVerified?: boolean
     refreshToken?: boolean
+    emailVerificationToken?: boolean
+    emailVerificationTokenExpires?: boolean
+    emailVerificationTokenSentAt?: boolean
+    resetPasswordPin?: boolean
+    resetPasswordPinExpires?: boolean
     resetPasswordToken?: boolean
-    resetPasswordExpires?: boolean
-    deletedAt?: boolean
+    resetPasswordPinSentAt?: boolean
+    failedPinAttempts?: boolean
+    loginOtp?: boolean
+    loginOtpExpires?: boolean
+    loginSessionToken?: boolean
+    loginOtpSentAt?: boolean
+    oauthProvider?: boolean
+    oauthId?: boolean
+    emailVerified?: boolean
+    lastLoginAt?: boolean
     fcmToken?: boolean
+    deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "lastSeen" | "isVerified" | "refreshToken" | "resetPasswordToken" | "resetPasswordExpires" | "deletedAt" | "fcmToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "lastSeen" | "isVerified" | "refreshToken" | "emailVerificationToken" | "emailVerificationTokenExpires" | "emailVerificationTokenSentAt" | "resetPasswordPin" | "resetPasswordPinExpires" | "resetPasswordToken" | "resetPasswordPinSentAt" | "failedPinAttempts" | "loginOtp" | "loginOtpExpires" | "loginSessionToken" | "loginOtpSentAt" | "oauthProvider" | "oauthId" | "emailVerified" | "lastLoginAt" | "fcmToken" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
     ownedWorkspaces?: boolean | User$ownedWorkspacesArgs<ExtArgs>
+    ownedChannels?: boolean | User$ownedChannelsArgs<ExtArgs>
     InviteSent?: boolean | User$InviteSentArgs<ExtArgs>
     Channels?: boolean | User$ChannelsArgs<ExtArgs>
     Message?: boolean | User$MessageArgs<ExtArgs>
     UserOnDM?: boolean | User$UserOnDMArgs<ExtArgs>
     MessageReaction?: boolean | User$MessageReactionArgs<ExtArgs>
     MessageMention?: boolean | User$MessageMentionArgs<ExtArgs>
+    Channel?: boolean | User$ChannelArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2435,28 +2659,44 @@ export namespace Prisma {
     objects: {
       workspaces: Prisma.$UserOnWorkspacePayload<ExtArgs>[]
       ownedWorkspaces: Prisma.$WorkspacePayload<ExtArgs>[]
+      ownedChannels: Prisma.$ChannelPayload<ExtArgs>[]
       InviteSent: Prisma.$InvitePayload<ExtArgs>[]
-      Channels: Prisma.$UserOnChannelsPayload<ExtArgs>[]
+      Channels: Prisma.$UserOnChannelPayload<ExtArgs>[]
       Message: Prisma.$MessagePayload<ExtArgs>[]
       UserOnDM: Prisma.$UserOnDMPayload<ExtArgs>[]
       MessageReaction: Prisma.$MessageReactionPayload<ExtArgs>[]
       MessageMention: Prisma.$MessageMentionPayload<ExtArgs>[]
+      Channel: Prisma.$ChannelPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       email: string
-      password: string
+      password: string | null
       role: $Enums.Role
       avatar: string | null
       status: string | null
       lastSeen: Date | null
       isVerified: boolean
       refreshToken: string | null
+      emailVerificationToken: string | null
+      emailVerificationTokenExpires: Date | null
+      emailVerificationTokenSentAt: Date | null
+      resetPasswordPin: string | null
+      resetPasswordPinExpires: Date | null
       resetPasswordToken: string | null
-      resetPasswordExpires: Date | null
-      deletedAt: Date | null
+      resetPasswordPinSentAt: Date | null
+      failedPinAttempts: number | null
+      loginOtp: string | null
+      loginOtpExpires: Date | null
+      loginSessionToken: string | null
+      loginOtpSentAt: Date | null
+      oauthProvider: string | null
+      oauthId: string | null
+      emailVerified: boolean
+      lastLoginAt: Date | null
       fcmToken: string | null
+      deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["user"]>
@@ -2855,12 +3095,14 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workspaces<T extends User$workspacesArgs<ExtArgs> = {}>(args?: Subset<T, User$workspacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnWorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     ownedWorkspaces<T extends User$ownedWorkspacesArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedWorkspacesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ownedChannels<T extends User$ownedChannelsArgs<ExtArgs> = {}>(args?: Subset<T, User$ownedChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     InviteSent<T extends User$InviteSentArgs<ExtArgs> = {}>(args?: Subset<T, User$InviteSentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    Channels<T extends User$ChannelsArgs<ExtArgs> = {}>(args?: Subset<T, User$ChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Channels<T extends User$ChannelsArgs<ExtArgs> = {}>(args?: Subset<T, User$ChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Message<T extends User$MessageArgs<ExtArgs> = {}>(args?: Subset<T, User$MessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     UserOnDM<T extends User$UserOnDMArgs<ExtArgs> = {}>(args?: Subset<T, User$UserOnDMArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnDMPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     MessageReaction<T extends User$MessageReactionArgs<ExtArgs> = {}>(args?: Subset<T, User$MessageReactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     MessageMention<T extends User$MessageMentionArgs<ExtArgs> = {}>(args?: Subset<T, User$MessageMentionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageMentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Channel<T extends User$ChannelArgs<ExtArgs> = {}>(args?: Subset<T, User$ChannelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2900,10 +3142,24 @@ export namespace Prisma {
     readonly lastSeen: FieldRef<"User", 'DateTime'>
     readonly isVerified: FieldRef<"User", 'Boolean'>
     readonly refreshToken: FieldRef<"User", 'String'>
+    readonly emailVerificationToken: FieldRef<"User", 'String'>
+    readonly emailVerificationTokenExpires: FieldRef<"User", 'DateTime'>
+    readonly emailVerificationTokenSentAt: FieldRef<"User", 'DateTime'>
+    readonly resetPasswordPin: FieldRef<"User", 'String'>
+    readonly resetPasswordPinExpires: FieldRef<"User", 'DateTime'>
     readonly resetPasswordToken: FieldRef<"User", 'String'>
-    readonly resetPasswordExpires: FieldRef<"User", 'DateTime'>
-    readonly deletedAt: FieldRef<"User", 'DateTime'>
+    readonly resetPasswordPinSentAt: FieldRef<"User", 'DateTime'>
+    readonly failedPinAttempts: FieldRef<"User", 'Int'>
+    readonly loginOtp: FieldRef<"User", 'String'>
+    readonly loginOtpExpires: FieldRef<"User", 'DateTime'>
+    readonly loginSessionToken: FieldRef<"User", 'String'>
+    readonly loginOtpSentAt: FieldRef<"User", 'DateTime'>
+    readonly oauthProvider: FieldRef<"User", 'String'>
+    readonly oauthId: FieldRef<"User", 'String'>
+    readonly emailVerified: FieldRef<"User", 'Boolean'>
+    readonly lastLoginAt: FieldRef<"User", 'DateTime'>
     readonly fcmToken: FieldRef<"User", 'String'>
+    readonly deletedAt: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
   }
@@ -3342,6 +3598,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.ownedChannels
+   */
+  export type User$ownedChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Channel
+     */
+    select?: ChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Channel
+     */
+    omit?: ChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChannelInclude<ExtArgs> | null
+    where?: ChannelWhereInput
+    orderBy?: ChannelOrderByWithRelationInput | ChannelOrderByWithRelationInput[]
+    cursor?: ChannelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChannelScalarFieldEnum | ChannelScalarFieldEnum[]
+  }
+
+  /**
    * User.InviteSent
    */
   export type User$InviteSentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3370,23 +3650,23 @@ export namespace Prisma {
    */
   export type User$ChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
-    where?: UserOnChannelsWhereInput
-    orderBy?: UserOnChannelsOrderByWithRelationInput | UserOnChannelsOrderByWithRelationInput[]
-    cursor?: UserOnChannelsWhereUniqueInput
+    include?: UserOnChannelInclude<ExtArgs> | null
+    where?: UserOnChannelWhereInput
+    orderBy?: UserOnChannelOrderByWithRelationInput | UserOnChannelOrderByWithRelationInput[]
+    cursor?: UserOnChannelWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserOnChannelsScalarFieldEnum | UserOnChannelsScalarFieldEnum[]
+    distinct?: UserOnChannelScalarFieldEnum | UserOnChannelScalarFieldEnum[]
   }
 
   /**
@@ -3483,6 +3763,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MessageMentionScalarFieldEnum | MessageMentionScalarFieldEnum[]
+  }
+
+  /**
+   * User.Channel
+   */
+  export type User$ChannelArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Channel
+     */
+    select?: ChannelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Channel
+     */
+    omit?: ChannelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ChannelInclude<ExtArgs> | null
+    where?: ChannelWhereInput
+    orderBy?: ChannelOrderByWithRelationInput | ChannelOrderByWithRelationInput[]
+    cursor?: ChannelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ChannelScalarFieldEnum | ChannelScalarFieldEnum[]
   }
 
   /**
@@ -4730,6 +5034,7 @@ export namespace Prisma {
     workspaceId: string | null
     role: $Enums.WorkspaceRole | null
     joinedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type UserOnWorkspaceMaxAggregateOutputType = {
@@ -4737,6 +5042,7 @@ export namespace Prisma {
     workspaceId: string | null
     role: $Enums.WorkspaceRole | null
     joinedAt: Date | null
+    deletedAt: Date | null
   }
 
   export type UserOnWorkspaceCountAggregateOutputType = {
@@ -4744,6 +5050,7 @@ export namespace Prisma {
     workspaceId: number
     role: number
     joinedAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -4753,6 +5060,7 @@ export namespace Prisma {
     workspaceId?: true
     role?: true
     joinedAt?: true
+    deletedAt?: true
   }
 
   export type UserOnWorkspaceMaxAggregateInputType = {
@@ -4760,6 +5068,7 @@ export namespace Prisma {
     workspaceId?: true
     role?: true
     joinedAt?: true
+    deletedAt?: true
   }
 
   export type UserOnWorkspaceCountAggregateInputType = {
@@ -4767,6 +5076,7 @@ export namespace Prisma {
     workspaceId?: true
     role?: true
     joinedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -4847,6 +5157,7 @@ export namespace Prisma {
     workspaceId: string
     role: $Enums.WorkspaceRole
     joinedAt: Date
+    deletedAt: Date | null
     _count: UserOnWorkspaceCountAggregateOutputType | null
     _min: UserOnWorkspaceMinAggregateOutputType | null
     _max: UserOnWorkspaceMaxAggregateOutputType | null
@@ -4871,6 +5182,7 @@ export namespace Prisma {
     workspaceId?: boolean
     role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userOnWorkspace"]>
@@ -4880,6 +5192,7 @@ export namespace Prisma {
     workspaceId?: boolean
     role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userOnWorkspace"]>
@@ -4889,6 +5202,7 @@ export namespace Prisma {
     workspaceId?: boolean
     role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userOnWorkspace"]>
@@ -4898,9 +5212,10 @@ export namespace Prisma {
     workspaceId?: boolean
     role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type UserOnWorkspaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "workspaceId" | "role" | "joinedAt", ExtArgs["result"]["userOnWorkspace"]>
+  export type UserOnWorkspaceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "workspaceId" | "role" | "joinedAt" | "deletedAt", ExtArgs["result"]["userOnWorkspace"]>
   export type UserOnWorkspaceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
@@ -4925,6 +5240,7 @@ export namespace Prisma {
       workspaceId: string
       role: $Enums.WorkspaceRole
       joinedAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["userOnWorkspace"]>
     composites: {}
   }
@@ -5354,6 +5670,7 @@ export namespace Prisma {
     readonly workspaceId: FieldRef<"UserOnWorkspace", 'String'>
     readonly role: FieldRef<"UserOnWorkspace", 'WorkspaceRole'>
     readonly joinedAt: FieldRef<"UserOnWorkspace", 'DateTime'>
+    readonly deletedAt: FieldRef<"UserOnWorkspace", 'DateTime'>
   }
     
 
@@ -6931,6 +7248,8 @@ export namespace Prisma {
     deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    ownerId: string | null
+    userId: string | null
   }
 
   export type ChannelMaxAggregateOutputType = {
@@ -6942,6 +7261,8 @@ export namespace Prisma {
     deletedAt: Date | null
     createdAt: Date | null
     updatedAt: Date | null
+    ownerId: string | null
+    userId: string | null
   }
 
   export type ChannelCountAggregateOutputType = {
@@ -6953,6 +7274,8 @@ export namespace Prisma {
     deletedAt: number
     createdAt: number
     updatedAt: number
+    ownerId: number
+    userId: number
     _all: number
   }
 
@@ -6966,6 +7289,8 @@ export namespace Prisma {
     deletedAt?: true
     createdAt?: true
     updatedAt?: true
+    ownerId?: true
+    userId?: true
   }
 
   export type ChannelMaxAggregateInputType = {
@@ -6977,6 +7302,8 @@ export namespace Prisma {
     deletedAt?: true
     createdAt?: true
     updatedAt?: true
+    ownerId?: true
+    userId?: true
   }
 
   export type ChannelCountAggregateInputType = {
@@ -6988,6 +7315,8 @@ export namespace Prisma {
     deletedAt?: true
     createdAt?: true
     updatedAt?: true
+    ownerId?: true
+    userId?: true
     _all?: true
   }
 
@@ -7072,6 +7401,8 @@ export namespace Prisma {
     deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
+    ownerId: string
+    userId: string | null
     _count: ChannelCountAggregateOutputType | null
     _min: ChannelMinAggregateOutputType | null
     _max: ChannelMaxAggregateOutputType | null
@@ -7100,9 +7431,13 @@ export namespace Prisma {
     deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    ownerId?: boolean
+    userId?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
     UserOnChannels?: boolean | Channel$UserOnChannelsArgs<ExtArgs>
     Message?: boolean | Channel$MessageArgs<ExtArgs>
+    User?: boolean | Channel$UserArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["channel"]>
 
@@ -7115,7 +7450,11 @@ export namespace Prisma {
     deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    ownerId?: boolean
+    userId?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    User?: boolean | Channel$UserArgs<ExtArgs>
   }, ExtArgs["result"]["channel"]>
 
   export type ChannelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -7127,7 +7466,11 @@ export namespace Prisma {
     deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    ownerId?: boolean
+    userId?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    User?: boolean | Channel$UserArgs<ExtArgs>
   }, ExtArgs["result"]["channel"]>
 
   export type ChannelSelectScalar = {
@@ -7139,28 +7482,38 @@ export namespace Prisma {
     deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    ownerId?: boolean
+    userId?: boolean
   }
 
-  export type ChannelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isPublic" | "workspaceId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["channel"]>
+  export type ChannelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "isPublic" | "workspaceId" | "deletedAt" | "createdAt" | "updatedAt" | "ownerId" | "userId", ExtArgs["result"]["channel"]>
   export type ChannelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
     UserOnChannels?: boolean | Channel$UserOnChannelsArgs<ExtArgs>
     Message?: boolean | Channel$MessageArgs<ExtArgs>
+    User?: boolean | Channel$UserArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChannelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    User?: boolean | Channel$UserArgs<ExtArgs>
   }
   export type ChannelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
+    owner?: boolean | UserDefaultArgs<ExtArgs>
+    User?: boolean | Channel$UserArgs<ExtArgs>
   }
 
   export type $ChannelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Channel"
     objects: {
       workspace: Prisma.$WorkspacePayload<ExtArgs>
-      UserOnChannels: Prisma.$UserOnChannelsPayload<ExtArgs>[]
+      owner: Prisma.$UserPayload<ExtArgs>
+      UserOnChannels: Prisma.$UserOnChannelPayload<ExtArgs>[]
       Message: Prisma.$MessagePayload<ExtArgs>[]
+      User: Prisma.$UserPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7171,6 +7524,8 @@ export namespace Prisma {
       deletedAt: Date | null
       createdAt: Date
       updatedAt: Date
+      ownerId: string
+      userId: string | null
     }, ExtArgs["result"]["channel"]>
     composites: {}
   }
@@ -7566,8 +7921,10 @@ export namespace Prisma {
   export interface Prisma__ChannelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     workspace<T extends WorkspaceDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkspaceDefaultArgs<ExtArgs>>): Prisma__WorkspaceClient<$Result.GetResult<Prisma.$WorkspacePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    UserOnChannels<T extends Channel$UserOnChannelsArgs<ExtArgs> = {}>(args?: Subset<T, Channel$UserOnChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    owner<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    UserOnChannels<T extends Channel$UserOnChannelsArgs<ExtArgs> = {}>(args?: Subset<T, Channel$UserOnChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Message<T extends Channel$MessageArgs<ExtArgs> = {}>(args?: Subset<T, Channel$MessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    User<T extends Channel$UserArgs<ExtArgs> = {}>(args?: Subset<T, Channel$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7605,6 +7962,8 @@ export namespace Prisma {
     readonly deletedAt: FieldRef<"Channel", 'DateTime'>
     readonly createdAt: FieldRef<"Channel", 'DateTime'>
     readonly updatedAt: FieldRef<"Channel", 'DateTime'>
+    readonly ownerId: FieldRef<"Channel", 'String'>
+    readonly userId: FieldRef<"Channel", 'String'>
   }
     
 
@@ -8005,23 +8364,23 @@ export namespace Prisma {
    */
   export type Channel$UserOnChannelsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
-    where?: UserOnChannelsWhereInput
-    orderBy?: UserOnChannelsOrderByWithRelationInput | UserOnChannelsOrderByWithRelationInput[]
-    cursor?: UserOnChannelsWhereUniqueInput
+    include?: UserOnChannelInclude<ExtArgs> | null
+    where?: UserOnChannelWhereInput
+    orderBy?: UserOnChannelOrderByWithRelationInput | UserOnChannelOrderByWithRelationInput[]
+    cursor?: UserOnChannelWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: UserOnChannelsScalarFieldEnum | UserOnChannelsScalarFieldEnum[]
+    distinct?: UserOnChannelScalarFieldEnum | UserOnChannelScalarFieldEnum[]
   }
 
   /**
@@ -8049,6 +8408,25 @@ export namespace Prisma {
   }
 
   /**
+   * Channel.User
+   */
+  export type Channel$UserArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * Channel without action
    */
   export type ChannelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8068,71 +8446,83 @@ export namespace Prisma {
 
 
   /**
-   * Model UserOnChannels
+   * Model UserOnChannel
    */
 
-  export type AggregateUserOnChannels = {
-    _count: UserOnChannelsCountAggregateOutputType | null
-    _min: UserOnChannelsMinAggregateOutputType | null
-    _max: UserOnChannelsMaxAggregateOutputType | null
+  export type AggregateUserOnChannel = {
+    _count: UserOnChannelCountAggregateOutputType | null
+    _min: UserOnChannelMinAggregateOutputType | null
+    _max: UserOnChannelMaxAggregateOutputType | null
   }
 
-  export type UserOnChannelsMinAggregateOutputType = {
+  export type UserOnChannelMinAggregateOutputType = {
     userId: string | null
     channelId: string | null
+    role: $Enums.ChannelRole | null
     joinedAt: Date | null
+    deletedAt: Date | null
   }
 
-  export type UserOnChannelsMaxAggregateOutputType = {
+  export type UserOnChannelMaxAggregateOutputType = {
     userId: string | null
     channelId: string | null
+    role: $Enums.ChannelRole | null
     joinedAt: Date | null
+    deletedAt: Date | null
   }
 
-  export type UserOnChannelsCountAggregateOutputType = {
+  export type UserOnChannelCountAggregateOutputType = {
     userId: number
     channelId: number
+    role: number
     joinedAt: number
+    deletedAt: number
     _all: number
   }
 
 
-  export type UserOnChannelsMinAggregateInputType = {
+  export type UserOnChannelMinAggregateInputType = {
     userId?: true
     channelId?: true
+    role?: true
     joinedAt?: true
+    deletedAt?: true
   }
 
-  export type UserOnChannelsMaxAggregateInputType = {
+  export type UserOnChannelMaxAggregateInputType = {
     userId?: true
     channelId?: true
+    role?: true
     joinedAt?: true
+    deletedAt?: true
   }
 
-  export type UserOnChannelsCountAggregateInputType = {
+  export type UserOnChannelCountAggregateInputType = {
     userId?: true
     channelId?: true
+    role?: true
     joinedAt?: true
+    deletedAt?: true
     _all?: true
   }
 
-  export type UserOnChannelsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which UserOnChannels to aggregate.
+     * Filter which UserOnChannel to aggregate.
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of UserOnChannels to fetch.
      */
-    orderBy?: UserOnChannelsOrderByWithRelationInput | UserOnChannelsOrderByWithRelationInput[]
+    orderBy?: UserOnChannelOrderByWithRelationInput | UserOnChannelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: UserOnChannelsWhereUniqueInput
+    cursor?: UserOnChannelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -8150,113 +8540,123 @@ export namespace Prisma {
      * 
      * Count returned UserOnChannels
     **/
-    _count?: true | UserOnChannelsCountAggregateInputType
+    _count?: true | UserOnChannelCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: UserOnChannelsMinAggregateInputType
+    _min?: UserOnChannelMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: UserOnChannelsMaxAggregateInputType
+    _max?: UserOnChannelMaxAggregateInputType
   }
 
-  export type GetUserOnChannelsAggregateType<T extends UserOnChannelsAggregateArgs> = {
-        [P in keyof T & keyof AggregateUserOnChannels]: P extends '_count' | 'count'
+  export type GetUserOnChannelAggregateType<T extends UserOnChannelAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserOnChannel]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateUserOnChannels[P]>
-      : GetScalarType<T[P], AggregateUserOnChannels[P]>
+        : GetScalarType<T[P], AggregateUserOnChannel[P]>
+      : GetScalarType<T[P], AggregateUserOnChannel[P]>
   }
 
 
 
 
-  export type UserOnChannelsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserOnChannelsWhereInput
-    orderBy?: UserOnChannelsOrderByWithAggregationInput | UserOnChannelsOrderByWithAggregationInput[]
-    by: UserOnChannelsScalarFieldEnum[] | UserOnChannelsScalarFieldEnum
-    having?: UserOnChannelsScalarWhereWithAggregatesInput
+  export type UserOnChannelGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserOnChannelWhereInput
+    orderBy?: UserOnChannelOrderByWithAggregationInput | UserOnChannelOrderByWithAggregationInput[]
+    by: UserOnChannelScalarFieldEnum[] | UserOnChannelScalarFieldEnum
+    having?: UserOnChannelScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: UserOnChannelsCountAggregateInputType | true
-    _min?: UserOnChannelsMinAggregateInputType
-    _max?: UserOnChannelsMaxAggregateInputType
+    _count?: UserOnChannelCountAggregateInputType | true
+    _min?: UserOnChannelMinAggregateInputType
+    _max?: UserOnChannelMaxAggregateInputType
   }
 
-  export type UserOnChannelsGroupByOutputType = {
+  export type UserOnChannelGroupByOutputType = {
     userId: string
     channelId: string
+    role: $Enums.ChannelRole
     joinedAt: Date
-    _count: UserOnChannelsCountAggregateOutputType | null
-    _min: UserOnChannelsMinAggregateOutputType | null
-    _max: UserOnChannelsMaxAggregateOutputType | null
+    deletedAt: Date | null
+    _count: UserOnChannelCountAggregateOutputType | null
+    _min: UserOnChannelMinAggregateOutputType | null
+    _max: UserOnChannelMaxAggregateOutputType | null
   }
 
-  type GetUserOnChannelsGroupByPayload<T extends UserOnChannelsGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserOnChannelGroupByPayload<T extends UserOnChannelGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<UserOnChannelsGroupByOutputType, T['by']> &
+      PickEnumerable<UserOnChannelGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof UserOnChannelsGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserOnChannelGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], UserOnChannelsGroupByOutputType[P]>
-            : GetScalarType<T[P], UserOnChannelsGroupByOutputType[P]>
+              : GetScalarType<T[P], UserOnChannelGroupByOutputType[P]>
+            : GetScalarType<T[P], UserOnChannelGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type UserOnChannelsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserOnChannelSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     channelId?: boolean
+    role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userOnChannels"]>
+  }, ExtArgs["result"]["userOnChannel"]>
 
-  export type UserOnChannelsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserOnChannelSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     channelId?: boolean
+    role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userOnChannels"]>
+  }, ExtArgs["result"]["userOnChannel"]>
 
-  export type UserOnChannelsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserOnChannelSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     channelId?: boolean
+    role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["userOnChannels"]>
+  }, ExtArgs["result"]["userOnChannel"]>
 
-  export type UserOnChannelsSelectScalar = {
+  export type UserOnChannelSelectScalar = {
     userId?: boolean
     channelId?: boolean
+    role?: boolean
     joinedAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type UserOnChannelsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "channelId" | "joinedAt", ExtArgs["result"]["userOnChannels"]>
-  export type UserOnChannelsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "channelId" | "role" | "joinedAt" | "deletedAt", ExtArgs["result"]["userOnChannel"]>
+  export type UserOnChannelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
   }
-  export type UserOnChannelsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
   }
-  export type UserOnChannelsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
   }
 
-  export type $UserOnChannelsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "UserOnChannels"
+  export type $UserOnChannelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserOnChannel"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
       channel: Prisma.$ChannelPayload<ExtArgs>
@@ -8264,137 +8664,139 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       userId: string
       channelId: string
+      role: $Enums.ChannelRole
       joinedAt: Date
-    }, ExtArgs["result"]["userOnChannels"]>
+      deletedAt: Date | null
+    }, ExtArgs["result"]["userOnChannel"]>
     composites: {}
   }
 
-  type UserOnChannelsGetPayload<S extends boolean | null | undefined | UserOnChannelsDefaultArgs> = $Result.GetResult<Prisma.$UserOnChannelsPayload, S>
+  type UserOnChannelGetPayload<S extends boolean | null | undefined | UserOnChannelDefaultArgs> = $Result.GetResult<Prisma.$UserOnChannelPayload, S>
 
-  type UserOnChannelsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<UserOnChannelsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: UserOnChannelsCountAggregateInputType | true
+  type UserOnChannelCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserOnChannelFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserOnChannelCountAggregateInputType | true
     }
 
-  export interface UserOnChannelsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserOnChannels'], meta: { name: 'UserOnChannels' } }
+  export interface UserOnChannelDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserOnChannel'], meta: { name: 'UserOnChannel' } }
     /**
-     * Find zero or one UserOnChannels that matches the filter.
-     * @param {UserOnChannelsFindUniqueArgs} args - Arguments to find a UserOnChannels
+     * Find zero or one UserOnChannel that matches the filter.
+     * @param {UserOnChannelFindUniqueArgs} args - Arguments to find a UserOnChannel
      * @example
-     * // Get one UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.findUnique({
+     * // Get one UserOnChannel
+     * const userOnChannel = await prisma.userOnChannel.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends UserOnChannelsFindUniqueArgs>(args: SelectSubset<T, UserOnChannelsFindUniqueArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends UserOnChannelFindUniqueArgs>(args: SelectSubset<T, UserOnChannelFindUniqueArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one UserOnChannels that matches the filter or throw an error with `error.code='P2025'`
+     * Find one UserOnChannel that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {UserOnChannelsFindUniqueOrThrowArgs} args - Arguments to find a UserOnChannels
+     * @param {UserOnChannelFindUniqueOrThrowArgs} args - Arguments to find a UserOnChannel
      * @example
-     * // Get one UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.findUniqueOrThrow({
+     * // Get one UserOnChannel
+     * const userOnChannel = await prisma.userOnChannel.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends UserOnChannelsFindUniqueOrThrowArgs>(args: SelectSubset<T, UserOnChannelsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends UserOnChannelFindUniqueOrThrowArgs>(args: SelectSubset<T, UserOnChannelFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UserOnChannels that matches the filter.
+     * Find the first UserOnChannel that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsFindFirstArgs} args - Arguments to find a UserOnChannels
+     * @param {UserOnChannelFindFirstArgs} args - Arguments to find a UserOnChannel
      * @example
-     * // Get one UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.findFirst({
+     * // Get one UserOnChannel
+     * const userOnChannel = await prisma.userOnChannel.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends UserOnChannelsFindFirstArgs>(args?: SelectSubset<T, UserOnChannelsFindFirstArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends UserOnChannelFindFirstArgs>(args?: SelectSubset<T, UserOnChannelFindFirstArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first UserOnChannels that matches the filter or
+     * Find the first UserOnChannel that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsFindFirstOrThrowArgs} args - Arguments to find a UserOnChannels
+     * @param {UserOnChannelFindFirstOrThrowArgs} args - Arguments to find a UserOnChannel
      * @example
-     * // Get one UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.findFirstOrThrow({
+     * // Get one UserOnChannel
+     * const userOnChannel = await prisma.userOnChannel.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends UserOnChannelsFindFirstOrThrowArgs>(args?: SelectSubset<T, UserOnChannelsFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends UserOnChannelFindFirstOrThrowArgs>(args?: SelectSubset<T, UserOnChannelFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Find zero or more UserOnChannels that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {UserOnChannelFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
      * // Get all UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.findMany()
+     * const userOnChannels = await prisma.userOnChannel.findMany()
      * 
      * // Get first 10 UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.findMany({ take: 10 })
+     * const userOnChannels = await prisma.userOnChannel.findMany({ take: 10 })
      * 
      * // Only select the `userId`
-     * const userOnChannelsWithUserIdOnly = await prisma.userOnChannels.findMany({ select: { userId: true } })
+     * const userOnChannelWithUserIdOnly = await prisma.userOnChannel.findMany({ select: { userId: true } })
      * 
      */
-    findMany<T extends UserOnChannelsFindManyArgs>(args?: SelectSubset<T, UserOnChannelsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends UserOnChannelFindManyArgs>(args?: SelectSubset<T, UserOnChannelFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a UserOnChannels.
-     * @param {UserOnChannelsCreateArgs} args - Arguments to create a UserOnChannels.
+     * Create a UserOnChannel.
+     * @param {UserOnChannelCreateArgs} args - Arguments to create a UserOnChannel.
      * @example
-     * // Create one UserOnChannels
-     * const UserOnChannels = await prisma.userOnChannels.create({
+     * // Create one UserOnChannel
+     * const UserOnChannel = await prisma.userOnChannel.create({
      *   data: {
-     *     // ... data to create a UserOnChannels
+     *     // ... data to create a UserOnChannel
      *   }
      * })
      * 
      */
-    create<T extends UserOnChannelsCreateArgs>(args: SelectSubset<T, UserOnChannelsCreateArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends UserOnChannelCreateArgs>(args: SelectSubset<T, UserOnChannelCreateArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Create many UserOnChannels.
-     * @param {UserOnChannelsCreateManyArgs} args - Arguments to create many UserOnChannels.
+     * @param {UserOnChannelCreateManyArgs} args - Arguments to create many UserOnChannels.
      * @example
      * // Create many UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.createMany({
+     * const userOnChannel = await prisma.userOnChannel.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends UserOnChannelsCreateManyArgs>(args?: SelectSubset<T, UserOnChannelsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends UserOnChannelCreateManyArgs>(args?: SelectSubset<T, UserOnChannelCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Create many UserOnChannels and returns the data saved in the database.
-     * @param {UserOnChannelsCreateManyAndReturnArgs} args - Arguments to create many UserOnChannels.
+     * @param {UserOnChannelCreateManyAndReturnArgs} args - Arguments to create many UserOnChannels.
      * @example
      * // Create many UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.createManyAndReturn({
+     * const userOnChannel = await prisma.userOnChannel.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
      * // Create many UserOnChannels and only return the `userId`
-     * const userOnChannelsWithUserIdOnly = await prisma.userOnChannels.createManyAndReturn({
+     * const userOnChannelWithUserIdOnly = await prisma.userOnChannel.createManyAndReturn({
      *   select: { userId: true },
      *   data: [
      *     // ... provide data here
@@ -8404,28 +8806,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends UserOnChannelsCreateManyAndReturnArgs>(args?: SelectSubset<T, UserOnChannelsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends UserOnChannelCreateManyAndReturnArgs>(args?: SelectSubset<T, UserOnChannelCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a UserOnChannels.
-     * @param {UserOnChannelsDeleteArgs} args - Arguments to delete one UserOnChannels.
+     * Delete a UserOnChannel.
+     * @param {UserOnChannelDeleteArgs} args - Arguments to delete one UserOnChannel.
      * @example
-     * // Delete one UserOnChannels
-     * const UserOnChannels = await prisma.userOnChannels.delete({
+     * // Delete one UserOnChannel
+     * const UserOnChannel = await prisma.userOnChannel.delete({
      *   where: {
-     *     // ... filter to delete one UserOnChannels
+     *     // ... filter to delete one UserOnChannel
      *   }
      * })
      * 
      */
-    delete<T extends UserOnChannelsDeleteArgs>(args: SelectSubset<T, UserOnChannelsDeleteArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends UserOnChannelDeleteArgs>(args: SelectSubset<T, UserOnChannelDeleteArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one UserOnChannels.
-     * @param {UserOnChannelsUpdateArgs} args - Arguments to update one UserOnChannels.
+     * Update one UserOnChannel.
+     * @param {UserOnChannelUpdateArgs} args - Arguments to update one UserOnChannel.
      * @example
-     * // Update one UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.update({
+     * // Update one UserOnChannel
+     * const userOnChannel = await prisma.userOnChannel.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8435,30 +8837,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends UserOnChannelsUpdateArgs>(args: SelectSubset<T, UserOnChannelsUpdateArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends UserOnChannelUpdateArgs>(args: SelectSubset<T, UserOnChannelUpdateArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
      * Delete zero or more UserOnChannels.
-     * @param {UserOnChannelsDeleteManyArgs} args - Arguments to filter UserOnChannels to delete.
+     * @param {UserOnChannelDeleteManyArgs} args - Arguments to filter UserOnChannels to delete.
      * @example
      * // Delete a few UserOnChannels
-     * const { count } = await prisma.userOnChannels.deleteMany({
+     * const { count } = await prisma.userOnChannel.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends UserOnChannelsDeleteManyArgs>(args?: SelectSubset<T, UserOnChannelsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends UserOnChannelDeleteManyArgs>(args?: SelectSubset<T, UserOnChannelDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more UserOnChannels.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserOnChannelUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
      * // Update many UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.updateMany({
+     * const userOnChannel = await prisma.userOnChannel.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8468,14 +8870,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends UserOnChannelsUpdateManyArgs>(args: SelectSubset<T, UserOnChannelsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends UserOnChannelUpdateManyArgs>(args: SelectSubset<T, UserOnChannelUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
      * Update zero or more UserOnChannels and returns the data updated in the database.
-     * @param {UserOnChannelsUpdateManyAndReturnArgs} args - Arguments to update many UserOnChannels.
+     * @param {UserOnChannelUpdateManyAndReturnArgs} args - Arguments to update many UserOnChannels.
      * @example
      * // Update many UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.updateManyAndReturn({
+     * const userOnChannel = await prisma.userOnChannel.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -8485,7 +8887,7 @@ export namespace Prisma {
      * })
      * 
      * // Update zero or more UserOnChannels and only return the `userId`
-     * const userOnChannelsWithUserIdOnly = await prisma.userOnChannels.updateManyAndReturn({
+     * const userOnChannelWithUserIdOnly = await prisma.userOnChannel.updateManyAndReturn({
      *   select: { userId: true },
      *   where: {
      *     // ... provide filter here
@@ -8498,56 +8900,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends UserOnChannelsUpdateManyAndReturnArgs>(args: SelectSubset<T, UserOnChannelsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends UserOnChannelUpdateManyAndReturnArgs>(args: SelectSubset<T, UserOnChannelUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one UserOnChannels.
-     * @param {UserOnChannelsUpsertArgs} args - Arguments to update or create a UserOnChannels.
+     * Create or update one UserOnChannel.
+     * @param {UserOnChannelUpsertArgs} args - Arguments to update or create a UserOnChannel.
      * @example
-     * // Update or create a UserOnChannels
-     * const userOnChannels = await prisma.userOnChannels.upsert({
+     * // Update or create a UserOnChannel
+     * const userOnChannel = await prisma.userOnChannel.upsert({
      *   create: {
-     *     // ... data to create a UserOnChannels
+     *     // ... data to create a UserOnChannel
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the UserOnChannels we want to update
+     *     // ... the filter for the UserOnChannel we want to update
      *   }
      * })
      */
-    upsert<T extends UserOnChannelsUpsertArgs>(args: SelectSubset<T, UserOnChannelsUpsertArgs<ExtArgs>>): Prisma__UserOnChannelsClient<$Result.GetResult<Prisma.$UserOnChannelsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends UserOnChannelUpsertArgs>(args: SelectSubset<T, UserOnChannelUpsertArgs<ExtArgs>>): Prisma__UserOnChannelClient<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
      * Count the number of UserOnChannels.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsCountArgs} args - Arguments to filter UserOnChannels to count.
+     * @param {UserOnChannelCountArgs} args - Arguments to filter UserOnChannels to count.
      * @example
      * // Count the number of UserOnChannels
-     * const count = await prisma.userOnChannels.count({
+     * const count = await prisma.userOnChannel.count({
      *   where: {
      *     // ... the filter for the UserOnChannels we want to count
      *   }
      * })
     **/
-    count<T extends UserOnChannelsCountArgs>(
-      args?: Subset<T, UserOnChannelsCountArgs>,
+    count<T extends UserOnChannelCountArgs>(
+      args?: Subset<T, UserOnChannelCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], UserOnChannelsCountAggregateOutputType>
+          : GetScalarType<T['select'], UserOnChannelCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a UserOnChannels.
+     * Allows you to perform aggregations operations on a UserOnChannel.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserOnChannelAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -8567,13 +8969,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends UserOnChannelsAggregateArgs>(args: Subset<T, UserOnChannelsAggregateArgs>): Prisma.PrismaPromise<GetUserOnChannelsAggregateType<T>>
+    aggregate<T extends UserOnChannelAggregateArgs>(args: Subset<T, UserOnChannelAggregateArgs>): Prisma.PrismaPromise<GetUserOnChannelAggregateType<T>>
 
     /**
-     * Group by UserOnChannels.
+     * Group by UserOnChannel.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {UserOnChannelsGroupByArgs} args - Group by arguments.
+     * @param {UserOnChannelGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -8588,14 +8990,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends UserOnChannelsGroupByArgs,
+      T extends UserOnChannelGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: UserOnChannelsGroupByArgs['orderBy'] }
-        : { orderBy?: UserOnChannelsGroupByArgs['orderBy'] },
+        ? { orderBy: UserOnChannelGroupByArgs['orderBy'] }
+        : { orderBy?: UserOnChannelGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -8644,20 +9046,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, UserOnChannelsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserOnChannelsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserOnChannelGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserOnChannelGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the UserOnChannels model
+   * Fields of the UserOnChannel model
    */
-  readonly fields: UserOnChannelsFieldRefs;
+  readonly fields: UserOnChannelFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for UserOnChannels.
+   * The delegate class that acts as a "Promise-like" for UserOnChannel.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__UserOnChannelsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserOnChannelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     channel<T extends ChannelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChannelDefaultArgs<ExtArgs>>): Prisma__ChannelClient<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -8687,92 +9089,94 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the UserOnChannels model
+   * Fields of the UserOnChannel model
    */
-  interface UserOnChannelsFieldRefs {
-    readonly userId: FieldRef<"UserOnChannels", 'String'>
-    readonly channelId: FieldRef<"UserOnChannels", 'String'>
-    readonly joinedAt: FieldRef<"UserOnChannels", 'DateTime'>
+  interface UserOnChannelFieldRefs {
+    readonly userId: FieldRef<"UserOnChannel", 'String'>
+    readonly channelId: FieldRef<"UserOnChannel", 'String'>
+    readonly role: FieldRef<"UserOnChannel", 'ChannelRole'>
+    readonly joinedAt: FieldRef<"UserOnChannel", 'DateTime'>
+    readonly deletedAt: FieldRef<"UserOnChannel", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * UserOnChannels findUnique
+   * UserOnChannel findUnique
    */
-  export type UserOnChannelsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * Filter, which UserOnChannels to fetch.
+     * Filter, which UserOnChannel to fetch.
      */
-    where: UserOnChannelsWhereUniqueInput
+    where: UserOnChannelWhereUniqueInput
   }
 
   /**
-   * UserOnChannels findUniqueOrThrow
+   * UserOnChannel findUniqueOrThrow
    */
-  export type UserOnChannelsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * Filter, which UserOnChannels to fetch.
+     * Filter, which UserOnChannel to fetch.
      */
-    where: UserOnChannelsWhereUniqueInput
+    where: UserOnChannelWhereUniqueInput
   }
 
   /**
-   * UserOnChannels findFirst
+   * UserOnChannel findFirst
    */
-  export type UserOnChannelsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * Filter, which UserOnChannels to fetch.
+     * Filter, which UserOnChannel to fetch.
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of UserOnChannels to fetch.
      */
-    orderBy?: UserOnChannelsOrderByWithRelationInput | UserOnChannelsOrderByWithRelationInput[]
+    orderBy?: UserOnChannelOrderByWithRelationInput | UserOnChannelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for searching for UserOnChannels.
      */
-    cursor?: UserOnChannelsWhereUniqueInput
+    cursor?: UserOnChannelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -8790,41 +9194,41 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of UserOnChannels.
      */
-    distinct?: UserOnChannelsScalarFieldEnum | UserOnChannelsScalarFieldEnum[]
+    distinct?: UserOnChannelScalarFieldEnum | UserOnChannelScalarFieldEnum[]
   }
 
   /**
-   * UserOnChannels findFirstOrThrow
+   * UserOnChannel findFirstOrThrow
    */
-  export type UserOnChannelsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * Filter, which UserOnChannels to fetch.
+     * Filter, which UserOnChannel to fetch.
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of UserOnChannels to fetch.
      */
-    orderBy?: UserOnChannelsOrderByWithRelationInput | UserOnChannelsOrderByWithRelationInput[]
+    orderBy?: UserOnChannelOrderByWithRelationInput | UserOnChannelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for searching for UserOnChannels.
      */
-    cursor?: UserOnChannelsWhereUniqueInput
+    cursor?: UserOnChannelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -8842,41 +9246,41 @@ export namespace Prisma {
      * 
      * Filter by unique combinations of UserOnChannels.
      */
-    distinct?: UserOnChannelsScalarFieldEnum | UserOnChannelsScalarFieldEnum[]
+    distinct?: UserOnChannelScalarFieldEnum | UserOnChannelScalarFieldEnum[]
   }
 
   /**
-   * UserOnChannels findMany
+   * UserOnChannel findMany
    */
-  export type UserOnChannelsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
      * Filter, which UserOnChannels to fetch.
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
      * Determine the order of UserOnChannels to fetch.
      */
-    orderBy?: UserOnChannelsOrderByWithRelationInput | UserOnChannelsOrderByWithRelationInput[]
+    orderBy?: UserOnChannelOrderByWithRelationInput | UserOnChannelOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the position for listing UserOnChannels.
      */
-    cursor?: UserOnChannelsWhereUniqueInput
+    cursor?: UserOnChannelWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
@@ -8889,103 +9293,103 @@ export namespace Prisma {
      * Skip the first `n` UserOnChannels.
      */
     skip?: number
-    distinct?: UserOnChannelsScalarFieldEnum | UserOnChannelsScalarFieldEnum[]
+    distinct?: UserOnChannelScalarFieldEnum | UserOnChannelScalarFieldEnum[]
   }
 
   /**
-   * UserOnChannels create
+   * UserOnChannel create
    */
-  export type UserOnChannelsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * The data needed to create a UserOnChannels.
+     * The data needed to create a UserOnChannel.
      */
-    data: XOR<UserOnChannelsCreateInput, UserOnChannelsUncheckedCreateInput>
+    data: XOR<UserOnChannelCreateInput, UserOnChannelUncheckedCreateInput>
   }
 
   /**
-   * UserOnChannels createMany
+   * UserOnChannel createMany
    */
-  export type UserOnChannelsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to create many UserOnChannels.
      */
-    data: UserOnChannelsCreateManyInput | UserOnChannelsCreateManyInput[]
+    data: UserOnChannelCreateManyInput | UserOnChannelCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * UserOnChannels createManyAndReturn
+   * UserOnChannel createManyAndReturn
    */
-  export type UserOnChannelsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelectCreateManyAndReturn<ExtArgs> | null
+    select?: UserOnChannelSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * The data used to create many UserOnChannels.
      */
-    data: UserOnChannelsCreateManyInput | UserOnChannelsCreateManyInput[]
+    data: UserOnChannelCreateManyInput | UserOnChannelCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: UserOnChannelIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UserOnChannels update
+   * UserOnChannel update
    */
-  export type UserOnChannelsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * The data needed to update a UserOnChannels.
+     * The data needed to update a UserOnChannel.
      */
-    data: XOR<UserOnChannelsUpdateInput, UserOnChannelsUncheckedUpdateInput>
+    data: XOR<UserOnChannelUpdateInput, UserOnChannelUncheckedUpdateInput>
     /**
-     * Choose, which UserOnChannels to update.
+     * Choose, which UserOnChannel to update.
      */
-    where: UserOnChannelsWhereUniqueInput
+    where: UserOnChannelWhereUniqueInput
   }
 
   /**
-   * UserOnChannels updateMany
+   * UserOnChannel updateMany
    */
-  export type UserOnChannelsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * The data used to update UserOnChannels.
      */
-    data: XOR<UserOnChannelsUpdateManyMutationInput, UserOnChannelsUncheckedUpdateManyInput>
+    data: XOR<UserOnChannelUpdateManyMutationInput, UserOnChannelUncheckedUpdateManyInput>
     /**
      * Filter which UserOnChannels to update
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * Limit how many UserOnChannels to update.
      */
@@ -8993,25 +9397,25 @@ export namespace Prisma {
   }
 
   /**
-   * UserOnChannels updateManyAndReturn
+   * UserOnChannel updateManyAndReturn
    */
-  export type UserOnChannelsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: UserOnChannelSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * The data used to update UserOnChannels.
      */
-    data: XOR<UserOnChannelsUpdateManyMutationInput, UserOnChannelsUncheckedUpdateManyInput>
+    data: XOR<UserOnChannelUpdateManyMutationInput, UserOnChannelUncheckedUpdateManyInput>
     /**
      * Filter which UserOnChannels to update
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * Limit how many UserOnChannels to update.
      */
@@ -9019,69 +9423,69 @@ export namespace Prisma {
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: UserOnChannelIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * UserOnChannels upsert
+   * UserOnChannel upsert
    */
-  export type UserOnChannelsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * The filter to search for the UserOnChannels to update in case it exists.
+     * The filter to search for the UserOnChannel to update in case it exists.
      */
-    where: UserOnChannelsWhereUniqueInput
+    where: UserOnChannelWhereUniqueInput
     /**
-     * In case the UserOnChannels found by the `where` argument doesn't exist, create a new UserOnChannels with this data.
+     * In case the UserOnChannel found by the `where` argument doesn't exist, create a new UserOnChannel with this data.
      */
-    create: XOR<UserOnChannelsCreateInput, UserOnChannelsUncheckedCreateInput>
+    create: XOR<UserOnChannelCreateInput, UserOnChannelUncheckedCreateInput>
     /**
-     * In case the UserOnChannels was found with the provided `where` argument, update it with this data.
+     * In case the UserOnChannel was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<UserOnChannelsUpdateInput, UserOnChannelsUncheckedUpdateInput>
+    update: XOR<UserOnChannelUpdateInput, UserOnChannelUncheckedUpdateInput>
   }
 
   /**
-   * UserOnChannels delete
+   * UserOnChannel delete
    */
-  export type UserOnChannelsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
     /**
-     * Filter which UserOnChannels to delete.
+     * Filter which UserOnChannel to delete.
      */
-    where: UserOnChannelsWhereUniqueInput
+    where: UserOnChannelWhereUniqueInput
   }
 
   /**
-   * UserOnChannels deleteMany
+   * UserOnChannel deleteMany
    */
-  export type UserOnChannelsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Filter which UserOnChannels to delete
      */
-    where?: UserOnChannelsWhereInput
+    where?: UserOnChannelWhereInput
     /**
      * Limit how many UserOnChannels to delete.
      */
@@ -9089,21 +9493,21 @@ export namespace Prisma {
   }
 
   /**
-   * UserOnChannels without action
+   * UserOnChannel without action
    */
-  export type UserOnChannelsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserOnChannelDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the UserOnChannels
+     * Select specific fields to fetch from the UserOnChannel
      */
-    select?: UserOnChannelsSelect<ExtArgs> | null
+    select?: UserOnChannelSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the UserOnChannels
+     * Omit specific fields from the UserOnChannel
      */
-    omit?: UserOnChannelsOmit<ExtArgs> | null
+    omit?: UserOnChannelOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: UserOnChannelsInclude<ExtArgs> | null
+    include?: UserOnChannelInclude<ExtArgs> | null
   }
 
 
@@ -14616,10 +15020,24 @@ export namespace Prisma {
     lastSeen: 'lastSeen',
     isVerified: 'isVerified',
     refreshToken: 'refreshToken',
+    emailVerificationToken: 'emailVerificationToken',
+    emailVerificationTokenExpires: 'emailVerificationTokenExpires',
+    emailVerificationTokenSentAt: 'emailVerificationTokenSentAt',
+    resetPasswordPin: 'resetPasswordPin',
+    resetPasswordPinExpires: 'resetPasswordPinExpires',
     resetPasswordToken: 'resetPasswordToken',
-    resetPasswordExpires: 'resetPasswordExpires',
-    deletedAt: 'deletedAt',
+    resetPasswordPinSentAt: 'resetPasswordPinSentAt',
+    failedPinAttempts: 'failedPinAttempts',
+    loginOtp: 'loginOtp',
+    loginOtpExpires: 'loginOtpExpires',
+    loginSessionToken: 'loginSessionToken',
+    loginOtpSentAt: 'loginOtpSentAt',
+    oauthProvider: 'oauthProvider',
+    oauthId: 'oauthId',
+    emailVerified: 'emailVerified',
+    lastLoginAt: 'lastLoginAt',
     fcmToken: 'fcmToken',
+    deletedAt: 'deletedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -14645,7 +15063,8 @@ export namespace Prisma {
     userId: 'userId',
     workspaceId: 'workspaceId',
     role: 'role',
-    joinedAt: 'joinedAt'
+    joinedAt: 'joinedAt',
+    deletedAt: 'deletedAt'
   };
 
   export type UserOnWorkspaceScalarFieldEnum = (typeof UserOnWorkspaceScalarFieldEnum)[keyof typeof UserOnWorkspaceScalarFieldEnum]
@@ -14676,19 +15095,23 @@ export namespace Prisma {
     workspaceId: 'workspaceId',
     deletedAt: 'deletedAt',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    ownerId: 'ownerId',
+    userId: 'userId'
   };
 
   export type ChannelScalarFieldEnum = (typeof ChannelScalarFieldEnum)[keyof typeof ChannelScalarFieldEnum]
 
 
-  export const UserOnChannelsScalarFieldEnum: {
+  export const UserOnChannelScalarFieldEnum: {
     userId: 'userId',
     channelId: 'channelId',
-    joinedAt: 'joinedAt'
+    role: 'role',
+    joinedAt: 'joinedAt',
+    deletedAt: 'deletedAt'
   };
 
-  export type UserOnChannelsScalarFieldEnum = (typeof UserOnChannelsScalarFieldEnum)[keyof typeof UserOnChannelsScalarFieldEnum]
+  export type UserOnChannelScalarFieldEnum = (typeof UserOnChannelScalarFieldEnum)[keyof typeof UserOnChannelScalarFieldEnum]
 
 
   export const MessageScalarFieldEnum: {
@@ -14825,6 +15248,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
    * Reference to a field of type 'WorkspaceRole'
    */
   export type EnumWorkspaceRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WorkspaceRole'>
@@ -14853,16 +15290,30 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'ChannelRole'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type EnumChannelRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChannelRole'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'ChannelRole[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListEnumChannelRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ChannelRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -14876,106 +15327,171 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     name?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     avatar?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
     lastSeen?: DateTimeNullableFilter<"User"> | Date | string | null
     isVerified?: BoolFilter<"User"> | boolean
     refreshToken?: StringNullableFilter<"User"> | string | null
+    emailVerificationToken?: StringNullableFilter<"User"> | string | null
+    emailVerificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerificationTokenSentAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordPin?: StringNullableFilter<"User"> | string | null
+    resetPasswordPinExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
-    resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordPinSentAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    failedPinAttempts?: IntNullableFilter<"User"> | number | null
+    loginOtp?: StringNullableFilter<"User"> | string | null
+    loginOtpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    loginSessionToken?: StringNullableFilter<"User"> | string | null
+    loginOtpSentAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    oauthProvider?: StringNullableFilter<"User"> | string | null
+    oauthId?: StringNullableFilter<"User"> | string | null
+    emailVerified?: BoolFilter<"User"> | boolean
+    lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     fcmToken?: StringNullableFilter<"User"> | string | null
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     workspaces?: UserOnWorkspaceListRelationFilter
     ownedWorkspaces?: WorkspaceListRelationFilter
+    ownedChannels?: ChannelListRelationFilter
     InviteSent?: InviteListRelationFilter
-    Channels?: UserOnChannelsListRelationFilter
+    Channels?: UserOnChannelListRelationFilter
     Message?: MessageListRelationFilter
     UserOnDM?: UserOnDMListRelationFilter
     MessageReaction?: MessageReactionListRelationFilter
     MessageMention?: MessageMentionListRelationFilter
+    Channel?: ChannelListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
     role?: SortOrder
     avatar?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     lastSeen?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
+    emailVerificationToken?: SortOrderInput | SortOrder
+    emailVerificationTokenExpires?: SortOrderInput | SortOrder
+    emailVerificationTokenSentAt?: SortOrderInput | SortOrder
+    resetPasswordPin?: SortOrderInput | SortOrder
+    resetPasswordPinExpires?: SortOrderInput | SortOrder
     resetPasswordToken?: SortOrderInput | SortOrder
-    resetPasswordExpires?: SortOrderInput | SortOrder
-    deletedAt?: SortOrderInput | SortOrder
+    resetPasswordPinSentAt?: SortOrderInput | SortOrder
+    failedPinAttempts?: SortOrderInput | SortOrder
+    loginOtp?: SortOrderInput | SortOrder
+    loginOtpExpires?: SortOrderInput | SortOrder
+    loginSessionToken?: SortOrderInput | SortOrder
+    loginOtpSentAt?: SortOrderInput | SortOrder
+    oauthProvider?: SortOrderInput | SortOrder
+    oauthId?: SortOrderInput | SortOrder
+    emailVerified?: SortOrder
+    lastLoginAt?: SortOrderInput | SortOrder
     fcmToken?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     workspaces?: UserOnWorkspaceOrderByRelationAggregateInput
     ownedWorkspaces?: WorkspaceOrderByRelationAggregateInput
+    ownedChannels?: ChannelOrderByRelationAggregateInput
     InviteSent?: InviteOrderByRelationAggregateInput
-    Channels?: UserOnChannelsOrderByRelationAggregateInput
+    Channels?: UserOnChannelOrderByRelationAggregateInput
     Message?: MessageOrderByRelationAggregateInput
     UserOnDM?: UserOnDMOrderByRelationAggregateInput
     MessageReaction?: MessageReactionOrderByRelationAggregateInput
     MessageMention?: MessageMentionOrderByRelationAggregateInput
+    Channel?: ChannelOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    oauth_unique?: UserOauth_uniqueCompoundUniqueInput
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
-    password?: StringFilter<"User"> | string
+    password?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     avatar?: StringNullableFilter<"User"> | string | null
     status?: StringNullableFilter<"User"> | string | null
     lastSeen?: DateTimeNullableFilter<"User"> | Date | string | null
     isVerified?: BoolFilter<"User"> | boolean
     refreshToken?: StringNullableFilter<"User"> | string | null
+    emailVerificationToken?: StringNullableFilter<"User"> | string | null
+    emailVerificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    emailVerificationTokenSentAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordPin?: StringNullableFilter<"User"> | string | null
+    resetPasswordPinExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     resetPasswordToken?: StringNullableFilter<"User"> | string | null
-    resetPasswordExpires?: DateTimeNullableFilter<"User"> | Date | string | null
-    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    resetPasswordPinSentAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    failedPinAttempts?: IntNullableFilter<"User"> | number | null
+    loginOtp?: StringNullableFilter<"User"> | string | null
+    loginOtpExpires?: DateTimeNullableFilter<"User"> | Date | string | null
+    loginSessionToken?: StringNullableFilter<"User"> | string | null
+    loginOtpSentAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    oauthProvider?: StringNullableFilter<"User"> | string | null
+    oauthId?: StringNullableFilter<"User"> | string | null
+    emailVerified?: BoolFilter<"User"> | boolean
+    lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
     fcmToken?: StringNullableFilter<"User"> | string | null
+    deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     workspaces?: UserOnWorkspaceListRelationFilter
     ownedWorkspaces?: WorkspaceListRelationFilter
+    ownedChannels?: ChannelListRelationFilter
     InviteSent?: InviteListRelationFilter
-    Channels?: UserOnChannelsListRelationFilter
+    Channels?: UserOnChannelListRelationFilter
     Message?: MessageListRelationFilter
     UserOnDM?: UserOnDMListRelationFilter
     MessageReaction?: MessageReactionListRelationFilter
     MessageMention?: MessageMentionListRelationFilter
-  }, "id" | "email">
+    Channel?: ChannelListRelationFilter
+  }, "id" | "email" | "oauth_unique">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
     email?: SortOrder
-    password?: SortOrder
+    password?: SortOrderInput | SortOrder
     role?: SortOrder
     avatar?: SortOrderInput | SortOrder
     status?: SortOrderInput | SortOrder
     lastSeen?: SortOrderInput | SortOrder
     isVerified?: SortOrder
     refreshToken?: SortOrderInput | SortOrder
+    emailVerificationToken?: SortOrderInput | SortOrder
+    emailVerificationTokenExpires?: SortOrderInput | SortOrder
+    emailVerificationTokenSentAt?: SortOrderInput | SortOrder
+    resetPasswordPin?: SortOrderInput | SortOrder
+    resetPasswordPinExpires?: SortOrderInput | SortOrder
     resetPasswordToken?: SortOrderInput | SortOrder
-    resetPasswordExpires?: SortOrderInput | SortOrder
-    deletedAt?: SortOrderInput | SortOrder
+    resetPasswordPinSentAt?: SortOrderInput | SortOrder
+    failedPinAttempts?: SortOrderInput | SortOrder
+    loginOtp?: SortOrderInput | SortOrder
+    loginOtpExpires?: SortOrderInput | SortOrder
+    loginSessionToken?: SortOrderInput | SortOrder
+    loginOtpSentAt?: SortOrderInput | SortOrder
+    oauthProvider?: SortOrderInput | SortOrder
+    oauthId?: SortOrderInput | SortOrder
+    emailVerified?: SortOrder
+    lastLoginAt?: SortOrderInput | SortOrder
     fcmToken?: SortOrderInput | SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
+    _avg?: UserAvgOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
+    _sum?: UserSumOrderByAggregateInput
   }
 
   export type UserScalarWhereWithAggregatesInput = {
@@ -14985,17 +15501,31 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
-    password?: StringWithAggregatesFilter<"User"> | string
+    password?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     status?: StringNullableWithAggregatesFilter<"User"> | string | null
     lastSeen?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     isVerified?: BoolWithAggregatesFilter<"User"> | boolean
     refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    emailVerificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    emailVerificationTokenExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    emailVerificationTokenSentAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    resetPasswordPin?: StringNullableWithAggregatesFilter<"User"> | string | null
+    resetPasswordPinExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     resetPasswordToken?: StringNullableWithAggregatesFilter<"User"> | string | null
-    resetPasswordExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    resetPasswordPinSentAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    failedPinAttempts?: IntNullableWithAggregatesFilter<"User"> | number | null
+    loginOtp?: StringNullableWithAggregatesFilter<"User"> | string | null
+    loginOtpExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    loginSessionToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    loginOtpSentAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    oauthProvider?: StringNullableWithAggregatesFilter<"User"> | string | null
+    oauthId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
+    lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -15037,12 +15567,13 @@ export namespace Prisma {
 
   export type WorkspaceWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    slug?: string
+    slug_deletedAt?: WorkspaceSlugDeletedAtCompoundUniqueInput
     AND?: WorkspaceWhereInput | WorkspaceWhereInput[]
     OR?: WorkspaceWhereInput[]
     NOT?: WorkspaceWhereInput | WorkspaceWhereInput[]
     name?: StringFilter<"Workspace"> | string
     description?: StringNullableFilter<"Workspace"> | string | null
+    slug?: StringFilter<"Workspace"> | string
     deletedAt?: DateTimeNullableFilter<"Workspace"> | Date | string | null
     createdAt?: DateTimeFilter<"Workspace"> | Date | string
     updatedAt?: DateTimeFilter<"Workspace"> | Date | string
@@ -15052,7 +15583,7 @@ export namespace Prisma {
     Invite?: InviteListRelationFilter
     Channel?: ChannelListRelationFilter
     DirectMessageConversation?: DirectMessageConversationListRelationFilter
-  }, "id" | "slug">
+  }, "id" | "slug_deletedAt">
 
   export type WorkspaceOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15090,6 +15621,7 @@ export namespace Prisma {
     workspaceId?: StringFilter<"UserOnWorkspace"> | string
     role?: EnumWorkspaceRoleFilter<"UserOnWorkspace"> | $Enums.WorkspaceRole
     joinedAt?: DateTimeFilter<"UserOnWorkspace"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserOnWorkspace"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
   }
@@ -15099,6 +15631,7 @@ export namespace Prisma {
     workspaceId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     workspace?: WorkspaceOrderByWithRelationInput
   }
@@ -15112,6 +15645,7 @@ export namespace Prisma {
     workspaceId?: StringFilter<"UserOnWorkspace"> | string
     role?: EnumWorkspaceRoleFilter<"UserOnWorkspace"> | $Enums.WorkspaceRole
     joinedAt?: DateTimeFilter<"UserOnWorkspace"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserOnWorkspace"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
   }, "userId_workspaceId">
@@ -15121,6 +15655,7 @@ export namespace Prisma {
     workspaceId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: UserOnWorkspaceCountOrderByAggregateInput
     _max?: UserOnWorkspaceMaxOrderByAggregateInput
     _min?: UserOnWorkspaceMinOrderByAggregateInput
@@ -15134,6 +15669,7 @@ export namespace Prisma {
     workspaceId?: StringWithAggregatesFilter<"UserOnWorkspace"> | string
     role?: EnumWorkspaceRoleWithAggregatesFilter<"UserOnWorkspace"> | $Enums.WorkspaceRole
     joinedAt?: DateTimeWithAggregatesFilter<"UserOnWorkspace"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"UserOnWorkspace"> | Date | string | null
   }
 
   export type InviteWhereInput = {
@@ -15236,9 +15772,13 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Channel"> | Date | string | null
     createdAt?: DateTimeFilter<"Channel"> | Date | string
     updatedAt?: DateTimeFilter<"Channel"> | Date | string
+    ownerId?: StringFilter<"Channel"> | string
+    userId?: StringNullableFilter<"Channel"> | string | null
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
-    UserOnChannels?: UserOnChannelsListRelationFilter
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    UserOnChannels?: UserOnChannelListRelationFilter
     Message?: MessageListRelationFilter
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }
 
   export type ChannelOrderByWithRelationInput = {
@@ -15250,9 +15790,13 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    ownerId?: SortOrder
+    userId?: SortOrderInput | SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
-    UserOnChannels?: UserOnChannelsOrderByRelationAggregateInput
+    owner?: UserOrderByWithRelationInput
+    UserOnChannels?: UserOnChannelOrderByRelationAggregateInput
     Message?: MessageOrderByRelationAggregateInput
+    User?: UserOrderByWithRelationInput
   }
 
   export type ChannelWhereUniqueInput = Prisma.AtLeast<{
@@ -15267,9 +15811,13 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableFilter<"Channel"> | Date | string | null
     createdAt?: DateTimeFilter<"Channel"> | Date | string
     updatedAt?: DateTimeFilter<"Channel"> | Date | string
+    ownerId?: StringFilter<"Channel"> | string
+    userId?: StringNullableFilter<"Channel"> | string | null
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
-    UserOnChannels?: UserOnChannelsListRelationFilter
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    UserOnChannels?: UserOnChannelListRelationFilter
     Message?: MessageListRelationFilter
+    User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
   }, "id">
 
   export type ChannelOrderByWithAggregationInput = {
@@ -15281,6 +15829,8 @@ export namespace Prisma {
     deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    ownerId?: SortOrder
+    userId?: SortOrderInput | SortOrder
     _count?: ChannelCountOrderByAggregateInput
     _max?: ChannelMaxOrderByAggregateInput
     _min?: ChannelMinOrderByAggregateInput
@@ -15298,55 +15848,67 @@ export namespace Prisma {
     deletedAt?: DateTimeNullableWithAggregatesFilter<"Channel"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Channel"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Channel"> | Date | string
+    ownerId?: StringWithAggregatesFilter<"Channel"> | string
+    userId?: StringNullableWithAggregatesFilter<"Channel"> | string | null
   }
 
-  export type UserOnChannelsWhereInput = {
-    AND?: UserOnChannelsWhereInput | UserOnChannelsWhereInput[]
-    OR?: UserOnChannelsWhereInput[]
-    NOT?: UserOnChannelsWhereInput | UserOnChannelsWhereInput[]
-    userId?: StringFilter<"UserOnChannels"> | string
-    channelId?: StringFilter<"UserOnChannels"> | string
-    joinedAt?: DateTimeFilter<"UserOnChannels"> | Date | string
+  export type UserOnChannelWhereInput = {
+    AND?: UserOnChannelWhereInput | UserOnChannelWhereInput[]
+    OR?: UserOnChannelWhereInput[]
+    NOT?: UserOnChannelWhereInput | UserOnChannelWhereInput[]
+    userId?: StringFilter<"UserOnChannel"> | string
+    channelId?: StringFilter<"UserOnChannel"> | string
+    role?: EnumChannelRoleFilter<"UserOnChannel"> | $Enums.ChannelRole
+    joinedAt?: DateTimeFilter<"UserOnChannel"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserOnChannel"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
   }
 
-  export type UserOnChannelsOrderByWithRelationInput = {
+  export type UserOnChannelOrderByWithRelationInput = {
     userId?: SortOrder
     channelId?: SortOrder
+    role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     channel?: ChannelOrderByWithRelationInput
   }
 
-  export type UserOnChannelsWhereUniqueInput = Prisma.AtLeast<{
-    userId_channelId?: UserOnChannelsUserIdChannelIdCompoundUniqueInput
-    AND?: UserOnChannelsWhereInput | UserOnChannelsWhereInput[]
-    OR?: UserOnChannelsWhereInput[]
-    NOT?: UserOnChannelsWhereInput | UserOnChannelsWhereInput[]
-    userId?: StringFilter<"UserOnChannels"> | string
-    channelId?: StringFilter<"UserOnChannels"> | string
-    joinedAt?: DateTimeFilter<"UserOnChannels"> | Date | string
+  export type UserOnChannelWhereUniqueInput = Prisma.AtLeast<{
+    userId_channelId?: UserOnChannelUserIdChannelIdCompoundUniqueInput
+    AND?: UserOnChannelWhereInput | UserOnChannelWhereInput[]
+    OR?: UserOnChannelWhereInput[]
+    NOT?: UserOnChannelWhereInput | UserOnChannelWhereInput[]
+    userId?: StringFilter<"UserOnChannel"> | string
+    channelId?: StringFilter<"UserOnChannel"> | string
+    role?: EnumChannelRoleFilter<"UserOnChannel"> | $Enums.ChannelRole
+    joinedAt?: DateTimeFilter<"UserOnChannel"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserOnChannel"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
   }, "userId_channelId">
 
-  export type UserOnChannelsOrderByWithAggregationInput = {
+  export type UserOnChannelOrderByWithAggregationInput = {
     userId?: SortOrder
     channelId?: SortOrder
+    role?: SortOrder
     joinedAt?: SortOrder
-    _count?: UserOnChannelsCountOrderByAggregateInput
-    _max?: UserOnChannelsMaxOrderByAggregateInput
-    _min?: UserOnChannelsMinOrderByAggregateInput
+    deletedAt?: SortOrderInput | SortOrder
+    _count?: UserOnChannelCountOrderByAggregateInput
+    _max?: UserOnChannelMaxOrderByAggregateInput
+    _min?: UserOnChannelMinOrderByAggregateInput
   }
 
-  export type UserOnChannelsScalarWhereWithAggregatesInput = {
-    AND?: UserOnChannelsScalarWhereWithAggregatesInput | UserOnChannelsScalarWhereWithAggregatesInput[]
-    OR?: UserOnChannelsScalarWhereWithAggregatesInput[]
-    NOT?: UserOnChannelsScalarWhereWithAggregatesInput | UserOnChannelsScalarWhereWithAggregatesInput[]
-    userId?: StringWithAggregatesFilter<"UserOnChannels"> | string
-    channelId?: StringWithAggregatesFilter<"UserOnChannels"> | string
-    joinedAt?: DateTimeWithAggregatesFilter<"UserOnChannels"> | Date | string
+  export type UserOnChannelScalarWhereWithAggregatesInput = {
+    AND?: UserOnChannelScalarWhereWithAggregatesInput | UserOnChannelScalarWhereWithAggregatesInput[]
+    OR?: UserOnChannelScalarWhereWithAggregatesInput[]
+    NOT?: UserOnChannelScalarWhereWithAggregatesInput | UserOnChannelScalarWhereWithAggregatesInput[]
+    userId?: StringWithAggregatesFilter<"UserOnChannel"> | string
+    channelId?: StringWithAggregatesFilter<"UserOnChannel"> | string
+    role?: EnumChannelRoleWithAggregatesFilter<"UserOnChannel"> | $Enums.ChannelRole
+    joinedAt?: DateTimeWithAggregatesFilter<"UserOnChannel"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"UserOnChannel"> | Date | string | null
   }
 
   export type MessageWhereInput = {
@@ -15658,125 +16220,203 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15785,17 +16425,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15804,17 +16458,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15914,6 +16582,7 @@ export namespace Prisma {
   export type UserOnWorkspaceCreateInput = {
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutWorkspacesInput
     workspace: WorkspaceCreateNestedOneWithoutMembersInput
   }
@@ -15923,11 +16592,13 @@ export namespace Prisma {
     workspaceId: string
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnWorkspaceUpdateInput = {
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutWorkspacesNestedInput
     workspace?: WorkspaceUpdateOneRequiredWithoutMembersNestedInput
   }
@@ -15937,6 +16608,7 @@ export namespace Prisma {
     workspaceId?: StringFieldUpdateOperationsInput | string
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnWorkspaceCreateManyInput = {
@@ -15944,11 +16616,13 @@ export namespace Prisma {
     workspaceId: string
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnWorkspaceUpdateManyMutationInput = {
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnWorkspaceUncheckedUpdateManyInput = {
@@ -15956,6 +16630,7 @@ export namespace Prisma {
     workspaceId?: StringFieldUpdateOperationsInput | string
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type InviteCreateInput = {
@@ -16063,8 +16738,10 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutChannelInput
-    UserOnChannels?: UserOnChannelsCreateNestedManyWithoutChannelInput
+    owner: UserCreateNestedOneWithoutOwnedChannelsInput
+    UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     Message?: MessageCreateNestedManyWithoutChannelInput
+    User?: UserCreateNestedOneWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateInput = {
@@ -16076,7 +16753,9 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    UserOnChannels?: UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput
+    ownerId: string
+    userId?: string | null
+    UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
   }
 
@@ -16089,8 +16768,10 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
-    UserOnChannels?: UserOnChannelsUpdateManyWithoutChannelNestedInput
+    owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
+    UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
+    User?: UserUpdateOneWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateInput = {
@@ -16102,7 +16783,9 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    UserOnChannels?: UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
   }
 
@@ -16115,6 +16798,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    ownerId: string
+    userId?: string | null
   }
 
   export type ChannelUpdateManyMutationInput = {
@@ -16136,46 +16821,62 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type UserOnChannelsCreateInput = {
+  export type UserOnChannelCreateInput = {
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutChannelsInput
     channel: ChannelCreateNestedOneWithoutUserOnChannelsInput
   }
 
-  export type UserOnChannelsUncheckedCreateInput = {
+  export type UserOnChannelUncheckedCreateInput = {
     userId: string
     channelId: string
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
-  export type UserOnChannelsUpdateInput = {
+  export type UserOnChannelUpdateInput = {
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutChannelsNestedInput
     channel?: ChannelUpdateOneRequiredWithoutUserOnChannelsNestedInput
   }
 
-  export type UserOnChannelsUncheckedUpdateInput = {
+  export type UserOnChannelUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type UserOnChannelsCreateManyInput = {
+  export type UserOnChannelCreateManyInput = {
     userId: string
     channelId: string
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
-  export type UserOnChannelsUpdateManyMutationInput = {
+  export type UserOnChannelUpdateManyMutationInput = {
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type UserOnChannelsUncheckedUpdateManyInput = {
+  export type UserOnChannelUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageCreateInput = {
@@ -16480,13 +17181,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16500,6 +17194,13 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type EnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type DateTimeNullableFilter<$PrismaModel = never> = {
@@ -16516,6 +17217,17 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -16541,16 +17253,22 @@ export namespace Prisma {
     none?: WorkspaceWhereInput
   }
 
+  export type ChannelListRelationFilter = {
+    every?: ChannelWhereInput
+    some?: ChannelWhereInput
+    none?: ChannelWhereInput
+  }
+
   export type InviteListRelationFilter = {
     every?: InviteWhereInput
     some?: InviteWhereInput
     none?: InviteWhereInput
   }
 
-  export type UserOnChannelsListRelationFilter = {
-    every?: UserOnChannelsWhereInput
-    some?: UserOnChannelsWhereInput
-    none?: UserOnChannelsWhereInput
+  export type UserOnChannelListRelationFilter = {
+    every?: UserOnChannelWhereInput
+    some?: UserOnChannelWhereInput
+    none?: UserOnChannelWhereInput
   }
 
   export type MessageListRelationFilter = {
@@ -16590,11 +17308,15 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type ChannelOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type InviteOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type UserOnChannelsOrderByRelationAggregateInput = {
+  export type UserOnChannelOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -16614,6 +17336,11 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type UserOauth_uniqueCompoundUniqueInput = {
+    oauthProvider: string
+    oauthId: string
+  }
+
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -16625,12 +17352,30 @@ export namespace Prisma {
     lastSeen?: SortOrder
     isVerified?: SortOrder
     refreshToken?: SortOrder
+    emailVerificationToken?: SortOrder
+    emailVerificationTokenExpires?: SortOrder
+    emailVerificationTokenSentAt?: SortOrder
+    resetPasswordPin?: SortOrder
+    resetPasswordPinExpires?: SortOrder
     resetPasswordToken?: SortOrder
-    resetPasswordExpires?: SortOrder
-    deletedAt?: SortOrder
+    resetPasswordPinSentAt?: SortOrder
+    failedPinAttempts?: SortOrder
+    loginOtp?: SortOrder
+    loginOtpExpires?: SortOrder
+    loginSessionToken?: SortOrder
+    loginOtpSentAt?: SortOrder
+    oauthProvider?: SortOrder
+    oauthId?: SortOrder
+    emailVerified?: SortOrder
+    lastLoginAt?: SortOrder
     fcmToken?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserAvgOrderByAggregateInput = {
+    failedPinAttempts?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -16644,10 +17389,24 @@ export namespace Prisma {
     lastSeen?: SortOrder
     isVerified?: SortOrder
     refreshToken?: SortOrder
+    emailVerificationToken?: SortOrder
+    emailVerificationTokenExpires?: SortOrder
+    emailVerificationTokenSentAt?: SortOrder
+    resetPasswordPin?: SortOrder
+    resetPasswordPinExpires?: SortOrder
     resetPasswordToken?: SortOrder
-    resetPasswordExpires?: SortOrder
-    deletedAt?: SortOrder
+    resetPasswordPinSentAt?: SortOrder
+    failedPinAttempts?: SortOrder
+    loginOtp?: SortOrder
+    loginOtpExpires?: SortOrder
+    loginSessionToken?: SortOrder
+    loginOtpSentAt?: SortOrder
+    oauthProvider?: SortOrder
+    oauthId?: SortOrder
+    emailVerified?: SortOrder
+    lastLoginAt?: SortOrder
     fcmToken?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -16663,12 +17422,30 @@ export namespace Prisma {
     lastSeen?: SortOrder
     isVerified?: SortOrder
     refreshToken?: SortOrder
+    emailVerificationToken?: SortOrder
+    emailVerificationTokenExpires?: SortOrder
+    emailVerificationTokenSentAt?: SortOrder
+    resetPasswordPin?: SortOrder
+    resetPasswordPinExpires?: SortOrder
     resetPasswordToken?: SortOrder
-    resetPasswordExpires?: SortOrder
-    deletedAt?: SortOrder
+    resetPasswordPinSentAt?: SortOrder
+    failedPinAttempts?: SortOrder
+    loginOtp?: SortOrder
+    loginOtpExpires?: SortOrder
+    loginSessionToken?: SortOrder
+    loginOtpSentAt?: SortOrder
+    oauthProvider?: SortOrder
+    oauthId?: SortOrder
+    emailVerified?: SortOrder
+    lastLoginAt?: SortOrder
     fcmToken?: SortOrder
+    deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type UserSumOrderByAggregateInput = {
+    failedPinAttempts?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -16689,16 +17466,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -16715,6 +17482,16 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -16739,6 +17516,22 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -16758,24 +17551,19 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type ChannelListRelationFilter = {
-    every?: ChannelWhereInput
-    some?: ChannelWhereInput
-    none?: ChannelWhereInput
-  }
-
   export type DirectMessageConversationListRelationFilter = {
     every?: DirectMessageConversationWhereInput
     some?: DirectMessageConversationWhereInput
     none?: DirectMessageConversationWhereInput
   }
 
-  export type ChannelOrderByRelationAggregateInput = {
+  export type DirectMessageConversationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
-  export type DirectMessageConversationOrderByRelationAggregateInput = {
-    _count?: SortOrder
+  export type WorkspaceSlugDeletedAtCompoundUniqueInput = {
+    slug: string
+    deletedAt: Date | string
   }
 
   export type WorkspaceCountOrderByAggregateInput = {
@@ -16833,6 +17621,7 @@ export namespace Prisma {
     workspaceId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserOnWorkspaceMaxOrderByAggregateInput = {
@@ -16840,6 +17629,7 @@ export namespace Prisma {
     workspaceId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserOnWorkspaceMinOrderByAggregateInput = {
@@ -16847,6 +17637,7 @@ export namespace Prisma {
     workspaceId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type EnumWorkspaceRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -16918,6 +17709,11 @@ export namespace Prisma {
     _max?: NestedEnumInviteStatusFilter<$PrismaModel>
   }
 
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
+  }
+
   export type ChannelCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
@@ -16927,6 +17723,8 @@ export namespace Prisma {
     deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    ownerId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ChannelMaxOrderByAggregateInput = {
@@ -16938,6 +17736,8 @@ export namespace Prisma {
     deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    ownerId?: SortOrder
+    userId?: SortOrder
   }
 
   export type ChannelMinOrderByAggregateInput = {
@@ -16949,6 +17749,15 @@ export namespace Prisma {
     deletedAt?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    ownerId?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type EnumChannelRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChannelRole | EnumChannelRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumChannelRoleFilter<$PrismaModel> | $Enums.ChannelRole
   }
 
   export type ChannelScalarRelationFilter = {
@@ -16956,27 +17765,43 @@ export namespace Prisma {
     isNot?: ChannelWhereInput
   }
 
-  export type UserOnChannelsUserIdChannelIdCompoundUniqueInput = {
+  export type UserOnChannelUserIdChannelIdCompoundUniqueInput = {
     userId: string
     channelId: string
   }
 
-  export type UserOnChannelsCountOrderByAggregateInput = {
+  export type UserOnChannelCountOrderByAggregateInput = {
     userId?: SortOrder
     channelId?: SortOrder
+    role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
-  export type UserOnChannelsMaxOrderByAggregateInput = {
+  export type UserOnChannelMaxOrderByAggregateInput = {
     userId?: SortOrder
     channelId?: SortOrder
+    role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
-  export type UserOnChannelsMinOrderByAggregateInput = {
+  export type UserOnChannelMinOrderByAggregateInput = {
     userId?: SortOrder
     channelId?: SortOrder
+    role?: SortOrder
     joinedAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type EnumChannelRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChannelRole | EnumChannelRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumChannelRoleWithAggregatesFilter<$PrismaModel> | $Enums.ChannelRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChannelRoleFilter<$PrismaModel>
+    _max?: NestedEnumChannelRoleFilter<$PrismaModel>
   }
 
   export type ChannelNullableScalarRelationFilter = {
@@ -17149,6 +17974,13 @@ export namespace Prisma {
     connect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
   }
 
+  export type ChannelCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ChannelCreateWithoutOwnerInput, ChannelUncheckedCreateWithoutOwnerInput> | ChannelCreateWithoutOwnerInput[] | ChannelUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutOwnerInput | ChannelCreateOrConnectWithoutOwnerInput[]
+    createMany?: ChannelCreateManyOwnerInputEnvelope
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+  }
+
   export type InviteCreateNestedManyWithoutInvitedByInput = {
     create?: XOR<InviteCreateWithoutInvitedByInput, InviteUncheckedCreateWithoutInvitedByInput> | InviteCreateWithoutInvitedByInput[] | InviteUncheckedCreateWithoutInvitedByInput[]
     connectOrCreate?: InviteCreateOrConnectWithoutInvitedByInput | InviteCreateOrConnectWithoutInvitedByInput[]
@@ -17156,11 +17988,11 @@ export namespace Prisma {
     connect?: InviteWhereUniqueInput | InviteWhereUniqueInput[]
   }
 
-  export type UserOnChannelsCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserOnChannelsCreateWithoutUserInput, UserOnChannelsUncheckedCreateWithoutUserInput> | UserOnChannelsCreateWithoutUserInput[] | UserOnChannelsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutUserInput | UserOnChannelsCreateOrConnectWithoutUserInput[]
-    createMany?: UserOnChannelsCreateManyUserInputEnvelope
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
+  export type UserOnChannelCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserOnChannelCreateWithoutUserInput, UserOnChannelUncheckedCreateWithoutUserInput> | UserOnChannelCreateWithoutUserInput[] | UserOnChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutUserInput | UserOnChannelCreateOrConnectWithoutUserInput[]
+    createMany?: UserOnChannelCreateManyUserInputEnvelope
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
   }
 
   export type MessageCreateNestedManyWithoutUserInput = {
@@ -17191,6 +18023,13 @@ export namespace Prisma {
     connect?: MessageMentionWhereUniqueInput | MessageMentionWhereUniqueInput[]
   }
 
+  export type ChannelCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChannelCreateWithoutUserInput, ChannelUncheckedCreateWithoutUserInput> | ChannelCreateWithoutUserInput[] | ChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutUserInput | ChannelCreateOrConnectWithoutUserInput[]
+    createMany?: ChannelCreateManyUserInputEnvelope
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+  }
+
   export type UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -17205,6 +18044,13 @@ export namespace Prisma {
     connect?: WorkspaceWhereUniqueInput | WorkspaceWhereUniqueInput[]
   }
 
+  export type ChannelUncheckedCreateNestedManyWithoutOwnerInput = {
+    create?: XOR<ChannelCreateWithoutOwnerInput, ChannelUncheckedCreateWithoutOwnerInput> | ChannelCreateWithoutOwnerInput[] | ChannelUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutOwnerInput | ChannelCreateOrConnectWithoutOwnerInput[]
+    createMany?: ChannelCreateManyOwnerInputEnvelope
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+  }
+
   export type InviteUncheckedCreateNestedManyWithoutInvitedByInput = {
     create?: XOR<InviteCreateWithoutInvitedByInput, InviteUncheckedCreateWithoutInvitedByInput> | InviteCreateWithoutInvitedByInput[] | InviteUncheckedCreateWithoutInvitedByInput[]
     connectOrCreate?: InviteCreateOrConnectWithoutInvitedByInput | InviteCreateOrConnectWithoutInvitedByInput[]
@@ -17212,11 +18058,11 @@ export namespace Prisma {
     connect?: InviteWhereUniqueInput | InviteWhereUniqueInput[]
   }
 
-  export type UserOnChannelsUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<UserOnChannelsCreateWithoutUserInput, UserOnChannelsUncheckedCreateWithoutUserInput> | UserOnChannelsCreateWithoutUserInput[] | UserOnChannelsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutUserInput | UserOnChannelsCreateOrConnectWithoutUserInput[]
-    createMany?: UserOnChannelsCreateManyUserInputEnvelope
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
+  export type UserOnChannelUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserOnChannelCreateWithoutUserInput, UserOnChannelUncheckedCreateWithoutUserInput> | UserOnChannelCreateWithoutUserInput[] | UserOnChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutUserInput | UserOnChannelCreateOrConnectWithoutUserInput[]
+    createMany?: UserOnChannelCreateManyUserInputEnvelope
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
   }
 
   export type MessageUncheckedCreateNestedManyWithoutUserInput = {
@@ -17247,16 +18093,23 @@ export namespace Prisma {
     connect?: MessageMentionWhereUniqueInput | MessageMentionWhereUniqueInput[]
   }
 
+  export type ChannelUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ChannelCreateWithoutUserInput, ChannelUncheckedCreateWithoutUserInput> | ChannelCreateWithoutUserInput[] | ChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutUserInput | ChannelCreateOrConnectWithoutUserInput[]
+    createMany?: ChannelCreateManyUserInputEnvelope
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
 
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type EnumRoleFieldUpdateOperationsInput = {
+    set?: $Enums.Role
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -17265,6 +18118,14 @@ export namespace Prisma {
 
   export type BoolFieldUpdateOperationsInput = {
     set?: boolean
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -17299,6 +18160,20 @@ export namespace Prisma {
     deleteMany?: WorkspaceScalarWhereInput | WorkspaceScalarWhereInput[]
   }
 
+  export type ChannelUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ChannelCreateWithoutOwnerInput, ChannelUncheckedCreateWithoutOwnerInput> | ChannelCreateWithoutOwnerInput[] | ChannelUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutOwnerInput | ChannelCreateOrConnectWithoutOwnerInput[]
+    upsert?: ChannelUpsertWithWhereUniqueWithoutOwnerInput | ChannelUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ChannelCreateManyOwnerInputEnvelope
+    set?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    disconnect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    delete?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    update?: ChannelUpdateWithWhereUniqueWithoutOwnerInput | ChannelUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ChannelUpdateManyWithWhereWithoutOwnerInput | ChannelUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+  }
+
   export type InviteUpdateManyWithoutInvitedByNestedInput = {
     create?: XOR<InviteCreateWithoutInvitedByInput, InviteUncheckedCreateWithoutInvitedByInput> | InviteCreateWithoutInvitedByInput[] | InviteUncheckedCreateWithoutInvitedByInput[]
     connectOrCreate?: InviteCreateOrConnectWithoutInvitedByInput | InviteCreateOrConnectWithoutInvitedByInput[]
@@ -17313,18 +18188,18 @@ export namespace Prisma {
     deleteMany?: InviteScalarWhereInput | InviteScalarWhereInput[]
   }
 
-  export type UserOnChannelsUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserOnChannelsCreateWithoutUserInput, UserOnChannelsUncheckedCreateWithoutUserInput> | UserOnChannelsCreateWithoutUserInput[] | UserOnChannelsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutUserInput | UserOnChannelsCreateOrConnectWithoutUserInput[]
-    upsert?: UserOnChannelsUpsertWithWhereUniqueWithoutUserInput | UserOnChannelsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserOnChannelsCreateManyUserInputEnvelope
-    set?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    disconnect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    delete?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    update?: UserOnChannelsUpdateWithWhereUniqueWithoutUserInput | UserOnChannelsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserOnChannelsUpdateManyWithWhereWithoutUserInput | UserOnChannelsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
+  export type UserOnChannelUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserOnChannelCreateWithoutUserInput, UserOnChannelUncheckedCreateWithoutUserInput> | UserOnChannelCreateWithoutUserInput[] | UserOnChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutUserInput | UserOnChannelCreateOrConnectWithoutUserInput[]
+    upsert?: UserOnChannelUpsertWithWhereUniqueWithoutUserInput | UserOnChannelUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserOnChannelCreateManyUserInputEnvelope
+    set?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    disconnect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    delete?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    update?: UserOnChannelUpdateWithWhereUniqueWithoutUserInput | UserOnChannelUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserOnChannelUpdateManyWithWhereWithoutUserInput | UserOnChannelUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserOnChannelScalarWhereInput | UserOnChannelScalarWhereInput[]
   }
 
   export type MessageUpdateManyWithoutUserNestedInput = {
@@ -17383,6 +18258,20 @@ export namespace Prisma {
     deleteMany?: MessageMentionScalarWhereInput | MessageMentionScalarWhereInput[]
   }
 
+  export type ChannelUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChannelCreateWithoutUserInput, ChannelUncheckedCreateWithoutUserInput> | ChannelCreateWithoutUserInput[] | ChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutUserInput | ChannelCreateOrConnectWithoutUserInput[]
+    upsert?: ChannelUpsertWithWhereUniqueWithoutUserInput | ChannelUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChannelCreateManyUserInputEnvelope
+    set?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    disconnect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    delete?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    update?: ChannelUpdateWithWhereUniqueWithoutUserInput | ChannelUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChannelUpdateManyWithWhereWithoutUserInput | ChannelUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+  }
+
   export type UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -17411,6 +18300,20 @@ export namespace Prisma {
     deleteMany?: WorkspaceScalarWhereInput | WorkspaceScalarWhereInput[]
   }
 
+  export type ChannelUncheckedUpdateManyWithoutOwnerNestedInput = {
+    create?: XOR<ChannelCreateWithoutOwnerInput, ChannelUncheckedCreateWithoutOwnerInput> | ChannelCreateWithoutOwnerInput[] | ChannelUncheckedCreateWithoutOwnerInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutOwnerInput | ChannelCreateOrConnectWithoutOwnerInput[]
+    upsert?: ChannelUpsertWithWhereUniqueWithoutOwnerInput | ChannelUpsertWithWhereUniqueWithoutOwnerInput[]
+    createMany?: ChannelCreateManyOwnerInputEnvelope
+    set?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    disconnect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    delete?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    update?: ChannelUpdateWithWhereUniqueWithoutOwnerInput | ChannelUpdateWithWhereUniqueWithoutOwnerInput[]
+    updateMany?: ChannelUpdateManyWithWhereWithoutOwnerInput | ChannelUpdateManyWithWhereWithoutOwnerInput[]
+    deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+  }
+
   export type InviteUncheckedUpdateManyWithoutInvitedByNestedInput = {
     create?: XOR<InviteCreateWithoutInvitedByInput, InviteUncheckedCreateWithoutInvitedByInput> | InviteCreateWithoutInvitedByInput[] | InviteUncheckedCreateWithoutInvitedByInput[]
     connectOrCreate?: InviteCreateOrConnectWithoutInvitedByInput | InviteCreateOrConnectWithoutInvitedByInput[]
@@ -17425,18 +18328,18 @@ export namespace Prisma {
     deleteMany?: InviteScalarWhereInput | InviteScalarWhereInput[]
   }
 
-  export type UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UserOnChannelsCreateWithoutUserInput, UserOnChannelsUncheckedCreateWithoutUserInput> | UserOnChannelsCreateWithoutUserInput[] | UserOnChannelsUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutUserInput | UserOnChannelsCreateOrConnectWithoutUserInput[]
-    upsert?: UserOnChannelsUpsertWithWhereUniqueWithoutUserInput | UserOnChannelsUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UserOnChannelsCreateManyUserInputEnvelope
-    set?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    disconnect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    delete?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    update?: UserOnChannelsUpdateWithWhereUniqueWithoutUserInput | UserOnChannelsUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UserOnChannelsUpdateManyWithWhereWithoutUserInput | UserOnChannelsUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
+  export type UserOnChannelUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserOnChannelCreateWithoutUserInput, UserOnChannelUncheckedCreateWithoutUserInput> | UserOnChannelCreateWithoutUserInput[] | UserOnChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutUserInput | UserOnChannelCreateOrConnectWithoutUserInput[]
+    upsert?: UserOnChannelUpsertWithWhereUniqueWithoutUserInput | UserOnChannelUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserOnChannelCreateManyUserInputEnvelope
+    set?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    disconnect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    delete?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    update?: UserOnChannelUpdateWithWhereUniqueWithoutUserInput | UserOnChannelUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserOnChannelUpdateManyWithWhereWithoutUserInput | UserOnChannelUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserOnChannelScalarWhereInput | UserOnChannelScalarWhereInput[]
   }
 
   export type MessageUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17493,6 +18396,20 @@ export namespace Prisma {
     update?: MessageMentionUpdateWithWhereUniqueWithoutMentionedUserInput | MessageMentionUpdateWithWhereUniqueWithoutMentionedUserInput[]
     updateMany?: MessageMentionUpdateManyWithWhereWithoutMentionedUserInput | MessageMentionUpdateManyWithWhereWithoutMentionedUserInput[]
     deleteMany?: MessageMentionScalarWhereInput | MessageMentionScalarWhereInput[]
+  }
+
+  export type ChannelUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ChannelCreateWithoutUserInput, ChannelUncheckedCreateWithoutUserInput> | ChannelCreateWithoutUserInput[] | ChannelUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ChannelCreateOrConnectWithoutUserInput | ChannelCreateOrConnectWithoutUserInput[]
+    upsert?: ChannelUpsertWithWhereUniqueWithoutUserInput | ChannelUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ChannelCreateManyUserInputEnvelope
+    set?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    disconnect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    delete?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+    update?: ChannelUpdateWithWhereUniqueWithoutUserInput | ChannelUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ChannelUpdateManyWithWhereWithoutUserInput | ChannelUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutOwnedWorkspacesInput = {
@@ -17747,11 +18664,17 @@ export namespace Prisma {
     connect?: WorkspaceWhereUniqueInput
   }
 
-  export type UserOnChannelsCreateNestedManyWithoutChannelInput = {
-    create?: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput> | UserOnChannelsCreateWithoutChannelInput[] | UserOnChannelsUncheckedCreateWithoutChannelInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutChannelInput | UserOnChannelsCreateOrConnectWithoutChannelInput[]
-    createMany?: UserOnChannelsCreateManyChannelInputEnvelope
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
+  export type UserCreateNestedOneWithoutOwnedChannelsInput = {
+    create?: XOR<UserCreateWithoutOwnedChannelsInput, UserUncheckedCreateWithoutOwnedChannelsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedChannelsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserOnChannelCreateNestedManyWithoutChannelInput = {
+    create?: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput> | UserOnChannelCreateWithoutChannelInput[] | UserOnChannelUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutChannelInput | UserOnChannelCreateOrConnectWithoutChannelInput[]
+    createMany?: UserOnChannelCreateManyChannelInputEnvelope
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
   }
 
   export type MessageCreateNestedManyWithoutChannelInput = {
@@ -17761,11 +18684,17 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
-  export type UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput = {
-    create?: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput> | UserOnChannelsCreateWithoutChannelInput[] | UserOnChannelsUncheckedCreateWithoutChannelInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutChannelInput | UserOnChannelsCreateOrConnectWithoutChannelInput[]
-    createMany?: UserOnChannelsCreateManyChannelInputEnvelope
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
+  export type UserCreateNestedOneWithoutChannelInput = {
+    create?: XOR<UserCreateWithoutChannelInput, UserUncheckedCreateWithoutChannelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChannelInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserOnChannelUncheckedCreateNestedManyWithoutChannelInput = {
+    create?: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput> | UserOnChannelCreateWithoutChannelInput[] | UserOnChannelUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutChannelInput | UserOnChannelCreateOrConnectWithoutChannelInput[]
+    createMany?: UserOnChannelCreateManyChannelInputEnvelope
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
   }
 
   export type MessageUncheckedCreateNestedManyWithoutChannelInput = {
@@ -17783,18 +18712,26 @@ export namespace Prisma {
     update?: XOR<XOR<WorkspaceUpdateToOneWithWhereWithoutChannelInput, WorkspaceUpdateWithoutChannelInput>, WorkspaceUncheckedUpdateWithoutChannelInput>
   }
 
-  export type UserOnChannelsUpdateManyWithoutChannelNestedInput = {
-    create?: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput> | UserOnChannelsCreateWithoutChannelInput[] | UserOnChannelsUncheckedCreateWithoutChannelInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutChannelInput | UserOnChannelsCreateOrConnectWithoutChannelInput[]
-    upsert?: UserOnChannelsUpsertWithWhereUniqueWithoutChannelInput | UserOnChannelsUpsertWithWhereUniqueWithoutChannelInput[]
-    createMany?: UserOnChannelsCreateManyChannelInputEnvelope
-    set?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    disconnect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    delete?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    update?: UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput | UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput[]
-    updateMany?: UserOnChannelsUpdateManyWithWhereWithoutChannelInput | UserOnChannelsUpdateManyWithWhereWithoutChannelInput[]
-    deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
+  export type UserUpdateOneRequiredWithoutOwnedChannelsNestedInput = {
+    create?: XOR<UserCreateWithoutOwnedChannelsInput, UserUncheckedCreateWithoutOwnedChannelsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutOwnedChannelsInput
+    upsert?: UserUpsertWithoutOwnedChannelsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutOwnedChannelsInput, UserUpdateWithoutOwnedChannelsInput>, UserUncheckedUpdateWithoutOwnedChannelsInput>
+  }
+
+  export type UserOnChannelUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput> | UserOnChannelCreateWithoutChannelInput[] | UserOnChannelUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutChannelInput | UserOnChannelCreateOrConnectWithoutChannelInput[]
+    upsert?: UserOnChannelUpsertWithWhereUniqueWithoutChannelInput | UserOnChannelUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: UserOnChannelCreateManyChannelInputEnvelope
+    set?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    disconnect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    delete?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    update?: UserOnChannelUpdateWithWhereUniqueWithoutChannelInput | UserOnChannelUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: UserOnChannelUpdateManyWithWhereWithoutChannelInput | UserOnChannelUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: UserOnChannelScalarWhereInput | UserOnChannelScalarWhereInput[]
   }
 
   export type MessageUpdateManyWithoutChannelNestedInput = {
@@ -17811,18 +18748,28 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
-  export type UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput = {
-    create?: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput> | UserOnChannelsCreateWithoutChannelInput[] | UserOnChannelsUncheckedCreateWithoutChannelInput[]
-    connectOrCreate?: UserOnChannelsCreateOrConnectWithoutChannelInput | UserOnChannelsCreateOrConnectWithoutChannelInput[]
-    upsert?: UserOnChannelsUpsertWithWhereUniqueWithoutChannelInput | UserOnChannelsUpsertWithWhereUniqueWithoutChannelInput[]
-    createMany?: UserOnChannelsCreateManyChannelInputEnvelope
-    set?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    disconnect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    delete?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    connect?: UserOnChannelsWhereUniqueInput | UserOnChannelsWhereUniqueInput[]
-    update?: UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput | UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput[]
-    updateMany?: UserOnChannelsUpdateManyWithWhereWithoutChannelInput | UserOnChannelsUpdateManyWithWhereWithoutChannelInput[]
-    deleteMany?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
+  export type UserUpdateOneWithoutChannelNestedInput = {
+    create?: XOR<UserCreateWithoutChannelInput, UserUncheckedCreateWithoutChannelInput>
+    connectOrCreate?: UserCreateOrConnectWithoutChannelInput
+    upsert?: UserUpsertWithoutChannelInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChannelInput, UserUpdateWithoutChannelInput>, UserUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput> | UserOnChannelCreateWithoutChannelInput[] | UserOnChannelUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: UserOnChannelCreateOrConnectWithoutChannelInput | UserOnChannelCreateOrConnectWithoutChannelInput[]
+    upsert?: UserOnChannelUpsertWithWhereUniqueWithoutChannelInput | UserOnChannelUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: UserOnChannelCreateManyChannelInputEnvelope
+    set?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    disconnect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    delete?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    connect?: UserOnChannelWhereUniqueInput | UserOnChannelWhereUniqueInput[]
+    update?: UserOnChannelUpdateWithWhereUniqueWithoutChannelInput | UserOnChannelUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: UserOnChannelUpdateManyWithWhereWithoutChannelInput | UserOnChannelUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: UserOnChannelScalarWhereInput | UserOnChannelScalarWhereInput[]
   }
 
   export type MessageUncheckedUpdateManyWithoutChannelNestedInput = {
@@ -17849,6 +18796,10 @@ export namespace Prisma {
     create?: XOR<ChannelCreateWithoutUserOnChannelsInput, ChannelUncheckedCreateWithoutUserOnChannelsInput>
     connectOrCreate?: ChannelCreateOrConnectWithoutUserOnChannelsInput
     connect?: ChannelWhereUniqueInput
+  }
+
+  export type EnumChannelRoleFieldUpdateOperationsInput = {
+    set?: $Enums.ChannelRole
   }
 
   export type UserUpdateOneRequiredWithoutChannelsNestedInput = {
@@ -18193,13 +19144,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -18212,6 +19156,13 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedEnumRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
   export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
@@ -18228,6 +19179,17 @@ export namespace Prisma {
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -18269,16 +19231,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -18296,15 +19248,14 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumRoleFilter<$PrismaModel>
+    _max?: NestedEnumRoleFilter<$PrismaModel>
   }
 
   export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -18327,6 +19278,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -18377,9 +19355,27 @@ export namespace Prisma {
     _max?: NestedEnumInviteStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumChannelRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChannelRole | EnumChannelRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumChannelRoleFilter<$PrismaModel> | $Enums.ChannelRole
+  }
+
+  export type NestedEnumChannelRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ChannelRole | EnumChannelRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ChannelRole[] | ListEnumChannelRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumChannelRoleWithAggregatesFilter<$PrismaModel> | $Enums.ChannelRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumChannelRoleFilter<$PrismaModel>
+    _max?: NestedEnumChannelRoleFilter<$PrismaModel>
+  }
+
   export type UserOnWorkspaceCreateWithoutUserInput = {
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
     workspace: WorkspaceCreateNestedOneWithoutMembersInput
   }
 
@@ -18387,6 +19383,7 @@ export namespace Prisma {
     workspaceId: string
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnWorkspaceCreateOrConnectWithoutUserInput = {
@@ -18437,6 +19434,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChannelCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutChannelInput
+    UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
+    Message?: MessageCreateNestedManyWithoutChannelInput
+    User?: UserCreateNestedOneWithoutChannelInput
+  }
+
+  export type ChannelUncheckedCreateWithoutOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    workspaceId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
+    UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
+    Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelCreateOrConnectWithoutOwnerInput = {
+    where: ChannelWhereUniqueInput
+    create: XOR<ChannelCreateWithoutOwnerInput, ChannelUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ChannelCreateManyOwnerInputEnvelope = {
+    data: ChannelCreateManyOwnerInput | ChannelCreateManyOwnerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type InviteCreateWithoutInvitedByInput = {
     id?: string
     email: string
@@ -18473,23 +19508,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserOnChannelsCreateWithoutUserInput = {
+  export type UserOnChannelCreateWithoutUserInput = {
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
     channel: ChannelCreateNestedOneWithoutUserOnChannelsInput
   }
 
-  export type UserOnChannelsUncheckedCreateWithoutUserInput = {
+  export type UserOnChannelUncheckedCreateWithoutUserInput = {
     channelId: string
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
-  export type UserOnChannelsCreateOrConnectWithoutUserInput = {
-    where: UserOnChannelsWhereUniqueInput
-    create: XOR<UserOnChannelsCreateWithoutUserInput, UserOnChannelsUncheckedCreateWithoutUserInput>
+  export type UserOnChannelCreateOrConnectWithoutUserInput = {
+    where: UserOnChannelWhereUniqueInput
+    create: XOR<UserOnChannelCreateWithoutUserInput, UserOnChannelUncheckedCreateWithoutUserInput>
   }
 
-  export type UserOnChannelsCreateManyUserInputEnvelope = {
-    data: UserOnChannelsCreateManyUserInput | UserOnChannelsCreateManyUserInput[]
+  export type UserOnChannelCreateManyUserInputEnvelope = {
+    data: UserOnChannelCreateManyUserInput | UserOnChannelCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -18593,6 +19632,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ChannelCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutChannelInput
+    owner: UserCreateNestedOneWithoutOwnedChannelsInput
+    UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
+    Message?: MessageCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelUncheckedCreateWithoutUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    workspaceId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
+    Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelCreateOrConnectWithoutUserInput = {
+    where: ChannelWhereUniqueInput
+    create: XOR<ChannelCreateWithoutUserInput, ChannelUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChannelCreateManyUserInputEnvelope = {
+    data: ChannelCreateManyUserInput | ChannelCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserOnWorkspaceUpsertWithWhereUniqueWithoutUserInput = {
     where: UserOnWorkspaceWhereUniqueInput
     update: XOR<UserOnWorkspaceUpdateWithoutUserInput, UserOnWorkspaceUncheckedUpdateWithoutUserInput>
@@ -18617,6 +19694,7 @@ export namespace Prisma {
     workspaceId?: StringFilter<"UserOnWorkspace"> | string
     role?: EnumWorkspaceRoleFilter<"UserOnWorkspace"> | $Enums.WorkspaceRole
     joinedAt?: DateTimeFilter<"UserOnWorkspace"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserOnWorkspace"> | Date | string | null
   }
 
   export type WorkspaceUpsertWithWhereUniqueWithoutOwnerInput = {
@@ -18647,6 +19725,38 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Workspace"> | Date | string
     updatedAt?: DateTimeFilter<"Workspace"> | Date | string
     ownerId?: StringFilter<"Workspace"> | string
+  }
+
+  export type ChannelUpsertWithWhereUniqueWithoutOwnerInput = {
+    where: ChannelWhereUniqueInput
+    update: XOR<ChannelUpdateWithoutOwnerInput, ChannelUncheckedUpdateWithoutOwnerInput>
+    create: XOR<ChannelCreateWithoutOwnerInput, ChannelUncheckedCreateWithoutOwnerInput>
+  }
+
+  export type ChannelUpdateWithWhereUniqueWithoutOwnerInput = {
+    where: ChannelWhereUniqueInput
+    data: XOR<ChannelUpdateWithoutOwnerInput, ChannelUncheckedUpdateWithoutOwnerInput>
+  }
+
+  export type ChannelUpdateManyWithWhereWithoutOwnerInput = {
+    where: ChannelScalarWhereInput
+    data: XOR<ChannelUpdateManyMutationInput, ChannelUncheckedUpdateManyWithoutOwnerInput>
+  }
+
+  export type ChannelScalarWhereInput = {
+    AND?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+    OR?: ChannelScalarWhereInput[]
+    NOT?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+    id?: StringFilter<"Channel"> | string
+    name?: StringFilter<"Channel"> | string
+    description?: StringNullableFilter<"Channel"> | string | null
+    isPublic?: BoolFilter<"Channel"> | boolean
+    workspaceId?: StringFilter<"Channel"> | string
+    deletedAt?: DateTimeNullableFilter<"Channel"> | Date | string | null
+    createdAt?: DateTimeFilter<"Channel"> | Date | string
+    updatedAt?: DateTimeFilter<"Channel"> | Date | string
+    ownerId?: StringFilter<"Channel"> | string
+    userId?: StringNullableFilter<"Channel"> | string | null
   }
 
   export type InviteUpsertWithWhereUniqueWithoutInvitedByInput = {
@@ -18682,29 +19792,31 @@ export namespace Prisma {
     invitedById?: StringFilter<"Invite"> | string
   }
 
-  export type UserOnChannelsUpsertWithWhereUniqueWithoutUserInput = {
-    where: UserOnChannelsWhereUniqueInput
-    update: XOR<UserOnChannelsUpdateWithoutUserInput, UserOnChannelsUncheckedUpdateWithoutUserInput>
-    create: XOR<UserOnChannelsCreateWithoutUserInput, UserOnChannelsUncheckedCreateWithoutUserInput>
+  export type UserOnChannelUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserOnChannelWhereUniqueInput
+    update: XOR<UserOnChannelUpdateWithoutUserInput, UserOnChannelUncheckedUpdateWithoutUserInput>
+    create: XOR<UserOnChannelCreateWithoutUserInput, UserOnChannelUncheckedCreateWithoutUserInput>
   }
 
-  export type UserOnChannelsUpdateWithWhereUniqueWithoutUserInput = {
-    where: UserOnChannelsWhereUniqueInput
-    data: XOR<UserOnChannelsUpdateWithoutUserInput, UserOnChannelsUncheckedUpdateWithoutUserInput>
+  export type UserOnChannelUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserOnChannelWhereUniqueInput
+    data: XOR<UserOnChannelUpdateWithoutUserInput, UserOnChannelUncheckedUpdateWithoutUserInput>
   }
 
-  export type UserOnChannelsUpdateManyWithWhereWithoutUserInput = {
-    where: UserOnChannelsScalarWhereInput
-    data: XOR<UserOnChannelsUpdateManyMutationInput, UserOnChannelsUncheckedUpdateManyWithoutUserInput>
+  export type UserOnChannelUpdateManyWithWhereWithoutUserInput = {
+    where: UserOnChannelScalarWhereInput
+    data: XOR<UserOnChannelUpdateManyMutationInput, UserOnChannelUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type UserOnChannelsScalarWhereInput = {
-    AND?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
-    OR?: UserOnChannelsScalarWhereInput[]
-    NOT?: UserOnChannelsScalarWhereInput | UserOnChannelsScalarWhereInput[]
-    userId?: StringFilter<"UserOnChannels"> | string
-    channelId?: StringFilter<"UserOnChannels"> | string
-    joinedAt?: DateTimeFilter<"UserOnChannels"> | Date | string
+  export type UserOnChannelScalarWhereInput = {
+    AND?: UserOnChannelScalarWhereInput | UserOnChannelScalarWhereInput[]
+    OR?: UserOnChannelScalarWhereInput[]
+    NOT?: UserOnChannelScalarWhereInput | UserOnChannelScalarWhereInput[]
+    userId?: StringFilter<"UserOnChannel"> | string
+    channelId?: StringFilter<"UserOnChannel"> | string
+    role?: EnumChannelRoleFilter<"UserOnChannel"> | $Enums.ChannelRole
+    joinedAt?: DateTimeFilter<"UserOnChannel"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"UserOnChannel"> | Date | string | null
   }
 
   export type MessageUpsertWithWhereUniqueWithoutUserInput = {
@@ -18815,56 +19927,104 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"MessageMention"> | Date | string
   }
 
+  export type ChannelUpsertWithWhereUniqueWithoutUserInput = {
+    where: ChannelWhereUniqueInput
+    update: XOR<ChannelUpdateWithoutUserInput, ChannelUncheckedUpdateWithoutUserInput>
+    create: XOR<ChannelCreateWithoutUserInput, ChannelUncheckedCreateWithoutUserInput>
+  }
+
+  export type ChannelUpdateWithWhereUniqueWithoutUserInput = {
+    where: ChannelWhereUniqueInput
+    data: XOR<ChannelUpdateWithoutUserInput, ChannelUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ChannelUpdateManyWithWhereWithoutUserInput = {
+    where: ChannelScalarWhereInput
+    data: XOR<ChannelUpdateManyMutationInput, ChannelUncheckedUpdateManyWithoutUserInput>
+  }
+
   export type UserCreateWithoutOwnedWorkspacesInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOwnedWorkspacesInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOwnedWorkspacesInput = {
@@ -18875,6 +20035,7 @@ export namespace Prisma {
   export type UserOnWorkspaceCreateWithoutWorkspaceInput = {
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutWorkspacesInput
   }
 
@@ -18882,6 +20043,7 @@ export namespace Prisma {
     userId: string
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnWorkspaceCreateOrConnectWithoutWorkspaceInput = {
@@ -18938,8 +20100,10 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    UserOnChannels?: UserOnChannelsCreateNestedManyWithoutChannelInput
+    owner: UserCreateNestedOneWithoutOwnedChannelsInput
+    UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     Message?: MessageCreateNestedManyWithoutChannelInput
+    User?: UserCreateNestedOneWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutWorkspaceInput = {
@@ -18950,7 +20114,9 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    UserOnChannels?: UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput
+    ownerId: string
+    userId?: string | null
+    UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
   }
 
@@ -19007,52 +20173,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedWorkspacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserOnWorkspaceUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -19103,20 +20301,6 @@ export namespace Prisma {
     data: XOR<ChannelUpdateManyMutationInput, ChannelUncheckedUpdateManyWithoutWorkspaceInput>
   }
 
-  export type ChannelScalarWhereInput = {
-    AND?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
-    OR?: ChannelScalarWhereInput[]
-    NOT?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
-    id?: StringFilter<"Channel"> | string
-    name?: StringFilter<"Channel"> | string
-    description?: StringNullableFilter<"Channel"> | string | null
-    isPublic?: BoolFilter<"Channel"> | boolean
-    workspaceId?: StringFilter<"Channel"> | string
-    deletedAt?: DateTimeNullableFilter<"Channel"> | Date | string | null
-    createdAt?: DateTimeFilter<"Channel"> | Date | string
-    updatedAt?: DateTimeFilter<"Channel"> | Date | string
-  }
-
   export type DirectMessageConversationUpsertWithWhereUniqueWithoutWorkspaceInput = {
     where: DirectMessageConversationWhereUniqueInput
     update: XOR<DirectMessageConversationUpdateWithoutWorkspaceInput, DirectMessageConversationUncheckedUpdateWithoutWorkspaceInput>
@@ -19148,52 +20332,84 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkspacesInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -19249,52 +20465,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspacesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceUpsertWithoutMembersInput = {
@@ -19373,52 +20621,84 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutInviteSentInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutInviteSentInput = {
@@ -19480,52 +20760,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInviteSentInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceCreateWithoutChannelInput = {
@@ -19561,23 +20873,116 @@ export namespace Prisma {
     create: XOR<WorkspaceCreateWithoutChannelInput, WorkspaceUncheckedCreateWithoutChannelInput>
   }
 
-  export type UserOnChannelsCreateWithoutChannelInput = {
+  export type UserCreateWithoutOwnedChannelsInput = {
+    id?: string
+    name: string
+    email: string
+    password?: string | null
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    fcmToken?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
+    MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
+    MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutOwnedChannelsInput = {
+    id?: string
+    name: string
+    email: string
+    password?: string | null
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    fcmToken?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
+    MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutOwnedChannelsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutOwnedChannelsInput, UserUncheckedCreateWithoutOwnedChannelsInput>
+  }
+
+  export type UserOnChannelCreateWithoutChannelInput = {
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutChannelsInput
   }
 
-  export type UserOnChannelsUncheckedCreateWithoutChannelInput = {
+  export type UserOnChannelUncheckedCreateWithoutChannelInput = {
     userId: string
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
-  export type UserOnChannelsCreateOrConnectWithoutChannelInput = {
-    where: UserOnChannelsWhereUniqueInput
-    create: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput>
+  export type UserOnChannelCreateOrConnectWithoutChannelInput = {
+    where: UserOnChannelWhereUniqueInput
+    create: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput>
   }
 
-  export type UserOnChannelsCreateManyChannelInputEnvelope = {
-    data: UserOnChannelsCreateManyChannelInput | UserOnChannelsCreateManyChannelInput[]
+  export type UserOnChannelCreateManyChannelInputEnvelope = {
+    data: UserOnChannelCreateManyChannelInput | UserOnChannelCreateManyChannelInput[]
     skipDuplicates?: boolean
   }
 
@@ -19615,6 +21020,95 @@ export namespace Prisma {
   export type MessageCreateManyChannelInputEnvelope = {
     data: MessageCreateManyChannelInput | MessageCreateManyChannelInput[]
     skipDuplicates?: boolean
+  }
+
+  export type UserCreateWithoutChannelInput = {
+    id?: string
+    name: string
+    email: string
+    password?: string | null
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    fcmToken?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
+    MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
+    MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+  }
+
+  export type UserUncheckedCreateWithoutChannelInput = {
+    id?: string
+    name: string
+    email: string
+    password?: string | null
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    fcmToken?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
+    MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+  }
+
+  export type UserCreateOrConnectWithoutChannelInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutChannelInput, UserUncheckedCreateWithoutChannelInput>
   }
 
   export type WorkspaceUpsertWithoutChannelInput = {
@@ -19656,20 +21150,115 @@ export namespace Prisma {
     DirectMessageConversation?: DirectMessageConversationUncheckedUpdateManyWithoutWorkspaceNestedInput
   }
 
-  export type UserOnChannelsUpsertWithWhereUniqueWithoutChannelInput = {
-    where: UserOnChannelsWhereUniqueInput
-    update: XOR<UserOnChannelsUpdateWithoutChannelInput, UserOnChannelsUncheckedUpdateWithoutChannelInput>
-    create: XOR<UserOnChannelsCreateWithoutChannelInput, UserOnChannelsUncheckedCreateWithoutChannelInput>
+  export type UserUpsertWithoutOwnedChannelsInput = {
+    update: XOR<UserUpdateWithoutOwnedChannelsInput, UserUncheckedUpdateWithoutOwnedChannelsInput>
+    create: XOR<UserCreateWithoutOwnedChannelsInput, UserUncheckedCreateWithoutOwnedChannelsInput>
+    where?: UserWhereInput
   }
 
-  export type UserOnChannelsUpdateWithWhereUniqueWithoutChannelInput = {
-    where: UserOnChannelsWhereUniqueInput
-    data: XOR<UserOnChannelsUpdateWithoutChannelInput, UserOnChannelsUncheckedUpdateWithoutChannelInput>
+  export type UserUpdateToOneWithWhereWithoutOwnedChannelsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutOwnedChannelsInput, UserUncheckedUpdateWithoutOwnedChannelsInput>
   }
 
-  export type UserOnChannelsUpdateManyWithWhereWithoutChannelInput = {
-    where: UserOnChannelsScalarWhereInput
-    data: XOR<UserOnChannelsUpdateManyMutationInput, UserOnChannelsUncheckedUpdateManyWithoutChannelInput>
+  export type UserUpdateWithoutOwnedChannelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
+    MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
+    MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutOwnedChannelsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
+    MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserOnChannelUpsertWithWhereUniqueWithoutChannelInput = {
+    where: UserOnChannelWhereUniqueInput
+    update: XOR<UserOnChannelUpdateWithoutChannelInput, UserOnChannelUncheckedUpdateWithoutChannelInput>
+    create: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput>
+  }
+
+  export type UserOnChannelUpdateWithWhereUniqueWithoutChannelInput = {
+    where: UserOnChannelWhereUniqueInput
+    data: XOR<UserOnChannelUpdateWithoutChannelInput, UserOnChannelUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type UserOnChannelUpdateManyWithWhereWithoutChannelInput = {
+    where: UserOnChannelScalarWhereInput
+    data: XOR<UserOnChannelUpdateManyMutationInput, UserOnChannelUncheckedUpdateManyWithoutChannelInput>
   }
 
   export type MessageUpsertWithWhereUniqueWithoutChannelInput = {
@@ -19688,56 +21277,183 @@ export namespace Prisma {
     data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutChannelInput>
   }
 
+  export type UserUpsertWithoutChannelInput = {
+    update: XOR<UserUpdateWithoutChannelInput, UserUncheckedUpdateWithoutChannelInput>
+    create: XOR<UserCreateWithoutChannelInput, UserUncheckedCreateWithoutChannelInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutChannelInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutChannelInput, UserUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type UserUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
+    MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
+    MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
+    MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+  }
+
   export type UserCreateWithoutChannelsInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutChannelsInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutChannelsInput = {
@@ -19754,7 +21470,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutChannelInput
+    owner: UserCreateNestedOneWithoutOwnedChannelsInput
     Message?: MessageCreateNestedManyWithoutChannelInput
+    User?: UserCreateNestedOneWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutUserOnChannelsInput = {
@@ -19766,6 +21484,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    ownerId: string
+    userId?: string | null
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
   }
 
@@ -19789,52 +21509,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChannelsInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChannelUpsertWithoutUserOnChannelsInput = {
@@ -19857,7 +21609,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
+    owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
+    User?: UserUpdateOneWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutUserOnChannelsInput = {
@@ -19869,6 +21623,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
   }
 
@@ -19876,52 +21632,84 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageInput = {
@@ -19938,7 +21726,9 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     workspace: WorkspaceCreateNestedOneWithoutChannelInput
-    UserOnChannels?: UserOnChannelsCreateNestedManyWithoutChannelInput
+    owner: UserCreateNestedOneWithoutOwnedChannelsInput
+    UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
+    User?: UserCreateNestedOneWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutMessageInput = {
@@ -19950,7 +21740,9 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    UserOnChannels?: UserOnChannelsUncheckedCreateNestedManyWithoutChannelInput
+    ownerId: string
+    userId?: string | null
+    UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutMessageInput = {
@@ -20042,52 +21834,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ChannelUpsertWithoutMessageInput = {
@@ -20110,7 +21934,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
-    UserOnChannels?: UserOnChannelsUpdateManyWithoutChannelNestedInput
+    owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
+    UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
+    User?: UserUpdateOneWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutMessageInput = {
@@ -20122,7 +21948,9 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    UserOnChannels?: UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type DirectMessageConversationUpsertWithoutMessagesInput = {
@@ -20348,52 +22176,84 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUserOnDMInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUserOnDMInput = {
@@ -20439,52 +22299,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserOnDMInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DirectMessageConversationUpsertWithoutParticipantsInput = {
@@ -20520,52 +22412,84 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageReactionInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageReactionInput = {
@@ -20619,52 +22543,84 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageReactionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -20739,52 +22695,84 @@ export namespace Prisma {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
     Message?: MessageCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessageMentionInput = {
     id?: string
     name: string
     email: string
-    password: string
+    password?: string | null
     role?: $Enums.Role
     avatar?: string | null
     status?: string | null
     lastSeen?: Date | string | null
     isVerified?: boolean
     refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
     resetPasswordToken?: string | null
-    resetPasswordExpires?: Date | string | null
-    deletedAt?: Date | string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
     fcmToken?: string | null
+    deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
     ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
     InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
-    Channels?: UserOnChannelsUncheckedCreateNestedManyWithoutUserInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
     Message?: MessageUncheckedCreateNestedManyWithoutUserInput
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessageMentionInput = {
@@ -20844,58 +22832,91 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
     Message?: MessageUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageMentionInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     status?: NullableStringFieldUpdateOperationsInput | string | null
     lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     isVerified?: BoolFieldUpdateOperationsInput | boolean
     refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
-    resetPasswordExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
     ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
     InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
-    Channels?: UserOnChannelsUncheckedUpdateManyWithoutUserNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserOnWorkspaceCreateManyUserInput = {
     workspaceId: string
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type WorkspaceCreateManyOwnerInput = {
@@ -20906,6 +22927,18 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type ChannelCreateManyOwnerInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    workspaceId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    userId?: string | null
   }
 
   export type InviteCreateManyInvitedByInput = {
@@ -20921,9 +22954,11 @@ export namespace Prisma {
     workspaceId: string
   }
 
-  export type UserOnChannelsCreateManyUserInput = {
+  export type UserOnChannelCreateManyUserInput = {
     channelId: string
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MessageCreateManyUserInput = {
@@ -20954,9 +22989,22 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ChannelCreateManyUserInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    workspaceId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+  }
+
   export type UserOnWorkspaceUpdateWithoutUserInput = {
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     workspace?: WorkspaceUpdateOneRequiredWithoutMembersNestedInput
   }
 
@@ -20964,12 +23012,14 @@ export namespace Prisma {
     workspaceId?: StringFieldUpdateOperationsInput | string
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnWorkspaceUncheckedUpdateManyWithoutUserInput = {
     workspaceId?: StringFieldUpdateOperationsInput | string
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type WorkspaceUpdateWithoutOwnerInput = {
@@ -21008,6 +23058,46 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ChannelUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
+    UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
+    Message?: MessageUpdateManyWithoutChannelNestedInput
+    User?: UserUpdateOneWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateManyWithoutOwnerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InviteUpdateWithoutInvitedByInput = {
@@ -21049,19 +23139,25 @@ export namespace Prisma {
     workspaceId?: StringFieldUpdateOperationsInput | string
   }
 
-  export type UserOnChannelsUpdateWithoutUserInput = {
+  export type UserOnChannelUpdateWithoutUserInput = {
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     channel?: ChannelUpdateOneRequiredWithoutUserOnChannelsNestedInput
   }
 
-  export type UserOnChannelsUncheckedUpdateWithoutUserInput = {
+  export type UserOnChannelUncheckedUpdateWithoutUserInput = {
     channelId?: StringFieldUpdateOperationsInput | string
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type UserOnChannelsUncheckedUpdateManyWithoutUserInput = {
+  export type UserOnChannelUncheckedUpdateManyWithoutUserInput = {
     channelId?: StringFieldUpdateOperationsInput | string
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageUpdateWithoutUserInput = {
@@ -21152,10 +23248,51 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ChannelUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
+    owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
+    UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
+    Message?: MessageUpdateManyWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type UserOnWorkspaceCreateManyWorkspaceInput = {
     userId: string
     role?: $Enums.WorkspaceRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type InviteCreateManyWorkspaceInput = {
@@ -21179,6 +23316,8 @@ export namespace Prisma {
     deletedAt?: Date | string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+    ownerId: string
+    userId?: string | null
   }
 
   export type DirectMessageConversationCreateManyWorkspaceInput = {
@@ -21191,6 +23330,7 @@ export namespace Prisma {
   export type UserOnWorkspaceUpdateWithoutWorkspaceInput = {
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutWorkspacesNestedInput
   }
 
@@ -21198,12 +23338,14 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnWorkspaceUncheckedUpdateManyWithoutWorkspaceInput = {
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumWorkspaceRoleFieldUpdateOperationsInput | $Enums.WorkspaceRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type InviteUpdateWithoutWorkspaceInput = {
@@ -21253,8 +23395,10 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    UserOnChannels?: UserOnChannelsUpdateManyWithoutChannelNestedInput
+    owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
+    UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
+    User?: UserUpdateOneWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutWorkspaceInput = {
@@ -21265,7 +23409,9 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    UserOnChannels?: UserOnChannelsUncheckedUpdateManyWithoutChannelNestedInput
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
   }
 
@@ -21277,6 +23423,8 @@ export namespace Prisma {
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type DirectMessageConversationUpdateWithoutWorkspaceInput = {
@@ -21304,9 +23452,11 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserOnChannelsCreateManyChannelInput = {
+  export type UserOnChannelCreateManyChannelInput = {
     userId: string
+    role?: $Enums.ChannelRole
     joinedAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type MessageCreateManyChannelInput = {
@@ -21320,19 +23470,25 @@ export namespace Prisma {
     conversationId?: string | null
   }
 
-  export type UserOnChannelsUpdateWithoutChannelInput = {
+  export type UserOnChannelUpdateWithoutChannelInput = {
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutChannelsNestedInput
   }
 
-  export type UserOnChannelsUncheckedUpdateWithoutChannelInput = {
+  export type UserOnChannelUncheckedUpdateWithoutChannelInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type UserOnChannelsUncheckedUpdateManyWithoutChannelInput = {
+  export type UserOnChannelUncheckedUpdateManyWithoutChannelInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    role?: EnumChannelRoleFieldUpdateOperationsInput | $Enums.ChannelRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageUpdateWithoutChannelInput = {

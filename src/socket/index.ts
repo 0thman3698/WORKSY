@@ -5,7 +5,7 @@ import { addUserSocket, removeUserSocket } from './utils/userSocketStore';
 import { initChannelHandlers } from "./handlers/channelHandlers";
 import { initReactionHandlers } from "./handlers/reactionHandlers";
 import { initDirectMessageHandlers } from "./handlers/directMessageHandlers";
-import { initUserHandlers } from './handlers/UserHandlers';
+import { initUserHandlers } from './handlers/userHandlers';
 
 
 let io: Server;
@@ -16,7 +16,6 @@ export const initSocket = (server: http.Server) => {
     });
 
     io.use((socket, next) => {
-
         const token = socket.handshake.auth?.token?.split(' ')[1];
         if (!token) return next(new Error('Authentication error: no token'));
 

@@ -9,8 +9,6 @@ import {
   IMyWorkspaces,
   IUpdateWorkspace,
 } from '../interfaces/workspace.interface';
-import { accessControlService } from './accessControl.service';
-import { date } from 'zod';
 
 export class WorkspaceService {
   async createWorkspace(
@@ -21,6 +19,7 @@ export class WorkspaceService {
       where: {
         name: workspaceData.name,
         ownerId: userId,
+        deletedAt: null,
       },
     });
 
@@ -33,7 +32,7 @@ export class WorkspaceService {
       .replace(/\s+/g, '-')
       .replace(/[^a-z0-9\-]/g, '');
 
-    const existingSlug = await prisma.workspace.findUnique({ where: { slug } });
+    const existingSlug = await prisma.workspace.findFirst({ where: { slug, deletedAt: null, } });
     if (existingSlug) {
       throw ApiError.badRequest('A workspace with similar slug already exists');
     }
@@ -107,26 +106,71 @@ export class WorkspaceService {
     workspaceData: IUpdateWorkspace,
     userId: string,
   ): Promise<IWorkspace> {
-    await accessControlService.checkIsOwner(userId, workspaceId)
+    const existingWorkspace = await prisma.workspace.findUnique({
+      where: {
+        id: workspaceId,
+        deletedAt: null,
+      },
+    });
+
+    if (!existingWorkspace) {
+      throw ApiError.notFound('Workspace not found or is already deleted.');
+    }
 
     const updatedWorkspace = await prisma.workspace.update({
       where: { id: workspaceId },
-      data: { name: workspaceData.name },
+      data: {
+        name: workspaceData.name,
+        updatedAt: new Date(),
+        description: workspaceData.description
+      },
     });
+
     return updatedWorkspace;
   }
 
-  async deleteWorkspace(workspaceId: string, userId: string): Promise<void> {
-    await accessControlService.checkIsOwner(userId, workspaceId)
-    await prisma.userOnWorkspace.deleteMany({
-      where: { workspaceId },
+  async deleteWorkspace(workspaceId: string, userId: string): Promise<IWorkspace> {
+
+    const workspace = await prisma.workspace.findUnique({
+      where: { id: workspaceId },
     });
 
-    await prisma.workspace.update({
+    if (!workspace) {
+      throw ApiError.notFound('Workspace not found.');
+    }
+
+    if (workspace.deletedAt) {
+      throw ApiError.badRequest('Workspace is already deleted.');
+    }
+
+    const softDeletedWorkspace = await prisma.workspace.update({
       where: { id: workspaceId },
-      data: { deletedAt: new Date() },
+      data: {
+        deletedAt: new Date(),
+        members: {
+          updateMany: {
+            where: { workspaceId: workspaceId },
+            data: { deletedAt: new Date() }
+          }
+        },
+        Channel: {
+          updateMany: {
+            where: { workspaceId: workspaceId },
+            data: { deletedAt: new Date() }
+          }
+        },
+        DirectMessageConversation: {
+          updateMany: {
+            where: { workspaceId: workspaceId },
+            data: { deletedAt: new Date() }
+          }
+        }
+      },
     });
+
+    return softDeletedWorkspace;
   }
+
 }
 
 export const workspaceService = new WorkspaceService();

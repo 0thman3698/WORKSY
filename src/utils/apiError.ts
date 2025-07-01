@@ -38,4 +38,9 @@ export class ApiError extends Error {
   static validation(message = 'Validation error', errors = []) {
     return new ApiError(422, message, errors);
   }
+
+  static tooManyRequests(message: string): ApiError {
+    return new ApiError(429, message);
+  }
+
 }

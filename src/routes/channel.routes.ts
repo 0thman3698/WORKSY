@@ -1,26 +1,53 @@
+// src/routes/channel.routes.ts
 import express from 'express';
 import { protect } from '../middlewares/protect';
 import { validate } from '../middlewares/validation.middleware';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import ChannelControllers from '../controllers/channel.controller';
 import { createChannelSchema } from '../validators/channel.validators';
+
+import { checkChannelRole, checkWorkspaceRole } from '../middlewares/authorization.middleware';
+import { ChannelRole, WorkspaceRole } from '../generated/prisma';
+
+import channelMembersRouter from './channelMembers.routes';
+
 const router = express.Router({ mergeParams: true });
 
-import channelMembersRouter from './channelMembers.routes'
 
 router.post(
   '/',
-  protect,
+  checkWorkspaceRole(WorkspaceRole.ADMIN),
   validate(createChannelSchema),
   asyncHandler(ChannelControllers.createChannel),
 );
-router.get('/', protect, asyncHandler(ChannelControllers.getAllChannels));
-router.get('/:channelId', protect, asyncHandler(ChannelControllers.getChannel));
-router.patch('/:channelId', protect, asyncHandler(ChannelControllers.updateChannel));
-router.delete('/:channelId', protect, asyncHandler(ChannelControllers.deleteChannel));
+
+router.get(
+  '/',
+  asyncHandler(ChannelControllers.getAllChannels)
+);
+
+router.get(
+  '/:channelId',
+  asyncHandler(ChannelControllers.getChannel)
+);
+
+router.patch(
+  '/:channelId',
+  checkChannelRole(ChannelRole.ADMIN),
+  asyncHandler(ChannelControllers.updateChannel)
+);
+
+router.delete(
+  '/:channelId',
+  checkWorkspaceRole(WorkspaceRole.OWNER),
+  asyncHandler(ChannelControllers.deleteChannel)
+);
 
 
-router.use('/:channelId/members', channelMembersRouter)
+router.use(
+  '/:channelId/members',
+  channelMembersRouter
+);
 
 
 export default router;
