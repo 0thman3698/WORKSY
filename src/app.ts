@@ -1,4 +1,3 @@
-// Import Packages
 import express from 'express';
 import rateLimit, { RateLimitRequestHandler } from 'express-rate-limit';
 import helmet from 'helmet';
@@ -6,10 +5,6 @@ import helmet from 'helmet';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import passport from 'passport';
-import session from 'express-session';
-
-// Import OAuth configuration (this registers the strategies)
 import './config/oauth.config';
 
 // Import Pages
@@ -19,8 +14,9 @@ import inviteRoutes from './routes/invite.routes';
 import { errorHandler } from './middlewares/errorHandler';
 import { oauthSession, passportInitialize, passportSession } from './middlewares/oauth.middleware';
 import './config/jwt.config';
-import { authorizationErrorHandler } from './middlewares/authorization.middleware';
+import { authorizationErrorHandler } from './middlewares/authorization.middleware'; 
 import { protect } from './middlewares/protect';
+import googleCalendarRoutes from './routes/integration.routes';
 
 // express
 const app = express();
@@ -55,7 +51,8 @@ app.use('/api', limiter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/workspace',protect, workspaceRoutes);
 app.use('/api/v1/invite',protect, inviteRoutes);
-// app.use("/api/v1/workspace", channelRoutes)
+// new added y othman
+app.use('/api/v1/integrations', googleCalendarRoutes); 
 
 app.get('/', async (req, res) => {
   res.send(`hello`);

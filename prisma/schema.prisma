@@ -44,10 +44,15 @@ model User {
   emailVerified                     Boolean    @default(false) @map("email_verified")
   lastLoginAt                       DateTime?  @map("last_login_at")
 
+  googleAccessToken       String?
+  googleRefreshToken      String?
+  googleCalendarId        String?
+
   deletedAt                         DateTime? // soft delete
 
   createdAt                         DateTime   @default(now())
   updatedAt                         DateTime   @updatedAt
+  
 
   // Relationships
   workspaces                        UserOnWorkspace[] // User's membership and role in specific workspaces
@@ -57,6 +62,7 @@ model User {
   Channels                          UserOnChannel[] // User's membership and role in specific channels
   Message                           Message[]
   UserOnDM                          UserOnDM[]
+  Meeting                           Meeting[]           @relation("OrganizedMeetings") // Meetings organized by this user
 
   @@index([email, resetPasswordPin])
   @@unique([oauthProvider, oauthId], name: "oauth_unique")
@@ -133,6 +139,7 @@ model Channel {
   ownerId                           String // The global User ID of the channel owner
   UserOnChannels                    UserOnChannel[] // Users within this channel and their channel-specific roles
   Message                           Message[]
+   Meeting                 Meeting[]
 
   @@index([workspaceId])
 }
@@ -194,6 +201,32 @@ deletedAt                         DateTime?
 
   @@id([userId, dmId])
 }
+model Meeting {
+  id                      String    @id @default(uuid())
+  title                   String
+  description             String?
+  startTime               DateTime
+  endTime                 DateTime
+  location                String?
+  googleCalendarEventId   String?   @unique
+  googleCalendarHtmlLink  String?
+
+  // Relation to the Channel where the meeting is scheduled
+  channel                 Channel   @relation(fields: [channelId], references: [id])
+  channelId               String
+
+  organizer               User      @relation("OrganizedMeetings", fields: [organizerId], references: [id])
+  organizerId             String
+
+  deletedAt               DateTime?
+
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+
+  @@index([channelId])
+  @@index([organizerId])
+}
+
 
 // Global application roles for a User
 enum Role {

@@ -147,6 +147,9 @@ exports.Prisma.UserScalarFieldEnum = {
   oauthId: 'oauthId',
   emailVerified: 'emailVerified',
   lastLoginAt: 'lastLoginAt',
+  googleAccessToken: 'googleAccessToken',
+  googleRefreshToken: 'googleRefreshToken',
+  googleCalendarId: 'googleCalendarId',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -231,6 +234,22 @@ exports.Prisma.UserOnDMScalarFieldEnum = {
   deletedAt: 'deletedAt'
 };
 
+exports.Prisma.MeetingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  location: 'location',
+  googleCalendarEventId: 'googleCalendarEventId',
+  googleCalendarHtmlLink: 'googleCalendarHtmlLink',
+  channelId: 'channelId',
+  organizerId: 'organizerId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -280,7 +299,8 @@ exports.Prisma.ModelName = {
   UserOnChannel: 'UserOnChannel',
   Message: 'Message',
   DirectMessageConversation: 'DirectMessageConversation',
-  UserOnDM: 'UserOnDM'
+  UserOnDM: 'UserOnDM',
+  Meeting: 'Meeting'
 };
 
 /**
