@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import MeetingControllers from '../controllers/meeting.controller';
+import { protect } from '../middlewares/protect';
 import { validate } from '../middlewares/validation.middleware';
 import { createMeetingSchema, updateMeetingSchema } from '../validators/meeting.validators';
 import { asyncHandler } from '../middlewares/asyncHandler';
@@ -10,7 +11,7 @@ const router = Router({ mergeParams: true });
 
 router.post(
   '/',
-  checkChannelRole(ChannelRole.MEMBER), 
+  checkChannelRole(ChannelRole.MEMBER),
   validate(createMeetingSchema),
   asyncHandler(MeetingControllers.scheduleMeeting)
 );
@@ -20,6 +21,7 @@ router.get(
   checkChannelRole(ChannelRole.MEMBER),
   asyncHandler(MeetingControllers.getMeetings)
 );
+
 
 router.get(
   '/:meetingId',

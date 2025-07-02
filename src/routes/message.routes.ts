@@ -1,11 +1,29 @@
-import express from 'express';
+import { Router } from 'express';
 import { protect } from '../middlewares/protect';
-import { validate } from '../middlewares/validation.middleware';
 import { asyncHandler } from '../middlewares/asyncHandler';
-import { createMessageSchema } from '../validators/message.validators';
 import MessageControllers from '../controllers/message.controller';
-const router = express.Router({ mergeParams: true });
+import multer from 'multer'; 
 
-router.post('/', validate(createMessageSchema), asyncHandler(MessageControllers.sendMessage))
+const router = Router({ mergeParams: true });
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 25 * 1024 * 1024, // Limit file size to 25MB
+  },
+});
+
+router.post(
+  '/',
+  protect,
+  upload.array('files'),
+  asyncHandler(MessageControllers.sendMessage)
+);
+
+router.get(
+  '/',
+  asyncHandler(MessageControllers.getAllMessages)
+);
+
 
 export default router;

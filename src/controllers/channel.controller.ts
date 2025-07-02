@@ -1,4 +1,3 @@
-// src/controllers/channel.controller.ts
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponse } from '../utils/apiResponse';
 import { createChannelSchemaType, updateChannelSchemaType } from '../validators/channel.validators'; // Ensure correct path to types

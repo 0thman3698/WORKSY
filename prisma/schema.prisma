@@ -9,15 +9,15 @@ datasource db {
 }
 
 model User {
-  id                                String     @id @default(uuid())
+  id                                String    @id @default(uuid())
   name                              String
-  email                             String     @unique
+  email                             String    @unique
   password                          String?
-  role                              Role       @default(MEMBER) // Global application role
+  role                              Role      @default(MEMBER) // Global application role
   avatar                            String?
-  status                            String?    @default("active")
+  status                            String?   @default("active")
   lastSeen                          DateTime?
-  isVerified                        Boolean    @default(false)
+  isVerified                        Boolean   @default(false)
   refreshToken                      String?
 
   // Email Verification Fields
@@ -30,177 +30,178 @@ model User {
   resetPasswordPinExpires           DateTime?
   resetPasswordToken                String?
   resetPasswordPinSentAt            DateTime?
-  failedPinAttempts                 Int?       @default(0)
+  failedPinAttempts                 Int?      @default(0)
 
   // Login OTP fields
-  loginOtp                          String?    @map("login_otp")
-  loginOtpExpires                   DateTime?  @map("login_otp_expires")
-  loginSessionToken                 String?    @map("login_session_token")
-  loginOtpSentAt                    DateTime?  @map("login_otp_sent_at")
+  loginOtp                          String?   @map("login_otp")
+  loginOtpExpires                   DateTime? @map("login_otp_expires")
+  loginSessionToken                 String?   @map("login_session_token")
+  loginOtpSentAt                    DateTime? @map("login_otp_sent_at")
 
   // OAuth fields
-  oauthProvider                     String?    @map("oauth_provider") // "google" | "microsoft"
-  oauthId                           String?    @map("oauth_id")
-  emailVerified                     Boolean    @default(false) @map("email_verified")
-  lastLoginAt                       DateTime?  @map("last_login_at")
+  oauthProvider                     String?   @map("oauth_provider") // "google" | "microsoft"
+  oauthId                           String?   @map("oauth_id")
+  emailVerified                     Boolean   @default(false) @map("email_verified")
+  lastLoginAt                       DateTime? @map("last_login_at")
 
-  googleAccessToken       String?
-  googleRefreshToken      String?
-  googleCalendarId        String?
+  googleAccessToken                 String?
+  googleRefreshToken                String?
+  googleCalendarId                  String?   
 
-  deletedAt                         DateTime? // soft delete
+  deletedAt                         DateTime? 
 
-  createdAt                         DateTime   @default(now())
-  updatedAt                         DateTime   @updatedAt
-  
+  createdAt                         DateTime  @default(now())
+  updatedAt                         DateTime  @updatedAt
 
   // Relationships
-  workspaces                        UserOnWorkspace[] // User's membership and role in specific workspaces
-  ownedWorkspaces                   Workspace[]        @relation("WorkspaceOwner") // Workspaces created by this user
-  ownedChannels                     Channel[]          @relation("ChannelOwner") // Channels created by this user
+  workspaces                        UserOnWorkspace[]
+  ownedWorkspaces                   Workspace[]       @relation("WorkspaceOwner") // Workspaces created by this user
+  ownedChannels                     Channel[]         @relation("ChannelOwner") // Channels created by this user
   InviteSent                        Invite[]
-  Channels                          UserOnChannel[] // User's membership and role in specific channels
+  Channels                          UserOnChannel[] 
   Message                           Message[]
   UserOnDM                          UserOnDM[]
-  Meeting                           Meeting[]           @relation("OrganizedMeetings") // Meetings organized by this user
+  OrganizedMeetings                 Meeting[]         @relation("OrganizedMeetings") // Meetings organized by this user (NEW)
+  UploadedFiles                     File[]            @relation("UploadedFiles") // Files uploaded by this user (NEW)
 
   @@index([email, resetPasswordPin])
   @@unique([oauthProvider, oauthId], name: "oauth_unique")
 }
 
 model Workspace {
-  id                                String                      @id @default(uuid())
-  name                              String
-  description                       String?
-  slug                              String
-  deletedAt                         DateTime? // soft delete
+  id                          String                        @id @default(uuid())
+  name                        String
+  description                 String?
+  slug                        String
+  deletedAt                   DateTime?
 
-  createdAt                         DateTime                    @default(now())
-  updatedAt                         DateTime                    @updatedAt
+  createdAt                   DateTime                      @default(now())
+  updatedAt                   DateTime                      @updatedAt
 
-  owner                             User                        @relation("WorkspaceOwner", fields: [ownerId], references: [id])
-  ownerId                           String // The global User ID of the workspace owner
+  owner                       User                          @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  ownerId                     String
 
   // Relationships
-  members                           UserOnWorkspace[] // All users associated with this workspace and their roles
-  Invite                            Invite[]
-  Channel                           Channel[] // Channels belonging to this workspace
-  DirectMessageConversation         DirectMessageConversation[]
+  members                     UserOnWorkspace[] 
+  Invite                      Invite[]
+  Channel                     Channel[] 
+  DirectMessageConversation   DirectMessageConversation[]
 
   @@unique([slug, deletedAt])
 }
 
 model UserOnWorkspace {
-  userId                            String
-  workspaceId                       String
-  role                              WorkspaceRole @default(MEMBER) // Role specific to this workspace
-  user                              User          @relation(fields: [userId], references: [id])
-  workspace                         Workspace     @relation(fields: [workspaceId], references: [id])
-  joinedAt                          DateTime      @default(now())
-  deletedAt                         DateTime? // Corrected: This was added in previous steps
+  userId      String
+  workspaceId String
+  role        WorkspaceRole @default(MEMBER)
+  user        User          @relation(fields: [userId], references: [id])
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+  joinedAt    DateTime      @default(now())
+  deletedAt   DateTime?
   @@id([userId, workspaceId])
 }
 
 model Invite {
-  id                                String        @id @default(uuid())
-  email                             String
-  token                             String        @unique
-  expiresAt                         DateTime
-  status                            InviteStatus  @default(PENDING)
-  role                              WorkspaceRole @default(MEMBER) // Role the invited user will have in the workspace
-  deletedAt                         DateTime? // soft delete
+  id          String        @id @default(uuid())
+  email       String
+  token       String        @unique
+  expiresAt   DateTime
+  status      InviteStatus  @default(PENDING)
+  role        WorkspaceRole @default(MEMBER)
+  deletedAt   DateTime? // soft delete
 
-  createdAt                         DateTime      @default(now())
-  updatedAt                         DateTime      @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
 
-  workspace                         Workspace     @relation(fields: [workspaceId], references: [id])
-  workspaceId                       String
+  workspace   Workspace     @relation(fields: [workspaceId], references: [id])
+  workspaceId String
 
-  invitedBy                         User          @relation(fields: [invitedById], references: [id])
-  invitedById                       String
+  invitedBy   User          @relation(fields: [invitedById], references: [id])
+  invitedById String
 
   @@index([email, workspaceId])
 }
 
 model Channel {
-  id                                String          @id @default(uuid())
-  name                              String
-  description                       String?
-  isPublic                          Boolean         @default(true)
-  workspaceId                       String
-  deletedAt                         DateTime? // soft delete
+  id            String          @id @default(uuid())
+  name          String
+  description   String?
+  isPublic      Boolean         @default(true)
+  workspaceId   String
+  deletedAt     DateTime? 
 
-  createdAt                         DateTime        @default(now())
-  updatedAt                         DateTime        @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 
   // Relationships
-  workspace                         Workspace       @relation(fields: [workspaceId], references: [id])
-  owner                             User            @relation("ChannelOwner", fields: [ownerId], references: [id])
-  ownerId                           String // The global User ID of the channel owner
-  UserOnChannels                    UserOnChannel[] // Users within this channel and their channel-specific roles
-  Message                           Message[]
-   Meeting                 Meeting[]
+  workspace     Workspace       @relation(fields: [workspaceId], references: [id])
+  owner         User            @relation("ChannelOwner", fields: [ownerId], references: [id])
+  ownerId       String
+  UserOnChannels UserOnChannel[]
+  Message       Message[]
+  Meeting       Meeting[]      
 
   @@index([workspaceId])
 }
 
 model UserOnChannel {
-  userId                            String
-  channelId                         String
-  role                              ChannelRole @default(MEMBER) // Role specific to this channel
-  joinedAt                          DateTime    @default(now())
-  deletedAt                         DateTime? // <-- ADD THIS LINE for soft delete cascading
+  userId    String
+  channelId String
+  role      ChannelRole @default(MEMBER)
+  joinedAt  DateTime    @default(now())
+  deletedAt DateTime? 
   // Relationships
-  user                              User        @relation(fields: [userId], references: [id])
-  channel                           Channel     @relation(fields: [channelId], references: [id])
+  user      User        @relation(fields: [userId], references: [id])
+  channel   Channel     @relation(fields: [channelId], references: [id])
 
   @@id([userId, channelId])
 }
 
 model Message {
-  id                                String                      @id @default(uuid())
-  content                           String
-  isEdited                          Boolean                     @default(false)
-  deletedAt                         DateTime? // soft delete
+  id                        String                      @id @default(uuid())
+  content                   String
+  isEdited                  Boolean                     @default(false)
+  deletedAt                 DateTime? 
+  createdAt                 DateTime                    @default(now())
+  updatedAt                 DateTime                    @updatedAt
 
-  createdAt                         DateTime                    @default(now())
-  updatedAt                         DateTime                    @updatedAt
+  userId                    String
+  channelId                 String?
+  conversationId            String?
 
-  userId                            String
-  channelId                         String?
-  conversationId                    String?
-
-  user                              User                        @relation(fields: [userId], references: [id])
-  channel                           Channel?                    @relation(fields: [channelId], references: [id])
-  DirectMessageConversation         DirectMessageConversation?  @relation(fields: [conversationId], references: [id])
+  user                      User                        @relation(fields: [userId], references: [id])
+  channel                   Channel?                    @relation(fields: [channelId], references: [id])
+  DirectMessageConversation DirectMessageConversation?  @relation(fields: [conversationId], references: [id])
+  files                     File[]                      
 
   @@index([channelId])
   @@index([userId])
 }
 
 model DirectMessageConversation {
-  id                                String     @id @default(uuid())
-  participants                      UserOnDM[] // like a join table between users and dm
-  messages                          Message[] // all messages related to the DM
-  workspaceId                       String
-  workspace                         Workspace  @relation(fields: [workspaceId], references: [id])
-  deletedAt                         DateTime? // soft delete
+  id            String    @id @default(uuid())
+  participants  UserOnDM[]
+  messages      Message[]
+  workspaceId   String
+  workspace     Workspace @relation(fields: [workspaceId], references: [id])
+  deletedAt     DateTime? 
 
-  createdAt                         DateTime   @default(now())
-  updatedAt                         DateTime   @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model UserOnDM {
-  userId                            String
-  dmId                              String
+  userId    String
+  dmId      String
 
-deletedAt                         DateTime?
+  deletedAt DateTime?
 
-  user                              User       @relation(fields: [userId], references: [id])
-  dm                                DirectMessageConversation @relation(fields: [dmId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+  dm        DirectMessageConversation @relation(fields: [dmId], references: [id])
 
   @@id([userId, dmId])
 }
+
 model Meeting {
   id                      String    @id @default(uuid())
   title                   String
@@ -211,7 +212,6 @@ model Meeting {
   googleCalendarEventId   String?   @unique
   googleCalendarHtmlLink  String?
 
-  // Relation to the Channel where the meeting is scheduled
   channel                 Channel   @relation(fields: [channelId], references: [id])
   channelId               String
 
@@ -227,27 +227,48 @@ model Meeting {
   @@index([organizerId])
 }
 
+model File {
+  id          String    @id @default(uuid())
+  filename    String 
+  mimetype    String    
+  size        Int      
+  url         String    @unique
+  path        String    @unique
 
-// Global application roles for a User
+  uploadedBy  User      @relation("UploadedFiles", fields: [uploadedById], references: [id])
+  uploadedById String
+
+  message     Message?  @relation(fields: [messageId], references: [id])
+  messageId   String?
+
+  deletedAt   DateTime?
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([uploadedById])
+  @@index([messageId])
+}
+
+
 enum Role {
-  APP_OWNER // Highest level, full control over the application.
-  APP_ADMIN // Global administrator, can manage users, possibly workspaces.
-  MEMBER    // Regular application user.
-  GUEST     // Limited access user.
+  APP_OWNER 
+  APP_ADMIN 
+  MEMBER   
+  GUEST     
 }
 
-// Roles within a specific Workspace
+
 enum WorkspaceRole {
-  OWNER  // Creator/primary manager of a specific workspace.
-  ADMIN  // Administrator within a specific workspace.
-  MEMBER // Regular participant within a specific workspace.
+  OWNER
+  ADMIN
+  MEMBER
 }
 
-// Roles within a specific Channel
 enum ChannelRole {
-  OWNER  // Creator/primary manager of a specific channel.
-  ADMIN  // Administrator within a specific channel.
-  MEMBER // Regular participant within a specific channel.
+  OWNER 
+  ADMIN
+  MEMBER 
 }
 
 enum InviteStatus {

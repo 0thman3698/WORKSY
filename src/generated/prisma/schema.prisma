@@ -44,9 +44,10 @@ model User {
   emailVerified Boolean   @default(false) @map("email_verified")
   lastLoginAt   DateTime? @map("last_login_at")
 
+  // Google Calendar Integration Fields (NEW)
   googleAccessToken  String?
   googleRefreshToken String?
-  googleCalendarId   String?
+  googleCalendarId   String? // e.g., "primary" or a specific calendar ID
 
   deletedAt DateTime? // soft delete
 
@@ -54,14 +55,15 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relationships
-  workspaces      UserOnWorkspace[] // User's membership and role in specific workspaces
-  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner") // Workspaces created by this user
-  ownedChannels   Channel[]         @relation("ChannelOwner") // Channels created by this user
-  InviteSent      Invite[]
-  Channels        UserOnChannel[] // User's membership and role in specific channels
-  Message         Message[]
-  UserOnDM        UserOnDM[]
-  Meeting         Meeting[]         @relation("OrganizedMeetings") // Meetings organized by this user
+  workspaces        UserOnWorkspace[] // User's membership and role in specific workspaces
+  ownedWorkspaces   Workspace[]       @relation("WorkspaceOwner") // Workspaces created by this user
+  ownedChannels     Channel[]         @relation("ChannelOwner") // Channels created by this user
+  InviteSent        Invite[]
+  Channels          UserOnChannel[] // User's membership and role in specific channels
+  Message           Message[]
+  UserOnDM          UserOnDM[]
+  OrganizedMeetings Meeting[]         @relation("OrganizedMeetings") // Meetings organized by this user (NEW)
+  UploadedFiles     File[]            @relation("UploadedFiles") // Files uploaded by this user (NEW)
 
   @@unique([oauthProvider, oauthId], name: "oauth_unique")
   @@index([email, resetPasswordPin])
@@ -139,7 +141,7 @@ model Channel {
   ownerId        String // The global User ID of the channel owner
   UserOnChannels UserOnChannel[] // Users within this channel and their channel-specific roles
   Message        Message[]
-  Meeting        Meeting[]
+  Meeting        Meeting[] // Meetings scheduled in this channel (NEW)
 
   @@index([workspaceId])
 }
@@ -173,6 +175,7 @@ model Message {
   user                      User                       @relation(fields: [userId], references: [id])
   channel                   Channel?                   @relation(fields: [channelId], references: [id])
   DirectMessageConversation DirectMessageConversation? @relation(fields: [conversationId], references: [id])
+  files                     File[] // A message can have multiple attached files (NEW)
 
   @@index([channelId])
   @@index([userId])
@@ -202,6 +205,7 @@ model UserOnDM {
   @@id([userId, dmId])
 }
 
+// NEW: Meeting Model
 model Meeting {
   id                     String   @id @default(uuid())
   title                  String
@@ -209,23 +213,50 @@ model Meeting {
   startTime              DateTime
   endTime                DateTime
   location               String?
-  googleCalendarEventId  String?  @unique
-  googleCalendarHtmlLink String?
+  googleCalendarEventId  String?  @unique // Store the ID from Google Calendar
+  googleCalendarHtmlLink String? // Link to the event on Google Calendar
 
   // Relation to the Channel where the meeting is scheduled
   channel   Channel @relation(fields: [channelId], references: [id])
   channelId String
 
-  organizer   User   @relation("OrganizedMeetings", fields: [organizerId], references: [id])
+  // Relation to the User who scheduled the meeting
+  organizer   User   @relation("OrganizedMeetings", fields: [organizerId], references: [id]) // FIX: Added relation name
   organizerId String
 
-  deletedAt DateTime?
+  deletedAt DateTime? // soft delete
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([channelId])
   @@index([organizerId])
+}
+
+// NEW: File Model
+model File {
+  id       String @id @default(uuid())
+  filename String // Original filename
+  mimetype String // e.g., "image/jpeg", "application/pdf"
+  size     Int // File size in bytes
+  url      String @unique // The download URL from Cloudinary
+  path     String @unique // The public_id in Cloudinary
+
+  // Relation to the User who uploaded the file
+  uploadedBy   User   @relation("UploadedFiles", fields: [uploadedById], references: [id])
+  uploadedById String
+
+  // Relation to the Message it's attached to (optional, as files might be standalone or in DMs later)
+  message   Message? @relation(fields: [messageId], references: [id])
+  messageId String?
+
+  deletedAt DateTime? // soft delete
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([uploadedById])
+  @@index([messageId])
 }
 
 // Global application roles for a User

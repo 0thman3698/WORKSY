@@ -17,6 +17,8 @@ import './config/jwt.config';
 import { authorizationErrorHandler } from './middlewares/authorization.middleware'; 
 import { protect } from './middlewares/protect';
 import googleCalendarRoutes from './routes/integration.routes';
+import fileRoutes from './routes/file.routes';
+
 
 // express
 const app = express();
@@ -51,8 +53,10 @@ app.use('/api', limiter);
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/workspace',protect, workspaceRoutes);
 app.use('/api/v1/invite',protect, inviteRoutes);
-// new added y othman
+
 app.use('/api/v1/integrations', googleCalendarRoutes); 
+app.use('/api/v1/files', protect, fileRoutes);
+
 
 app.get('/', async (req, res) => {
   res.send(`hello`);

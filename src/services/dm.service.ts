@@ -5,7 +5,6 @@ import { createMessageSchema } from '../validators/message.validators';
 
 
 export class DmService {
-    // direct message conversation between two users
     async createConversation(userId: string, otherUserId: string, workspaceId: string) {
         if (userId === otherUserId) {
             throw ApiError.badRequest("Cannot create DM with yourself.");
@@ -269,8 +268,6 @@ export class DmService {
 
         return conversations;
     }
-
-    // Edit Message - Delete Message - React on message
 }
 
 export const dmService = new DmService();

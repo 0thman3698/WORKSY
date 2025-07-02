@@ -6,26 +6,27 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-
 const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_CLIENT_ID2,
-  process.env.GOOGLE_CLIENT_SECRET2,
-  process.env.GOOGLE_REDIRECT_URI2 
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI 
 );
 
 export class MeetingService {
+
+  // --- Google Calendar Integration Helpers ---
   async getGoogleAuthUrl(userId: string): Promise<string> {
     const scopes = [
-      'https://www.googleapis.com/auth/calendar.events', 
+      'https://www.googleapis.com/auth/calendar.events',
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/userinfo.profile',
     ];
 
     const authUrl = oauth2Client.generateAuthUrl({
-      access_type: 'offline', 
+      access_type: 'offline',
       scope: scopes,
-      prompt: 'consent', 
-      state: userId 
+      prompt: 'consent',
+      state: userId // Pass userId to link the callback to the user
     });
     return authUrl;
   }
@@ -83,7 +84,7 @@ export class MeetingService {
   async getGoogleCalendarClient(userId: string) {
     const user = await prisma.user.findUnique({
       where: { id: userId },
-      select: { googleAccessToken: true, googleRefreshToken: true }
+      select: { googleAccessToken: true, googleRefreshToken: true, googleCalendarId: true }
     });
 
     if (!user?.googleAccessToken) {
@@ -99,6 +100,8 @@ export class MeetingService {
 
     return google.calendar({ version: 'v3', auth: oauth2Client });
   }
+
+  // --- Meeting Management Functions ---
 
   async scheduleMeeting(channelId: string, organizerId: string, meetingData: CreateMeetingSchemaType) {
     const channel = await prisma.channel.findUnique({
@@ -168,17 +171,17 @@ export class MeetingService {
           description: `Scheduled from WorkSy channel "${channel.name}". ${meetingData.description || ''}`,
           start: {
             dateTime: meetingData.startTime.toISOString(),
-            timeZone: 'UTC', 
+            timeZone: 'UTC',
           },
           end: {
             dateTime: meetingData.endTime.toISOString(),
-            timeZone: 'UTC', 
+            timeZone: 'UTC',
           },
           location: meetingData.location,
           attendees: attendees,
           conferenceData: {
             createRequest: {
-              requestId: `worksy-${newMeeting.id}`, 
+              requestId: `worksy-${newMeeting.id}`,
               conferenceSolutionKey: {
                 type: 'hangoutsMeet'
               }
@@ -190,7 +193,7 @@ export class MeetingService {
           calendarId: organizer.googleCalendarId || 'primary',
           requestBody: event,
           conferenceDataVersion: 1,
-          sendUpdates: 'all'
+          sendUpdates: 'all' 
         });
 
         await prisma.meeting.update({
@@ -198,7 +201,7 @@ export class MeetingService {
           data: {
             googleCalendarEventId: response.data.id,
             googleCalendarHtmlLink: response.data.htmlLink,
-            location: response.data.hangoutLink || meetingData.location
+            location: response.data.hangoutLink || meetingData.location 
           },
         });
 
@@ -238,7 +241,7 @@ export class MeetingService {
 
     if (!includePast) {
       whereClause.endTime = {
-        gte: new Date(), 
+        gte: new Date(),
       };
     }
 
@@ -327,6 +330,7 @@ export class MeetingService {
   async deleteMeeting(meetingId: string, channelId: string, userId: string) {
     const existingMeeting = await this.getMeetingById(meetingId, channelId, userId);
 
+    // Only the organizer or channel admin/owner should be able to delete
     const userRoleInChannel = await prisma.userOnChannel.findUnique({
       where: { userId_channelId: { userId, channelId } },
       select: { role: true }
@@ -341,6 +345,7 @@ export class MeetingService {
       data: { deletedAt: new Date() },
     });
 
+    // Delete Google Calendar event if it exists
     if (deletedMeeting.googleCalendarEventId && existingMeeting.organizerId === userId) {
         try {
             const calendar = await this.getGoogleCalendarClient(userId);

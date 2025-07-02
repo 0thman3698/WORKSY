@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ApiResponse } from '../utils/apiResponse';
 import { meetingService } from '../services/meeting.service';
-import { CreateMeetingSchemaType, UpdateMeetingSchemaType, createMeetingSchema, googleCalendarAuthCallbackSchema, updateMeetingSchema } from '../validators/meeting.validators';
+import { CreateMeetingSchemaType, UpdateMeetingSchemaType, updateMeetingSchema, createMeetingSchema, googleCalendarAuthCallbackSchema } from '../validators/meeting.validators';
 import { ApiError } from '../utils/apiError';
 import { z } from 'zod';
 
@@ -18,7 +18,6 @@ export default class MeetingControllers {
 
   static async handleGoogleCalendarCallback(req: Request, res: Response, next: NextFunction) {
     try {
-      // Retrieve userId from the state query parameter
       const { code, state } = req.query;
 
       if (!code) {
@@ -28,7 +27,7 @@ export default class MeetingControllers {
         throw ApiError.badRequest('State parameter (userId) is missing or invalid.');
       }
 
-      const userId = state; // Use userId from state parameter
+      const userId = state; 
 
       try {
         googleCalendarAuthCallbackSchema.parse({ code });
@@ -40,9 +39,6 @@ export default class MeetingControllers {
       }
 
       const result = await meetingService.handleGoogleCalendarCallback(code as string, userId);
-      // as test y othman 📌 
-      // Redirect to a frontend success page or return a response
-      // For now(test), let's send a JSON response. In a real app, you'd redirect.
       return new ApiResponse(res).success(result, 'Google Calendar linked successfully');
     } catch (error) {
       next(error);

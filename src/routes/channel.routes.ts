@@ -1,4 +1,3 @@
-// src/routes/channel.routes.ts
 import express from "express";
 import { validate } from "../middlewares/validation.middleware";
 import { asyncHandler } from "../middlewares/asyncHandler";
@@ -47,6 +46,6 @@ router.use(
   messageRouter
 );
 
-router.use("/:channelId/meetings", checkChannelRole(ChannelRole.MEMBER), meetingRoutes); // Meetings are specific to channels
+router.use("/:channelId/meetings", checkChannelRole(ChannelRole.MEMBER), meetingRoutes);
 
 export default router;

@@ -1,11 +1,11 @@
 import { z } from 'zod';
 import { createMessageSchemaType, createMessageSchema } from '../validators/message.validators';
-import prisma from '../config/db'; 
+import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
+import { fileService } from './file.service';
 
 export class MessageService {
-    // Sends a message to a channel.
-    async sendMessage(channelId: string, messageData: createMessageSchemaType, userId: string) {
+    async sendMessage(channelId: string, messageData: createMessageSchemaType, userId: string, uploadedFiles?: Express.Multer.File[]) {
         try {
             createMessageSchema.parse(messageData);
         } catch (error) {
@@ -18,20 +18,19 @@ export class MessageService {
         const channel = await prisma.channel.findUnique({
             where: {
                 id: channelId,
-                deletedAt: null, 
+                deletedAt: null,
             },
         });
         if (!channel) {
             throw ApiError.notFound('Channel not found or is inactive.');
         }
-
         const member = await prisma.userOnChannel.findUnique({
             where: {
                 userId_channelId: {
                     userId,
                     channelId,
                 },
-                deletedAt: null, 
+                deletedAt: null,
             },
         });
         if (!member) {
@@ -49,15 +48,30 @@ export class MessageService {
                     select: {
                         id: true,
                         name: true,
-                       
+                        avatar: true 
                     }
-                }
+                },
+                files: true
             }
         });
+
+        // If files are provided, upload them and link to the message
+        if (uploadedFiles && uploadedFiles.length > 0) {
+            const uploadedFileRecords = [];
+            for (const file of uploadedFiles) {
+                try {
+                    const fileRecord = await fileService.uploadFile(file, userId, message.id);
+                    uploadedFileRecords.push(fileRecord);
+                } catch (uploadError) {
+                    console.error(`Failed to upload file ${file.originalname} for message ${message.id}:`, uploadError);
+                }
+            }
+            message.files = uploadedFileRecords;
+        }
+
         return message;
     }
 
-    // Retrieves active messages for specific channel with pagination.
     async getAllMessages(channelId: string, userId: string, limit: number = 50, skip: number = 0) {
         const channel = await prisma.channel.findUnique({
             where: {
@@ -87,15 +101,19 @@ export class MessageService {
                 channelId: channelId,
                 deletedAt: null,
             },
-            orderBy: { createdAt: 'asc' }, 
+            orderBy: { createdAt: 'asc' },
             take: limit,
-            skip: skip, 
+            skip: skip,
             include: {
                 user: {
                     select: {
                         id: true,
                         name: true,
+                        avatar: true 
                     }
+                },
+                files: {
+                    where: { deletedAt: null }
                 }
             }
         });
