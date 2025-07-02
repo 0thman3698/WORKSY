@@ -68,6 +68,11 @@ export type MessageReaction = $Result.DefaultSelection<Prisma.$MessageReactionPa
  * 
  */
 export type MessageMention = $Result.DefaultSelection<Prisma.$MessageMentionPayload>
+/**
+ * Model Meeting
+ * 
+ */
+export type Meeting = $Result.DefaultSelection<Prisma.$MeetingPayload>
 
 /**
  * Enums
@@ -362,6 +367,16 @@ export class PrismaClient<
     * ```
     */
   get messageMention(): Prisma.MessageMentionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.meeting`: Exposes CRUD operations for the **Meeting** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Meetings
+    * const meetings = await prisma.meeting.findMany()
+    * ```
+    */
+  get meeting(): Prisma.MeetingDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -812,7 +827,8 @@ export namespace Prisma {
     DirectMessageConversation: 'DirectMessageConversation',
     UserOnDM: 'UserOnDM',
     MessageReaction: 'MessageReaction',
-    MessageMention: 'MessageMention'
+    MessageMention: 'MessageMention',
+    Meeting: 'Meeting'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -831,7 +847,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "workspace" | "userOnWorkspace" | "invite" | "channel" | "userOnChannel" | "message" | "directMessageConversation" | "userOnDM" | "messageReaction" | "messageMention"
+      modelProps: "user" | "workspace" | "userOnWorkspace" | "invite" | "channel" | "userOnChannel" | "message" | "directMessageConversation" | "userOnDM" | "messageReaction" | "messageMention" | "meeting"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1649,6 +1665,80 @@ export namespace Prisma {
           }
         }
       }
+      Meeting: {
+        payload: Prisma.$MeetingPayload<ExtArgs>
+        fields: Prisma.MeetingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MeetingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MeetingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>
+          }
+          findFirst: {
+            args: Prisma.MeetingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MeetingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>
+          }
+          findMany: {
+            args: Prisma.MeetingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>[]
+          }
+          create: {
+            args: Prisma.MeetingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>
+          }
+          createMany: {
+            args: Prisma.MeetingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MeetingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>[]
+          }
+          delete: {
+            args: Prisma.MeetingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>
+          }
+          update: {
+            args: Prisma.MeetingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>
+          }
+          deleteMany: {
+            args: Prisma.MeetingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MeetingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MeetingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>[]
+          }
+          upsert: {
+            args: Prisma.MeetingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MeetingPayload>
+          }
+          aggregate: {
+            args: Prisma.MeetingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMeeting>
+          }
+          groupBy: {
+            args: Prisma.MeetingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MeetingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MeetingCountArgs<ExtArgs>
+            result: $Utils.Optional<MeetingCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1744,6 +1834,7 @@ export namespace Prisma {
     userOnDM?: UserOnDMOmit
     messageReaction?: MessageReactionOmit
     messageMention?: MessageMentionOmit
+    meeting?: MeetingOmit
   }
 
   /* Types for Logging */
@@ -1848,6 +1939,7 @@ export namespace Prisma {
     MessageReaction: number
     MessageMention: number
     Channel: number
+    Meeting: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1861,6 +1953,7 @@ export namespace Prisma {
     MessageReaction?: boolean | UserCountOutputTypeCountMessageReactionArgs
     MessageMention?: boolean | UserCountOutputTypeCountMessageMentionArgs
     Channel?: boolean | UserCountOutputTypeCountChannelArgs
+    Meeting?: boolean | UserCountOutputTypeCountMeetingArgs
   }
 
   // Custom InputTypes
@@ -1944,6 +2037,13 @@ export namespace Prisma {
     where?: ChannelWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMeetingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeetingWhereInput
+  }
+
 
   /**
    * Count Type WorkspaceCountOutputType
@@ -2010,11 +2110,13 @@ export namespace Prisma {
   export type ChannelCountOutputType = {
     UserOnChannels: number
     Message: number
+    Meeting: number
   }
 
   export type ChannelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     UserOnChannels?: boolean | ChannelCountOutputTypeCountUserOnChannelsArgs
     Message?: boolean | ChannelCountOutputTypeCountMessageArgs
+    Meeting?: boolean | ChannelCountOutputTypeCountMeetingArgs
   }
 
   // Custom InputTypes
@@ -2040,6 +2142,13 @@ export namespace Prisma {
    */
   export type ChannelCountOutputTypeCountMessageArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * ChannelCountOutputType without action
+   */
+  export type ChannelCountOutputTypeCountMeetingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeetingWhereInput
   }
 
 
@@ -2174,6 +2283,9 @@ export namespace Prisma {
     oauthId: string | null
     emailVerified: boolean | null
     lastLoginAt: Date | null
+    googleAccessToken: string | null
+    googleRefreshToken: string | null
+    googleCalendarId: string | null
     fcmToken: string | null
     deletedAt: Date | null
     createdAt: Date | null
@@ -2207,6 +2319,9 @@ export namespace Prisma {
     oauthId: string | null
     emailVerified: boolean | null
     lastLoginAt: Date | null
+    googleAccessToken: string | null
+    googleRefreshToken: string | null
+    googleCalendarId: string | null
     fcmToken: string | null
     deletedAt: Date | null
     createdAt: Date | null
@@ -2240,6 +2355,9 @@ export namespace Prisma {
     oauthId: number
     emailVerified: number
     lastLoginAt: number
+    googleAccessToken: number
+    googleRefreshToken: number
+    googleCalendarId: number
     fcmToken: number
     deletedAt: number
     createdAt: number
@@ -2283,6 +2401,9 @@ export namespace Prisma {
     oauthId?: true
     emailVerified?: true
     lastLoginAt?: true
+    googleAccessToken?: true
+    googleRefreshToken?: true
+    googleCalendarId?: true
     fcmToken?: true
     deletedAt?: true
     createdAt?: true
@@ -2316,6 +2437,9 @@ export namespace Prisma {
     oauthId?: true
     emailVerified?: true
     lastLoginAt?: true
+    googleAccessToken?: true
+    googleRefreshToken?: true
+    googleCalendarId?: true
     fcmToken?: true
     deletedAt?: true
     createdAt?: true
@@ -2349,6 +2473,9 @@ export namespace Prisma {
     oauthId?: true
     emailVerified?: true
     lastLoginAt?: true
+    googleAccessToken?: true
+    googleRefreshToken?: true
+    googleCalendarId?: true
     fcmToken?: true
     deletedAt?: true
     createdAt?: true
@@ -2469,6 +2596,9 @@ export namespace Prisma {
     oauthId: string | null
     emailVerified: boolean
     lastLoginAt: Date | null
+    googleAccessToken: string | null
+    googleRefreshToken: string | null
+    googleCalendarId: string | null
     fcmToken: string | null
     deletedAt: Date | null
     createdAt: Date
@@ -2521,6 +2651,9 @@ export namespace Prisma {
     oauthId?: boolean
     emailVerified?: boolean
     lastLoginAt?: boolean
+    googleAccessToken?: boolean
+    googleRefreshToken?: boolean
+    googleCalendarId?: boolean
     fcmToken?: boolean
     deletedAt?: boolean
     createdAt?: boolean
@@ -2535,6 +2668,7 @@ export namespace Prisma {
     MessageReaction?: boolean | User$MessageReactionArgs<ExtArgs>
     MessageMention?: boolean | User$MessageMentionArgs<ExtArgs>
     Channel?: boolean | User$ChannelArgs<ExtArgs>
+    Meeting?: boolean | User$MeetingArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2565,6 +2699,9 @@ export namespace Prisma {
     oauthId?: boolean
     emailVerified?: boolean
     lastLoginAt?: boolean
+    googleAccessToken?: boolean
+    googleRefreshToken?: boolean
+    googleCalendarId?: boolean
     fcmToken?: boolean
     deletedAt?: boolean
     createdAt?: boolean
@@ -2598,6 +2735,9 @@ export namespace Prisma {
     oauthId?: boolean
     emailVerified?: boolean
     lastLoginAt?: boolean
+    googleAccessToken?: boolean
+    googleRefreshToken?: boolean
+    googleCalendarId?: boolean
     fcmToken?: boolean
     deletedAt?: boolean
     createdAt?: boolean
@@ -2631,13 +2771,16 @@ export namespace Prisma {
     oauthId?: boolean
     emailVerified?: boolean
     lastLoginAt?: boolean
+    googleAccessToken?: boolean
+    googleRefreshToken?: boolean
+    googleCalendarId?: boolean
     fcmToken?: boolean
     deletedAt?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "lastSeen" | "isVerified" | "refreshToken" | "emailVerificationToken" | "emailVerificationTokenExpires" | "emailVerificationTokenSentAt" | "resetPasswordPin" | "resetPasswordPinExpires" | "resetPasswordToken" | "resetPasswordPinSentAt" | "failedPinAttempts" | "loginOtp" | "loginOtpExpires" | "loginSessionToken" | "loginOtpSentAt" | "oauthProvider" | "oauthId" | "emailVerified" | "lastLoginAt" | "fcmToken" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "avatar" | "status" | "lastSeen" | "isVerified" | "refreshToken" | "emailVerificationToken" | "emailVerificationTokenExpires" | "emailVerificationTokenSentAt" | "resetPasswordPin" | "resetPasswordPinExpires" | "resetPasswordToken" | "resetPasswordPinSentAt" | "failedPinAttempts" | "loginOtp" | "loginOtpExpires" | "loginSessionToken" | "loginOtpSentAt" | "oauthProvider" | "oauthId" | "emailVerified" | "lastLoginAt" | "googleAccessToken" | "googleRefreshToken" | "googleCalendarId" | "fcmToken" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspaces?: boolean | User$workspacesArgs<ExtArgs>
     ownedWorkspaces?: boolean | User$ownedWorkspacesArgs<ExtArgs>
@@ -2649,6 +2792,7 @@ export namespace Prisma {
     MessageReaction?: boolean | User$MessageReactionArgs<ExtArgs>
     MessageMention?: boolean | User$MessageMentionArgs<ExtArgs>
     Channel?: boolean | User$ChannelArgs<ExtArgs>
+    Meeting?: boolean | User$MeetingArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2667,6 +2811,7 @@ export namespace Prisma {
       MessageReaction: Prisma.$MessageReactionPayload<ExtArgs>[]
       MessageMention: Prisma.$MessageMentionPayload<ExtArgs>[]
       Channel: Prisma.$ChannelPayload<ExtArgs>[]
+      Meeting: Prisma.$MeetingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2695,6 +2840,9 @@ export namespace Prisma {
       oauthId: string | null
       emailVerified: boolean
       lastLoginAt: Date | null
+      googleAccessToken: string | null
+      googleRefreshToken: string | null
+      googleCalendarId: string | null
       fcmToken: string | null
       deletedAt: Date | null
       createdAt: Date
@@ -3103,6 +3251,7 @@ export namespace Prisma {
     MessageReaction<T extends User$MessageReactionArgs<ExtArgs> = {}>(args?: Subset<T, User$MessageReactionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageReactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     MessageMention<T extends User$MessageMentionArgs<ExtArgs> = {}>(args?: Subset<T, User$MessageMentionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageMentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Channel<T extends User$ChannelArgs<ExtArgs> = {}>(args?: Subset<T, User$ChannelArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    Meeting<T extends User$MeetingArgs<ExtArgs> = {}>(args?: Subset<T, User$MeetingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3158,6 +3307,9 @@ export namespace Prisma {
     readonly oauthId: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly lastLoginAt: FieldRef<"User", 'DateTime'>
+    readonly googleAccessToken: FieldRef<"User", 'String'>
+    readonly googleRefreshToken: FieldRef<"User", 'String'>
+    readonly googleCalendarId: FieldRef<"User", 'String'>
     readonly fcmToken: FieldRef<"User", 'String'>
     readonly deletedAt: FieldRef<"User", 'DateTime'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -3787,6 +3939,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ChannelScalarFieldEnum | ChannelScalarFieldEnum[]
+  }
+
+  /**
+   * User.Meeting
+   */
+  export type User$MeetingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    where?: MeetingWhereInput
+    orderBy?: MeetingOrderByWithRelationInput | MeetingOrderByWithRelationInput[]
+    cursor?: MeetingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeetingScalarFieldEnum | MeetingScalarFieldEnum[]
   }
 
   /**
@@ -7438,6 +7614,7 @@ export namespace Prisma {
     UserOnChannels?: boolean | Channel$UserOnChannelsArgs<ExtArgs>
     Message?: boolean | Channel$MessageArgs<ExtArgs>
     User?: boolean | Channel$UserArgs<ExtArgs>
+    Meeting?: boolean | Channel$MeetingArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["channel"]>
 
@@ -7493,6 +7670,7 @@ export namespace Prisma {
     UserOnChannels?: boolean | Channel$UserOnChannelsArgs<ExtArgs>
     Message?: boolean | Channel$MessageArgs<ExtArgs>
     User?: boolean | Channel$UserArgs<ExtArgs>
+    Meeting?: boolean | Channel$MeetingArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChannelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7514,6 +7692,7 @@ export namespace Prisma {
       UserOnChannels: Prisma.$UserOnChannelPayload<ExtArgs>[]
       Message: Prisma.$MessagePayload<ExtArgs>[]
       User: Prisma.$UserPayload<ExtArgs> | null
+      Meeting: Prisma.$MeetingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7925,6 +8104,7 @@ export namespace Prisma {
     UserOnChannels<T extends Channel$UserOnChannelsArgs<ExtArgs> = {}>(args?: Subset<T, Channel$UserOnChannelsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserOnChannelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Message<T extends Channel$MessageArgs<ExtArgs> = {}>(args?: Subset<T, Channel$MessageArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     User<T extends Channel$UserArgs<ExtArgs> = {}>(args?: Subset<T, Channel$UserArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    Meeting<T extends Channel$MeetingArgs<ExtArgs> = {}>(args?: Subset<T, Channel$MeetingArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8424,6 +8604,30 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Channel.Meeting
+   */
+  export type Channel$MeetingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    where?: MeetingWhereInput
+    orderBy?: MeetingOrderByWithRelationInput | MeetingOrderByWithRelationInput[]
+    cursor?: MeetingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MeetingScalarFieldEnum | MeetingScalarFieldEnum[]
   }
 
   /**
@@ -11862,16 +12066,19 @@ export namespace Prisma {
   export type UserOnDMMinAggregateOutputType = {
     userId: string | null
     dmId: string | null
+    deletedAt: Date | null
   }
 
   export type UserOnDMMaxAggregateOutputType = {
     userId: string | null
     dmId: string | null
+    deletedAt: Date | null
   }
 
   export type UserOnDMCountAggregateOutputType = {
     userId: number
     dmId: number
+    deletedAt: number
     _all: number
   }
 
@@ -11879,16 +12086,19 @@ export namespace Prisma {
   export type UserOnDMMinAggregateInputType = {
     userId?: true
     dmId?: true
+    deletedAt?: true
   }
 
   export type UserOnDMMaxAggregateInputType = {
     userId?: true
     dmId?: true
+    deletedAt?: true
   }
 
   export type UserOnDMCountAggregateInputType = {
     userId?: true
     dmId?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -11967,6 +12177,7 @@ export namespace Prisma {
   export type UserOnDMGroupByOutputType = {
     userId: string
     dmId: string
+    deletedAt: Date | null
     _count: UserOnDMCountAggregateOutputType | null
     _min: UserOnDMMinAggregateOutputType | null
     _max: UserOnDMMaxAggregateOutputType | null
@@ -11989,6 +12200,7 @@ export namespace Prisma {
   export type UserOnDMSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     dmId?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userOnDM"]>
@@ -11996,6 +12208,7 @@ export namespace Prisma {
   export type UserOnDMSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     dmId?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userOnDM"]>
@@ -12003,6 +12216,7 @@ export namespace Prisma {
   export type UserOnDMSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     userId?: boolean
     dmId?: boolean
+    deletedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userOnDM"]>
@@ -12010,9 +12224,10 @@ export namespace Prisma {
   export type UserOnDMSelectScalar = {
     userId?: boolean
     dmId?: boolean
+    deletedAt?: boolean
   }
 
-  export type UserOnDMOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "dmId", ExtArgs["result"]["userOnDM"]>
+  export type UserOnDMOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "dmId" | "deletedAt", ExtArgs["result"]["userOnDM"]>
   export type UserOnDMInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     dm?: boolean | DirectMessageConversationDefaultArgs<ExtArgs>
@@ -12035,6 +12250,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       userId: string
       dmId: string
+      deletedAt: Date | null
     }, ExtArgs["result"]["userOnDM"]>
     composites: {}
   }
@@ -12462,6 +12678,7 @@ export namespace Prisma {
   interface UserOnDMFieldRefs {
     readonly userId: FieldRef<"UserOnDM", 'String'>
     readonly dmId: FieldRef<"UserOnDM", 'String'>
+    readonly deletedAt: FieldRef<"UserOnDM", 'DateTime'>
   }
     
 
@@ -14996,6 +15213,1176 @@ export namespace Prisma {
 
 
   /**
+   * Model Meeting
+   */
+
+  export type AggregateMeeting = {
+    _count: MeetingCountAggregateOutputType | null
+    _min: MeetingMinAggregateOutputType | null
+    _max: MeetingMaxAggregateOutputType | null
+  }
+
+  export type MeetingMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    startTime: Date | null
+    endTime: Date | null
+    location: string | null
+    googleCalendarEventId: string | null
+    googleCalendarHtmlLink: string | null
+    channelId: string | null
+    organizerId: string | null
+    deletedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MeetingMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    startTime: Date | null
+    endTime: Date | null
+    location: string | null
+    googleCalendarEventId: string | null
+    googleCalendarHtmlLink: string | null
+    channelId: string | null
+    organizerId: string | null
+    deletedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MeetingCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    startTime: number
+    endTime: number
+    location: number
+    googleCalendarEventId: number
+    googleCalendarHtmlLink: number
+    channelId: number
+    organizerId: number
+    deletedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MeetingMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    startTime?: true
+    endTime?: true
+    location?: true
+    googleCalendarEventId?: true
+    googleCalendarHtmlLink?: true
+    channelId?: true
+    organizerId?: true
+    deletedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MeetingMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    startTime?: true
+    endTime?: true
+    location?: true
+    googleCalendarEventId?: true
+    googleCalendarHtmlLink?: true
+    channelId?: true
+    organizerId?: true
+    deletedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MeetingCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    startTime?: true
+    endTime?: true
+    location?: true
+    googleCalendarEventId?: true
+    googleCalendarHtmlLink?: true
+    channelId?: true
+    organizerId?: true
+    deletedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MeetingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Meeting to aggregate.
+     */
+    where?: MeetingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meetings to fetch.
+     */
+    orderBy?: MeetingOrderByWithRelationInput | MeetingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MeetingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meetings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meetings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Meetings
+    **/
+    _count?: true | MeetingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MeetingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MeetingMaxAggregateInputType
+  }
+
+  export type GetMeetingAggregateType<T extends MeetingAggregateArgs> = {
+        [P in keyof T & keyof AggregateMeeting]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMeeting[P]>
+      : GetScalarType<T[P], AggregateMeeting[P]>
+  }
+
+
+
+
+  export type MeetingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MeetingWhereInput
+    orderBy?: MeetingOrderByWithAggregationInput | MeetingOrderByWithAggregationInput[]
+    by: MeetingScalarFieldEnum[] | MeetingScalarFieldEnum
+    having?: MeetingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MeetingCountAggregateInputType | true
+    _min?: MeetingMinAggregateInputType
+    _max?: MeetingMaxAggregateInputType
+  }
+
+  export type MeetingGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    startTime: Date
+    endTime: Date
+    location: string | null
+    googleCalendarEventId: string | null
+    googleCalendarHtmlLink: string | null
+    channelId: string
+    organizerId: string
+    deletedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MeetingCountAggregateOutputType | null
+    _min: MeetingMinAggregateOutputType | null
+    _max: MeetingMaxAggregateOutputType | null
+  }
+
+  type GetMeetingGroupByPayload<T extends MeetingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MeetingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MeetingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MeetingGroupByOutputType[P]>
+            : GetScalarType<T[P], MeetingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MeetingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    location?: boolean
+    googleCalendarEventId?: boolean
+    googleCalendarHtmlLink?: boolean
+    channelId?: boolean
+    organizerId?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    organizer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meeting"]>
+
+  export type MeetingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    location?: boolean
+    googleCalendarEventId?: boolean
+    googleCalendarHtmlLink?: boolean
+    channelId?: boolean
+    organizerId?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    organizer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meeting"]>
+
+  export type MeetingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    location?: boolean
+    googleCalendarEventId?: boolean
+    googleCalendarHtmlLink?: boolean
+    channelId?: boolean
+    organizerId?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    organizer?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["meeting"]>
+
+  export type MeetingSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    startTime?: boolean
+    endTime?: boolean
+    location?: boolean
+    googleCalendarEventId?: boolean
+    googleCalendarHtmlLink?: boolean
+    channelId?: boolean
+    organizerId?: boolean
+    deletedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MeetingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "startTime" | "endTime" | "location" | "googleCalendarEventId" | "googleCalendarHtmlLink" | "channelId" | "organizerId" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["meeting"]>
+  export type MeetingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    organizer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MeetingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    organizer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MeetingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    organizer?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MeetingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Meeting"
+    objects: {
+      channel: Prisma.$ChannelPayload<ExtArgs>
+      organizer: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      startTime: Date
+      endTime: Date
+      location: string | null
+      googleCalendarEventId: string | null
+      googleCalendarHtmlLink: string | null
+      channelId: string
+      organizerId: string
+      deletedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["meeting"]>
+    composites: {}
+  }
+
+  type MeetingGetPayload<S extends boolean | null | undefined | MeetingDefaultArgs> = $Result.GetResult<Prisma.$MeetingPayload, S>
+
+  type MeetingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MeetingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MeetingCountAggregateInputType | true
+    }
+
+  export interface MeetingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Meeting'], meta: { name: 'Meeting' } }
+    /**
+     * Find zero or one Meeting that matches the filter.
+     * @param {MeetingFindUniqueArgs} args - Arguments to find a Meeting
+     * @example
+     * // Get one Meeting
+     * const meeting = await prisma.meeting.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MeetingFindUniqueArgs>(args: SelectSubset<T, MeetingFindUniqueArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Meeting that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MeetingFindUniqueOrThrowArgs} args - Arguments to find a Meeting
+     * @example
+     * // Get one Meeting
+     * const meeting = await prisma.meeting.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MeetingFindUniqueOrThrowArgs>(args: SelectSubset<T, MeetingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Meeting that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingFindFirstArgs} args - Arguments to find a Meeting
+     * @example
+     * // Get one Meeting
+     * const meeting = await prisma.meeting.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MeetingFindFirstArgs>(args?: SelectSubset<T, MeetingFindFirstArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Meeting that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingFindFirstOrThrowArgs} args - Arguments to find a Meeting
+     * @example
+     * // Get one Meeting
+     * const meeting = await prisma.meeting.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MeetingFindFirstOrThrowArgs>(args?: SelectSubset<T, MeetingFindFirstOrThrowArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Meetings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Meetings
+     * const meetings = await prisma.meeting.findMany()
+     * 
+     * // Get first 10 Meetings
+     * const meetings = await prisma.meeting.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const meetingWithIdOnly = await prisma.meeting.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MeetingFindManyArgs>(args?: SelectSubset<T, MeetingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Meeting.
+     * @param {MeetingCreateArgs} args - Arguments to create a Meeting.
+     * @example
+     * // Create one Meeting
+     * const Meeting = await prisma.meeting.create({
+     *   data: {
+     *     // ... data to create a Meeting
+     *   }
+     * })
+     * 
+     */
+    create<T extends MeetingCreateArgs>(args: SelectSubset<T, MeetingCreateArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Meetings.
+     * @param {MeetingCreateManyArgs} args - Arguments to create many Meetings.
+     * @example
+     * // Create many Meetings
+     * const meeting = await prisma.meeting.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MeetingCreateManyArgs>(args?: SelectSubset<T, MeetingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Meetings and returns the data saved in the database.
+     * @param {MeetingCreateManyAndReturnArgs} args - Arguments to create many Meetings.
+     * @example
+     * // Create many Meetings
+     * const meeting = await prisma.meeting.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Meetings and only return the `id`
+     * const meetingWithIdOnly = await prisma.meeting.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MeetingCreateManyAndReturnArgs>(args?: SelectSubset<T, MeetingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Meeting.
+     * @param {MeetingDeleteArgs} args - Arguments to delete one Meeting.
+     * @example
+     * // Delete one Meeting
+     * const Meeting = await prisma.meeting.delete({
+     *   where: {
+     *     // ... filter to delete one Meeting
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MeetingDeleteArgs>(args: SelectSubset<T, MeetingDeleteArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Meeting.
+     * @param {MeetingUpdateArgs} args - Arguments to update one Meeting.
+     * @example
+     * // Update one Meeting
+     * const meeting = await prisma.meeting.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MeetingUpdateArgs>(args: SelectSubset<T, MeetingUpdateArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Meetings.
+     * @param {MeetingDeleteManyArgs} args - Arguments to filter Meetings to delete.
+     * @example
+     * // Delete a few Meetings
+     * const { count } = await prisma.meeting.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MeetingDeleteManyArgs>(args?: SelectSubset<T, MeetingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Meetings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Meetings
+     * const meeting = await prisma.meeting.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MeetingUpdateManyArgs>(args: SelectSubset<T, MeetingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Meetings and returns the data updated in the database.
+     * @param {MeetingUpdateManyAndReturnArgs} args - Arguments to update many Meetings.
+     * @example
+     * // Update many Meetings
+     * const meeting = await prisma.meeting.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Meetings and only return the `id`
+     * const meetingWithIdOnly = await prisma.meeting.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MeetingUpdateManyAndReturnArgs>(args: SelectSubset<T, MeetingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Meeting.
+     * @param {MeetingUpsertArgs} args - Arguments to update or create a Meeting.
+     * @example
+     * // Update or create a Meeting
+     * const meeting = await prisma.meeting.upsert({
+     *   create: {
+     *     // ... data to create a Meeting
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Meeting we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MeetingUpsertArgs>(args: SelectSubset<T, MeetingUpsertArgs<ExtArgs>>): Prisma__MeetingClient<$Result.GetResult<Prisma.$MeetingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Meetings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingCountArgs} args - Arguments to filter Meetings to count.
+     * @example
+     * // Count the number of Meetings
+     * const count = await prisma.meeting.count({
+     *   where: {
+     *     // ... the filter for the Meetings we want to count
+     *   }
+     * })
+    **/
+    count<T extends MeetingCountArgs>(
+      args?: Subset<T, MeetingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MeetingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Meeting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MeetingAggregateArgs>(args: Subset<T, MeetingAggregateArgs>): Prisma.PrismaPromise<GetMeetingAggregateType<T>>
+
+    /**
+     * Group by Meeting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MeetingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MeetingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MeetingGroupByArgs['orderBy'] }
+        : { orderBy?: MeetingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MeetingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMeetingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Meeting model
+   */
+  readonly fields: MeetingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Meeting.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MeetingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    channel<T extends ChannelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChannelDefaultArgs<ExtArgs>>): Prisma__ChannelClient<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    organizer<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Meeting model
+   */
+  interface MeetingFieldRefs {
+    readonly id: FieldRef<"Meeting", 'String'>
+    readonly title: FieldRef<"Meeting", 'String'>
+    readonly description: FieldRef<"Meeting", 'String'>
+    readonly startTime: FieldRef<"Meeting", 'DateTime'>
+    readonly endTime: FieldRef<"Meeting", 'DateTime'>
+    readonly location: FieldRef<"Meeting", 'String'>
+    readonly googleCalendarEventId: FieldRef<"Meeting", 'String'>
+    readonly googleCalendarHtmlLink: FieldRef<"Meeting", 'String'>
+    readonly channelId: FieldRef<"Meeting", 'String'>
+    readonly organizerId: FieldRef<"Meeting", 'String'>
+    readonly deletedAt: FieldRef<"Meeting", 'DateTime'>
+    readonly createdAt: FieldRef<"Meeting", 'DateTime'>
+    readonly updatedAt: FieldRef<"Meeting", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Meeting findUnique
+   */
+  export type MeetingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * Filter, which Meeting to fetch.
+     */
+    where: MeetingWhereUniqueInput
+  }
+
+  /**
+   * Meeting findUniqueOrThrow
+   */
+  export type MeetingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * Filter, which Meeting to fetch.
+     */
+    where: MeetingWhereUniqueInput
+  }
+
+  /**
+   * Meeting findFirst
+   */
+  export type MeetingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * Filter, which Meeting to fetch.
+     */
+    where?: MeetingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meetings to fetch.
+     */
+    orderBy?: MeetingOrderByWithRelationInput | MeetingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Meetings.
+     */
+    cursor?: MeetingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meetings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meetings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Meetings.
+     */
+    distinct?: MeetingScalarFieldEnum | MeetingScalarFieldEnum[]
+  }
+
+  /**
+   * Meeting findFirstOrThrow
+   */
+  export type MeetingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * Filter, which Meeting to fetch.
+     */
+    where?: MeetingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meetings to fetch.
+     */
+    orderBy?: MeetingOrderByWithRelationInput | MeetingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Meetings.
+     */
+    cursor?: MeetingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meetings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meetings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Meetings.
+     */
+    distinct?: MeetingScalarFieldEnum | MeetingScalarFieldEnum[]
+  }
+
+  /**
+   * Meeting findMany
+   */
+  export type MeetingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * Filter, which Meetings to fetch.
+     */
+    where?: MeetingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Meetings to fetch.
+     */
+    orderBy?: MeetingOrderByWithRelationInput | MeetingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Meetings.
+     */
+    cursor?: MeetingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Meetings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Meetings.
+     */
+    skip?: number
+    distinct?: MeetingScalarFieldEnum | MeetingScalarFieldEnum[]
+  }
+
+  /**
+   * Meeting create
+   */
+  export type MeetingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Meeting.
+     */
+    data: XOR<MeetingCreateInput, MeetingUncheckedCreateInput>
+  }
+
+  /**
+   * Meeting createMany
+   */
+  export type MeetingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Meetings.
+     */
+    data: MeetingCreateManyInput | MeetingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Meeting createManyAndReturn
+   */
+  export type MeetingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Meetings.
+     */
+    data: MeetingCreateManyInput | MeetingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Meeting update
+   */
+  export type MeetingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Meeting.
+     */
+    data: XOR<MeetingUpdateInput, MeetingUncheckedUpdateInput>
+    /**
+     * Choose, which Meeting to update.
+     */
+    where: MeetingWhereUniqueInput
+  }
+
+  /**
+   * Meeting updateMany
+   */
+  export type MeetingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Meetings.
+     */
+    data: XOR<MeetingUpdateManyMutationInput, MeetingUncheckedUpdateManyInput>
+    /**
+     * Filter which Meetings to update
+     */
+    where?: MeetingWhereInput
+    /**
+     * Limit how many Meetings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meeting updateManyAndReturn
+   */
+  export type MeetingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * The data used to update Meetings.
+     */
+    data: XOR<MeetingUpdateManyMutationInput, MeetingUncheckedUpdateManyInput>
+    /**
+     * Filter which Meetings to update
+     */
+    where?: MeetingWhereInput
+    /**
+     * Limit how many Meetings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Meeting upsert
+   */
+  export type MeetingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Meeting to update in case it exists.
+     */
+    where: MeetingWhereUniqueInput
+    /**
+     * In case the Meeting found by the `where` argument doesn't exist, create a new Meeting with this data.
+     */
+    create: XOR<MeetingCreateInput, MeetingUncheckedCreateInput>
+    /**
+     * In case the Meeting was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MeetingUpdateInput, MeetingUncheckedUpdateInput>
+  }
+
+  /**
+   * Meeting delete
+   */
+  export type MeetingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+    /**
+     * Filter which Meeting to delete.
+     */
+    where: MeetingWhereUniqueInput
+  }
+
+  /**
+   * Meeting deleteMany
+   */
+  export type MeetingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Meetings to delete
+     */
+    where?: MeetingWhereInput
+    /**
+     * Limit how many Meetings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Meeting without action
+   */
+  export type MeetingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Meeting
+     */
+    select?: MeetingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Meeting
+     */
+    omit?: MeetingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MeetingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -15036,6 +16423,9 @@ export namespace Prisma {
     oauthId: 'oauthId',
     emailVerified: 'emailVerified',
     lastLoginAt: 'lastLoginAt',
+    googleAccessToken: 'googleAccessToken',
+    googleRefreshToken: 'googleRefreshToken',
+    googleCalendarId: 'googleCalendarId',
     fcmToken: 'fcmToken',
     deletedAt: 'deletedAt',
     createdAt: 'createdAt',
@@ -15142,7 +16532,8 @@ export namespace Prisma {
 
   export const UserOnDMScalarFieldEnum: {
     userId: 'userId',
-    dmId: 'dmId'
+    dmId: 'dmId',
+    deletedAt: 'deletedAt'
   };
 
   export type UserOnDMScalarFieldEnum = (typeof UserOnDMScalarFieldEnum)[keyof typeof UserOnDMScalarFieldEnum]
@@ -15167,6 +16558,25 @@ export namespace Prisma {
   };
 
   export type MessageMentionScalarFieldEnum = (typeof MessageMentionScalarFieldEnum)[keyof typeof MessageMentionScalarFieldEnum]
+
+
+  export const MeetingScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    startTime: 'startTime',
+    endTime: 'endTime',
+    location: 'location',
+    googleCalendarEventId: 'googleCalendarEventId',
+    googleCalendarHtmlLink: 'googleCalendarHtmlLink',
+    channelId: 'channelId',
+    organizerId: 'organizerId',
+    deletedAt: 'deletedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MeetingScalarFieldEnum = (typeof MeetingScalarFieldEnum)[keyof typeof MeetingScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -15350,6 +16760,9 @@ export namespace Prisma {
     oauthId?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    googleAccessToken?: StringNullableFilter<"User"> | string | null
+    googleRefreshToken?: StringNullableFilter<"User"> | string | null
+    googleCalendarId?: StringNullableFilter<"User"> | string | null
     fcmToken?: StringNullableFilter<"User"> | string | null
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -15364,6 +16777,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionListRelationFilter
     MessageMention?: MessageMentionListRelationFilter
     Channel?: ChannelListRelationFilter
+    Meeting?: MeetingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15393,6 +16807,9 @@ export namespace Prisma {
     oauthId?: SortOrderInput | SortOrder
     emailVerified?: SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
+    googleAccessToken?: SortOrderInput | SortOrder
+    googleRefreshToken?: SortOrderInput | SortOrder
+    googleCalendarId?: SortOrderInput | SortOrder
     fcmToken?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -15407,6 +16824,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionOrderByRelationAggregateInput
     MessageMention?: MessageMentionOrderByRelationAggregateInput
     Channel?: ChannelOrderByRelationAggregateInput
+    Meeting?: MeetingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15440,6 +16858,9 @@ export namespace Prisma {
     oauthId?: StringNullableFilter<"User"> | string | null
     emailVerified?: BoolFilter<"User"> | boolean
     lastLoginAt?: DateTimeNullableFilter<"User"> | Date | string | null
+    googleAccessToken?: StringNullableFilter<"User"> | string | null
+    googleRefreshToken?: StringNullableFilter<"User"> | string | null
+    googleCalendarId?: StringNullableFilter<"User"> | string | null
     fcmToken?: StringNullableFilter<"User"> | string | null
     deletedAt?: DateTimeNullableFilter<"User"> | Date | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -15454,6 +16875,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionListRelationFilter
     MessageMention?: MessageMentionListRelationFilter
     Channel?: ChannelListRelationFilter
+    Meeting?: MeetingListRelationFilter
   }, "id" | "email" | "oauth_unique">
 
   export type UserOrderByWithAggregationInput = {
@@ -15483,6 +16905,9 @@ export namespace Prisma {
     oauthId?: SortOrderInput | SortOrder
     emailVerified?: SortOrder
     lastLoginAt?: SortOrderInput | SortOrder
+    googleAccessToken?: SortOrderInput | SortOrder
+    googleRefreshToken?: SortOrderInput | SortOrder
+    googleCalendarId?: SortOrderInput | SortOrder
     fcmToken?: SortOrderInput | SortOrder
     deletedAt?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -15524,6 +16949,9 @@ export namespace Prisma {
     oauthId?: StringNullableWithAggregatesFilter<"User"> | string | null
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     lastLoginAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    googleAccessToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    googleRefreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    googleCalendarId?: StringNullableWithAggregatesFilter<"User"> | string | null
     fcmToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     deletedAt?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -15779,6 +17207,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelListRelationFilter
     Message?: MessageListRelationFilter
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Meeting?: MeetingListRelationFilter
   }
 
   export type ChannelOrderByWithRelationInput = {
@@ -15797,6 +17226,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelOrderByRelationAggregateInput
     Message?: MessageOrderByRelationAggregateInput
     User?: UserOrderByWithRelationInput
+    Meeting?: MeetingOrderByRelationAggregateInput
   }
 
   export type ChannelWhereUniqueInput = Prisma.AtLeast<{
@@ -15818,6 +17248,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelListRelationFilter
     Message?: MessageListRelationFilter
     User?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    Meeting?: MeetingListRelationFilter
   }, "id">
 
   export type ChannelOrderByWithAggregationInput = {
@@ -16065,6 +17496,7 @@ export namespace Prisma {
     NOT?: UserOnDMWhereInput | UserOnDMWhereInput[]
     userId?: StringFilter<"UserOnDM"> | string
     dmId?: StringFilter<"UserOnDM"> | string
+    deletedAt?: DateTimeNullableFilter<"UserOnDM"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     dm?: XOR<DirectMessageConversationScalarRelationFilter, DirectMessageConversationWhereInput>
   }
@@ -16072,6 +17504,7 @@ export namespace Prisma {
   export type UserOnDMOrderByWithRelationInput = {
     userId?: SortOrder
     dmId?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     dm?: DirectMessageConversationOrderByWithRelationInput
   }
@@ -16083,6 +17516,7 @@ export namespace Prisma {
     NOT?: UserOnDMWhereInput | UserOnDMWhereInput[]
     userId?: StringFilter<"UserOnDM"> | string
     dmId?: StringFilter<"UserOnDM"> | string
+    deletedAt?: DateTimeNullableFilter<"UserOnDM"> | Date | string | null
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     dm?: XOR<DirectMessageConversationScalarRelationFilter, DirectMessageConversationWhereInput>
   }, "userId_dmId">
@@ -16090,6 +17524,7 @@ export namespace Prisma {
   export type UserOnDMOrderByWithAggregationInput = {
     userId?: SortOrder
     dmId?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: UserOnDMCountOrderByAggregateInput
     _max?: UserOnDMMaxOrderByAggregateInput
     _min?: UserOnDMMinOrderByAggregateInput
@@ -16101,6 +17536,7 @@ export namespace Prisma {
     NOT?: UserOnDMScalarWhereWithAggregatesInput | UserOnDMScalarWhereWithAggregatesInput[]
     userId?: StringWithAggregatesFilter<"UserOnDM"> | string
     dmId?: StringWithAggregatesFilter<"UserOnDM"> | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"UserOnDM"> | Date | string | null
   }
 
   export type MessageReactionWhereInput = {
@@ -16216,6 +17652,104 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"MessageMention"> | Date | string
   }
 
+  export type MeetingWhereInput = {
+    AND?: MeetingWhereInput | MeetingWhereInput[]
+    OR?: MeetingWhereInput[]
+    NOT?: MeetingWhereInput | MeetingWhereInput[]
+    id?: StringFilter<"Meeting"> | string
+    title?: StringFilter<"Meeting"> | string
+    description?: StringNullableFilter<"Meeting"> | string | null
+    startTime?: DateTimeFilter<"Meeting"> | Date | string
+    endTime?: DateTimeFilter<"Meeting"> | Date | string
+    location?: StringNullableFilter<"Meeting"> | string | null
+    googleCalendarEventId?: StringNullableFilter<"Meeting"> | string | null
+    googleCalendarHtmlLink?: StringNullableFilter<"Meeting"> | string | null
+    channelId?: StringFilter<"Meeting"> | string
+    organizerId?: StringFilter<"Meeting"> | string
+    deletedAt?: DateTimeNullableFilter<"Meeting"> | Date | string | null
+    createdAt?: DateTimeFilter<"Meeting"> | Date | string
+    updatedAt?: DateTimeFilter<"Meeting"> | Date | string
+    channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
+    organizer?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MeetingOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    location?: SortOrderInput | SortOrder
+    googleCalendarEventId?: SortOrderInput | SortOrder
+    googleCalendarHtmlLink?: SortOrderInput | SortOrder
+    channelId?: SortOrder
+    organizerId?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    channel?: ChannelOrderByWithRelationInput
+    organizer?: UserOrderByWithRelationInput
+  }
+
+  export type MeetingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    googleCalendarEventId?: string
+    AND?: MeetingWhereInput | MeetingWhereInput[]
+    OR?: MeetingWhereInput[]
+    NOT?: MeetingWhereInput | MeetingWhereInput[]
+    title?: StringFilter<"Meeting"> | string
+    description?: StringNullableFilter<"Meeting"> | string | null
+    startTime?: DateTimeFilter<"Meeting"> | Date | string
+    endTime?: DateTimeFilter<"Meeting"> | Date | string
+    location?: StringNullableFilter<"Meeting"> | string | null
+    googleCalendarHtmlLink?: StringNullableFilter<"Meeting"> | string | null
+    channelId?: StringFilter<"Meeting"> | string
+    organizerId?: StringFilter<"Meeting"> | string
+    deletedAt?: DateTimeNullableFilter<"Meeting"> | Date | string | null
+    createdAt?: DateTimeFilter<"Meeting"> | Date | string
+    updatedAt?: DateTimeFilter<"Meeting"> | Date | string
+    channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
+    organizer?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "googleCalendarEventId">
+
+  export type MeetingOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    location?: SortOrderInput | SortOrder
+    googleCalendarEventId?: SortOrderInput | SortOrder
+    googleCalendarHtmlLink?: SortOrderInput | SortOrder
+    channelId?: SortOrder
+    organizerId?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MeetingCountOrderByAggregateInput
+    _max?: MeetingMaxOrderByAggregateInput
+    _min?: MeetingMinOrderByAggregateInput
+  }
+
+  export type MeetingScalarWhereWithAggregatesInput = {
+    AND?: MeetingScalarWhereWithAggregatesInput | MeetingScalarWhereWithAggregatesInput[]
+    OR?: MeetingScalarWhereWithAggregatesInput[]
+    NOT?: MeetingScalarWhereWithAggregatesInput | MeetingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Meeting"> | string
+    title?: StringWithAggregatesFilter<"Meeting"> | string
+    description?: StringNullableWithAggregatesFilter<"Meeting"> | string | null
+    startTime?: DateTimeWithAggregatesFilter<"Meeting"> | Date | string
+    endTime?: DateTimeWithAggregatesFilter<"Meeting"> | Date | string
+    location?: StringNullableWithAggregatesFilter<"Meeting"> | string | null
+    googleCalendarEventId?: StringNullableWithAggregatesFilter<"Meeting"> | string | null
+    googleCalendarHtmlLink?: StringNullableWithAggregatesFilter<"Meeting"> | string | null
+    channelId?: StringWithAggregatesFilter<"Meeting"> | string
+    organizerId?: StringWithAggregatesFilter<"Meeting"> | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Meeting"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Meeting"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Meeting"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     name: string
@@ -16243,6 +17777,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -16257,6 +17794,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16286,6 +17824,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -16300,6 +17841,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUpdateInput = {
@@ -16329,6 +17871,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16343,6 +17888,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16372,6 +17918,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16386,6 +17935,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16415,6 +17965,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -16448,6 +18001,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16481,6 +18037,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16742,6 +18301,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     Message?: MessageCreateNestedManyWithoutChannelInput
     User?: UserCreateNestedOneWithoutChannelInput
+    Meeting?: MeetingCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateInput = {
@@ -16757,6 +18317,7 @@ export namespace Prisma {
     userId?: string | null
     UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUpdateInput = {
@@ -16772,6 +18333,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
     User?: UserUpdateOneWithoutChannelNestedInput
+    Meeting?: MeetingUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateInput = {
@@ -16787,6 +18349,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelCreateManyInput = {
@@ -17032,6 +18595,7 @@ export namespace Prisma {
   }
 
   export type UserOnDMCreateInput = {
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutUserOnDMInput
     dm: DirectMessageConversationCreateNestedOneWithoutParticipantsInput
   }
@@ -17039,9 +18603,11 @@ export namespace Prisma {
   export type UserOnDMUncheckedCreateInput = {
     userId: string
     dmId: string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnDMUpdateInput = {
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutUserOnDMNestedInput
     dm?: DirectMessageConversationUpdateOneRequiredWithoutParticipantsNestedInput
   }
@@ -17049,20 +18615,23 @@ export namespace Prisma {
   export type UserOnDMUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     dmId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnDMCreateManyInput = {
     userId: string
     dmId: string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnDMUpdateManyMutationInput = {
-
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnDMUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     dmId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageReactionCreateInput = {
@@ -17164,6 +18733,116 @@ export namespace Prisma {
     messageId?: StringFieldUpdateOperationsInput | string
     mentionedUserId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeetingCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channel: ChannelCreateNestedOneWithoutMeetingInput
+    organizer: UserCreateNestedOneWithoutMeetingInput
+  }
+
+  export type MeetingUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    channelId: string
+    organizerId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeetingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channel?: ChannelUpdateOneRequiredWithoutMeetingNestedInput
+    organizer?: UserUpdateOneRequiredWithoutMeetingNestedInput
+  }
+
+  export type MeetingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: StringFieldUpdateOperationsInput | string
+    organizerId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeetingCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    channelId: string
+    organizerId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeetingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeetingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: StringFieldUpdateOperationsInput | string
+    organizerId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -17295,6 +18974,12 @@ export namespace Prisma {
     none?: MessageMentionWhereInput
   }
 
+  export type MeetingListRelationFilter = {
+    every?: MeetingWhereInput
+    some?: MeetingWhereInput
+    none?: MeetingWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17336,6 +19021,10 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
+  export type MeetingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
   export type UserOauth_uniqueCompoundUniqueInput = {
     oauthProvider: string
     oauthId: string
@@ -17368,6 +19057,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     emailVerified?: SortOrder
     lastLoginAt?: SortOrder
+    googleAccessToken?: SortOrder
+    googleRefreshToken?: SortOrder
+    googleCalendarId?: SortOrder
     fcmToken?: SortOrder
     deletedAt?: SortOrder
     createdAt?: SortOrder
@@ -17405,6 +19097,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     emailVerified?: SortOrder
     lastLoginAt?: SortOrder
+    googleAccessToken?: SortOrder
+    googleRefreshToken?: SortOrder
+    googleCalendarId?: SortOrder
     fcmToken?: SortOrder
     deletedAt?: SortOrder
     createdAt?: SortOrder
@@ -17438,6 +19133,9 @@ export namespace Prisma {
     oauthId?: SortOrder
     emailVerified?: SortOrder
     lastLoginAt?: SortOrder
+    googleAccessToken?: SortOrder
+    googleRefreshToken?: SortOrder
+    googleCalendarId?: SortOrder
     fcmToken?: SortOrder
     deletedAt?: SortOrder
     createdAt?: SortOrder
@@ -17887,16 +19585,19 @@ export namespace Prisma {
   export type UserOnDMCountOrderByAggregateInput = {
     userId?: SortOrder
     dmId?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserOnDMMaxOrderByAggregateInput = {
     userId?: SortOrder
     dmId?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type UserOnDMMinOrderByAggregateInput = {
     userId?: SortOrder
     dmId?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type MessageScalarRelationFilter = {
@@ -17958,6 +19659,54 @@ export namespace Prisma {
     messageId?: SortOrder
     mentionedUserId?: SortOrder
     createdAt?: SortOrder
+  }
+
+  export type MeetingCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    location?: SortOrder
+    googleCalendarEventId?: SortOrder
+    googleCalendarHtmlLink?: SortOrder
+    channelId?: SortOrder
+    organizerId?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeetingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    location?: SortOrder
+    googleCalendarEventId?: SortOrder
+    googleCalendarHtmlLink?: SortOrder
+    channelId?: SortOrder
+    organizerId?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MeetingMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    startTime?: SortOrder
+    endTime?: SortOrder
+    location?: SortOrder
+    googleCalendarEventId?: SortOrder
+    googleCalendarHtmlLink?: SortOrder
+    channelId?: SortOrder
+    organizerId?: SortOrder
+    deletedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
   }
 
   export type UserOnWorkspaceCreateNestedManyWithoutUserInput = {
@@ -18030,6 +19779,13 @@ export namespace Prisma {
     connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
   }
 
+  export type MeetingCreateNestedManyWithoutOrganizerInput = {
+    create?: XOR<MeetingCreateWithoutOrganizerInput, MeetingUncheckedCreateWithoutOrganizerInput> | MeetingCreateWithoutOrganizerInput[] | MeetingUncheckedCreateWithoutOrganizerInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutOrganizerInput | MeetingCreateOrConnectWithoutOrganizerInput[]
+    createMany?: MeetingCreateManyOrganizerInputEnvelope
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+  }
+
   export type UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -18098,6 +19854,13 @@ export namespace Prisma {
     connectOrCreate?: ChannelCreateOrConnectWithoutUserInput | ChannelCreateOrConnectWithoutUserInput[]
     createMany?: ChannelCreateManyUserInputEnvelope
     connect?: ChannelWhereUniqueInput | ChannelWhereUniqueInput[]
+  }
+
+  export type MeetingUncheckedCreateNestedManyWithoutOrganizerInput = {
+    create?: XOR<MeetingCreateWithoutOrganizerInput, MeetingUncheckedCreateWithoutOrganizerInput> | MeetingCreateWithoutOrganizerInput[] | MeetingUncheckedCreateWithoutOrganizerInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutOrganizerInput | MeetingCreateOrConnectWithoutOrganizerInput[]
+    createMany?: MeetingCreateManyOrganizerInputEnvelope
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -18272,6 +20035,20 @@ export namespace Prisma {
     deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
   }
 
+  export type MeetingUpdateManyWithoutOrganizerNestedInput = {
+    create?: XOR<MeetingCreateWithoutOrganizerInput, MeetingUncheckedCreateWithoutOrganizerInput> | MeetingCreateWithoutOrganizerInput[] | MeetingUncheckedCreateWithoutOrganizerInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutOrganizerInput | MeetingCreateOrConnectWithoutOrganizerInput[]
+    upsert?: MeetingUpsertWithWhereUniqueWithoutOrganizerInput | MeetingUpsertWithWhereUniqueWithoutOrganizerInput[]
+    createMany?: MeetingCreateManyOrganizerInputEnvelope
+    set?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    disconnect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    delete?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    update?: MeetingUpdateWithWhereUniqueWithoutOrganizerInput | MeetingUpdateWithWhereUniqueWithoutOrganizerInput[]
+    updateMany?: MeetingUpdateManyWithWhereWithoutOrganizerInput | MeetingUpdateManyWithWhereWithoutOrganizerInput[]
+    deleteMany?: MeetingScalarWhereInput | MeetingScalarWhereInput[]
+  }
+
   export type UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<UserOnWorkspaceCreateWithoutUserInput, UserOnWorkspaceUncheckedCreateWithoutUserInput> | UserOnWorkspaceCreateWithoutUserInput[] | UserOnWorkspaceUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UserOnWorkspaceCreateOrConnectWithoutUserInput | UserOnWorkspaceCreateOrConnectWithoutUserInput[]
@@ -18410,6 +20187,20 @@ export namespace Prisma {
     update?: ChannelUpdateWithWhereUniqueWithoutUserInput | ChannelUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ChannelUpdateManyWithWhereWithoutUserInput | ChannelUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ChannelScalarWhereInput | ChannelScalarWhereInput[]
+  }
+
+  export type MeetingUncheckedUpdateManyWithoutOrganizerNestedInput = {
+    create?: XOR<MeetingCreateWithoutOrganizerInput, MeetingUncheckedCreateWithoutOrganizerInput> | MeetingCreateWithoutOrganizerInput[] | MeetingUncheckedCreateWithoutOrganizerInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutOrganizerInput | MeetingCreateOrConnectWithoutOrganizerInput[]
+    upsert?: MeetingUpsertWithWhereUniqueWithoutOrganizerInput | MeetingUpsertWithWhereUniqueWithoutOrganizerInput[]
+    createMany?: MeetingCreateManyOrganizerInputEnvelope
+    set?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    disconnect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    delete?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    update?: MeetingUpdateWithWhereUniqueWithoutOrganizerInput | MeetingUpdateWithWhereUniqueWithoutOrganizerInput[]
+    updateMany?: MeetingUpdateManyWithWhereWithoutOrganizerInput | MeetingUpdateManyWithWhereWithoutOrganizerInput[]
+    deleteMany?: MeetingScalarWhereInput | MeetingScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutOwnedWorkspacesInput = {
@@ -18690,6 +20481,13 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
+  export type MeetingCreateNestedManyWithoutChannelInput = {
+    create?: XOR<MeetingCreateWithoutChannelInput, MeetingUncheckedCreateWithoutChannelInput> | MeetingCreateWithoutChannelInput[] | MeetingUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutChannelInput | MeetingCreateOrConnectWithoutChannelInput[]
+    createMany?: MeetingCreateManyChannelInputEnvelope
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+  }
+
   export type UserOnChannelUncheckedCreateNestedManyWithoutChannelInput = {
     create?: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput> | UserOnChannelCreateWithoutChannelInput[] | UserOnChannelUncheckedCreateWithoutChannelInput[]
     connectOrCreate?: UserOnChannelCreateOrConnectWithoutChannelInput | UserOnChannelCreateOrConnectWithoutChannelInput[]
@@ -18702,6 +20500,13 @@ export namespace Prisma {
     connectOrCreate?: MessageCreateOrConnectWithoutChannelInput | MessageCreateOrConnectWithoutChannelInput[]
     createMany?: MessageCreateManyChannelInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MeetingUncheckedCreateNestedManyWithoutChannelInput = {
+    create?: XOR<MeetingCreateWithoutChannelInput, MeetingUncheckedCreateWithoutChannelInput> | MeetingCreateWithoutChannelInput[] | MeetingUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutChannelInput | MeetingCreateOrConnectWithoutChannelInput[]
+    createMany?: MeetingCreateManyChannelInputEnvelope
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
   }
 
   export type WorkspaceUpdateOneRequiredWithoutChannelNestedInput = {
@@ -18758,6 +20563,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutChannelInput, UserUpdateWithoutChannelInput>, UserUncheckedUpdateWithoutChannelInput>
   }
 
+  export type MeetingUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<MeetingCreateWithoutChannelInput, MeetingUncheckedCreateWithoutChannelInput> | MeetingCreateWithoutChannelInput[] | MeetingUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutChannelInput | MeetingCreateOrConnectWithoutChannelInput[]
+    upsert?: MeetingUpsertWithWhereUniqueWithoutChannelInput | MeetingUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: MeetingCreateManyChannelInputEnvelope
+    set?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    disconnect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    delete?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    update?: MeetingUpdateWithWhereUniqueWithoutChannelInput | MeetingUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: MeetingUpdateManyWithWhereWithoutChannelInput | MeetingUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: MeetingScalarWhereInput | MeetingScalarWhereInput[]
+  }
+
   export type UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput = {
     create?: XOR<UserOnChannelCreateWithoutChannelInput, UserOnChannelUncheckedCreateWithoutChannelInput> | UserOnChannelCreateWithoutChannelInput[] | UserOnChannelUncheckedCreateWithoutChannelInput[]
     connectOrCreate?: UserOnChannelCreateOrConnectWithoutChannelInput | UserOnChannelCreateOrConnectWithoutChannelInput[]
@@ -18784,6 +20603,20 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutChannelInput | MessageUpdateWithWhereUniqueWithoutChannelInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutChannelInput | MessageUpdateManyWithWhereWithoutChannelInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MeetingUncheckedUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<MeetingCreateWithoutChannelInput, MeetingUncheckedCreateWithoutChannelInput> | MeetingCreateWithoutChannelInput[] | MeetingUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MeetingCreateOrConnectWithoutChannelInput | MeetingCreateOrConnectWithoutChannelInput[]
+    upsert?: MeetingUpsertWithWhereUniqueWithoutChannelInput | MeetingUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: MeetingCreateManyChannelInputEnvelope
+    set?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    disconnect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    delete?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    connect?: MeetingWhereUniqueInput | MeetingWhereUniqueInput[]
+    update?: MeetingUpdateWithWhereUniqueWithoutChannelInput | MeetingUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: MeetingUpdateManyWithWhereWithoutChannelInput | MeetingUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: MeetingScalarWhereInput | MeetingScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutChannelsInput = {
@@ -19130,6 +20963,34 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessageMentionInput, UserUpdateWithoutMessageMentionInput>, UserUncheckedUpdateWithoutMessageMentionInput>
   }
 
+  export type ChannelCreateNestedOneWithoutMeetingInput = {
+    create?: XOR<ChannelCreateWithoutMeetingInput, ChannelUncheckedCreateWithoutMeetingInput>
+    connectOrCreate?: ChannelCreateOrConnectWithoutMeetingInput
+    connect?: ChannelWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMeetingInput = {
+    create?: XOR<UserCreateWithoutMeetingInput, UserUncheckedCreateWithoutMeetingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMeetingInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type ChannelUpdateOneRequiredWithoutMeetingNestedInput = {
+    create?: XOR<ChannelCreateWithoutMeetingInput, ChannelUncheckedCreateWithoutMeetingInput>
+    connectOrCreate?: ChannelCreateOrConnectWithoutMeetingInput
+    upsert?: ChannelUpsertWithoutMeetingInput
+    connect?: ChannelWhereUniqueInput
+    update?: XOR<XOR<ChannelUpdateToOneWithWhereWithoutMeetingInput, ChannelUpdateWithoutMeetingInput>, ChannelUncheckedUpdateWithoutMeetingInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMeetingNestedInput = {
+    create?: XOR<UserCreateWithoutMeetingInput, UserUncheckedCreateWithoutMeetingInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMeetingInput
+    upsert?: UserUpsertWithoutMeetingInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMeetingInput, UserUpdateWithoutMeetingInput>, UserUncheckedUpdateWithoutMeetingInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -19446,6 +21307,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     Message?: MessageCreateNestedManyWithoutChannelInput
     User?: UserCreateNestedOneWithoutChannelInput
+    Meeting?: MeetingCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutOwnerInput = {
@@ -19460,6 +21322,7 @@ export namespace Prisma {
     userId?: string | null
     UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutOwnerInput = {
@@ -19569,11 +21432,13 @@ export namespace Prisma {
   }
 
   export type UserOnDMCreateWithoutUserInput = {
+    deletedAt?: Date | string | null
     dm: DirectMessageConversationCreateNestedOneWithoutParticipantsInput
   }
 
   export type UserOnDMUncheckedCreateWithoutUserInput = {
     dmId: string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnDMCreateOrConnectWithoutUserInput = {
@@ -19644,6 +21509,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutOwnedChannelsInput
     UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     Message?: MessageCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutUserInput = {
@@ -19658,6 +21524,7 @@ export namespace Prisma {
     ownerId: string
     UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutUserInput = {
@@ -19667,6 +21534,46 @@ export namespace Prisma {
 
   export type ChannelCreateManyUserInputEnvelope = {
     data: ChannelCreateManyUserInput | ChannelCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MeetingCreateWithoutOrganizerInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channel: ChannelCreateNestedOneWithoutMeetingInput
+  }
+
+  export type MeetingUncheckedCreateWithoutOrganizerInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    channelId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeetingCreateOrConnectWithoutOrganizerInput = {
+    where: MeetingWhereUniqueInput
+    create: XOR<MeetingCreateWithoutOrganizerInput, MeetingUncheckedCreateWithoutOrganizerInput>
+  }
+
+  export type MeetingCreateManyOrganizerInputEnvelope = {
+    data: MeetingCreateManyOrganizerInput | MeetingCreateManyOrganizerInput[]
     skipDuplicates?: boolean
   }
 
@@ -19872,6 +21779,7 @@ export namespace Prisma {
     NOT?: UserOnDMScalarWhereInput | UserOnDMScalarWhereInput[]
     userId?: StringFilter<"UserOnDM"> | string
     dmId?: StringFilter<"UserOnDM"> | string
+    deletedAt?: DateTimeNullableFilter<"UserOnDM"> | Date | string | null
   }
 
   export type MessageReactionUpsertWithWhereUniqueWithoutUserInput = {
@@ -19943,6 +21851,41 @@ export namespace Prisma {
     data: XOR<ChannelUpdateManyMutationInput, ChannelUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type MeetingUpsertWithWhereUniqueWithoutOrganizerInput = {
+    where: MeetingWhereUniqueInput
+    update: XOR<MeetingUpdateWithoutOrganizerInput, MeetingUncheckedUpdateWithoutOrganizerInput>
+    create: XOR<MeetingCreateWithoutOrganizerInput, MeetingUncheckedCreateWithoutOrganizerInput>
+  }
+
+  export type MeetingUpdateWithWhereUniqueWithoutOrganizerInput = {
+    where: MeetingWhereUniqueInput
+    data: XOR<MeetingUpdateWithoutOrganizerInput, MeetingUncheckedUpdateWithoutOrganizerInput>
+  }
+
+  export type MeetingUpdateManyWithWhereWithoutOrganizerInput = {
+    where: MeetingScalarWhereInput
+    data: XOR<MeetingUpdateManyMutationInput, MeetingUncheckedUpdateManyWithoutOrganizerInput>
+  }
+
+  export type MeetingScalarWhereInput = {
+    AND?: MeetingScalarWhereInput | MeetingScalarWhereInput[]
+    OR?: MeetingScalarWhereInput[]
+    NOT?: MeetingScalarWhereInput | MeetingScalarWhereInput[]
+    id?: StringFilter<"Meeting"> | string
+    title?: StringFilter<"Meeting"> | string
+    description?: StringNullableFilter<"Meeting"> | string | null
+    startTime?: DateTimeFilter<"Meeting"> | Date | string
+    endTime?: DateTimeFilter<"Meeting"> | Date | string
+    location?: StringNullableFilter<"Meeting"> | string | null
+    googleCalendarEventId?: StringNullableFilter<"Meeting"> | string | null
+    googleCalendarHtmlLink?: StringNullableFilter<"Meeting"> | string | null
+    channelId?: StringFilter<"Meeting"> | string
+    organizerId?: StringFilter<"Meeting"> | string
+    deletedAt?: DateTimeNullableFilter<"Meeting"> | Date | string | null
+    createdAt?: DateTimeFilter<"Meeting"> | Date | string
+    updatedAt?: DateTimeFilter<"Meeting"> | Date | string
+  }
+
   export type UserCreateWithoutOwnedWorkspacesInput = {
     id?: string
     name: string
@@ -19970,6 +21913,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -19983,6 +21929,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutOwnedWorkspacesInput = {
@@ -20012,6 +21959,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20025,6 +21975,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutOwnedWorkspacesInput = {
@@ -20104,6 +22055,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     Message?: MessageCreateNestedManyWithoutChannelInput
     User?: UserCreateNestedOneWithoutChannelInput
+    Meeting?: MeetingCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutWorkspaceInput = {
@@ -20118,6 +22070,7 @@ export namespace Prisma {
     userId?: string | null
     UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutWorkspaceInput = {
@@ -20196,6 +22149,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20209,6 +22165,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedWorkspacesInput = {
@@ -20238,6 +22195,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20251,6 +22211,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserOnWorkspaceUpsertWithWhereUniqueWithoutWorkspaceInput = {
@@ -20355,6 +22316,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20368,6 +22332,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutWorkspacesInput = {
@@ -20397,6 +22362,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20410,6 +22378,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutWorkspacesInput = {
@@ -20488,6 +22457,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20501,6 +22473,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkspacesInput = {
@@ -20530,6 +22503,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20543,6 +22519,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type WorkspaceUpsertWithoutMembersInput = {
@@ -20644,6 +22621,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20657,6 +22637,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutInviteSentInput = {
@@ -20686,6 +22667,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20699,6 +22683,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutInviteSentInput = {
@@ -20783,6 +22768,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20796,6 +22784,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInviteSentInput = {
@@ -20825,6 +22814,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -20838,6 +22830,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type WorkspaceCreateWithoutChannelInput = {
@@ -20900,6 +22893,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20913,6 +22909,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutOwnedChannelsInput = {
@@ -20942,6 +22939,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -20955,6 +22955,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutOwnedChannelsInput = {
@@ -21049,6 +23050,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -21062,6 +23066,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutChannelInput = {
@@ -21091,6 +23096,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -21104,11 +23112,52 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutChannelInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutChannelInput, UserUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MeetingCreateWithoutChannelInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    organizer: UserCreateNestedOneWithoutMeetingInput
+  }
+
+  export type MeetingUncheckedCreateWithoutChannelInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    organizerId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MeetingCreateOrConnectWithoutChannelInput = {
+    where: MeetingWhereUniqueInput
+    create: XOR<MeetingCreateWithoutChannelInput, MeetingUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MeetingCreateManyChannelInputEnvelope = {
+    data: MeetingCreateManyChannelInput | MeetingCreateManyChannelInput[]
+    skipDuplicates?: boolean
   }
 
   export type WorkspaceUpsertWithoutChannelInput = {
@@ -21188,6 +23237,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21201,6 +23253,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOwnedChannelsInput = {
@@ -21230,6 +23283,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21243,6 +23299,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserOnChannelUpsertWithWhereUniqueWithoutChannelInput = {
@@ -21315,6 +23372,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21328,6 +23388,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChannelInput = {
@@ -21357,6 +23418,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21370,6 +23434,23 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  }
+
+  export type MeetingUpsertWithWhereUniqueWithoutChannelInput = {
+    where: MeetingWhereUniqueInput
+    update: XOR<MeetingUpdateWithoutChannelInput, MeetingUncheckedUpdateWithoutChannelInput>
+    create: XOR<MeetingCreateWithoutChannelInput, MeetingUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MeetingUpdateWithWhereUniqueWithoutChannelInput = {
+    where: MeetingWhereUniqueInput
+    data: XOR<MeetingUpdateWithoutChannelInput, MeetingUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type MeetingUpdateManyWithWhereWithoutChannelInput = {
+    where: MeetingScalarWhereInput
+    data: XOR<MeetingUpdateManyMutationInput, MeetingUncheckedUpdateManyWithoutChannelInput>
   }
 
   export type UserCreateWithoutChannelsInput = {
@@ -21399,6 +23480,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -21412,6 +23496,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutChannelsInput = {
@@ -21441,6 +23526,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -21454,6 +23542,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutChannelsInput = {
@@ -21473,6 +23562,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutOwnedChannelsInput
     Message?: MessageCreateNestedManyWithoutChannelInput
     User?: UserCreateNestedOneWithoutChannelInput
+    Meeting?: MeetingCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutUserOnChannelsInput = {
@@ -21487,6 +23577,7 @@ export namespace Prisma {
     ownerId: string
     userId?: string | null
     Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutUserOnChannelsInput = {
@@ -21532,6 +23623,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21545,6 +23639,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutChannelsInput = {
@@ -21574,6 +23669,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21587,6 +23685,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type ChannelUpsertWithoutUserOnChannelsInput = {
@@ -21612,6 +23711,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
     User?: UserUpdateOneWithoutChannelNestedInput
+    Meeting?: MeetingUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutUserOnChannelsInput = {
@@ -21626,6 +23726,7 @@ export namespace Prisma {
     ownerId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type UserCreateWithoutMessageInput = {
@@ -21655,6 +23756,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -21668,6 +23772,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutMessageInput = {
@@ -21697,6 +23802,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -21710,6 +23818,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutMessageInput = {
@@ -21729,6 +23838,7 @@ export namespace Prisma {
     owner: UserCreateNestedOneWithoutOwnedChannelsInput
     UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
     User?: UserCreateNestedOneWithoutChannelInput
+    Meeting?: MeetingCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutMessageInput = {
@@ -21743,6 +23853,7 @@ export namespace Prisma {
     ownerId: string
     userId?: string | null
     UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutMessageInput = {
@@ -21857,6 +23968,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21870,6 +23984,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageInput = {
@@ -21899,6 +24014,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21912,6 +24030,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type ChannelUpsertWithoutMessageInput = {
@@ -21937,6 +24056,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
     UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     User?: UserUpdateOneWithoutChannelNestedInput
+    Meeting?: MeetingUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutMessageInput = {
@@ -21951,6 +24071,7 @@ export namespace Prisma {
     ownerId?: StringFieldUpdateOperationsInput | string
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type DirectMessageConversationUpsertWithoutMessagesInput = {
@@ -22015,11 +24136,13 @@ export namespace Prisma {
   }
 
   export type UserOnDMCreateWithoutDmInput = {
+    deletedAt?: Date | string | null
     user: UserCreateNestedOneWithoutUserOnDMInput
   }
 
   export type UserOnDMUncheckedCreateWithoutDmInput = {
     userId: string
+    deletedAt?: Date | string | null
   }
 
   export type UserOnDMCreateOrConnectWithoutDmInput = {
@@ -22199,6 +24322,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -22212,6 +24338,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutUserOnDMInput = {
@@ -22241,6 +24368,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -22254,6 +24384,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutUserOnDMInput = {
@@ -22322,6 +24453,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22335,6 +24469,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUserOnDMInput = {
@@ -22364,6 +24499,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22377,6 +24515,7 @@ export namespace Prisma {
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type DirectMessageConversationUpsertWithoutParticipantsInput = {
@@ -22435,6 +24574,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -22448,6 +24590,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutMessageReactionInput = {
@@ -22477,6 +24620,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -22490,6 +24636,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutMessageReactionInput = {
@@ -22566,6 +24713,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22579,6 +24729,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageReactionInput = {
@@ -22608,6 +24759,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22621,6 +24775,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
   }
 
   export type MessageUpsertWithoutReactionsInput = {
@@ -22718,6 +24873,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -22731,6 +24889,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
     Channel?: ChannelCreateNestedManyWithoutUserInput
+    Meeting?: MeetingCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserUncheckedCreateWithoutMessageMentionInput = {
@@ -22760,6 +24919,9 @@ export namespace Prisma {
     oauthId?: string | null
     emailVerified?: boolean
     lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
     fcmToken?: string | null
     deletedAt?: Date | string | null
     createdAt?: Date | string
@@ -22773,6 +24935,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
     MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
     Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+    Meeting?: MeetingUncheckedCreateNestedManyWithoutOrganizerInput
   }
 
   export type UserCreateOrConnectWithoutMessageMentionInput = {
@@ -22855,6 +25018,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22868,6 +25034,7 @@ export namespace Prisma {
     UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
     Channel?: ChannelUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUpdateManyWithoutOrganizerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessageMentionInput = {
@@ -22897,6 +25064,9 @@ export namespace Prisma {
     oauthId?: NullableStringFieldUpdateOperationsInput | string | null
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
     fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
     deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22909,6 +25079,283 @@ export namespace Prisma {
     Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
     UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
     MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutOrganizerNestedInput
+  }
+
+  export type ChannelCreateWithoutMeetingInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspace: WorkspaceCreateNestedOneWithoutChannelInput
+    owner: UserCreateNestedOneWithoutOwnedChannelsInput
+    UserOnChannels?: UserOnChannelCreateNestedManyWithoutChannelInput
+    Message?: MessageCreateNestedManyWithoutChannelInput
+    User?: UserCreateNestedOneWithoutChannelInput
+  }
+
+  export type ChannelUncheckedCreateWithoutMeetingInput = {
+    id?: string
+    name: string
+    description?: string | null
+    isPublic?: boolean
+    workspaceId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    ownerId: string
+    userId?: string | null
+    UserOnChannels?: UserOnChannelUncheckedCreateNestedManyWithoutChannelInput
+    Message?: MessageUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelCreateOrConnectWithoutMeetingInput = {
+    where: ChannelWhereUniqueInput
+    create: XOR<ChannelCreateWithoutMeetingInput, ChannelUncheckedCreateWithoutMeetingInput>
+  }
+
+  export type UserCreateWithoutMeetingInput = {
+    id?: string
+    name: string
+    email: string
+    password?: string | null
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
+    fcmToken?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelCreateNestedManyWithoutUserInput
+    Message?: MessageCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMCreateNestedManyWithoutUserInput
+    MessageReaction?: MessageReactionCreateNestedManyWithoutUserInput
+    MessageMention?: MessageMentionCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMeetingInput = {
+    id?: string
+    name: string
+    email: string
+    password?: string | null
+    role?: $Enums.Role
+    avatar?: string | null
+    status?: string | null
+    lastSeen?: Date | string | null
+    isVerified?: boolean
+    refreshToken?: string | null
+    emailVerificationToken?: string | null
+    emailVerificationTokenExpires?: Date | string | null
+    emailVerificationTokenSentAt?: Date | string | null
+    resetPasswordPin?: string | null
+    resetPasswordPinExpires?: Date | string | null
+    resetPasswordToken?: string | null
+    resetPasswordPinSentAt?: Date | string | null
+    failedPinAttempts?: number | null
+    loginOtp?: string | null
+    loginOtpExpires?: Date | string | null
+    loginSessionToken?: string | null
+    loginOtpSentAt?: Date | string | null
+    oauthProvider?: string | null
+    oauthId?: string | null
+    emailVerified?: boolean
+    lastLoginAt?: Date | string | null
+    googleAccessToken?: string | null
+    googleRefreshToken?: string | null
+    googleCalendarId?: string | null
+    fcmToken?: string | null
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    workspaces?: UserOnWorkspaceUncheckedCreateNestedManyWithoutUserInput
+    ownedWorkspaces?: WorkspaceUncheckedCreateNestedManyWithoutOwnerInput
+    ownedChannels?: ChannelUncheckedCreateNestedManyWithoutOwnerInput
+    InviteSent?: InviteUncheckedCreateNestedManyWithoutInvitedByInput
+    Channels?: UserOnChannelUncheckedCreateNestedManyWithoutUserInput
+    Message?: MessageUncheckedCreateNestedManyWithoutUserInput
+    UserOnDM?: UserOnDMUncheckedCreateNestedManyWithoutUserInput
+    MessageReaction?: MessageReactionUncheckedCreateNestedManyWithoutUserInput
+    MessageMention?: MessageMentionUncheckedCreateNestedManyWithoutMentionedUserInput
+    Channel?: ChannelUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMeetingInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMeetingInput, UserUncheckedCreateWithoutMeetingInput>
+  }
+
+  export type ChannelUpsertWithoutMeetingInput = {
+    update: XOR<ChannelUpdateWithoutMeetingInput, ChannelUncheckedUpdateWithoutMeetingInput>
+    create: XOR<ChannelCreateWithoutMeetingInput, ChannelUncheckedCreateWithoutMeetingInput>
+    where?: ChannelWhereInput
+  }
+
+  export type ChannelUpdateToOneWithWhereWithoutMeetingInput = {
+    where?: ChannelWhereInput
+    data: XOR<ChannelUpdateWithoutMeetingInput, ChannelUncheckedUpdateWithoutMeetingInput>
+  }
+
+  export type ChannelUpdateWithoutMeetingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspace?: WorkspaceUpdateOneRequiredWithoutChannelNestedInput
+    owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
+    UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
+    Message?: MessageUpdateManyWithoutChannelNestedInput
+    User?: UserUpdateOneWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateWithoutMeetingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    isPublic?: BoolFieldUpdateOperationsInput | boolean
+    workspaceId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    ownerId?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type UserUpsertWithoutMeetingInput = {
+    update: XOR<UserUpdateWithoutMeetingInput, UserUncheckedUpdateWithoutMeetingInput>
+    create: XOR<UserCreateWithoutMeetingInput, UserUncheckedCreateWithoutMeetingInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMeetingInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMeetingInput, UserUncheckedUpdateWithoutMeetingInput>
+  }
+
+  export type UserUpdateWithoutMeetingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelUpdateManyWithoutUserNestedInput
+    Message?: MessageUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUpdateManyWithoutUserNestedInput
+    MessageReaction?: MessageReactionUpdateManyWithoutUserNestedInput
+    MessageMention?: MessageMentionUpdateManyWithoutMentionedUserNestedInput
+    Channel?: ChannelUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMeetingInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: NullableStringFieldUpdateOperationsInput | string | null
+    lastSeen?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    emailVerificationTokenSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordPin?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resetPasswordToken?: NullableStringFieldUpdateOperationsInput | string | null
+    resetPasswordPinSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    failedPinAttempts?: NullableIntFieldUpdateOperationsInput | number | null
+    loginOtp?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    loginSessionToken?: NullableStringFieldUpdateOperationsInput | string | null
+    loginOtpSentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    oauthProvider?: NullableStringFieldUpdateOperationsInput | string | null
+    oauthId?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    lastLoginAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    googleAccessToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleRefreshToken?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarId?: NullableStringFieldUpdateOperationsInput | string | null
+    fcmToken?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workspaces?: UserOnWorkspaceUncheckedUpdateManyWithoutUserNestedInput
+    ownedWorkspaces?: WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput
+    ownedChannels?: ChannelUncheckedUpdateManyWithoutOwnerNestedInput
+    InviteSent?: InviteUncheckedUpdateManyWithoutInvitedByNestedInput
+    Channels?: UserOnChannelUncheckedUpdateManyWithoutUserNestedInput
+    Message?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    UserOnDM?: UserOnDMUncheckedUpdateManyWithoutUserNestedInput
+    MessageReaction?: MessageReactionUncheckedUpdateManyWithoutUserNestedInput
+    MessageMention?: MessageMentionUncheckedUpdateManyWithoutMentionedUserNestedInput
     Channel?: ChannelUncheckedUpdateManyWithoutUserNestedInput
   }
 
@@ -22974,6 +25421,7 @@ export namespace Prisma {
 
   export type UserOnDMCreateManyUserInput = {
     dmId: string
+    deletedAt?: Date | string | null
   }
 
   export type MessageReactionCreateManyUserInput = {
@@ -22999,6 +25447,21 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     ownerId: string
+  }
+
+  export type MeetingCreateManyOrganizerInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    channelId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserOnWorkspaceUpdateWithoutUserInput = {
@@ -23072,6 +25535,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
     User?: UserUpdateOneWithoutChannelNestedInput
+    Meeting?: MeetingUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutOwnerInput = {
@@ -23086,6 +25550,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateManyWithoutOwnerInput = {
@@ -23198,15 +25663,18 @@ export namespace Prisma {
   }
 
   export type UserOnDMUpdateWithoutUserInput = {
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     dm?: DirectMessageConversationUpdateOneRequiredWithoutParticipantsNestedInput
   }
 
   export type UserOnDMUncheckedUpdateWithoutUserInput = {
     dmId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnDMUncheckedUpdateManyWithoutUserInput = {
     dmId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageReactionUpdateWithoutUserInput = {
@@ -23260,6 +25728,7 @@ export namespace Prisma {
     owner?: UserUpdateOneRequiredWithoutOwnedChannelsNestedInput
     UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutUserInput = {
@@ -23274,6 +25743,7 @@ export namespace Prisma {
     ownerId?: StringFieldUpdateOperationsInput | string
     UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateManyWithoutUserInput = {
@@ -23286,6 +25756,51 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ownerId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MeetingUpdateWithoutOrganizerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channel?: ChannelUpdateOneRequiredWithoutMeetingNestedInput
+  }
+
+  export type MeetingUncheckedUpdateWithoutOrganizerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeetingUncheckedUpdateManyWithoutOrganizerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    channelId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserOnWorkspaceCreateManyWorkspaceInput = {
@@ -23399,6 +25914,7 @@ export namespace Prisma {
     UserOnChannels?: UserOnChannelUpdateManyWithoutChannelNestedInput
     Message?: MessageUpdateManyWithoutChannelNestedInput
     User?: UserUpdateOneWithoutChannelNestedInput
+    Meeting?: MeetingUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutWorkspaceInput = {
@@ -23413,6 +25929,7 @@ export namespace Prisma {
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     UserOnChannels?: UserOnChannelUncheckedUpdateManyWithoutChannelNestedInput
     Message?: MessageUncheckedUpdateManyWithoutChannelNestedInput
+    Meeting?: MeetingUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateManyWithoutWorkspaceInput = {
@@ -23468,6 +25985,21 @@ export namespace Prisma {
     updatedAt?: Date | string
     userId: string
     conversationId?: string | null
+  }
+
+  export type MeetingCreateManyChannelInput = {
+    id?: string
+    title: string
+    description?: string | null
+    startTime: Date | string
+    endTime: Date | string
+    location?: string | null
+    googleCalendarEventId?: string | null
+    googleCalendarHtmlLink?: string | null
+    organizerId: string
+    deletedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UserOnChannelUpdateWithoutChannelInput = {
@@ -23528,6 +26060,51 @@ export namespace Prisma {
     conversationId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MeetingUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    organizer?: UserUpdateOneRequiredWithoutMeetingNestedInput
+  }
+
+  export type MeetingUncheckedUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    organizerId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MeetingUncheckedUpdateManyWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    startTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    endTime?: DateTimeFieldUpdateOperationsInput | Date | string
+    location?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarEventId?: NullableStringFieldUpdateOperationsInput | string | null
+    googleCalendarHtmlLink?: NullableStringFieldUpdateOperationsInput | string | null
+    organizerId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MessageReactionCreateManyMessageInput = {
     id?: string
     emoji: string
@@ -23582,6 +26159,7 @@ export namespace Prisma {
 
   export type UserOnDMCreateManyDmInput = {
     userId: string
+    deletedAt?: Date | string | null
   }
 
   export type MessageCreateManyDirectMessageConversationInput = {
@@ -23596,15 +26174,18 @@ export namespace Prisma {
   }
 
   export type UserOnDMUpdateWithoutDmInput = {
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     user?: UserUpdateOneRequiredWithoutUserOnDMNestedInput
   }
 
   export type UserOnDMUncheckedUpdateWithoutDmInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UserOnDMUncheckedUpdateManyWithoutDmInput = {
     userId?: StringFieldUpdateOperationsInput | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageUpdateWithoutDirectMessageConversationInput = {

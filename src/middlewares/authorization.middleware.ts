@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient, Role, WorkspaceRole, ChannelRole } from '../generated/prisma'; 
+import { PrismaClient, Role, WorkspaceRole, ChannelRole } from '../generated/prisma';
 
 
 declare global {
@@ -7,7 +7,7 @@ declare global {
     interface Request {
       user?: {
         id: string;
-        role: Role; 
+        role: Role;
       };
       workspaceId?: string;
       channelId?: string;
@@ -46,6 +46,7 @@ export const checkGlobalRole = (requiredRole: Role) => {
     const requiredRoleLevel = roleHierarchy[requiredRole];
 
     if (currentUserRoleLevel >= requiredRoleLevel) {
+      next();
     } else {
       next(new UnauthorizedError('Insufficient global privileges.'));
     }
@@ -79,7 +80,7 @@ export const checkWorkspaceRole = (requiredRole: WorkspaceRole) => {
             userId: userId,
             workspaceId: workspaceId,
           },
-          deletedAt: null, 
+          deletedAt: null,
         },
         select: {
           role: true,
@@ -115,7 +116,7 @@ export const checkWorkspaceRole = (requiredRole: WorkspaceRole) => {
       }
 
       if (currentUserWorkspaceRoleLevel >= requiredRoleLevel || isWorkspaceOwner) {
-        next(); 
+        next();
       } else {
         next(new UnauthorizedError('Insufficient workspace privileges.'));
       }
@@ -146,24 +147,24 @@ export const checkChannelRole = (requiredRole: ChannelRole) => {
         [ChannelRole.ADMIN]: 2,
         [ChannelRole.MEMBER]: 1,
       };
-      const workspaceRoleHierarchy: Record<WorkspaceRole, number> = { 
+      const workspaceRoleHierarchy: Record<WorkspaceRole, number> = {
         [WorkspaceRole.OWNER]: 3,
         [WorkspaceRole.ADMIN]: 2,
         [WorkspaceRole.MEMBER]: 1,
       };
 
       const channelDetails = await prisma.channel.findUnique({
-          where: { id: channelId, deletedAt: null }, 
-          select: {
-              ownerId: true,
-              workspace: {
-                  select: { ownerId: true }
-              }
+        where: { id: channelId, deletedAt: null },
+        select: {
+          ownerId: true,
+          workspace: {
+            select: { ownerId: true }
           }
+        }
       });
 
       if (!channelDetails) {
-          return next(new UnauthorizedError('Channel not found or is deleted.'));
+        return next(new UnauthorizedError('Channel not found or is deleted.'));
       }
 
       const isChannelOwner = channelDetails.ownerId === userId;
@@ -171,14 +172,14 @@ export const checkChannelRole = (requiredRole: ChannelRole) => {
 
       let currentUserWorkspaceRole: WorkspaceRole | undefined;
       const userOnWorkspace = await prisma.userOnWorkspace.findUnique({
-          where: {
-              userId_workspaceId: { userId, workspaceId },
-              deletedAt: null, 
-          },
-          select: { role: true }
+        where: {
+          userId_workspaceId: { userId, workspaceId },
+          deletedAt: null,
+        },
+        select: { role: true }
       });
       if (userOnWorkspace) {
-          currentUserWorkspaceRole = userOnWorkspace.role;
+        currentUserWorkspaceRole = userOnWorkspace.role;
       }
       const currentUserWorkspaceRoleLevel = currentUserWorkspaceRole ? workspaceRoleHierarchy[currentUserWorkspaceRole] : 0; // 0 if not a member
 
@@ -187,14 +188,14 @@ export const checkChannelRole = (requiredRole: ChannelRole) => {
       }
 
       if (isWorkspaceOwner) {
-          return next();
+        return next();
       }
 
       if (
-          currentUserWorkspaceRole === WorkspaceRole.ADMIN &&
-          (requiredRole === ChannelRole.ADMIN || requiredRole === ChannelRole.MEMBER)
+        currentUserWorkspaceRole === WorkspaceRole.ADMIN &&
+        (requiredRole === ChannelRole.ADMIN || requiredRole === ChannelRole.MEMBER)
       ) {
-          return next();
+        return next();
       }
 
       const userOnChannel = await prisma.userOnChannel.findUnique({
@@ -233,7 +234,7 @@ export const checkChannelRole = (requiredRole: ChannelRole) => {
 
 export const authorizationErrorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof UnauthorizedError) {
-    return res.status(err.statusCode).json({ message: err.message });
+    return void res.status(err.statusCode).json({ message: err.message });
   }
   next(err);
 };

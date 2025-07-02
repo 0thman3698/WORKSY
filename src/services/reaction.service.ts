@@ -8,7 +8,7 @@ export const checkUserCanReact = async (messageId: string, userId: string) => {
             channel: {
                 select: {
                     id: true,
-                    UserOnChannel: {
+                    UserOnChannels: {
                         where: { userId },
                         select: { userId: true },
                     },
@@ -31,7 +31,7 @@ export const checkUserCanReact = async (messageId: string, userId: string) => {
     }
 
     if (message.channelId) {
-        const isMember = (message.channel?.UserOnChannel?.length || 0) > 0;
+        const isMember = (message.channel?.UserOnChannels?.length || 0) > 0;
         if (!isMember) throw ApiError.forbidden("You are not a member of this channel");
     }
 

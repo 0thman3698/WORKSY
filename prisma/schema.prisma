@@ -44,6 +44,10 @@ model User {
   emailVerified Boolean   @default(false) @map("email_verified")
   lastLoginAt   DateTime? @map("last_login_at")
 
+  googleAccessToken  String?
+  googleRefreshToken String?
+  googleCalendarId   String?
+
   fcmToken String?
 
   deletedAt DateTime? // soft delete
@@ -62,6 +66,7 @@ model User {
   MessageReaction MessageReaction[]
   MessageMention  MessageMention[]
   Channel         Channel[]
+  Meeting         Meeting[]         @relation("OrganizedMeetings") // Meetings organized by this user
 
   @@unique([oauthProvider, oauthId], name: "oauth_unique")
   @@index([email, resetPasswordPin])
@@ -141,6 +146,7 @@ model Channel {
   Message        Message[]
   User           User?           @relation(fields: [userId], references: [id])
   userId         String?
+  Meeting        Meeting[]
 
   @@index([workspaceId])
 }
@@ -197,6 +203,8 @@ model UserOnDM {
   userId String
   dmId   String
 
+  deletedAt DateTime?
+
   user User                      @relation(fields: [userId], references: [id])
   dm   DirectMessageConversation @relation(fields: [dmId], references: [id])
 
@@ -229,6 +237,32 @@ model MessageMention {
   createdAt DateTime @default(now())
 
   @@unique([messageId, mentionedUserId]) // Prevent duplicate mentions
+}
+
+model Meeting {
+  id                     String   @id @default(uuid())
+  title                  String
+  description            String?
+  startTime              DateTime
+  endTime                DateTime
+  location               String?
+  googleCalendarEventId  String?  @unique
+  googleCalendarHtmlLink String?
+
+  // Relation to the Channel where the meeting is scheduled
+  channel   Channel @relation(fields: [channelId], references: [id])
+  channelId String
+
+  organizer   User   @relation("OrganizedMeetings", fields: [organizerId], references: [id])
+  organizerId String
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([channelId])
+  @@index([organizerId])
 }
 
 // Global application roles for a User

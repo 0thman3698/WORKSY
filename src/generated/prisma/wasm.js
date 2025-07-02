@@ -147,6 +147,9 @@ exports.Prisma.UserScalarFieldEnum = {
   oauthId: 'oauthId',
   emailVerified: 'emailVerified',
   lastLoginAt: 'lastLoginAt',
+  googleAccessToken: 'googleAccessToken',
+  googleRefreshToken: 'googleRefreshToken',
+  googleCalendarId: 'googleCalendarId',
   fcmToken: 'fcmToken',
   deletedAt: 'deletedAt',
   createdAt: 'createdAt',
@@ -229,7 +232,8 @@ exports.Prisma.DirectMessageConversationScalarFieldEnum = {
 
 exports.Prisma.UserOnDMScalarFieldEnum = {
   userId: 'userId',
-  dmId: 'dmId'
+  dmId: 'dmId',
+  deletedAt: 'deletedAt'
 };
 
 exports.Prisma.MessageReactionScalarFieldEnum = {
@@ -245,6 +249,22 @@ exports.Prisma.MessageMentionScalarFieldEnum = {
   messageId: 'messageId',
   mentionedUserId: 'mentionedUserId',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.MeetingScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  location: 'location',
+  googleCalendarEventId: 'googleCalendarEventId',
+  googleCalendarHtmlLink: 'googleCalendarHtmlLink',
+  channelId: 'channelId',
+  organizerId: 'organizerId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -298,7 +318,8 @@ exports.Prisma.ModelName = {
   DirectMessageConversation: 'DirectMessageConversation',
   UserOnDM: 'UserOnDM',
   MessageReaction: 'MessageReaction',
-  MessageMention: 'MessageMention'
+  MessageMention: 'MessageMention',
+  Meeting: 'Meeting'
 };
 
 /**

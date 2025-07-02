@@ -21,6 +21,9 @@ import { oauthSession, passportInitialize, passportSession } from './middlewares
 import './config/jwt.config';
 import { authorizationErrorHandler } from './middlewares/authorization.middleware';
 import { protect } from './middlewares/protect';
+import googleCalendarRoutes from './routes/integration.routes';
+
+
 
 // express
 const app = express();
@@ -56,6 +59,9 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/workspace', protect, workspaceRoutes);
 app.use('/api/v1/invite', protect, inviteRoutes);
 // app.use("/api/v1/workspace", channelRoutes)
+app.use('/api/v1/integrations', googleCalendarRoutes);
+
+
 
 app.get('/', async (req, res) => {
   res.send(`hello`);
