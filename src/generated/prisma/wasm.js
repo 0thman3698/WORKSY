@@ -267,6 +267,20 @@ exports.Prisma.MeetingScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.FileScalarFieldEnum = {
+  id: 'id',
+  filename: 'filename',
+  mimetype: 'mimetype',
+  size: 'size',
+  url: 'url',
+  path: 'path',
+  uploadedById: 'uploadedById',
+  messageId: 'messageId',
+  deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -319,7 +333,8 @@ exports.Prisma.ModelName = {
   UserOnDM: 'UserOnDM',
   MessageReaction: 'MessageReaction',
   MessageMention: 'MessageMention',
-  Meeting: 'Meeting'
+  Meeting: 'Meeting',
+  File: 'File'
 };
 
 /**

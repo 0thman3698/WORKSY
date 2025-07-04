@@ -10,6 +10,9 @@ import { checkChannelRole, checkWorkspaceRole } from '../middlewares/authorizati
 import { ChannelRole, WorkspaceRole } from '../generated/prisma';
 
 import channelMembersRouter from './channelMembers.routes';
+import channelMessageRouter from './channelMessage.routes';
+import meetingRoutes from "./meeting.routes"
+
 
 const router = express.Router({ mergeParams: true });
 
@@ -48,6 +51,11 @@ router.use(
   '/:channelId/members',
   channelMembersRouter
 );
+
+router.use("/:channelId/meetings", checkChannelRole(ChannelRole.MEMBER), meetingRoutes);
+router.use("/:channelId/messages", checkChannelRole(ChannelRole.MEMBER), channelMessageRouter);
+
+
 
 
 export default router;

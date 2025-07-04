@@ -28,7 +28,7 @@ export class ChannelService {
         workspaceId,
         isPublic: channelData.isPublic,
         ownerId: userId,
-        UserOnChannel: {
+        UserOnChannels: {
           create: {
             userId: userId,
             role: 'MEMBER'
@@ -47,7 +47,7 @@ export class ChannelService {
         deletedAt: null,
         OR: [
           { isPublic: true },
-          { UserOnChannel: { some: { userId: userId, deletedAt: null } } }
+          { UserOnChannels: { some: { userId: userId, deletedAt: null } } }
         ]
       },
     });
@@ -65,7 +65,7 @@ export class ChannelService {
         deletedAt: null,
         OR: [
           { isPublic: true },
-          { UserOnChannel: { some: { userId: userId, deletedAt: null } } },
+          { UserOnChannels: { some: { userId: userId, deletedAt: null } } },
         ],
       },
     });
@@ -141,7 +141,7 @@ export class ChannelService {
             data: { deletedAt: new Date() }
           }
         },
-        UserOnChannel: {
+        UserOnChannels: {
           updateMany: {
             where: { channelId: channelId },
             data: { deletedAt: new Date() }

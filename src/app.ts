@@ -22,6 +22,8 @@ import './config/jwt.config';
 import { authorizationErrorHandler } from './middlewares/authorization.middleware';
 import { protect } from './middlewares/protect';
 import googleCalendarRoutes from './routes/integration.routes';
+import fileRoutes from './routes/file.routes';
+
 
 
 
@@ -60,6 +62,8 @@ app.use('/api/v1/workspace', protect, workspaceRoutes);
 app.use('/api/v1/invite', protect, inviteRoutes);
 // app.use("/api/v1/workspace", channelRoutes)
 app.use('/api/v1/integrations', googleCalendarRoutes);
+app.use('/api/v1/files', protect, fileRoutes);
+
 
 
 

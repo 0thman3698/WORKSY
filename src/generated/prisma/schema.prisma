@@ -67,6 +67,7 @@ model User {
   MessageMention  MessageMention[]
   Channel         Channel[]
   Meeting         Meeting[]         @relation("OrganizedMeetings") // Meetings organized by this user
+  File            File[]            @relation("UploadedFiles") // Files uploaded by this user (NEW)
 
   @@unique([oauthProvider, oauthId], name: "oauth_unique")
   @@index([email, resetPasswordPin])
@@ -182,6 +183,7 @@ model Message {
   DirectMessageConversation DirectMessageConversation? @relation(fields: [conversationId], references: [id])
   reactions                 MessageReaction[]
   MessageMention            MessageMention[]
+  File                      File[]
 
   @@index([channelId])
   @@index([userId])
@@ -263,6 +265,29 @@ model Meeting {
 
   @@index([channelId])
   @@index([organizerId])
+}
+
+model File {
+  id       String @id @default(uuid())
+  filename String
+  mimetype String
+  size     Int
+  url      String @unique
+  path     String @unique
+
+  uploadedBy   User   @relation("UploadedFiles", fields: [uploadedById], references: [id])
+  uploadedById String
+
+  message   Message? @relation(fields: [messageId], references: [id])
+  messageId String?
+
+  deletedAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([uploadedById])
+  @@index([messageId])
 }
 
 // Global application roles for a User

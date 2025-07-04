@@ -12,7 +12,7 @@ const upload = multer({
         fileSize: 25 * 1024 * 1024, // Limit file size to 25MB
     },
 });
-router.post('/:conversationId', protect, upload.array('files'),
-    asyncHandler(MessageControllers.sendDMMessage))
+router.post('/', protect, upload.array('files'),
+    asyncHandler(MessageControllers.sendChannelMessage))
 
 export default router;

@@ -1,34 +1,14 @@
 import { Server, Socket } from "socket.io";
-import { channelMessageService } from "../../services/channelMessage.service";
-import { ApiError } from "../../utils/apiError";
-import { validateSocketData } from "../../utils/validateSocketData";
+import { channelMessageService } from "../../../services/channelMessage.service";
+import { validateSocketData } from "../../../utils/validateSocketData";
 import {
     sendChannelMessageSchema,
     editChannelMessageSchema
-} from "../../validators/channelMessage.validators";
-import { sendMentionNotification } from "../utils/sendMentionNotification";
+} from "../../../validators/channelMessage.validators";
+import { sendMentionNotification } from "../../utils/sendMentionNotification";
+import { ApiError } from "../../../utils/apiError";
 
-export const initChannelHandlers = (io: Server, socket: Socket) => {
-    const userId = socket.data.user.id;
-    if (!userId) {
-        socket.emit('error', 'Authentication required for Socket.IO operations. Please log in.');
-        socket.disconnect(true);
-        return;
-    }
-
-    socket.on('getAllMessages', async (channelId: string, query = {}) => {
-        try {
-            const messages = await channelMessageService.getAllChannelMessages(channelId, userId, query);
-            socket.emit('allMessages', messages);
-        } catch (err: any) {
-            console.error(`Socket.IO getAllMessages error for user ${userId} in channel ${channelId}:`, err);
-
-            if (err instanceof ApiError) {
-                socket.emit('error', err.message);
-            }
-        }
-    });
-
+export const initChannelMessageHandlers = (io: Server, socket: Socket, userId: string) => {
     socket.on('joinChannel', (channelId: string) => {
         socket.join(channelId);
         console.log(`User ${userId} joined channel ${channelId}`);
@@ -54,12 +34,8 @@ export const initChannelHandlers = (io: Server, socket: Socket) => {
                 });
             }
         } catch (err: any) {
-            console.error(`Socket.IO sendMessage error for user ${userId} in channel ${validData.channelId}:`, err);
-            if (err instanceof ApiError) {
-                socket.emit('error', err.message);
-            } else {
-                socket.emit('error', 'Failed to send message. Please try again.');
-            }
+            console.error(`sendMessage error for user ${userId} in channel ${validData.channelId}:`, err);
+            socket.emit('error', err instanceof ApiError ? err.message : 'Failed to send message.');
         }
     });
 
@@ -93,11 +69,12 @@ export const initChannelHandlers = (io: Server, socket: Socket) => {
         }
     });
 
-    socket.on('typing', ({ channelId }) => {
-        socket.to(channelId).emit('userTyping', { userId });
-    });
-
-    socket.on('stopTyping', ({ channelId }) => {
-        socket.to(channelId).emit('userStoppedTyping', { userId });
+    socket.on('getAllMessages', async (channelId: string, query = {}) => {
+        try {
+            const messages = await channelMessageService.getAllChannelMessages(channelId, userId, query);
+            socket.emit('allMessages', messages);
+        } catch (err: any) {
+            socket.emit('error', err instanceof ApiError ? err.message : 'Failed to fetch messages.');
+        }
     });
 };
