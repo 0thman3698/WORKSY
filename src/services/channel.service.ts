@@ -20,6 +20,18 @@ export class ChannelService {
     if (existingChannel) {
       throw ApiError.badRequest('A channel with the same name already exists in this workspace.');
     }
+    const MAX_CHANNELS_PER_WORKSPACE = parseInt(process.env.MAX_CHANNELS || '10');
+
+    const channelCount = await prisma.channel.count({
+      where: {
+        workspaceId,
+        deletedAt: null,
+      },
+    });
+
+    if (channelCount >= MAX_CHANNELS_PER_WORKSPACE) {
+      throw ApiError.badRequest(`Each workspace can have up to ${MAX_CHANNELS_PER_WORKSPACE} channels.`);
+    }
 
     const newChannel = await prisma.channel.create({
       data: {

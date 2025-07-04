@@ -36,6 +36,18 @@ export class WorkspaceService {
     if (existingSlug) {
       throw ApiError.badRequest('A workspace with similar slug already exists');
     }
+    const MAX_WORKSPACES_PER_USER = parseInt(process.env.MAX_WORKSPACES || '5');
+
+    const userWorkspaceCount = await prisma.workspace.count({
+      where: {
+        ownerId: userId,
+        deletedAt: null,
+      },
+    });
+
+    if (userWorkspaceCount >= MAX_WORKSPACES_PER_USER) {
+      throw ApiError.badRequest(`You can only create up to ${MAX_WORKSPACES_PER_USER} workspaces.`);
+    }
 
     const workspace = await prisma.workspace.create({
       data: {
