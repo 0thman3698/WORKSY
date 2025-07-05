@@ -1,6 +1,8 @@
 import { ApiError } from './../utils/apiError';
 import prisma from '../config/db';
 import { CreateInviteSchemaType } from '../validators/invite.validators';
+import { sendInviteEmail } from '../constants/sendInviteEmail';
+
 import { v4 as uuidv4 } from 'uuid';
 
 export class InviteService {
@@ -41,6 +43,22 @@ export class InviteService {
         throw ApiError.badRequest('This user is already an active member of the workspace');
       }
     }
+    const inviter = await prisma.user.findUnique({
+      where: { id: invitedById },
+      select: { name: true },
+    });
+    if (!inviter) {
+      throw ApiError.notFound('Inviter not found');
+    }
+
+    const workspace = await prisma.workspace.findUnique({
+      where: { id: workspaceId },
+      select: { name: true },
+    });
+
+    if (!workspace) {
+      throw ApiError.notFound('Workspace not found');
+    }
 
     const token = uuidv4();
 
@@ -58,6 +76,12 @@ export class InviteService {
         status: 'PENDING',
       },
     });
+    await sendInviteEmail(
+      inviteData.email,
+      inviter.name,
+      workspace.name,
+      token
+    );
     return invite;
   }
 

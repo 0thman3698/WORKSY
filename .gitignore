@@ -10,3 +10,4 @@ prettier.config.js
 .prettierignore
 src/config/firebase/firebase-service-account.json
 ui/
+public/
