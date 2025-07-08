@@ -24,7 +24,7 @@ router.get(
   asyncHandler(WorkspaceControllers.getMyWorkspaces)
 );
 
-router.put(
+router.patch(
   '/:workspaceId',
   checkWorkspaceRole(WorkspaceRole.ADMIN),
   asyncHandler(WorkspaceControllers.updateWorkspace),

@@ -7,7 +7,7 @@ import { channelService } from '../services/channel.service';
 export default class ChannelControllers {
 
   static async createChannel(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId } = req.params;
     const channelData: createChannelSchemaType = req.body;
     const channel = await channelService.createChannel(channelData, workspaceId, userId);
@@ -17,7 +17,7 @@ export default class ChannelControllers {
 
 
   static async getAllChannels(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId } = req.params;
     const channels = await channelService.getAllChannels(workspaceId, userId);
 
@@ -25,14 +25,14 @@ export default class ChannelControllers {
   }
 
   static async getChannel(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId, channelId } = req.params;
     const channel = await channelService.getChannel(channelId, workspaceId, userId);
 
     return new ApiResponse(res).success(channel, 'Channel fetched successfully');
   }
   static async updateChannel(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId, channelId } = req.params;
     const channelData: updateChannelSchemaType = req.body;
     const updatedChannel = await channelService.updateChannel(channelData, channelId, workspaceId, userId);
@@ -41,7 +41,7 @@ export default class ChannelControllers {
   }
 
   static async deleteChannel(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId, channelId } = req.params;
     await channelService.deleteChannel(channelId, workspaceId, userId);
 

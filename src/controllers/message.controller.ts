@@ -5,7 +5,7 @@ import { dmService } from '../services/dm.service';
 
 export default class MessageControllers {
     static async sendChannelMessage(req: Request, res: Response, next: NextFunction) {
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { channelId } = req.params;
         const { content } = req.body
         const uploadedFiles = req.files as Express.Multer.File[] | undefined;
@@ -15,7 +15,7 @@ export default class MessageControllers {
         return new ApiResponse(res).created(message, 'Message sent successfully');
     }
     static async sendDMMessage(req: Request, res: Response, next: NextFunction) {
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { conversationId } = req.params;
         const { content } = req.body
         const uploadedFiles = req.files as Express.Multer.File[] | undefined;

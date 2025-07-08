@@ -3,13 +3,13 @@ import passport from 'passport';
 import { ApiError } from '../utils/apiError';
 
 // Extend the Express Request type to include the 'user' property from Passport
-declare global {
-    namespace Express {
-        interface Request {
-            user?: any; // Define the user property as any
-        }
-    }
-}
+// declare global {
+//     namespace Express {
+//         interface Request {
+//             user?: any; // Define the user property as any
+//         }
+//     }
+// }
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
     passport.authenticate('jwt', { session: false }, (err: any, user: any, info: any) => {

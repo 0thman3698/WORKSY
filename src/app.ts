@@ -14,6 +14,7 @@ import './config/oauth.config';
 
 // Import Pages
 import { authRoutes } from './routes';
+import userRoutes from './routes/user.routes'
 import workspaceRoutes from './routes/workspace.routes';
 import inviteRoutes from './routes/invite.routes';
 import { errorHandler } from './middlewares/errorHandler';
@@ -23,6 +24,7 @@ import { authorizationErrorHandler } from './middlewares/authorization.middlewar
 import { protect } from './middlewares/protect';
 import googleCalendarRoutes from './routes/integration.routes';
 import fileRoutes from './routes/file.routes';
+
 
 
 
@@ -58,11 +60,14 @@ const limiter = <RateLimitRequestHandler>rateLimit({
 // Middlewares
 app.use('/api', limiter);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', protect, userRoutes)
 app.use('/api/v1/workspace', protect, workspaceRoutes);
 app.use('/api/v1/invite', protect, inviteRoutes);
 // app.use("/api/v1/workspace", channelRoutes)
 app.use('/api/v1/integrations', googleCalendarRoutes);
 app.use('/api/v1/files', protect, fileRoutes);
+
+
 
 
 

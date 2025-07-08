@@ -31,6 +31,6 @@ export const verifyToken = (token: string): TokenPayload => {
 
 export const generateToken = (payload: object, expiresIn: string = '50m'): string => { // 15m 50m for testing
   return jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET!, {
-    expiresIn
+    expiresIn: '50m'
   });
 };

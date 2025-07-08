@@ -5,7 +5,7 @@ import { conversationService } from '../services/conversation.service';
 
 export default class ConversationControllers {
     static async createConversation(req: Request, res: Response, next: NextFunction) {
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { workspaceId } = req.params;
         const { otherUserId } = req.body;
         const Conversation = await conversationService.createConversation(userId, otherUserId, workspaceId);
@@ -14,7 +14,7 @@ export default class ConversationControllers {
         return new ApiResponse(res).created(Conversation, 'Converstaion created successfully');
     }
     static async createGroupConversation(req: Request, res: Response, next: NextFunction) {
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { workspaceId } = req.params;
         const { otherUserIds } = req.body
         const GroupConversation = await conversationService.createGroupConversation(userId, otherUserIds, workspaceId);
@@ -23,7 +23,7 @@ export default class ConversationControllers {
 
 
     static async getMyConversations(req: Request, res: Response, next: NextFunction) {
-        const userId = req.user.id;
+        const userId = req.user!.id;
         const { workspaceId } = req.params;
 
         const conversations = await conversationService.getMyConversations(userId, workspaceId, req.query);

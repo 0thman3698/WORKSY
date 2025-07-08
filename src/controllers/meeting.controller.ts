@@ -8,7 +8,7 @@ import { z } from 'zod';
 export default class MeetingControllers {
     static async getGoogleAuthUrl(req: Request, res: Response, next: NextFunction) {
         try {
-            const userId = req.user.id;
+            const userId = req.user!.id;
             const authUrl = await meetingService.getGoogleAuthUrl(userId);
             return new ApiResponse(res).success({ authUrl }, 'Google Calendar authorization URL generated.');
         } catch (error) {
@@ -52,7 +52,7 @@ export default class MeetingControllers {
     static async scheduleMeeting(req: Request, res: Response, next: NextFunction) {
         try {
             const { channelId } = req.params;
-            const organizerId = req.user.id;
+            const organizerId = req.user!.id;
             const meetingData: CreateMeetingSchemaType = req.body;
 
             createMeetingSchema.parse(meetingData);
@@ -67,7 +67,7 @@ export default class MeetingControllers {
     static async getMeetings(req: Request, res: Response, next: NextFunction) {
         try {
             const { channelId } = req.params;
-            const userId = req.user.id;
+            const userId = req.user!.id;
             const includePast = req.query.includePast === 'true'; // Allow fetching past meetings
 
             const meetings = await meetingService.getMeetings(channelId, userId, includePast);
@@ -80,7 +80,7 @@ export default class MeetingControllers {
     static async getMeetingById(req: Request, res: Response, next: NextFunction) {
         try {
             const { channelId, meetingId } = req.params;
-            const userId = req.user.id;
+            const userId = req.user!.id;
 
             const meeting = await meetingService.getMeetingById(meetingId, channelId, userId);
             return new ApiResponse(res).success(meeting, 'Meeting fetched successfully');
@@ -92,7 +92,7 @@ export default class MeetingControllers {
     static async updateMeeting(req: Request, res: Response, next: NextFunction) {
         try {
             const { channelId, meetingId } = req.params;
-            const userId = req.user.id;
+            const userId = req.user!.id;
             const updateData: UpdateMeetingSchemaType = req.body;
 
             updateMeetingSchema.parse(updateData);
@@ -107,7 +107,7 @@ export default class MeetingControllers {
     static async deleteMeeting(req: Request, res: Response, next: NextFunction) {
         try {
             const { channelId, meetingId } = req.params;
-            const userId = req.user.id;
+            const userId = req.user!.id;
 
             const deletedMeeting = await meetingService.deleteMeeting(meetingId, channelId, userId);
             return new ApiResponse(res).success(deletedMeeting, 'Meeting deleted successfully');

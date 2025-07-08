@@ -1,21 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
-import { PrismaClient, Role, WorkspaceRole, ChannelRole } from '../generated/prisma';
+import { Role, WorkspaceRole, ChannelRole } from '../generated/prisma';
+import prisma from '../config/db';
 
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: {
-        id: string;
-        role: Role;
-      };
-      workspaceId?: string;
-      channelId?: string;
-    }
-  }
-}
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       user?: {
+//         id: string;
+//         role: Role;
+//       };
+//       workspaceId?: string;
+//       channelId?: string;
+//     }
+//   }
+// }
 
-const prisma = new PrismaClient();
+// const prisma = new PrismaClient();
 
 
 class UnauthorizedError extends Error {

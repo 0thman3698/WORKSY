@@ -71,22 +71,30 @@ export class WorkspaceService {
   }
 
   async getMyWorkspaces(userId: string, query: any): Promise<IMyWorkspaces[]> {
-    const { where, orderBy, skip, take } = buildPrismaQuery({
+    const {
+      filters: workspaceFilters,
+      orderBy,
+      skip,
+      take,
+    } = buildPrismaQuery({
       query,
       searchableFields: ['name'],
-      filterableFields: [], // نخليها فاضية هنا لأن role في userOnWorkspace مش في workspace
     });
 
+    const where: any = {
+      userId,
+    };
+
+    if (query.role) {
+      where.role = query.role;
+    }
+
+    if (workspaceFilters) {
+      where.workspace = { is: workspaceFilters };
+    }
+
     const memberships = await prisma.userOnWorkspace.findMany({
-      where: {
-        userId,
-        ...(query.role && { role: query.role }), // فلترة على userOnWorkspace.role
-        workspace: {
-          is: {
-            ...where, // فلترة على workspace.name مثلاً
-          },
-        },
-      },
+      where,
       include: {
         workspace: {
           include: {
@@ -103,8 +111,8 @@ export class WorkspaceService {
       skip,
       take,
     });
-
-    return memberships.map((membership: any) => ({
+    //@ts-expect-error
+    return (memberships as any).map((membership) => ({
       id: membership.workspace.id,
       name: membership.workspace.name,
       role: membership.role,
@@ -113,29 +121,36 @@ export class WorkspaceService {
   }
 
 
+
   async updateWorkspace(
     workspaceId: string,
     workspaceData: IUpdateWorkspace,
     userId: string,
   ): Promise<IWorkspace> {
-    const existingWorkspace = await prisma.workspace.findUnique({
-      where: {
-        id: workspaceId,
-        deletedAt: null,
-      },
-    });
+    if (workspaceData.name) {
+      const existing = await prisma.workspace.findFirst({
+        where: {
+          name: workspaceData.name,
+          ownerId: userId,
+          deletedAt: null,
+          NOT: { id: workspaceId },
+        },
+      });
 
-    if (!existingWorkspace) {
-      throw ApiError.notFound('Workspace not found or is already deleted.');
+      if (existing) {
+        throw ApiError.badRequest('You already have another workspace with this name.');
+      }
     }
+
 
     const updatedWorkspace = await prisma.workspace.update({
       where: { id: workspaceId },
       data: {
-        name: workspaceData.name,
+        ...(workspaceData.name && { name: workspaceData.name }),
+        ...(workspaceData.description && { description: workspaceData.description }),
         updatedAt: new Date(),
-        description: workspaceData.description
-      },
+      }
+      ,
     });
 
     return updatedWorkspace;
@@ -182,6 +197,21 @@ export class WorkspaceService {
 
     return softDeletedWorkspace;
   }
+  async getWorkspaceById(workspaceId: string): Promise<IWorkspace> {
+    const workspace = await prisma.workspace.findFirst({
+      where: {
+        id: workspaceId,
+        deletedAt: null,
+      },
+    });
+
+    if (!workspace) {
+      throw ApiError.notFound('Workspace not found or is already deleted');
+    }
+
+    return workspace;
+  }
+
 
 }
 

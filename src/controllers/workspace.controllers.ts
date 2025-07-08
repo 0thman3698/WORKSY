@@ -9,19 +9,19 @@ export default class WorkspaceControllers {
     res: Response,
     next: NextFunction,
   ) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const workspaceData: ICreateWorkspace = req.body;
     const workspace = await workspaceService.createWorkspace(workspaceData, userId);
 
     return new ApiResponse(res).created(workspace, 'Workspace created successfully');
   }
   static async getMyWorkspaces(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const workspaces = await workspaceService.getMyWorkspaces(userId, req.query);
     return new ApiResponse(res).success(workspaces, 'Fetched workspaces successfully');
   }
   static async updateWorkspace(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId } = req.params;
     const workspaceData = req.body;
     const updatedWorkspace = await workspaceService.updateWorkspace(
@@ -32,7 +32,7 @@ export default class WorkspaceControllers {
     return new ApiResponse(res).success(updatedWorkspace, 'Workspace updated successfully');
   }
   static async deleteWorkspace(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user.id;
+    const userId = req.user!.id;
     const { workspaceId } = req.params;
     const result = await workspaceService.deleteWorkspace(workspaceId, userId);
     return new ApiResponse(res).success(result, 'Workspace deleted successfully');

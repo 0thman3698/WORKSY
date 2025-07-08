@@ -12,7 +12,7 @@ export default class FileControllers {
                 throw ApiError.badRequest('No file uploaded.');
             }
 
-            const userId = req.user.id;
+            const userId = req.user!.id;
             const messageId = req.body.messageId; // (Optional) Link file to a message
 
             const uploadedFile = await fileService.uploadFile(req.file, userId, messageId);
@@ -26,7 +26,7 @@ export default class FileControllers {
     static async getFileMetadata(req: Request, res: Response, next: NextFunction) {
         try {
             const { fileId } = req.params;
-            const userId = req.user.id;
+            const userId = req.user!.id;
 
             const file = await fileService.getFileMetadata(fileId, userId);
             return new ApiResponse(res).success(file, 'File metadata fetched successfully');
@@ -40,7 +40,7 @@ export default class FileControllers {
         try {
             const { fileId } = req.params;
             // const userId = "55f44e96-03e6-4ffa-bace-16a8fc223701"
-            const userId = req.user.id;
+            const userId = req.user!.id;
 
 
             const file = await fileService.getFileMetadata(fileId, userId);
@@ -56,7 +56,7 @@ export default class FileControllers {
     static async deleteFile(req: Request, res: Response, next: NextFunction) {
         try {
             const { fileId } = req.params;
-            const userId = req.user.id;
+            const userId = req.user!.id;
 
             const deletedFile = await fileService.deleteFile(fileId, userId);
             return new ApiResponse(res).success(deletedFile, 'File deleted successfully');
