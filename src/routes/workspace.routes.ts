@@ -9,6 +9,7 @@ import channelRouter from './channel.routes';
 import inviteRouter from './invite.routes';
 import dmRouter from './dm.routes';
 import conversationRouter from './conversation.routes';
+import workspaceMembersRouter from './workspaceMembers.routes'
 
 
 const router = express.Router();
@@ -35,6 +36,13 @@ router.delete(
   checkWorkspaceRole(WorkspaceRole.OWNER),
   asyncHandler(WorkspaceControllers.deleteWorkspace),
 );
+
+
+
+router.use(
+  '/:workspaceId/members',
+  workspaceMembersRouter
+)
 
 router.use(
   '/:workspaceId/invites',

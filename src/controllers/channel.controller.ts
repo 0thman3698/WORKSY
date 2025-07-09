@@ -32,18 +32,16 @@ export default class ChannelControllers {
     return new ApiResponse(res).success(channel, 'Channel fetched successfully');
   }
   static async updateChannel(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user!.id;
     const { workspaceId, channelId } = req.params;
     const channelData: updateChannelSchemaType = req.body;
-    const updatedChannel = await channelService.updateChannel(channelData, channelId, workspaceId, userId);
+    const updatedChannel = await channelService.updateChannel(channelData, channelId, workspaceId);
 
     return new ApiResponse(res).success(updatedChannel, 'Channel updated successfully');
   }
 
   static async deleteChannel(req: Request, res: Response, next: NextFunction) {
-    const userId = req.user!.id;
     const { workspaceId, channelId } = req.params;
-    await channelService.deleteChannel(channelId, workspaceId, userId);
+    await channelService.deleteChannel(channelId, workspaceId);
 
     return new ApiResponse(res).success(null, 'Channel deleted successfully');
   }
