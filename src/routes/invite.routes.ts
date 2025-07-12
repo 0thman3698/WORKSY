@@ -5,7 +5,7 @@ import { CreateInviteSchema } from '../validators/invite.validators';
 import InviteControllers from '../controllers/invite.controller';
 
 import { checkWorkspaceRole } from '../middlewares/authorization.middleware';
-import { WorkspaceRole } from '../generated/prisma';
+import { WorkspaceRole } from '@prisma/client';
 
 const router = express.Router({ mergeParams: true });
 

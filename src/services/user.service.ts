@@ -1,6 +1,6 @@
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { Role, Prisma } from '../generated/prisma';
+import { Role, Prisma } from '@prisma/client';
 import { buildPrismaQuery } from '../utils/fillter';
 import { updateMeSchemaType, updateUserSchemaType } from '../validators/user.validators';
 

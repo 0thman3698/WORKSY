@@ -1,9 +1,9 @@
-import { PrismaClient } from '../generated/prisma';
+import { PrismaClient } from '@prisma/client';
 import { prismaSoftDeleteMiddleware } from '../middlewares/prismaSoftDelete';
 
 
 const prisma = new PrismaClient();
-prisma.$use(prismaSoftDeleteMiddleware) //deprecated
+// prisma.$use(prismaSoftDeleteMiddleware) //deprecated
 
 
 export const connectDB = async () => {

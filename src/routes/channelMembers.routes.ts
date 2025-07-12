@@ -2,7 +2,7 @@ import express from 'express';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import ChannelMembersControllers from '../controllers/channelMembers.controller';
 import { checkChannelRole } from '../middlewares/authorization.middleware';
-import { ChannelRole } from '../generated/prisma';
+import { ChannelRole } from '@prisma/client';
 
 const router = express.Router({ mergeParams: true });
 

@@ -7,7 +7,8 @@ export function validate(schema: ZodSchema<any>) {
     const result = schema.safeParse(req.body);
 
     if (!result.success) {
-      throw ApiError.badRequest('Validation failed', result.error.errors);
+      //@ts-expect-error
+      throw ApiError.badRequest('Validation failed', result.error.errors)
     }
     req.body = result.data;
 

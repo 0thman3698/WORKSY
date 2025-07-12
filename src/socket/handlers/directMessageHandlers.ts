@@ -31,7 +31,7 @@ export const initDirectMessageHandlers = (io: Server, socket: Socket) => {
             io.to(`dm:${conversationId}`).emit("dm:newMessage", message);
 
             if (message.MessageMention?.length) {
-                const mentionedUserIds = message.MessageMention.map(m => m.mentionedUserId);
+                const mentionedUserIds = message.MessageMention.map((m: { mentionedUserId: any; }) => m.mentionedUserId);
 
                 sendMentionNotification(io, mentionedUserIds, {
                     type: 'dm',

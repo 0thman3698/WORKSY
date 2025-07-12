@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { Role, WorkspaceRole, ChannelRole } from '../generated/prisma';
+import { Role, WorkspaceRole, ChannelRole } from '@prisma/client';
 import prisma from '../config/db';
 
 

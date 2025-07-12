@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ChannelRole } from '../generated/prisma';
+import { ChannelRole } from '@prisma/client';
 import { ApiResponse } from '../utils/apiResponse';
 import { channelMembersService } from '../services/channelMembers.service';
 

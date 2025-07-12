@@ -4,7 +4,7 @@ import { validate } from '../middlewares/validation.middleware';
 import { workspaceSchema } from '../validators/workspace.validators';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import { checkWorkspaceRole } from '../middlewares/authorization.middleware';
-import { WorkspaceRole } from '../generated/prisma';
+import { WorkspaceRole } from '@prisma/client';
 import channelRouter from './channel.routes';
 import inviteRouter from './invite.routes';
 import dmRouter from './dm.routes';

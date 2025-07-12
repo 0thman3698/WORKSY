@@ -13,7 +13,7 @@ export const updateMeSchema = z.object({
 export const updateUserSchema = z.object({
     name: z.string().min(1).max(100).optional(),
     isVerified: z.boolean().optional(),
-    status: z.enum(['active', 'inactive']).optional(),
+    status: z.enum(['ACTIVE', 'INACTIVE']).optional(),
 })
 
 export type updateMeSchemaType = z.infer<typeof updateMeSchema>;

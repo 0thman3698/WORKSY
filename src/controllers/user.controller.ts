@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { userService } from '../services/user.service';
 import { updateMeSchemaType, updateUserSchemaType } from '../validators/user.validators';
 import { ApiResponse } from '../utils/apiResponse';
-import { Role } from '../generated/prisma';
+import { Role } from '@prisma/client';
 import { ApiError } from '../utils/apiError';
 
 

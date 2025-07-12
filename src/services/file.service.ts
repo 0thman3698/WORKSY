@@ -1,7 +1,7 @@
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
 import dotenv from 'dotenv';
-import { v2 as cloudinary } from 'cloudinary';
+import { v2 as cloudinary, UpdateApiOptions, UploadApiOptions } from 'cloudinary';
 
 dotenv.config();
 
@@ -56,7 +56,7 @@ export class FileService {
             const fileBase64 = `data:${file.mimetype};base64,${file.buffer.toString('base64')}`;
 
             // Upload file to Cloudinary
-            const uploadOptions = {
+            const uploadOptions: UploadApiOptions = {
                 folder: `worksy/${uploadedById}`,
                 resource_type: 'auto', // Automatically detect file type (image, video, raw)
                 public_id: `${Date.now()}_${file.originalname.replace(/[^a-zA-Z0-9.\-_]/g, '_')}`, // Unique public ID

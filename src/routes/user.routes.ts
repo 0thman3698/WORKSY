@@ -5,7 +5,7 @@ import { validate } from '../middlewares/validation.middleware';
 import { updateMeSchema } from '../validators/user.validators';
 import { updateUserSchema } from '../validators/user.validators';
 import { checkGlobalRole } from '../middlewares/authorization.middleware';
-import { Role } from '../generated/prisma';
+import { Role } from '@prisma/client';
 
 const router = Router();
 

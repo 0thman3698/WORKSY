@@ -2,7 +2,7 @@ import express from 'express';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import WorkspaceMembersController from '../controllers/workspaceMembers.controller';
 import { checkWorkspaceRole } from '../middlewares/authorization.middleware';
-import { WorkspaceRole } from '../generated/prisma';
+import { WorkspaceRole } from '@prisma/client';
 
 const router = express.Router({ mergeParams: true });
 

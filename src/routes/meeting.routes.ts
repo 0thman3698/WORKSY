@@ -4,7 +4,7 @@ import { validate } from '../middlewares/validation.middleware';
 import { createMeetingSchema, updateMeetingSchema } from '../validators/meeting.validators';
 import { asyncHandler } from '../middlewares/asyncHandler';
 import { checkChannelRole } from '../middlewares/authorization.middleware';
-import { ChannelRole } from '../generated/prisma';
+import { ChannelRole } from '@prisma/client';
 
 const router = Router({ mergeParams: true });
 
