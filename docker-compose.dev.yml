@@ -1,0 +1,15 @@
+version: "3"
+services:
+  worksy-app:
+    build:
+      context: .
+      target: development
+    # volumes: 
+    #   - ./src:/app/src:ro
+    volumes: 
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - ./.env
+    command: ["npm", "run", "dev"]
+    

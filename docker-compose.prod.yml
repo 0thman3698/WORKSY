@@ -1,0 +1,10 @@
+version: "3"
+services:
+  worksy-app:
+    build:
+      context: .
+      target: production
+    env_file:
+      - ./.env
+    command: ["npm", "start"]
+    
