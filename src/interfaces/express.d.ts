@@ -1,5 +1,13 @@
 // src/interfaces/express.d.ts
-import { Role } from '../generated/prisma';
+import { Role } from '@prisma/client';
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  avatar?: string | null;
+}
 
 declare global {
   namespace Express {

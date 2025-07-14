@@ -128,6 +128,7 @@ export class ConversationService {
         return newConversation;
     }
     async getMyConversations(userId: string, workspaceId: string, query: any) {
+        //@ts-expect-error
         const { where: filterWhere, orderBy, skip, take } = buildPrismaQuery({
             query,
             searchableFields: ['participants.user.name'],// محتاج تعديل وتجربه

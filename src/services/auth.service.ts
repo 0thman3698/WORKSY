@@ -184,7 +184,7 @@ export class AuthService {
       emailVerificationToken
     );
 
-    return { user, message: "Verification email resent successfully" }; // user for testin
+    return { message: "Verification email resent successfully" }; // user for testin
   }
 
   async initiateLogin(
@@ -243,6 +243,7 @@ export class AuthService {
       return {
         message: "OTP sent to your email",
         sessionToken,
+        //@ts-expect-error
         otp
       };
     } catch (error) {
@@ -725,6 +726,8 @@ export class AuthService {
         password: true,
         oauthProvider: true,
         email: true,
+        emailVerified: true,
+
       },
     });
 

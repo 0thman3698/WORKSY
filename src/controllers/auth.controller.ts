@@ -63,8 +63,8 @@ export default class AuthController {
   ) {
     try {
       const { email } = req.body;
-      const { message, user } = await authService.resendVerificationEmail(email);
-      new ApiResponse(res).success(user, message); //user for testing
+      const { message } = await authService.resendVerificationEmail(email);
+      new ApiResponse(res).success(message); //user for testing
     } catch (error) {
       next(error);
     }
@@ -78,7 +78,11 @@ export default class AuthController {
     const userData = req.body;
     try {
       const { message, sessionToken, otp } =
-        await authService.initiateLogin(userData);
+        await authService.initiateLogin(userData) as {
+          message: string;
+          sessionToken: string;
+          otp: string;
+        };
 
       // Send OTP email
       const html = createLoginOtpTemplate(otp!);
@@ -410,7 +414,7 @@ export default class AuthController {
     passport.authenticate(
       "microsoft",
       { session: false },
-      async (err, user) => {
+      async (err: any, user: any) => {
         try {
           if (err) {
             console.error("Microsoft OAuth error:", err);

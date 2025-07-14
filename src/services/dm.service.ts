@@ -127,7 +127,7 @@ export class DmService {
         if (!isMember) {
             throw ApiError.forbidden("User not part of the workspace.");
         }
-
+        //@ts-expect-error
         const { where: filterWhere, orderBy, skip, take } = buildPrismaQuery({
             query,
             searchableFields: ['content'],

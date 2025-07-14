@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { WorkspaceRole } from '../generated/prisma';
+import { WorkspaceRole } from '@prisma/client';
 import { ApiResponse } from '../utils/apiResponse';
 import { workspaceMembersService } from '../services/workspaceMembers';
 

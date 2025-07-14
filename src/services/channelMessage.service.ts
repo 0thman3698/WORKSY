@@ -122,7 +122,7 @@ export class ChannelMessageService {
                 throw ApiError.forbidden('You are not a member of this private channel.');
             }
         }
-
+        //@ts-expect-error
         const { where: filterWhere, orderBy, skip, take } = buildPrismaQuery({
             query,
             searchableFields: ['content'],

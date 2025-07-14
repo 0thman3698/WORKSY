@@ -7,7 +7,7 @@ import ChannelControllers from '../controllers/channel.controller';
 import { createChannelSchema } from '../validators/channel.validators';
 
 import { checkChannelRole, checkWorkspaceRole } from '../middlewares/authorization.middleware';
-import { ChannelRole, WorkspaceRole } from '../generated/prisma';
+import { ChannelRole, WorkspaceRole } from '@prisma/client';
 
 import channelMembersRouter from './channelMembers.routes';
 import channelMessageRouter from './channelMessage.routes';

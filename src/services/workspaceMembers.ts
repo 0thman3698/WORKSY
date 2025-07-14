@@ -1,6 +1,6 @@
 import prisma from "../config/db";
 import { ApiError } from "../utils/apiError";
-import { WorkspaceRole } from "../generated/prisma";
+import { WorkspaceRole } from '@prisma/client';
 
 export class WorkspaceMembersService {
     async addMember(workspaceId: string, userId: string, role: WorkspaceRole = WorkspaceRole.MEMBER) {

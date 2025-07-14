@@ -1,4 +1,4 @@
-import { Prisma } from '../generated/prisma';
+import { Prisma } from '@prisma/client';
 
 const softDeletedModels = ['workspace', 'channel', 'message']; // عدل حسب الموديلات اللي فيها deletedAt
 

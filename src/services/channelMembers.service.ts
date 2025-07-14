@@ -1,6 +1,6 @@
 import prisma from "../config/db";
 import { ApiError } from "../utils/apiError";
-import { ChannelRole } from "../generated/prisma";
+import { ChannelRole } from '@prisma/client';
 
 export class ChannelMembersService {
     /**

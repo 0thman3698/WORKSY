@@ -1,7 +1,7 @@
 import { createChannelSchemaType, updateChannelSchemaType } from '../validators/channel.validators';
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { ChannelRole } from '../generated/prisma';
+import { ChannelRole } from '@prisma/client';
 
 export class ChannelService {
   async createChannel(channelData: createChannelSchemaType, workspaceId: string, userId: string) {

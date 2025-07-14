@@ -2,6 +2,8 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as MicrosoftStrategy } from "passport-microsoft";
+import { VerifyCallback } from 'passport-google-oauth20';
+import { Profile as GoogleProfile } from 'passport-google-oauth20';
 import prisma from "./db";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 
@@ -87,7 +89,7 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
           return done(null, user);
         } catch (error) {
           console.error("Google OAuth error:", error);
-          return done(error, null);
+          return done(error, false);
         }
       }
     )
@@ -107,7 +109,7 @@ if (process.env.MICROSOFT_CLIENT_ID && process.env.MICROSOFT_CLIENT_SECRET) {
         callbackURL: `${process.env.BASE_URL}/api/v1/auth/microsoft/callback`,
         scope: ["user.read"],
       },
-      async (accessToken, refreshToken, profile, done) => {
+      async (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback) => {
         try {
           const oauthProfile: OAuthProfile = {
             id: profile.id,
@@ -122,7 +124,7 @@ if (process.env.MICROSOFT_CLIENT_ID && process.env.MICROSOFT_CLIENT_SECRET) {
           return done(null, user);
         } catch (error) {
           console.error("Microsoft OAuth error:", error);
-          return done(error, null);
+          return done(error, false);
         }
       }
     )
@@ -135,7 +137,7 @@ if (process.env.MICROSOFT_CLIENT_ID && process.env.MICROSOFT_CLIENT_SECRET) {
 // Common OAuth user handler
 async function handleOAuthUser(profile: OAuthProfile) {
   const email = profile.emails?.[0]?.value;
-  
+
   if (!email) {
     throw new Error("No email provided by OAuth provider");
   }
@@ -158,9 +160,9 @@ async function handleOAuthUser(profile: OAuthProfile) {
     });
   } else {
     // Create new user
-    const name = profile.displayName || 
-                 `${profile.name?.givenName || ""} ${profile.name?.familyName || ""}`.trim() ||
-                 email.split("@")[0];
+    const name = profile.displayName ||
+      `${profile.name?.givenName || ""} ${profile.name?.familyName || ""}`.trim() ||
+      email.split("@")[0];
 
     user = await prisma.user.create({
       data: {
