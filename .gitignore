@@ -11,7 +11,7 @@ prettier.config.js
 src/config/firebase/firebase-service-account.json
 ui/
 public/
-Dockerfile.*  
-Dockerfile 
-.dockerignore
-docker-compose*.yml
+# Dockerfile.*  
+# Dockerfile 
+# .dockerignore
+# docker-compose*.yml

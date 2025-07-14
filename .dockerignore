@@ -1,0 +1,7 @@
+# ⬆️ أهمّ مجلّدات وكبيرة الحجم
+node_modules
+dist
+build
+coverage
+.prisma   # إن كنت تولّد العميل خارج المرحلة النهائيّة
+public
