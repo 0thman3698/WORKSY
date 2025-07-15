@@ -40,7 +40,14 @@ app.use(passportInitialize);
 app.use(passportSession);
 
 // built-in Middlewares
-app.use(cors());
+app.use(cors({
+  origin: [
+    'https://worksy-f.netlify.app/',
+    'https://www.worksy-f.netlify.app/',
+    'http://localhost:4000'
+  ],
+  credentials: true,
+}));
 
 app.use(
   express.json({
