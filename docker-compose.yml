@@ -2,6 +2,7 @@ version: "3"
 services:
   worksy-app:
     container_name: worksy-container
+    image: 0thman3698/worksy
     build:
       context: .
       dockerfile: Dockerfile
