@@ -79,7 +79,7 @@ app.use('/api/v1/files', protect, fileRoutes);
 
 
 app.get('/', async (req, res) => {
-  res.send(`hello othman`);
+  res.send(`hello `);
 });
 
 app.use(authorizationErrorHandler);
