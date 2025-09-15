@@ -2,7 +2,7 @@ import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
 import dotenv from 'dotenv';
 import { v2 as cloudinary, UpdateApiOptions, UploadApiOptions } from 'cloudinary';
-
+// need adj
 dotenv.config();
 
 // Configure Cloudinary

@@ -1,6 +1,6 @@
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { buildPrismaQuery } from './../utils/fillter';
+import { buildPrismaQuery, QueryParams } from './../utils/fillter';
 
 
 export class ConversationService {
@@ -9,7 +9,6 @@ export class ConversationService {
             throw ApiError.badRequest("Cannot create DM with yourself.");
         }
 
-        // تأكد من وجود المستخدمين
         const users = await prisma.user.findMany({
             where: { id: { in: [userId, otherUserId] } },
             select: { id: true },
@@ -19,7 +18,6 @@ export class ConversationService {
             throw ApiError.badRequest("One or both users do not exist.");
         }
 
-        // تأكد من انضمامهم لنفس workspace
         const members = await prisma.userOnWorkspace.findMany({
             where: {
                 workspaceId,
@@ -31,7 +29,6 @@ export class ConversationService {
             throw ApiError.badRequest("Both users must be in the same workspace.");
         }
 
-        // البحث عن محادثة موجودة
         const existing = await prisma.directMessageConversation.findMany({
             where: {
                 workspaceId,
@@ -50,7 +47,6 @@ export class ConversationService {
 
         if (found) return found;
 
-        // إنشاء محادثة جديدة
         const newConversation = await prisma.directMessageConversation.create({
             data: {
                 workspaceId,
@@ -69,14 +65,12 @@ export class ConversationService {
         return newConversation;
     }
     async createGroupConversation(userId: string, otherUserIds: string[], workspaceId: string) {
-        // دمج الـ creator مع الباقيين مع إزالة التكرار
         const userIds = [...new Set([userId, ...otherUserIds])];
 
         if (userIds.length < 3) {
             throw ApiError.badRequest("Group DM must include at least 3 unique users.");
         }
 
-        // تأكد إن كل المستخدمين موجودين
         const users = await prisma.user.findMany({
             where: { id: { in: userIds } },
             select: { id: true },
@@ -86,7 +80,6 @@ export class ConversationService {
             throw ApiError.badRequest("One or more users do not exist.");
         }
 
-        // تأكد إنهم كلهم أعضاء في نفس الـ workspace
         const members = await prisma.userOnWorkspace.findMany({
             where: {
                 workspaceId,
@@ -98,7 +91,6 @@ export class ConversationService {
             throw ApiError.badRequest("All users must be members of the workspace.");
         }
 
-        // التأكد من عدم وجود محادثة بنفس المشاركين
         const existingConversations = await prisma.directMessageConversation.findMany({
             where: { workspaceId },
             include: { participants: true },
@@ -112,7 +104,6 @@ export class ConversationService {
 
         if (match) return match;
 
-        // إنشاء المحادثة الجديدة
         const newConversation = await prisma.directMessageConversation.create({
             data: {
                 workspaceId,
@@ -127,11 +118,10 @@ export class ConversationService {
 
         return newConversation;
     }
-    async getMyConversations(userId: string, workspaceId: string, query: any) {
-        //@ts-expect-error
-        const { where: filterWhere, orderBy, skip, take } = buildPrismaQuery({
+    async getMyConversations(userId: string, workspaceId: string, query: QueryParams) {
+        const { filters, orderBy, skip, take } = buildPrismaQuery({
             query,
-            searchableFields: ['participants.user.name'],// محتاج تعديل وتجربه
+            searchableFields: [],
             filterableFields: [],
         });
 
@@ -141,7 +131,21 @@ export class ConversationService {
                 participants: {
                     some: { userId },
                 },
-                ...filterWhere,
+                ...(filters || {}),
+                ...(query.search
+                    ? {
+                        participants: {
+                            some: {
+                                user: {
+                                    name: {
+                                        contains: query.search,
+                                        mode: "insensitive",
+                                    },
+                                },
+                            },
+                        },
+                    }
+                    : {}),
             },
             include: {
                 participants: {
@@ -156,17 +160,18 @@ export class ConversationService {
                     },
                 },
                 messages: {
-                    orderBy: { createdAt: 'desc' },
+                    orderBy: { createdAt: "desc" },
                     take: 1,
                 },
             },
-            orderBy: orderBy.length ? orderBy : [{ updatedAt: 'desc' }],
+            orderBy: orderBy || [{ updatedAt: "desc" }],
             skip,
             take,
         });
 
         return conversations;
     }
+
 
     // delete conversaions  and get conversaionnot handeled yet.
 }

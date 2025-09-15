@@ -1,4 +1,4 @@
-type QueryParams = {
+export type QueryParams = {
     search?: string;
     sort?: string;
     page?: string;
@@ -21,19 +21,22 @@ export function buildPrismaQuery({
 
     // Search (OR على searchable fields)
     if (query.search && searchableFields.length > 0) {
-        filters.OR = searchableFields.map((field) => ({
-            [field]: {
-                contains: query.search,
-                mode: 'insensitive',
-            },
-        }));
+        const searchTerm = query.search.trim();
+        if (searchTerm.length > 0) {
+            filters.OR = searchableFields.map((field) => ({
+                [field]: {
+                    contains: searchTerm,
+                    mode: 'insensitive',
+                },
+            }));
+        }
     }
 
     // Filtering
     for (const key of filterableFields) {
         const value = query[key];
         if (typeof value === 'string' && value.trim() !== '') {
-            filters[key] = value;
+            filters[key] = value.trim();
         }
     }
 
@@ -47,8 +50,12 @@ export function buildPrismaQuery({
     }
 
     // Pagination
-    const page = parseInt(query.page || '1', 10);
-    const take = parseInt(query.limit || '10', 10);
+    let page = parseInt(query.page || '1', 10);
+    let take = parseInt(query.limit || '10', 10);
+
+    if (isNaN(page) || page < 1) page = 1;
+    if (isNaN(take) || take < 1) take = 10;
+
     const skip = (page - 1) * take;
 
     return {
@@ -58,3 +65,4 @@ export function buildPrismaQuery({
         take,
     };
 }
+

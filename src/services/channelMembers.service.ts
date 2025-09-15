@@ -3,9 +3,7 @@ import { ApiError } from "../utils/apiError";
 import { ChannelRole } from '@prisma/client';
 
 export class ChannelMembersService {
-    /**
-     * Join a channel (reactivate if soft-deleted)
-     */
+
     async joinChannel(channelId: string, userId: string) {
         const existingMember = await prisma.userOnChannel.findUnique({
             where: {
@@ -43,9 +41,6 @@ export class ChannelMembersService {
         });
     }
 
-    /**
-     * Leave a channel (soft delete)
-     */
     async leaveChannel(channelId: string, userId: string) {
         const channel = await prisma.channel.findUnique({
             where: {
@@ -78,9 +73,6 @@ export class ChannelMembersService {
         });
     }
 
-    /**
-     * Get all active members in a channel
-     */
     async getAllChannelMembers(channelId: string) {
         return await prisma.userOnChannel.findMany({
             where: {
@@ -129,10 +121,7 @@ export class ChannelMembersService {
         });
     }
 
-    /**
-     * Kick a member from the channel (soft delete)
-     * Must be protected by middleware: OWNER or ADMIN only
-     */
+
     async kickMember(channelId: string, targetUserId: string, currentUserId: string) {
         if (targetUserId === currentUserId) {
             throw ApiError.badRequest("You cannot kick yourself from the channel.");
@@ -164,10 +153,6 @@ export class ChannelMembersService {
         });
     }
 
-    /**
-     * Transfer channel ownership to another active member
-     * Must be protected by middleware: OWNER only
-     */
     async transferChannelOwnership(channelId: string, newOwnerId: string) {
         const member = await prisma.userOnChannel.findUnique({
             where: {

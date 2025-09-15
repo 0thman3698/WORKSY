@@ -3,22 +3,6 @@ import { Role, WorkspaceRole, ChannelRole } from '@prisma/client';
 import prisma from '../config/db';
 
 
-// declare global {
-//   namespace Express {
-//     interface Request {
-//       user?: {
-//         id: string;
-//         role: Role;
-//       };
-//       workspaceId?: string;
-//       channelId?: string;
-//     }
-//   }
-// }
-
-// const prisma = new PrismaClient();
-
-
 class UnauthorizedError extends Error {
   statusCode: number;
   constructor(message: string = 'Unauthorized', statusCode: number = 403) {

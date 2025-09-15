@@ -110,6 +110,7 @@ export class ChannelMessageService {
         if (!isMember) {
             throw ApiError.forbidden('You are not a member of the workspace.');
         }
+
         if (!channel.isPublic) {
             const isChannelMember = await prisma.userOnChannel.findFirst({
                 where: {
@@ -122,23 +123,22 @@ export class ChannelMessageService {
                 throw ApiError.forbidden('You are not a member of this private channel.');
             }
         }
-        //@ts-expect-error
-        const { where: filterWhere, orderBy, skip, take } = buildPrismaQuery({
+
+        const { filters, orderBy, skip, take } = buildPrismaQuery({
             query,
             searchableFields: ['content'],
             filterableFields: [],
         });
 
-        // 5. جلب الرسائل
         const messages = await prisma.message.findMany({
             where: {
                 AND: [
                     { channelId },
                     { deletedAt: null },
-                    ...(Object.keys(filterWhere).length ? [filterWhere] : []),
+                    ...(filters ? [filters] : []),
                 ],
             },
-            orderBy: orderBy.length ? orderBy : [{ createdAt: 'asc' }],
+            orderBy: orderBy ? [orderBy] : [{ createdAt: 'asc' }],
             skip,
             take,
             include: {
@@ -166,6 +166,7 @@ export class ChannelMessageService {
 
         return messages;
     }
+
     async editChannelMessage(userId: string, messageId: string, newContent: string) {
 
         // 1. جيب الرسالة

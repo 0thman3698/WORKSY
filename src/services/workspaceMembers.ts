@@ -133,4 +133,4 @@ export class WorkspaceMembersService {
     }
 }
 
-export const workspaceMembersService = new WorkspaceMembersService();
+export const workspaceMembersService = new WorkspaceMembersService()

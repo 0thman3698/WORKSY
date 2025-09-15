@@ -7,7 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class InviteService {
 
-  // Creates a new invite.
   async createInvite(
     inviteData: CreateInviteSchemaType,
     workspaceId: string,
@@ -85,7 +84,6 @@ export class InviteService {
     return invite;
   }
 
-  // acceptance of an invite
   async acceptInvite(token: string, userId: string) {
     const invite = await prisma.invite.findUnique({
       where: {
@@ -151,7 +149,6 @@ export class InviteService {
     });
 
     await prisma.invite.update({
-      // we can find it by token 
       where: { id: invite.id },
       data: {
         status: 'ACCEPTED',

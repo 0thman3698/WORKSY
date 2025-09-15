@@ -1,6 +1,6 @@
 import prisma from '../config/db';
 import { ApiError } from '../utils/apiError';
-import { buildPrismaQuery } from './../utils/fillter';
+import { buildPrismaQuery, QueryParams } from './../utils/fillter';
 import { mentionService } from './mention.service';
 import { fileService } from './file.service';
 
@@ -9,7 +9,6 @@ import { fileService } from './file.service';
 export class DmService {
 
     async sendDMMessage(content: string, conversationId: string, userId: string, uploadedFiles?: Express.Multer.File[]) {
-        // check if conversation exists
         const conversation = await prisma.directMessageConversation.findUnique({
             where: { id: conversationId },
             include: {
@@ -26,13 +25,11 @@ export class DmService {
             throw ApiError.notFound("Conversation not found.");
         }
 
-        // check if user is a participant
         const isParticipant = conversation.participants.some(p => p.userId === userId);
         if (!isParticipant) {
             throw ApiError.forbidden("You are not a participant in this conversation.");
         }
 
-        // check if user is in the workspace
         const isMember = await prisma.userOnWorkspace.findFirst({
             where: {
                 userId,
@@ -44,7 +41,6 @@ export class DmService {
             throw ApiError.forbidden("User not part of the workspace.");
         }
 
-        // create the message
         const message = await prisma.message.create({
             data: {
                 content,
@@ -58,7 +54,6 @@ export class DmService {
             await mentionService.handleMentions(content, message.id, conversation.workspaceId, userId);
         }
 
-        // upload files and link to message
         if (uploadedFiles && uploadedFiles.length > 0) {
             const uploadedFileRecords = [];
             for (const file of uploadedFiles) {
@@ -70,8 +65,7 @@ export class DmService {
                 }
             }
 
-            // لو عايز تضيفهم للرسالة المرتجعة
-            // ممكن تستخدم spread للـ messageWithMentions
+
             (message as any).files = uploadedFileRecords;
         }
 
@@ -99,7 +93,7 @@ export class DmService {
         return messageWithMentions;
     }
 
-    async getAllDMMessages(conversationId: string, userId: string, query: any) {
+    async getAllDMMessages(conversationId: string, userId: string, query: QueryParams) {
         const conversation = await prisma.directMessageConversation.findUnique({
             where: { id: conversationId },
             include: {
@@ -127,21 +121,19 @@ export class DmService {
         if (!isMember) {
             throw ApiError.forbidden("User not part of the workspace.");
         }
-        //@ts-expect-error
-        const { where: filterWhere, orderBy, skip, take } = buildPrismaQuery({
+
+        const { filters, orderBy, skip, take } = buildPrismaQuery({
             query,
-            searchableFields: ['content'],
+            searchableFields: ["content"],
             filterableFields: [],
         });
 
         const messages = await prisma.message.findMany({
             where: {
-                AND: [
-                    { conversationId },
-                    ...(Object.keys(filterWhere).length > 0 ? [filterWhere] : []),
-                ],
+                conversationId,
+                ...(filters || {}), // 
             },
-            orderBy,
+            orderBy: orderBy || { createdAt: "asc" },
             skip,
             take,
             include: {
@@ -167,12 +159,11 @@ export class DmService {
             },
         });
 
-
         return messages;
     }
+
     async editDMMessage(userId: string, messageId: string, newContent: string) {
 
-        // 1. جيب الرسالة
         const message = await prisma.message.findUnique({
             where: { id: messageId },
         });
@@ -181,12 +172,10 @@ export class DmService {
             throw ApiError.notFound("Message not found or deleted.");
         }
 
-        // 2. تحقق إن المستخدم هو صاحب الرسالة
         if (message.userId !== userId) {
             throw ApiError.forbidden("You can only edit your own messages.");
         }
 
-        // 3. تحديث الرسالة
         const updated = await prisma.message.update({
             where: { id: messageId },
             data: {

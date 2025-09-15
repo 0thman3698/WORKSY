@@ -150,4 +150,4 @@ export class ChannelService {
   }
 }
 
-export const channelService = new ChannelService();
+export const channelService = new ChannelService()

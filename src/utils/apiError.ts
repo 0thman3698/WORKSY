@@ -1,12 +1,13 @@
 export class ApiError extends Error {
   statusCode: number;
-  errors?: any[];
-  stack?: string;
+  errors?: string[];
 
-  constructor(statusCode: number, message: string, errors = [], stack = '') {
+
+  constructor(statusCode: number, message: string, errors: string[] = [], stack = '') {
     super(message);
     this.statusCode = statusCode;
     this.errors = errors;
+    this.name = this.constructor.name
 
     if (stack) {
       this.stack = stack;
@@ -15,7 +16,7 @@ export class ApiError extends Error {
     }
   }
 
-  static badRequest(message = 'Bad request', errors = []) {
+  static badRequest(message = 'Bad request', errors: string[] = []) {
     return new ApiError(400, message, errors);
   }
 
@@ -35,7 +36,7 @@ export class ApiError extends Error {
     return new ApiError(500, message);
   }
 
-  static validation(message = 'Validation error', errors = []) {
+  static validation(message = 'Validation error', errors: string[] = []) {
     return new ApiError(422, message, errors);
   }
 

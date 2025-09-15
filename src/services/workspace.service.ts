@@ -111,8 +111,7 @@ export class WorkspaceService {
       skip,
       take,
     });
-    //@ts-expect-error
-    return (memberships as any).map((membership) => ({
+    return (memberships as any).map((membership: any) => ({
       id: membership.workspace.id,
       name: membership.workspace.name,
       role: membership.role,
