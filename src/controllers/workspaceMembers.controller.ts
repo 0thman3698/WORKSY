@@ -23,9 +23,10 @@ export default class WorkspaceMembersController {
 
     static async changeMemberRole(req: Request, res: Response, next: NextFunction) {
         const { workspaceId, memberId: targetUserId } = req.params;
-        const { newRole } = req.body as { newRole: WorkspaceRole };
+        const { role } = req.body as { role: WorkspaceRole };
 
-        const updated = await workspaceMembersService.changeMemberRole(workspaceId, targetUserId, newRole);
+
+        const updated = await workspaceMembersService.changeMemberRole(workspaceId, targetUserId, role);
         return new ApiResponse(res).success(updated, 'Member role updated successfully');
     }
 

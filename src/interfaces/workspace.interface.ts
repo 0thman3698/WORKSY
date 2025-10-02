@@ -1,4 +1,3 @@
-import { string } from 'zod';
 
 export interface ICreateWorkspace {
   name: string;

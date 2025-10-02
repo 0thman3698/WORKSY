@@ -63,7 +63,7 @@ describe('WorkspaceService', () => {
 
             const result = await workspaceService.createWorkspace({ name: 'Test' }, userId);
 
-            expect(result).toEqual({ workspace: created });
+            expect(result).toEqual(created);
             expect(prisma.workspace.create).toHaveBeenCalledWith(
                 expect.objectContaining({
                     data: expect.objectContaining({
@@ -113,7 +113,8 @@ describe('WorkspaceService', () => {
     // ---------------- updateWorkspace ----------------
     describe('updateWorkspace', () => {
         it('should throw if another workspace with same name exists', async () => {
-            (prisma.workspace.findFirst as any).mockResolvedValueOnce({ id: 'ws2' });
+            (prisma.workspace.findUnique as any).mockResolvedValue({ id: 'ws1', ownerId: userId })
+                ; (prisma.workspace.findFirst as any).mockResolvedValueOnce({ id: 'ws2', name: 'Test' });
 
             await expect(
                 workspaceService.updateWorkspace(workspaceId, { name: 'Test' }, userId),

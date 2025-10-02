@@ -22,6 +22,14 @@ export class ChannelService {
           },
         },
       },
+      include: {
+        UserOnChannels: {
+          select: {
+            userId: true,
+            role: true
+          }
+        }
+      }
     });
 
     return newChannel;

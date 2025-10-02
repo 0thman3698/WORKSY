@@ -79,7 +79,11 @@ export class WorkspaceMembersService {
         });
     }
 
-    async changeMemberRole(workspaceId: string, targetUserId: string, newRole: WorkspaceRole) {
+    async changeMemberRole(workspaceId: string, targetUserId: string, role: WorkspaceRole) {
+        //test
+        if (!role || !Object.values(WorkspaceRole).includes(role)) {
+            return ApiError.badRequest("Invalid or missing role");
+        }
         const member = await prisma.userOnWorkspace.findUnique({
             where: { userId_workspaceId: { userId: targetUserId, workspaceId } },
         });
@@ -87,10 +91,11 @@ export class WorkspaceMembersService {
         if (!member || member.deletedAt) {
             throw ApiError.notFound("User not found or is not an active member.");
         }
+        if (member.role === role) throw ApiError.badRequest("User already has this role");
 
         return await prisma.userOnWorkspace.update({
             where: { userId_workspaceId: { userId: targetUserId, workspaceId } },
-            data: { role: newRole },
+            data: { role },
         });
     }
 

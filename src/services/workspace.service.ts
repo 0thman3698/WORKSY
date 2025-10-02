@@ -14,7 +14,7 @@ export class WorkspaceService {
   async createWorkspace(
     workspaceData: ICreateWorkspace,
     userId: string,
-  ): Promise<ICreateWorkspaceResponse> {
+  ): Promise<IWorkspace> {
     const existingWorkspace = await prisma.workspace.findFirst({
       where: {
         name: workspaceData.name,
@@ -65,9 +65,8 @@ export class WorkspaceService {
       },
     });
 
-    return {
-      workspace,
-    };
+    return workspace
+
   }
 
   async getMyWorkspaces(userId: string, query: any): Promise<IMyWorkspaces[]> {
@@ -126,6 +125,18 @@ export class WorkspaceService {
     workspaceData: IUpdateWorkspace,
     userId: string,
   ): Promise<IWorkspace> {
+    const workspace = await prisma.workspace.findUnique({
+      where: { id: workspaceId },
+    });
+
+    if (!workspace || workspace.deletedAt) {
+      throw ApiError.notFound('Workspace not found.');
+    }
+
+    if (workspace.ownerId !== userId) {
+      throw ApiError.forbidden("You don't have permission to update this workspace.");
+    }
+
     if (workspaceData.name) {
       const existing = await prisma.workspace.findFirst({
         where: {
@@ -141,19 +152,18 @@ export class WorkspaceService {
       }
     }
 
-
     const updatedWorkspace = await prisma.workspace.update({
       where: { id: workspaceId },
       data: {
         ...(workspaceData.name && { name: workspaceData.name }),
         ...(workspaceData.description && { description: workspaceData.description }),
         updatedAt: new Date(),
-      }
-      ,
+      },
     });
 
     return updatedWorkspace;
   }
+
 
   async deleteWorkspace(workspaceId: string, userId: string): Promise<IWorkspace> {
 

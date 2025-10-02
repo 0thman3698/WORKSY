@@ -65,7 +65,7 @@ export class UserService {
 
         return user;
     }
-    async updateMe(userId: string, userData: updateMeSchemaType) {
+    async updateMe(userId: string, userData: Record<string, any>) {
         await this.getUserById(userId);
 
         const allowedFields = ['name', 'avatar'];
@@ -101,6 +101,8 @@ export class UserService {
 
         return updatedUser;
     }
+
+
 
 
 

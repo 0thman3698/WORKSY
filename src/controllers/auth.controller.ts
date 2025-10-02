@@ -172,20 +172,21 @@ export default class AuthController {
     if (!refreshToken) throw ApiError.unauthorized("No refresh token");
 
     const decoded = verifyToken(refreshToken);
-    if (!decoded?.userId) {
+
+    if (!decoded?.id) {
       throw ApiError.unauthorized("Invalid refresh token");
     }
     // Find user with matching refresh token
     const tokens = await authService.refreshToken(refreshToken, decoded);
     res.cookie("refreshToken", tokens.refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: "strict",
-      path: "/api/v1/auth/refresh-token",
+      path: "/",
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
     return new ApiResponse(res).success(
-      { newToken: tokens.accessToken },
+      { accessToken: tokens.accessToken },
       "Tokens refreshed successfully"
     );
   }
@@ -234,8 +235,16 @@ export default class AuthController {
         html,
       });
 
+      /// for test
+      if (process.env.NODE_ENV !== "production") {
+        return new ApiResponse(res).success(
+          { resetToken, resetPin },
+          "Reset PIN sent successfully."
+        );
+      }
+
       return new ApiResponse(res).success(
-        { resetToken },
+
         `Reset PIN has been sent to ${email}.`
       );
     } catch (error: any) {
@@ -262,7 +271,6 @@ export default class AuthController {
         pin
       );
 
-      console.log(isValid, resetToken);
 
       if (!isValid || !resetToken) {
         throw ApiError.badRequest("Invalid or expired PIN");

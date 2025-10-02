@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db_test:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: worksy_test
+      POSTGRES_PASSWORD: worksy_test
+      POSTGRES_DB: worksy_test
+    ports:
+      - "5433:5432"   
+    volumes:
+      - postgres-test-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U worksy_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend-test:
+    build:
+      context: .
+      target: test   # stage "test" من Dockerfile
+    environment:
+      DATABASE_URL: postgres://worksy_test:worksy_test@db_test:5432/worksy_test
+      NODE_OPTIONS: --max-old-space-size=4096  
+    depends_on:
+      db_test:
+        condition: service_healthy
+    command: ["npm", "run", "test:ci"]
+    deploy:
+      resources:       
+        limits:
+          memory: 6G
+        reservations:
+          memory: 2G
+
+volumes:
+  postgres-test-data:

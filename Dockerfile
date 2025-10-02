@@ -1,4 +1,4 @@
-FROM node:20-alpine as build
+FROM node:20-alpine AS build
 
 WORKDIR /app
 
@@ -17,7 +17,24 @@ RUN npx prisma generate
 RUN npm run build
 
 
-FROM node:20-alpine as development
+FROM node:20-alpine AS test
+
+WORKDIR /app
+
+COPY package.json .
+COPY package-lock.json .
+
+RUN npm install
+
+COPY . .
+COPY prisma ./prisma
+
+RUN npx prisma generate
+
+# التستات هتشتغل على سورس الكود (مش الـ dist)
+CMD ["npm", "run", "test:ci"]
+
+FROM node:20-alpine AS development
 
 RUN apk add --no-cache openssl
 
@@ -39,7 +56,7 @@ EXPOSE 4000
 
 CMD ["npm", "run", "dev"]
 
-FROM node:20-alpine as production
+FROM node:20-alpine AS production
 
 
 RUN apk add --no-cache openssl

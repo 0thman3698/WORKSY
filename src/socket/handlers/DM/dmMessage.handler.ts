@@ -3,7 +3,6 @@ import { dmService } from "../../../services/dm.service";
 import { validateSocketData } from "../../../utils/validateSocketData";
 import { sendDMMessageSchema, editDMMessageSchema } from "../../../validators/dm.validators";
 import { sendMentionNotification } from "../../utils/sendMentionNotification";
-import { ApiError } from "../../../utils/apiError";
 
 export const registerDMMessageHandlers = (io: Server, socket: Socket, userId: string) => {
     socket.on("join:dm", (conversationId: string) => {

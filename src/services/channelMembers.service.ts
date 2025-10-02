@@ -94,7 +94,7 @@ export class ChannelMembersService {
     /**
      * Change a member's role (should be restricted via middleware to OWNER only)
      */
-    async changeMemberRole(channelId: string, targetUserId: string, newRole: ChannelRole) {
+    async changeMemberRole(channelId: string, targetUserId: string, role: ChannelRole) {
         const member = await prisma.userOnChannel.findUnique({
             where: {
                 userId_channelId: {
@@ -116,7 +116,7 @@ export class ChannelMembersService {
                 },
             },
             data: {
-                role: newRole,
+                role
             },
         });
     }

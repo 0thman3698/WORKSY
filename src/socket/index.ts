@@ -2,9 +2,9 @@ import { Server } from "socket.io";
 import http from 'http';
 import jwt from "jsonwebtoken";
 import { addUserSocket, removeUserSocket } from './utils/userSocketStore';
-import { initChannelHandlers } from "./handlers/channelHandlers";
+import { initChannelHandlers } from "./handlers/channel/index";
 import { initReactionHandlers } from "./handlers/reactionHandlers";
-import { initDirectMessageHandlers } from "./handlers/directMessageHandlers";
+import { initDirectMessageHandlers } from "./handlers/DM/index";
 import { initUserHandlers } from './handlers/userHandlers';
 
 

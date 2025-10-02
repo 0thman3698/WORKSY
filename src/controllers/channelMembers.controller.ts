@@ -32,9 +32,9 @@ export default class ChannelMembersControllers {
 
         static async changeMemberRole(req: Request, res: Response, next: NextFunction) {
                 const { channelId, memberId } = req.params;
-                const { newRole } = req.body as { newRole: ChannelRole };
+                const { role } = req.body as { role: ChannelRole };
 
-                const updated = await channelMembersService.changeMemberRole(channelId, memberId, newRole);
+                const updated = await channelMembersService.changeMemberRole(channelId, memberId, role);
 
                 return new ApiResponse(res).success(updated, 'Member role updated successfully');
         }

@@ -103,7 +103,7 @@ router.post(
 
 const passwordResetLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 3,
+  max: 10,
   message: 'Too many password reset attempts'
 });
 

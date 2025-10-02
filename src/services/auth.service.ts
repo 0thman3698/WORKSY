@@ -286,7 +286,6 @@ export class AuthService {
       await this.clearLoginOtp(email);
 
       const tokens = await this.generateAuthTokens(user);
-
       return {
         ...tokens,
         user: {
@@ -356,12 +355,12 @@ export class AuthService {
   }
 
   async refreshToken(refreshToken: string, decoded: any): Promise<ITokens> {
-    if (!decoded || !decoded.userId) {
+    if (!decoded || !decoded.id) {
       throw ApiError.unauthorized("Invalid refresh token payload");
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
+      where: { id: decoded.id },
     });
 
     if (!user || user.refreshToken !== refreshToken) {

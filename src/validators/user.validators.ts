@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const updateMeSchema = z.object({
     name: z.string().min(1).max(100).optional(),
     avatar: z.string().url({ message: 'Invalid avatar URL' }).optional(),
-}).refine((data) => data.name || data.avatar, {
+}).strict().refine((data) => data.name || data.avatar, {
     message: 'You must provide at least name or avatar to update.',
     path: ['name'],
 });
