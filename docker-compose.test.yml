@@ -25,7 +25,16 @@ services:
       - .env
     environment:
       DATABASE_URL: postgres://worksy_test:worksy_test@db_test:5432/worksy_test
-      NODE_OPTIONS: --max-old-space-size=4096  
+      NODE_OPTIONS: --max-old-space-size=4096
+      JWT_SECRET: test-secret
+      JWT_EXPIRES_IN: 1d
+      REFRESH_JWT_SECRET: test-refresh-secret
+      REFRESH_JWT_EXPIRES_IN: 7d
+      EMAIL_FROM: test@worksy.com
+      EMAIL_HOST: smtp.test.com
+      EMAIL_PORT: 587
+      EMAIL_USER: test
+      EMAIL_PASS: test
     depends_on:
       db_test:
         condition: service_healthy
