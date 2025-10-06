@@ -20,7 +20,7 @@ jobs:
 
       - name: 🧱 Build and run docker-compose for tests
         run: |
-          docker compose -f docker-compose.yml up --build --exit-code-from backend-test
+          docker compose --env-file /dev/null -f docker-compose.yml up --build --exit-code-from backend-test
 
       - name: 🧹 Clean up
         if: always()
