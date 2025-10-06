@@ -21,8 +21,6 @@ services:
     build:
       context: .
       target: test   # stage "test" من Dockerfile
-    env_file:
-      - .env
     environment:
 
      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
