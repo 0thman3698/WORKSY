@@ -1,0 +1,27 @@
+name: CI - Worksy Backend
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    name: Run Integration & Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🐋 Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: 🧱 Build and run docker-compose for tests
+        run: |
+          docker compose -f docker-compose.yml up --build --exit-code-from backend-test
+
+      - name: 🧹 Clean up
+        if: always()
+        run: docker compose -f docker-compose.yml down -v
