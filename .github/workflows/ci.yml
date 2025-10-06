@@ -24,6 +24,16 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # 🧩 إنشاء ملف .env من المتغيرات
+      - name: Create .env file
+        run: |
+          echo "ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}" >> .env
+          echo "FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}" >> .env
+          echo "FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}" >> .env
+          echo "FIREBASE_CLIENT_EMAIL=${FIREBASE_CLIENT_EMAIL}" >> .env
+          echo "DATABASE_URL=${DATABASE_URL}" >> .env
+          cat .env  # (اختياري) للطباعة بهدف التأكد بدون عرض المفاتيح السرية
+
       - name: Run tests with Docker Compose
         run: |
           docker compose -f docker-compose.test.yml up --build --exit-code-from backend-test
