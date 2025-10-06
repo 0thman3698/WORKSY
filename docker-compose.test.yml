@@ -21,6 +21,8 @@ services:
     build:
       context: .
       target: test   # stage "test" من Dockerfile
+    env_file:
+      - .env
     environment:
       DATABASE_URL: postgres://worksy_test:worksy_test@db_test:5432/worksy_test
       NODE_OPTIONS: --max-old-space-size=4096  
