@@ -21,12 +21,8 @@ services:
     build:
       context: .
       target: test   # stage "test" من Dockerfile
-    environment:
-      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
-      FIREBASE_PROJECT_ID: ${FIREBASE_PROJECT_ID}
-      FIREBASE_PRIVATE_KEY: ${FIREBASE_PRIVATE_KEY}
-      FIREBASE_CLIENT_EMAIL: ${FIREBASE_CLIENT_EMAIL}
-      DATABASE_URL: ${DATABASE_URL}
+    env_file:
+    - .env
 
     depends_on:
       db_test:
