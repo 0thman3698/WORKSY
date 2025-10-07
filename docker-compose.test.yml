@@ -27,7 +27,7 @@ services:
     depends_on:
       db_test:
         condition: service_healthy
-    command: ["npm", "run", "test:ci"]
+    command: ["sh", "-c", "npx prisma migrate deploy && npm run test:ci"]
     deploy:
       resources:       
         limits:
