@@ -15,7 +15,6 @@ let resetPin: string;
 
 describe("Auth Integration", () => {
     beforeAll(async () => {
-        await cleanupDb();
         await prisma.$connect();
     });
 
