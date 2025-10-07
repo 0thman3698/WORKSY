@@ -12,12 +12,32 @@ jobs:
     environment: ENV_FILE
 
     env:
+      # Tokens
       ACCESS_TOKEN_SECRET: ${{ vars.ACCESS_TOKEN_SECRET }}
       REFRESH_TOKEN_SECRET: ${{ vars.REFRESH_TOKEN_SECRET }}
+
+      # Database
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      # Firebase
       FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
       FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
       FIREBASE_CLIENT_EMAIL: ${{ vars.FIREBASE_CLIENT_EMAIL }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      # Cloudinary
+      CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ vars.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ vars.CLOUDINARY_API_SECRET }}
+
+      # Gmail / SMTP
+      SMTP_HOST: ${{ vars.SMTP_HOST }}
+      SMTP_PORT: ${{ vars.SMTP_PORT }}
+      SMTP_USER: ${{ vars.SMTP_USER }}
+      SMTP_PASSWORD: ${{ vars.SMTP_PASSWORD }}
+
+      # Base URLs
+      BASE_URL: ${{ vars.BASE_URL }}
+      CLIENT_URL: ${{ vars.CLIENT_URL }}
 
     steps:
       - name: Checkout code
@@ -31,10 +51,23 @@ jobs:
         run: |
           echo "ACCESS_TOKEN_SECRET=${ACCESS_TOKEN_SECRET}" >> .env
           echo "REFRESH_TOKEN_SECRET=${REFRESH_TOKEN_SECRET}" >> .env
+          echo "DATABASE_URL=${DATABASE_URL}" >> .env
+
           echo "FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}" >> .env
           echo "FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}" >> .env
           echo "FIREBASE_CLIENT_EMAIL=${FIREBASE_CLIENT_EMAIL}" >> .env
-          echo "DATABASE_URL=${DATABASE_URL}" >> .env
+
+          echo "CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}" >> .env
+          echo "CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}" >> .env
+          echo "CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}" >> .env
+
+          echo "SMTP_HOST=${SMTP_HOST}" >> .env
+          echo "SMTP_PORT=${SMTP_PORT}" >> .env
+          echo "SMTP_USER=${SMTP_USER}" >> .env
+          echo "SMTP_PASSWORD=${SMTP_PASSWORD}" >> .env
+
+          echo "BASE_URL=${BASE_URL}" >> .env
+          echo "CLIENT_URL=${CLIENT_URL}" >> .env
           cat .env  # (اختياري) للطباعة بهدف التأكد بدون عرض المفاتيح السرية
 
       - name: Run tests with Docker Compose
