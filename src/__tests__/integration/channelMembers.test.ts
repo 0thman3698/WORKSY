@@ -146,6 +146,7 @@ describe("Channel Members Integration", () => {
         expect(res.body.data).toHaveProperty("role", ChannelRole.ADMIN);
     });
 
+
     it("should kick a member from the channel", async () => {
         await prisma.userOnChannel.upsert({
             where: {
