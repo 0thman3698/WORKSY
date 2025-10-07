@@ -147,7 +147,6 @@ describe("Channel Members Integration", () => {
     });
 
     it("should kick a member from the channel", async () => {
-        // Add member again
         await prisma.userOnChannel.upsert({
             where: {
                 userId_channelId: {
