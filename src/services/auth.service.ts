@@ -89,7 +89,7 @@ export class AuthService {
     });
     console.log('Nodyb', user)
 
-    await sendEmailVerificationEmail(email, name, emailVerificationToken);
+    // await sendEmailVerificationEmail(email, name, emailVerificationToken);
 
     return user;
   }
