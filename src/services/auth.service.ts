@@ -87,7 +87,7 @@ export class AuthService {
         emailVerificationTokenExpires: emailVerificationTokenExpires,
       },
     });
-    console.log(user)
+    console.log('Nodyb', user)
 
     await sendEmailVerificationEmail(email, name, emailVerificationToken);
 

@@ -31,7 +31,7 @@ describe("Auth Integration", () => {
                 email: userEmail,
                 password,
             });
-        console.log(res.body)
+        console.log('Nodyyaya', res.body)
 
         expect(res.status).toBe(201);
         expect(res.body.data).toEqual(
