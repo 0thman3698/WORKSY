@@ -31,8 +31,7 @@ describe("Auth Integration", () => {
                 email: userEmail,
                 password,
             });
-        console.log('Nodyyaya', res.body)
-        expect(res).toEqual({ userEmail })
+
         expect(res.status).toBe(201);
         expect(res.body.data).toEqual(
             expect.objectContaining({ email: userEmail })
