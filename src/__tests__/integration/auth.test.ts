@@ -31,6 +31,7 @@ describe("Auth Integration", () => {
                 email: userEmail,
                 password,
             });
+        console.log(res.body)
 
         expect(res.status).toBe(201);
         expect(res.body.data).toEqual(

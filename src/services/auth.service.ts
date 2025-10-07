@@ -87,6 +87,7 @@ export class AuthService {
         emailVerificationTokenExpires: emailVerificationTokenExpires,
       },
     });
+    console.log(user)
 
     await sendEmailVerificationEmail(email, name, emailVerificationToken);
 
