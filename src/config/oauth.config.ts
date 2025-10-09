@@ -8,24 +8,24 @@ import prisma from "./db";
 import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
 
 // Debug: Check if environment variables are loaded
-console.log('Environment variables check:');
-console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? 'SET' : 'NOT SET');
-console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET ? 'SET' : 'NOT SET');
-console.log('MICROSOFT_CLIENT_ID:', process.env.MICROSOFT_CLIENT_ID ? 'SET' : 'NOT SET');
-console.log('MICROSOFT_CLIENT_SECRET:', process.env.MICROSOFT_CLIENT_SECRET ? 'SET' : 'NOT SET');
-console.log('BASE_URL:', process.env.BASE_URL);
+// console.log('Environment variables check:');
+// console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID ? 'SET' : 'NOT SET');
+// console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET ? 'SET' : 'NOT SET');
+// console.log('MICROSOFT_CLIENT_ID:', process.env.MICROSOFT_CLIENT_ID ? 'SET' : 'NOT SET');
+// console.log('MICROSOFT_CLIENT_SECRET:', process.env.MICROSOFT_CLIENT_SECRET ? 'SET' : 'NOT SET');
+// console.log('BASE_URL:', process.env.BASE_URL);
 
 // Validate required environment variables
 if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-  console.error('Missing Google OAuth credentials. Please check your .env file.');
+  // console.error('Missing Google OAuth credentials. Please check your .env file.');
 }
 
 if (!process.env.MICROSOFT_CLIENT_ID || !process.env.MICROSOFT_CLIENT_SECRET) {
-  console.error('Missing Microsoft OAuth credentials. Please check your .env file.');
+  // console.error('Missing Microsoft OAuth credentials. Please check your .env file.');
 }
 
 if (!process.env.BASE_URL) {
-  console.error('Missing BASE_URL. Please check your .env file.');
+  // console.error('Missing BASE_URL. Please check your .env file.');
 }
 
 interface OAuthProfile {
@@ -94,9 +94,9 @@ if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
       }
     )
   );
-  console.log('Google OAuth strategy configured successfully');
+  // console.log('Google OAuth strategy configured successfully');
 } else {
-  console.warn('Google OAuth strategy not configured - missing credentials');
+  // console.warn('Google OAuth strategy not configured - missing credentials');
 }
 
 // Microsoft OAuth Strategy - only configure if credentials are available
@@ -129,9 +129,9 @@ if (process.env.MICROSOFT_CLIENT_ID && process.env.MICROSOFT_CLIENT_SECRET) {
       }
     )
   );
-  console.log('Microsoft OAuth strategy configured successfully');
+  // console.log('Microsoft OAuth strategy configured successfully');
 } else {
-  console.warn('Microsoft OAuth strategy not configured - missing credentials');
+  // console.warn('Microsoft OAuth strategy not configured - missing credentials');
 }
 
 // Common OAuth user handler

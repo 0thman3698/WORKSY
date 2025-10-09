@@ -101,7 +101,7 @@ jobs:
   deploy:
     needs: build_and_push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Create .env for EC2
@@ -111,9 +111,7 @@ jobs:
             echo "REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }}"
             echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
             echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}"
-            echo "FIREBASE_PRIVATE_KEY<<EOF"
-            echo "${{ secrets.FIREBASE_PRIVATE_KEY }}" | sed 's/\\n/\n/g'
-            echo "EOF"
+            echo "FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}"
             echo "FIREBASE_CLIENT_EMAIL=${{ secrets.FIREBASE_CLIENT_EMAIL }}"
             echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}"
             echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}"
