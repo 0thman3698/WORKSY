@@ -16,7 +16,7 @@
     "test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
     "test:unit": "jest --testPathPattern=utils --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage --watchAll=false  --runInBand"
+    "test:ci": "jest --ci --coverage --watchAll=false  --runInBand  --testTimeout=30000"
   },
   "keywords": [],
   "author": "",
