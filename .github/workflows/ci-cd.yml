@@ -74,7 +74,7 @@ jobs:
           docker compose -f docker-compose.test.yml up --build --exit-code-from backend-test
 
       - name: Clean up (tests)
-        if: ${{ always() }}
+        if: always()
         run: docker compose -f docker-compose.test.yml down -v
 
   # --------------------
@@ -159,5 +159,5 @@ jobs:
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
 
       - name: Clean up local env file
-        if: ${{ always() }}
+        if: always()
         run: rm -f .env.server
