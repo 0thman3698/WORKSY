@@ -8,7 +8,7 @@ import { ApiError } from '../utils/apiError';
 
 
 export default class UserControllers {
-    // 👤 Public Controllers
+    // 👤 Public Controllers /////////
 
     static async getCurrentUser(req: Request, res: Response, next: NextFunction) {
 
