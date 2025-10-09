@@ -2,7 +2,7 @@ name: CI / Build / Push / Deploy
 
 on:
   push:
-    branches: [main] # عدّل الفرع لو تريد deploy عند فرع تاني
+    branches: ['**'] # عدّل الفرع لو تريد deploy عند فرع تاني
   pull_request:
     branches: [main, develop]
 
