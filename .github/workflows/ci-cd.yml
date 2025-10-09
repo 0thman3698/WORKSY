@@ -113,8 +113,7 @@ jobs:
             echo "DATABASE_URL=${{ secrets.DATABASE_URL }}"
             echo "FIREBASE_PROJECT_ID=${{ secrets.FIREBASE_PROJECT_ID }}"
             echo "FIREBASE_PRIVATE_KEY<<EOF"
-            echo "${{ secrets.FIREBASE_PRIVATE_KEY }}" | sed 's/\\n/\n/g'
-            echo "EOF"
+            echo "FIREBASE_PRIVATE_KEY=${FIREBASE_PRIVATE_KEY}" >> .env
             echo "FIREBASE_CLIENT_EMAIL=${{ secrets.FIREBASE_CLIENT_EMAIL }}"
             echo "CLOUDINARY_CLOUD_NAME=${{ secrets.CLOUDINARY_CLOUD_NAME }}"
             echo "CLOUDINARY_API_KEY=${{ secrets.CLOUDINARY_API_KEY }}"
