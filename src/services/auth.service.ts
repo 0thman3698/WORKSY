@@ -87,7 +87,6 @@ export class AuthService {
         emailVerificationTokenExpires: emailVerificationTokenExpires,
       },
     });
-    ///fff
     await sendEmailVerificationEmail(email, name, emailVerificationToken);
 
     return user;
