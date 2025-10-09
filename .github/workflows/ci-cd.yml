@@ -1,0 +1,163 @@
+name: CI / Build / Push / Deploy
+
+on:
+  push:
+    branches: [ main ]   # عدّل الفرع لو تريد deploy عند فرع تاني
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  # اسم الصورة الافتراضي (يمكن تغييره عبر secret DOCKER_IMAGE_NAME)
+  DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+
+jobs:
+  # --------------------
+  # 1) CI: run integration tests using docker-compose.test.yml
+  # --------------------
+  test:
+    runs-on: ubuntu-latest
+    environment: ENV_FILE
+
+    env:
+      ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+      REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+      CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      BASE_URL: ${{ secrets.BASE_URL }}
+      CLIENT_URL: ${{ secrets.CLIENT_URL }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Create .env (for tests)
+        run: |
+          printf 'ACCESS_TOKEN_SECRET=%s\n' "${ACCESS_TOKEN_SECRET}" > .env
+          printf 'REFRESH_TOKEN_SECRET=%s\n' "${REFRESH_TOKEN_SECRET}" >> .env
+          printf 'DATABASE_URL=%s\n' "${DATABASE_URL}" >> .env
+
+          printf 'FIREBASE_PROJECT_ID=%s\n' "${FIREBASE_PROJECT_ID}" >> .env
+          # write firebase private key converting \n to actual newlines if needed
+          if [ -n "${FIREBASE_PRIVATE_KEY}" ]; then
+            echo -n 'FIREBASE_PRIVATE_KEY="' >> .env
+            echo "${FIREBASE_PRIVATE_KEY}" | sed 's/\\n/\'$'\n/g' >> .env
+            echo '"' >> .env
+          fi
+          printf 'FIREBASE_CLIENT_EMAIL=%s\n' "${FIREBASE_CLIENT_EMAIL}" >> .env
+
+          printf 'CLOUDINARY_CLOUD_NAME=%s\n' "${CLOUDINARY_CLOUD_NAME}" >> .env
+          printf 'CLOUDINARY_API_KEY=%s\n' "${CLOUDINARY_API_KEY}" >> .env
+          printf 'CLOUDINARY_API_SECRET=%s\n' "${CLOUDINARY_API_SECRET}" >> .env
+
+          printf 'SMTP_HOST=%s\n' "${SMTP_HOST}" >> .env
+          printf 'SMTP_PORT=%s\n' "${SMTP_PORT}" >> .env
+          printf 'SMTP_USER=%s\n' "${SMTP_USER}" >> .env
+          printf 'SMTP_PASSWORD=%s\n' "${SMTP_PASSWORD}" >> .env
+
+          printf 'BASE_URL=%s\n' "${BASE_URL}" >> .env
+          printf 'CLIENT_URL=%s\n' "${CLIENT_URL}" >> .env
+
+      - name: Run tests with Docker Compose (tests run inside docker-compose.test.yml)
+        run: |
+          docker compose -f docker-compose.test.yml up --build --exit-code-from backend-test
+
+      - name: Clean up (tests)
+        if: always()
+        run: docker compose -f docker-compose.test.yml down -v
+
+  # --------------------
+  # 2) Build & Push image to Docker Hub (only after tests passed)
+  # --------------------
+  build_and_push:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build (production target) and push
+        run: |
+          IMAGE=${{ secrets.DOCKER_IMAGE_NAME }}
+          docker build --target production -t $IMAGE .
+          docker push $IMAGE
+
+  # --------------------
+  # 3) Deploy on EC2 (pull image, update .env, restart)
+  # --------------------
+  deploy:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'   # ينفّذ فقط على main
+    steps:
+      - name: Create .env for server (temporary on runner)
+        run: |
+          printf 'ACCESS_TOKEN_SECRET=%s\n' "${{ secrets.ACCESS_TOKEN_SECRET }}" > .env.server
+          printf 'REFRESH_TOKEN_SECRET=%s\n' "${{ secrets.REFRESH_TOKEN_SECRET }}" >> .env.server
+          printf 'DATABASE_URL=%s\n' "${{ secrets.DATABASE_URL }}" >> .env.server
+
+          printf 'FIREBASE_PROJECT_ID=%s\n' "${{ secrets.FIREBASE_PROJECT_ID }}" >> .env.server
+          # handle private key multiline
+          echo -n 'FIREBASE_PRIVATE_KEY="' >> .env.server
+          echo "${{ secrets.FIREBASE_PRIVATE_KEY }}" | sed 's/\\n/\'$'\n/g' >> .env.server
+          echo '"' >> .env.server
+          printf 'FIREBASE_CLIENT_EMAIL=%s\n' "${{ secrets.FIREBASE_CLIENT_EMAIL }}" >> .env.server
+
+          printf 'CLOUDINARY_CLOUD_NAME=%s\n' "${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env.server
+          printf 'CLOUDINARY_API_KEY=%s\n' "${{ secrets.CLOUDINARY_API_KEY }}" >> .env.server
+          printf 'CLOUDINARY_API_SECRET=%s\n' "${{ secrets.CLOUDINARY_API_SECRET }}" >> .env.server
+
+          printf 'SMTP_HOST=%s\n' "${{ secrets.SMTP_HOST }}" >> .env.server
+          printf 'SMTP_PORT=%s\n' "${{ secrets.SMTP_PORT }}" >> .env.server
+          printf 'SMTP_USER=%s\n' "${{ secrets.SMTP_USER }}" >> .env.server
+          printf 'SMTP_PASSWORD=%s\n' "${{ secrets.SMTP_PASSWORD }}" >> .env.server
+
+          printf 'BASE_URL=%s\n' "${{ secrets.BASE_URL }}" >> .env.server
+          printf 'CLIENT_URL=%s\n' "${{ secrets.CLIENT_URL }}" >> .env.server
+
+      - name: Copy .env to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: ".env.server"
+          target: "/home/${{ secrets.EC2_USER }}/worksy/.env"
+
+      - name: SSH: pull image & restart compose on EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            cd /home/${{ secrets.EC2_USER }}/worksy || exit 1
+            docker pull ${{ secrets.DOCKER_IMAGE_NAME }} || true
+            # use your prod compose file; adjust filename if different
+            docker compose -f docker-compose.prod.yml down || true
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+
+      - name: Clean up local env file
+        if: always()
+        run: rm -f .env.server
