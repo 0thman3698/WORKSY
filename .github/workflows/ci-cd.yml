@@ -133,7 +133,19 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: '.env.server'
-          target: '/home/${{ secrets.EC2_USER }}/worksy/.env'
+          target: '/home/${{ secrets.EC2_USER }}/WORKSY/.env'
+
+      # - name: Copy deploy files to EC2
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ${{ secrets.EC2_USER }}
+      #     key: ${{ secrets.EC2_SSH_KEY }}
+      #     port: 22
+      #     source: |
+      #       docker-compose.prod.yml
+      #       .env.server
+      #     target: '/home/${{ secrets.EC2_USER }}/WORKSY'
 
       - name: 'SSH: Pull image & restart compose'
         uses: appleboy/ssh-action@v0.1.10
@@ -142,7 +154,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /home/${{ secrets.EC2_USER }}/worksy || exit 1
+            cd /home/${{ secrets.EC2_USER }}/WORKSY || exit 1
             docker pull ${{ secrets.DOCKER_IMAGE_NAME }} || true
             docker compose -f docker-compose.prod.yml down || true
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
