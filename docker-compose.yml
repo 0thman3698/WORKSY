@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sh -c "npx prisma migrate deploy && node dist/server.js"
+    command: sh -c "node dist/server.js"
     volumes: 
       - ./src:/app/src:ro
     ports:
