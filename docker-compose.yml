@@ -1,7 +1,7 @@
 services:
   worksy-app:
     container_name: worksy-container
-    image: 0thman3698/worksy
+    image: 0thman3698/worksy:latest
     build:
       context: .
       dockerfile: Dockerfile
