@@ -1,0 +1,153 @@
+name: CI / Migrate / Build / Push / Deploy
+
+on:
+  push:
+    branches: [main] # شغّل عند push على main (غيّره لو تحب)
+
+env:
+  IMAGE: ${{ secrets.DOCKER_IMAGE_NAME }}
+
+jobs:
+  # --------------------
+  # 1) Build image & push to Docker Hub
+  # --------------------
+  build_and_push:
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ env.IMAGE }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Build (production target) and push
+        run: |
+          IMAGE=${{ env.IMAGE }}
+          docker build --target production -t "$IMAGE" .
+          docker push "$IMAGE"
+
+  # --------------------
+  # 2) Run prisma migrate deploy from CI (against RDS)
+  # --------------------
+  run_migrations:
+    needs: build_and_push
+    runs-on: ubuntu-latest
+    environment: migration # optional: if you use environment protections
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      # If you need other env vars for prisma (e.g. schema path), add here
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Use Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client (optional)
+        run: npx prisma generate
+
+      - name: Run prisma migrate deploy (will fail the job on error)
+        run: |
+          echo "Running prisma migrate deploy against DATABASE_URL"
+          npx prisma migrate deploy
+        # if migrate fails here, the workflow stops and deploy won't run
+
+  # --------------------
+  # 3) Deploy to EC2 (copy .env + compose, pull image, up)
+  # --------------------
+  deploy:
+    needs: run_migrations
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout repo (for docker-compose.prod.yml)
+        uses: actions/checkout@v4
+
+      # create .env.server file on the runner (we will SCP it to EC2)
+      - name: Create .env.server (with safe handling of multiline keys)
+        env:
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
+          REFRESH_TOKEN_SECRET: ${{ secrets.REFRESH_TOKEN_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          BASE_URL: ${{ secrets.BASE_URL }}
+          CLIENT_URL: ${{ secrets.CLIENT_URL }}
+        run: |
+          # base env
+          printf 'ACCESS_TOKEN_SECRET=%s\n' "${ACCESS_TOKEN_SECRET}" > .env.server
+          printf 'REFRESH_TOKEN_SECRET=%s\n' "${REFRESH_TOKEN_SECRET}" >> .env.server
+          printf 'DATABASE_URL=%s\n' "${DATABASE_URL}" >> .env.server
+
+          # firebase private key may contain \n escapes; convert back to real newlines and wrap in quotes
+          if [ -n "${FIREBASE_PRIVATE_KEY}" ]; then
+            echo -n 'FIREBASE_PRIVATE_KEY="' >> .env.server
+            echo "${FIREBASE_PRIVATE_KEY}" | sed 's/\\n/\'$'\n/g' >> .env.server
+            echo '"' >> .env.server
+          fi
+          printf 'FIREBASE_PROJECT_ID=%s\n' "${FIREBASE_PROJECT_ID}" >> .env.server
+          printf 'FIREBASE_CLIENT_EMAIL=%s\n' "${FIREBASE_CLIENT_EMAIL}" >> .env.server
+
+          printf 'SMTP_HOST=%s\n' "${SMTP_HOST}" >> .env.server
+          printf 'SMTP_PORT=%s\n' "${SMTP_PORT}" >> .env.server
+          printf 'SMTP_USER=%s\n' "${SMTP_USER}" >> .env.server
+          printf 'SMTP_PASSWORD=%s\n' "${SMTP_PASSWORD}" >> .env.server
+
+          printf 'BASE_URL=%s\n' "${BASE_URL}" >> .env.server
+          printf 'CLIENT_URL=%s\n' "${CLIENT_URL}" >> .env.server
+
+          # show just names (don't print secrets). optional:
+          echo ".env.server created (keys present: ACCESS_TOKEN_SECRET, FIREBASE_PROJECT_ID, DATABASE_URL, ...)"
+
+      # copy .env.server and docker-compose.prod.yml to EC2
+      - name: Copy deploy files to EC2
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: |
+            .env.server
+            docker-compose.prod.yml
+          target: /home/${{ secrets.EC2_USER }}/WORKSY
+
+      - name: 'SSH: pull image & restart compose on EC2'
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            cd /home/${{ secrets.EC2_USER }}/WORKSY || exit 1
+
+            # OPTIONAL: free some space if disk is tight (uncomment if you want)
+            # docker image prune -af || true
+            # docker container prune -f || true
+            # docker volume prune -f || true
+
+            # pull latest image, then restart compose
+            docker pull ${{ env.IMAGE }} || true
+            docker compose -f docker-compose.prod.yml down || true
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
+
+      - name: Clean up local env file
+        if: always()
+        run: rm -f .env.server

@@ -1,9 +1,8 @@
 services:
   worksy-app:
-    build:
-      context: .
-      target: production
+    image: 0thman3698/worksy:latest  
+    restart: always
     env_file:
       - ./.env
-    command: ["npm", "start"]
+    command: ["node", "dist/server.js"] 
     
