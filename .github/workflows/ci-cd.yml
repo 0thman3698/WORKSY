@@ -129,16 +129,25 @@ jobs:
             echo "CLIENT_URL=${{ secrets.CLIENT_URL }}"
           } > .env.server
 
-      - name: Debug — show current dir and files
-        run: |
-          echo "GITHUB_WORKSPACE = $GITHUB_WORKSPACE"
-          pwd
-          ls -la
-          echo "Check specific files:"
-          ls -la ./docker-compose.yml || true
-          ls -la ./docker-compose.prod.yml || true
-          echo "Show first 20 lines if present:"
-          sed -n '1,20p' ./docker-compose.yml || true
+      - name: Ensure remote dir and inspect remote environment (debug)
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            set -e
+            echo "Remote user:"
+            id
+            echo "Check home and target dir:"
+            echo "HOME = $HOME"
+            ls -la /home/${{ secrets.EC2_USER }} || true
+            ls -la /home/${{ secrets.EC2_USER }}/WORKSY || true
+            echo "Disk usage (root and home):"
+            df -h /
+            df -h /home || true
+            echo "Available space in WORKSY parent:"
+            df -h $(dirname /home/${{ secrets.EC2_USER }}/WORKSY) || true
 
       # ✅ نسخ ملفات الـ compose والـ env للسيرفر تلقائيًا
       - name: Copy deploy files to EC2
