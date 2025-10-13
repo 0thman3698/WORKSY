@@ -158,7 +158,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: 'docker-compose.prod.yml'
-          target: '/home/${{ secrets.EC2_USER }}/WORKSY'
+          target: '/home/ubuntu/WORKSY'
           tar_tmp_path: '/tmp'
           overwrite: 'true'
           debug: true
