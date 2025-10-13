@@ -138,8 +138,8 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: |
-            docker-compose.yml
-            docker-compose.prod.yml
+            ./docker-compose.yml
+            ./docker-compose.prod.yml
           target: '/home/${{ secrets.EC2_USER }}/WORKSY/'
 
       - name: 'SSH: Pull image & restart compose'
