@@ -125,27 +125,19 @@ jobs:
             echo "CLIENT_URL=${{ secrets.CLIENT_URL }}"
           } > .env.server
 
-      - name: Copy .env to EC2
+      # ✅ نسخ ملفات الـ compose والـ env للسيرفر تلقائيًا
+      - name: Copy deploy files to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: '.env.server'
+          source: |
+            docker-compose.yml
+            docker-compose.prod.yml
+            .env.server
           target: '/home/${{ secrets.EC2_USER }}/WORKSY/'
-
-      # - name: Copy deploy files to EC2
-      #   uses: appleboy/scp-action@master
-      #   with:
-      #     host: ${{ secrets.EC2_HOST }}
-      #     username: ${{ secrets.EC2_USER }}
-      #     key: ${{ secrets.EC2_SSH_KEY }}
-      #     port: 22
-      #     source: |
-      #       docker-compose.prod.yml //bb
-      #       .env.server
-      #     target: '/home/${{ secrets.EC2_USER }}/WORKSY'
 
       - name: 'SSH: Pull image & restart compose'
         uses: appleboy/ssh-action@v0.1.10
