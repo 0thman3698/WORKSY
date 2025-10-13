@@ -3,7 +3,7 @@ name: CD Build & Deploy
 on:
   push:
     branches: ['**']
-  workflow_dispatch: # تقدر تطلع deploy يدويًا من UI كمان
+  workflow_dispatch:
 
 env:
   DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
@@ -42,7 +42,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1) تأكد من وجود المجلد على السيرفر وأنشئه إذا لم يكن موجودًا
       - name: Ensure target directory exists on EC2
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -55,7 +54,6 @@ jobs:
             chmod 755 /home/${{ secrets.EC2_USER }}/WORKSY
             ls -ld /home/${{ secrets.EC2_USER }}/WORKSY || true
 
-      # 2) أنشئ ملف .env مباشرة على السيرفر (مباشرة من الـ secrets، لا ترفع .env)
       - name: Create .env on EC2 (from GitHub Secrets)
         uses: appleboy/ssh-action@v0.1.10
         with:
@@ -86,22 +84,6 @@ jobs:
             chmod 600 /home/${{ secrets.EC2_USER }}/WORKSY/.env
             echo ".env written on remote"
 
-      # 3) نسخ ملفات docker-compose إلى السيرفر
-      - name: Copy docker-compose files to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          source: 'docker-compose.prod.yml'
-          target: ${{ format('/home/{0}/WORKSY', secrets.EC2_USER) }}
-          # اجعل tar مؤقت في /tmp على الـ runner (افتراضي) — أو عيّنه لمسار آخر حسب حاجتك
-          tar_tmp_path: '/tmp'
-          overwrite: true
-          debug: true
-
-      # 4) على السيرفر: سحب الصورة وتشغيل compose
       - name: 'SSH: Pull image & restart compose'
         uses: appleboy/ssh-action@v0.1.10
         with:
