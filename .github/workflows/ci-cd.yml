@@ -105,6 +105,10 @@ jobs:
     if: github.ref == 'refs/heads/master'
 
     steps:
+      # ✅ أول حاجة: نعمل checkout عشان نجيب ملفات المشروع
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Create .env for EC2
         run: |
           {
