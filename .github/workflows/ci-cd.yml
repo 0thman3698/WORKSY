@@ -141,18 +141,15 @@ jobs:
           sed -n '1,20p' ./docker-compose.yml || true
 
       # ✅ نسخ ملفات الـ compose والـ env للسيرفر تلقائيًا
-      - name: Copy deploy files to EC2 (appleboy/scp-action)
+      - name: Copy deploy files to EC2
         uses: appleboy/scp-action@master
-        working-directory: ${{ github.workspace }}
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          # use absolute paths to avoid cwd issues (single-line string)
-          source: '${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/docker-compose.prod.yml'
+          source: 'docker-compose.yml docker-compose.prod.yml'
           target: '/home/${{ secrets.EC2_USER }}/WORKSY/'
-          # small options to make the action more deterministic
           tar_tmp_path: '/tmp'
           overwrite: 'true'
 
