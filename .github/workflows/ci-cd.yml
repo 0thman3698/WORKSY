@@ -150,7 +150,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           # use absolute paths to avoid cwd issues (single-line string)
-          source: "${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/docker-compose.prod.yml ${{ github.workspace }}/.env.server"
+          source: "${{ github.workspace }}/docker-compose.yml ${{ github.workspace }}/docker-compose.prod.yml"
           target: '/home/${{ secrets.EC2_USER }}/WORKSY/'
           # small options to make the action more deterministic
           tar_tmp_path: "/tmp"
