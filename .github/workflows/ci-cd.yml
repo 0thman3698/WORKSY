@@ -129,6 +129,17 @@ jobs:
             echo "CLIENT_URL=${{ secrets.CLIENT_URL }}"
           } > .env.server
 
+      - name: Debug — show current dir and files
+        run: |
+          echo "GITHUB_WORKSPACE = $GITHUB_WORKSPACE"
+          pwd
+          ls -la
+          echo "Check specific files:"
+          ls -la ./docker-compose.yml || true
+          ls -la ./docker-compose.prod.yml || true
+          echo "Show first 20 lines if present:"
+          sed -n '1,20p' ./docker-compose.yml || true
+
       # ✅ نسخ ملفات الـ compose والـ env للسيرفر تلقائيًا
       - name: Copy deploy files to EC2
         uses: appleboy/scp-action@master
