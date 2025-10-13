@@ -158,10 +158,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: 'docker-compose.prod.yml'
-          target: '/home/${{ secrets.EC2_USER }}/WORKSY/'
+          target: '/home/${{ secrets.EC2_USER }}/WORKSY'
           tar_tmp_path: '/tmp'
           overwrite: 'true'
           debug: true
+          tar_verbose: true
 
       - name: 'SSH: Pull image & restart compose'
         uses: appleboy/ssh-action@v0.1.10
