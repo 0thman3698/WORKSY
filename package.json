@@ -58,6 +58,10 @@
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@google/genai": "^1.24.0",
+    "@google/generative-ai": "^0.24.1",
+    "@langchain/core": "^0.3.9",
+    "@langchain/google-genai": "^0.2.18",
     "@prisma/client": "^6.7.0",
     "@types/hpp": "^0.2.6",
     "bcrypt": "^5.1.1",
@@ -78,6 +82,7 @@
     "hpp": "^0.2.3",
     "http-status": "^2.1.0",
     "jsonwebtoken": "^9.0.2",
+    "langchain": "^0.3.9",
     "morgan": "^1.10.0",
     "multer": "^2.0.1",
     "nodemailer": "^7.0.3",
@@ -89,7 +94,6 @@
     "socket.io": "^4.8.1",
     "typescript": "^5.2.2",
     "uuid": "^11.1.0",
-    "winston": "^3.10.0",
-    "zod": "^3.24.4"
+    "winston": "^3.10.0"
   }
 }

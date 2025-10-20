@@ -2,7 +2,7 @@ name: CI / Build / Push / Deploy
 
 on:
   push:
-    branches: ['**'] # ممكن تخليها [main] لو عايز CI/CD بس على main
+    branches: ['master'] # ممكن تخليها [main] لو عايز CI/CD بس على main
   pull_request:
     branches: [main, develop]
 
@@ -129,39 +129,39 @@ jobs:
             echo "CLIENT_URL=${{ secrets.CLIENT_URL }}"
           } > .env.server
 
-      - name: Ensure remote dir and inspect remote environment (debug)
-        uses: appleboy/ssh-action@v0.1.10
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            set -e
-            echo "Remote user:"
-            id
-            echo "Check home and target dir:"
-            echo "HOME = $HOME"
-            ls -la /home/${{ secrets.EC2_USER }} || true
-            ls -la /home/${{ secrets.EC2_USER }}/WORKSY || true
-            echo "Disk usage (root and home):"
-            df -h /
-            df -h /home || true
-            echo "Available space in WORKSY parent:"
-            df -h $(dirname /home/${{ secrets.EC2_USER }}/WORKSY) || true
+      # - name: Ensure remote dir and inspect remote environment (debug)
+      #   uses: appleboy/ssh-action@v0.1.10
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ${{ secrets.EC2_USER }}
+      #     key: ${{ secrets.EC2_SSH_KEY }}
+      #     script: |
+      #       set -e
+      #       echo "Remote user:"
+      #       id
+      #       echo "Check home and target dir:"
+      #       echo "HOME = $HOME"
+      #       ls -la /home/${{ secrets.EC2_USER }} || true
+      #       ls -la /home/${{ secrets.EC2_USER }}/WORKSY || true
+      #       echo "Disk usage (root and home):"
+      #       df -h /
+      #       df -h /home || true
+      #       echo "Available space in WORKSY parent:"
+      #       df -h $(dirname /home/${{ secrets.EC2_USER }}/WORKSY) || true
 
       # ✅ نسخ ملفات الـ compose والـ env للسيرفر تلقائيًا
-      - name: Copy deploy files to EC2
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          source: 'docker-compose.prod.yml'
-          target: ${{ format('/home/{0}/WORKSY', secrets.EC2_USER) }}
-          tar_tmp_path: '/tmp'
-          overwrite: 'true'
-          debug: true
+      # - name: Copy deploy files to EC2
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ secrets.EC2_HOST }}
+      #     username: ${{ secrets.EC2_USER }}
+      #     key: ${{ secrets.EC2_SSH_KEY }}
+      #     port: 22
+      #     source: 'docker-compose.prod.yml'
+      #     target: ${{ format('/home/{0}/WORKSY', secrets.EC2_USER) }}
+      #     tar_tmp_path: '/tmp'
+      #     overwrite: 'true'
+      #     debug: true
 
       - name: 'SSH: Pull image & restart compose'
         uses: appleboy/ssh-action@v0.1.10

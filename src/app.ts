@@ -25,6 +25,8 @@ import { protect } from './middlewares/protect';
 import googleCalendarRoutes from './routes/integration.routes';
 import fileRoutes from './routes/file.routes';
 
+import aiRoutes from "./routes/ai.routes";
+
 
 
 
@@ -72,6 +74,9 @@ app.use('/api/v1/invite', protect, inviteRoutes);
 // app.use("/api/v1/workspace", channelRoutes)
 app.use('/api/v1/integrations', googleCalendarRoutes);
 app.use('/api/v1/files', protect, fileRoutes);
+
+
+app.use("/api/ai", aiRoutes);
 
 
 
