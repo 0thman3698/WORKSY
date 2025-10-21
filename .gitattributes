@@ -5,3 +5,6 @@ build/* linguist-vendored
 # Ignore static files
 public/* linguist-vendored
 views/* linguist-vendored
+
+
+coverage/** linguist-generated=true
