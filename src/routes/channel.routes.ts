@@ -12,9 +12,8 @@ import { ChannelRole, WorkspaceRole } from '@prisma/client';
 import channelMembersRouter from './channelMembers.routes';
 import channelMessageRouter from './channelMessage.routes';
 import meetingRoutes from "./meeting.routes"
-import { aiService } from '../services/ai.service';
-import { ApiResponse } from '../utils/apiResponse';
 import AIController from '../controllers/ai.controller';
+import { summarizeChannelSchema } from '../validators/ai.validators';
 
 
 const router = express.Router({ mergeParams: true });
@@ -55,6 +54,7 @@ router.delete(
 router.post(
   '/:channelId/summary',
   checkChannelRole(ChannelRole.MEMBER),
+  validate(summarizeChannelSchema),
   asyncHandler(AIController.summarizeChannelMessages)
 );
 

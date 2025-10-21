@@ -6,8 +6,8 @@ import { summarizeChannelSchema, summarizeDMMessagesSchema } from "../validators
 
 const router = Router();
 
-router.post("/summarize", validate(summarizeChannelSchema), asyncHandler(AIController.summarizeChannelMessages));
+router.post("/summarize/channel", validate(summarizeChannelSchema), asyncHandler(AIController.summarizeChannelMessages));
 
-router.post("/summarize", validate(summarizeDMMessagesSchema), asyncHandler(AIController.summarizeDMMessages));
+router.post("/summarize/dm", validate(summarizeDMMessagesSchema), asyncHandler(AIController.summarizeDMMessages));
 
 export default router;
