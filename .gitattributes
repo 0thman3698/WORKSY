@@ -1,0 +1,7 @@
+# Ignore compiled / build output
+dist/* linguist-vendored
+build/* linguist-vendored
+
+# Ignore static files
+public/* linguist-vendored
+views/* linguist-vendored

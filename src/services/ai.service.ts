@@ -1,19 +1,72 @@
 import prisma from "../config/db";
 import { ai } from "../config/ai";
 
-
 export class AIService {
-    async summarizeMessages(targetId: string,
-        type: "channel" | "dm") {
-        // 1️⃣ Fetch last 50 messages
-
+    async summarizeChannelMessages(channelId: string) {
+        // 1️⃣ Fetch last 50 messages in the channel
         const messages = await prisma.message.findMany({
-            where: { channelId: targetId, deletedAt: null, }
+            where: {
+                channelId,
+                deletedAt: null,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            take: 50,
+            include: {
+                user: {
+                    select: { name: true },
+                },
+            },
         });
-        console.log(messages)
+
+        if (!messages.length) return "No messages found to summarize.";
+
+        // 2️⃣ Convert messages to readable text
+        const text = messages
+            .reverse()
+            .map((m) => `${m.user?.name || "Unknown"}: ${m.content}`)
+            .join("\n");
+
+        // 3️⃣ AI prompt
+        const prompt = `
+You are an assistant helping summarize a chat conversation in a channel.
+Summarize the following chat in clear, concise English (max 150 words).
+Focus on main topics, decisions, and action points:
+
+${text}
+`;
+
+        // 4️⃣ Send to Gemini
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+        });
+
+        const summary = response.text ?? "I couldn't generate a summary.";
 
 
-        if (!messages.length) return 'No messages found to summarize.';
+        return summary;
+    }
+
+    async summarizeDMMessages(conversationId: string) {
+        const messages = await prisma.message.findMany({
+            where: {
+                conversationId,
+                deletedAt: null,
+            },
+            orderBy: {
+                createdAt: "desc",
+            },
+            take: 50,
+            include: {
+                user: {
+                    select: { name: true },
+                },
+            },
+        });
+
+        if (!messages.length) return "No messages found to summarize.";
 
         const text = messages
             .reverse()
@@ -21,9 +74,9 @@ export class AIService {
             .join("\n");
 
         const prompt = `
-You are an assistant helping summarize a conversation between users.
-Summarize the following chat in clear, short English (max 150 words). 
-Focus on main points, decisions, and actions:
+You are an assistant helping summarize a direct message conversation.
+Summarize the following chat in clear, concise English (max 150 words).
+Focus on main topics, decisions, and action points:
 
 ${text}
 `;
@@ -32,11 +85,8 @@ ${text}
             model: "gemini-2.5-flash",
             contents: prompt,
         });
-        // هنا التعديل
-        const summary = response.text ?? "لم أتمكن من إنشاء ملخص.";
 
-        // (اختياري) لو حابب تخزن في قاعدة البيانات
-        // await prisma.summary.create({ data: { content: summary } });
+        const summary = response.text ?? "I couldn't generate a summary.";
 
         return summary;
     }
