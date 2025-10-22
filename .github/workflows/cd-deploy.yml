@@ -80,6 +80,8 @@ jobs:
             SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
             BASE_URL=${{ secrets.BASE_URL }}
             CLIENT_URL=${{ secrets.CLIENT_URL }}
+            GEMINI_API_KEY= ${{ secrets.GEMINI_API_KEY }}
+
             ENV_EOF
             chmod 600 /home/${{ secrets.EC2_USER }}/WORKSY/.env
             echo ".env written on remote"

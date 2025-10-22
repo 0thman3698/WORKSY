@@ -33,6 +33,7 @@ jobs:
       SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
       BASE_URL: ${{ secrets.BASE_URL }}
       CLIENT_URL: ${{ secrets.CLIENT_URL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     steps:
       - name: Checkout code
@@ -59,6 +60,8 @@ jobs:
             echo "SMTP_PASSWORD=${SMTP_PASSWORD}"
             echo "BASE_URL=${BASE_URL}"
             echo "CLIENT_URL=${CLIENT_URL}"
+            echo "GEMINI_API_KEY=${GEMINI_API_KEY}" 
+
           } > .env
 
       - name: Run integration tests

@@ -39,6 +39,9 @@ jobs:
       BASE_URL: ${{ secrets.BASE_URL }}
       CLIENT_URL: ${{ secrets.CLIENT_URL }}
 
+      #ai
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY}}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -69,7 +72,8 @@ jobs:
           echo "BASE_URL=${BASE_URL}" >> .env
           echo "CLIENT_URL=${CLIENT_URL}" >> .env
 
-          # (اختياري) اطبع السطور الأولى عشان تتأكد إن الملف اتعمل (لا تضع قيم حساسة كاملة في اللوج)
+          echo "GEMINI_API_KEY=${GEMINI_API_KEY}" >> .env
+
           sed -n '1,20p' .env || true
 
       - name: Run tests with Docker Compose
